@@ -17,6 +17,8 @@ export default () => {
       </div>
       <div className="dndnode output" onDragStart={(event) => onDragStart(event, 'output')} draggable>
         Output Node
+      </div> <div className="dndnode textUpdater" onDragStart={(event) => onDragStart(event, 'textUpdater')} draggable>
+      textUpdater Node
       </div>
     </aside>
   );
