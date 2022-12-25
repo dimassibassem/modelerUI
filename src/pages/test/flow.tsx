@@ -19,13 +19,13 @@ const initialNodes = [
   {
     id: '1',
     type: 'textUpdater',
-    data: { label: 'input node' },
+    data: { label: 'textUpdater' },
     position: { x: 250, y: 5 }
   }
 ]
 const nodeTypes = { textUpdater: TextUpdaterNode }
 let id = 0
-const getId = () => `dndnode_${id++}`
+const getId = (type: string | undefined) => `${type}_${id++}`
 
 const DnDFlow = () => {
   const reactFlowWrapper = useRef(null)
@@ -58,7 +58,7 @@ const DnDFlow = () => {
         y: event.clientY - reactFlowBounds.top
       })
       const newNode = {
-        id: getId(),
+        id: getId(type),
         type,
         position,
         data: { label: `${type} node` }

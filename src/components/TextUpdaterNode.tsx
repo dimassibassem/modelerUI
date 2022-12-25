@@ -3,11 +3,11 @@ import { Handle, Position } from 'reactflow';
 
 const handleStyle = { left: 10 };
 
-const TextUpdaterNode = ({ data }) => {
+const TextUpdaterNode = ({data}) => {
   const onChange = useCallback((evt: { target: { value: any; }; }) => {
     console.log(evt.target.value);
   }, []);
-
+   // console.log(data)
   return (
     <div className="text-updater-node">
       <Handle type="target" position={Position.Top} />
