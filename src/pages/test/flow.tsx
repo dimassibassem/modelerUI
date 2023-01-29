@@ -1,21 +1,24 @@
-import React, { useState, useRef, useCallback } from 'react'
-import {
+import React, { useState, useRef } from 'react'
+import ReactFlow, {
   ReactFlowProvider,
   useNodesState,
   useEdgesState,
-  Controls,
-  Connection,
-  Edge
-} from 'react-flow-renderer'
-import ReactFlow, { addEdge, applyEdgeChanges, applyNodeChanges, EdgeChange, NodeChange } from 'reactflow'
+  Background,
+  MiniMap,
+  Panel, Node
+} from 'reactflow'
 import 'reactflow/dist/style.css'
+import { ReactFlowInstance } from '@reactflow/core/dist/esm/types/instance'
 import Sidebar from '../../components/Sidebar'
 import TextUpdaterNode from '../../components/TextUpdaterNode'
-
 import './text-updater-node.css'
 import './index.css'
+import useOnDropNode from '../../hooks/useOnDropNode'
+import useOnDragNode from '../../hooks/useOnDragNode'
+import useOnConnectEdge from '../../hooks/useOnConnectEdge'
+import useHandleSelected from '../../hooks/useHandleSelected'
 
-const initialNodes = [
+const initialNodes: Node[] = [
   {
     id: '1',
     type: 'textUpdater',
@@ -25,76 +28,43 @@ const initialNodes = [
 ]
 const nodeTypes = { textUpdater: TextUpdaterNode }
 let id = 0
-const getId = (type: string | undefined) => `${type}_${id++}`
+const getId = (type: string) => `${type}_${id++}`
 
 const DnDFlow = () => {
-  const reactFlowWrapper = useRef(null)
-  const [nodes, setNodes] = useState(initialNodes)
-  const [edges, setEdges] = useState([])
-  const [reactFlowInstance, setReactFlowInstance] = useState(null)
+  const reactFlowWrapper = useRef<HTMLInputElement>(null)
+  const [nodesArray, setNodesArray, onNodesChange] = useNodesState(initialNodes)
+  const [edgesArray, setEdgesArray, onEdgesChange] = useEdgesState([])
+  const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null)
+  const [selectedNode, setSelectedNode] = useState<string>('')
+  const [selectedEdge, setSelectedEdge] = useState<string>('')
 
-  const onConnect = useCallback((params: Edge<any> | Connection) => setEdges((eds) => addEdge(params, eds)), [])
+  const onConnect = useOnConnectEdge(setEdgesArray)
 
-  const onDragOver = useCallback((event: { preventDefault: () => void; dataTransfer: { dropEffect: string; }; }) => {
-    event.preventDefault()
-    event.dataTransfer.dropEffect = 'move'
-  }, [])
+  const onDragOver = useOnDragNode()
 
-  const onDrop = useCallback(
-    (event: { preventDefault: () => void; dataTransfer: { getData: (arg0: string) => any; }; clientX: number; clientY: number; }) => {
-      event.preventDefault()
+  const onDrop = useOnDropNode(reactFlowWrapper, reactFlowInstance, setNodesArray, getId)
 
+  useHandleSelected(nodesArray, edgesArray, setSelectedNode, setSelectedEdge)
 
-      const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect()
-      const type = event.dataTransfer.getData('application/reactflow')
-
-      // check if the dropped element is valid
-      if (typeof type === 'undefined' || !type) {
-        return
-      }
-
-      const position = reactFlowInstance.project({
-        x: event.clientX - reactFlowBounds.left,
-        y: event.clientY - reactFlowBounds.top
-      })
-     const typeNId = getId(type)
-      const newNode = {
-        id: typeNId,
-        type,
-        position,
-        data: { label: `${typeNId}`,
-        text: 'text' }
-      }
-
-      setNodes((nds) => nds.concat(newNode))
-      console.log(nodes)
-      console.log(edges)
-    },
-    [edges, nodes, reactFlowInstance]
-  )
-
-  const onNodesChange = useCallback(
-    (changes: NodeChange[]) => setNodes((nds) => applyNodeChanges(changes, nds)),
-    [setNodes]
-  )
-  const onEdgesChange = useCallback(
-    (changes: EdgeChange[]) => setEdges((eds) => applyEdgeChanges(changes, eds)),
-    [setEdges]
-  )
-  // const onConnect = useCallback(
-  //   (connection) => setEdges((eds) => addEdge(connection, eds)),
-  //   [setEdges]
-  // );
-
+  const nodeColor = (node: Node) => {
+    switch (node.type) {
+      case 'input':
+        return '#6ede87'
+      case 'output':
+        return '#6865A5'
+      default:
+        return '#ff0072'
+    }
+  }
   return (
     <div className='dndflow fullscreen'>
       <ReactFlowProvider>
         <Sidebar />
         <div className='reactflow-wrapper' ref={reactFlowWrapper}>
           <ReactFlow
-            nodes={nodes}
+            nodes={nodesArray}
             nodeTypes={nodeTypes}
-            edges={edges}
+            edges={edgesArray}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
@@ -103,12 +73,18 @@ const DnDFlow = () => {
             onDragOver={onDragOver}
             fitView
           >
-            <Controls />
+            <Panel position='top-right'>
+              selectedNode: {selectedNode}
+              selectedEdge: {selectedEdge}
+            </Panel>
+            <Background color='#ff8f18' gap={5} />
+            <MiniMap style={{ background: '#ccc' }} nodeColor={nodeColor} nodeStrokeWidth={3} zoomable pannable />
           </ReactFlow>
         </div>
       </ReactFlowProvider>
     </div>
   )
 }
+
 
 export default DnDFlow
