@@ -17,6 +17,8 @@ import useOnDropNode from '../../hooks/useOnDropNode'
 import useOnDragNode from '../../hooks/useOnDragNode'
 import useOnConnectEdge from '../../hooks/useOnConnectEdge'
 import useHandleSelected from '../../hooks/useHandleSelected'
+import useOnNodeDrag from '../../hooks/useOnNodeDrag'
+import useOnNodeDragStop from '../../hooks/useOnNodeDragStop'
 
 const initialNodes: Node[] = [
   {
@@ -30,21 +32,26 @@ const nodeTypes = { textUpdater: TextUpdaterNode }
 let id = 0
 const getId = (type: string) => `${type}_${id++}`
 
+
 const DnDFlow = () => {
   const reactFlowWrapper = useRef<HTMLInputElement>(null)
-  const [nodesArray, setNodesArray, onNodesChange] = useNodesState(initialNodes)
-  const [edgesArray, setEdgesArray, onEdgesChange] = useEdgesState([])
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
+  const [edges, setEdges, onEdgesChange] = useEdgesState([])
   const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null)
   const [selectedNode, setSelectedNode] = useState<string>('')
   const [selectedEdge, setSelectedEdge] = useState<string>('')
 
-  const onConnect = useOnConnectEdge(setEdgesArray)
+  const onConnect = useOnConnectEdge(setEdges)
+
+  const onNodeDrag = useOnNodeDrag(nodes, setEdges)
+
+  const onNodeDragStop = useOnNodeDragStop(nodes, setEdges)
 
   const onDragOver = useOnDragNode()
 
-  const onDrop = useOnDropNode(reactFlowWrapper, reactFlowInstance, setNodesArray, getId)
+  const onDrop = useOnDropNode(reactFlowWrapper, reactFlowInstance, setNodes, getId)
 
-  useHandleSelected(nodesArray, edgesArray, setSelectedNode, setSelectedEdge)
+  useHandleSelected(nodes, edges, setSelectedNode, setSelectedEdge)
 
   const nodeColor = (node: Node) => {
     switch (node.type) {
@@ -62,11 +69,13 @@ const DnDFlow = () => {
         <Sidebar />
         <div className='reactflow-wrapper' ref={reactFlowWrapper}>
           <ReactFlow
-            nodes={nodesArray}
+            nodes={nodes}
             nodeTypes={nodeTypes}
-            edges={edgesArray}
+            edges={edges}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
+            onNodeDrag={onNodeDrag}
+            onNodeDragStop={onNodeDragStop}
             onConnect={onConnect}
             onInit={setReactFlowInstance}
             onDrop={onDrop}
