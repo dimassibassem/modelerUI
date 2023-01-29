@@ -60,7 +60,8 @@
     "import/no-unresolved": "off",
     "no-unused-vars": "off",
     "no-plusplus": "off",
-    "@typescript-eslint/no-empty-function": "off"
+    "@typescript-eslint/no-empty-function": "off",
+    "jsx-a11y/label-has-associated-control": "off"
   },
   "settings": {
     "react": {
