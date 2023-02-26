@@ -36,6 +36,7 @@
     border-color: #ff0072;
 }
 
+
 .dndflow .reactflow-wrapper {
     flex-grow: 1;
     height: 100%;
@@ -55,6 +56,7 @@
         max-width: 250px;
     }
 }
+
 .fullscreen {
     position: fixed;
     top: 0;
@@ -63,3 +65,9 @@
     height: 100%;
     z-index: 3;
 }
+
+
+
+
+
+

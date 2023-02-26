@@ -1,13 +1,12 @@
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import { Edge, Node } from 'reactflow'
 
-function useHandleSelected(nodesArray: Node[],
-                           edgesArray: Edge[],
+function useHandleSelected(nodes: Node[],
+                           edges: Edge[],
                            setSelectedNode: Dispatch<SetStateAction<string>>,
                            setSelectedEdge: Dispatch<SetStateAction<string>>) {
-
-  const foundSelectedNode = nodesArray.find(node => node.selected)
-  const foundSelectedEdge = edgesArray.find(edge => edge.selected)
+  const foundSelectedNode = nodes.find(node => node.selected)
+  const foundSelectedEdge = edges.find(edge => edge.selected)
   useEffect(() => {
       if (foundSelectedNode) {
         setSelectedNode(foundSelectedNode.id)

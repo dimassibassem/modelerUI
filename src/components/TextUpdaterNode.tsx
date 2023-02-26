@@ -1,5 +1,6 @@
 import { ChangeEvent, useCallback } from 'react'
 import { Handle, Position } from 'reactflow'
+import './text-updater-node.css'
 
 const handleStyle = { left: 10 }
 

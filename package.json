@@ -10,12 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "elkjs": "^0.8.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.0",
     "reactflow": "^11.5.1",
     "vite": "^4.0.4",
-    "vite-plugin-pages": "^0.28.0"
+    "vite-plugin-pages": "^0.28.0",
+    "zustand": "^4.3.3"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",

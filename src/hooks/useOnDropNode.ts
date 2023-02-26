@@ -1,10 +1,10 @@
 import { Dispatch, DragEvent, RefObject, SetStateAction, useCallback } from 'react'
-import { XYPosition, Node ,ReactFlowInstance } from 'reactflow'
+import { XYPosition, Node, ReactFlowInstance } from 'reactflow'
 
 function useOnDropNode(reactFlowWrapper: RefObject<HTMLInputElement>,
                        reactFlowInstance: ReactFlowInstance | null,
                        setNodesArray: Dispatch<SetStateAction<Node[]>>,
-                       getId: (arg0: string) => string) {
+                       getId: (arg0: string) => string, nodes: Node[]) {
   return useCallback(
     (event: DragEvent) => {
       event.preventDefault()
@@ -34,10 +34,10 @@ function useOnDropNode(reactFlowWrapper: RefObject<HTMLInputElement>,
         }
       }
 
-      setNodesArray((nds: Node[]) => nds.concat(newNode))
+      setNodesArray(nodes.concat(newNode))
 
     },
-    [getId, reactFlowInstance, reactFlowWrapper, setNodesArray]
+    [getId, nodes, reactFlowInstance, reactFlowWrapper, setNodesArray]
   )
 }
 
