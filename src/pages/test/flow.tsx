@@ -21,6 +21,7 @@ import Decision from '../../components/shapes/Decision'
 import Trapezoid from '../../components/shapes/Trapezoid'
 import Parallelogram from '../../components/shapes/Parallelogram'
 import useStore from '../../store'
+import NewSidebar from '../../components/NewSidebar'
 
 const selector = (state) => ({
   nodes: state.nodes,
@@ -67,7 +68,8 @@ const DnDFlow = () => {
   return (
     <div className='dndflow fullscreen'>
       <ReactFlowProvider>
-        <Sidebar />
+        {/*<Sidebar />*/}
+        <NewSidebar />
         <div className='reactflow-wrapper' ref={reactFlowWrapper}>
           <ReactFlow
             nodes={nodes}
