@@ -54,9 +54,6 @@ const Sidebar = () => (
             }}
             onDrag={(event) => {
               event.preventDefault()
-              const draggedImage = new Image()
-              draggedImage.src = 'https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600'
-              event.dataTransfer.setDragImage(draggedImage, 0, 0)
               const target = event.target as HTMLElement
               target.style.opacity = '0.5'
             }}
