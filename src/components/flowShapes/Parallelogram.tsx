@@ -9,7 +9,7 @@ const Parallelogram = ({ data }) => {
   }, [])
 
   return (
-    <div className='relative bg-no-repeat bg-center bg-contain h-[50px] w-full;'>
+    <div className='relative bg-no-repeat bg-center bg-contain h-[50px] w-full'>
       <div className='w-[100px] h-[50px] skew-x-[20deg] bg-[#555]' />
       <Handle type='target' position={Position.Top} style={{ left: 50 }} />
       <div>

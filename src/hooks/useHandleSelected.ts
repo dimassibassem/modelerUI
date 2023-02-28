@@ -3,20 +3,20 @@ import { Edge, Node } from 'reactflow'
 
 function useHandleSelected(nodes: Node[],
                            edges: Edge[],
-                           setSelectedNode: Dispatch<SetStateAction<string>>,
-                           setSelectedEdge: Dispatch<SetStateAction<string>>) {
+                           setSelectedNode: (node: Node | null) => void,
+                           setSelectedEdge: (edge: Edge | null) => void) {
   const foundSelectedNode = nodes.find(node => node.selected)
   const foundSelectedEdge = edges.find(edge => edge.selected)
   useEffect(() => {
       if (foundSelectedNode) {
-        setSelectedNode(foundSelectedNode.id)
+        setSelectedNode(foundSelectedNode)
       } else {
-        setSelectedNode('')
+        setSelectedNode(null)
       }
       if (foundSelectedEdge) {
-        setSelectedEdge(foundSelectedEdge.id)
+        setSelectedEdge(foundSelectedEdge)
       } else {
-        setSelectedEdge('')
+        setSelectedEdge(null)
       }
     }
     , [foundSelectedEdge, foundSelectedNode, setSelectedEdge, setSelectedNode])

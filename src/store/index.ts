@@ -13,15 +13,11 @@ import {
   applyEdgeChanges
 } from 'reactflow'
 
+import { RFState } from '../types/RFState'
 
 const initialEdges: Edge[] = []
 const initialNodes: Node[] = [
-  {
-    id: '1',
-    type: 'textUpdater',
-    data: { label: 'textUpdater' },
-    position: { x: 250, y: 5 }
-  },
+
   {
     id: '2',
     type: 'decision',
@@ -42,20 +38,14 @@ const initialNodes: Node[] = [
   }
 ]
 
-type RFState = {
-  nodes: Node[];
-  setNodes: (nodes: Node[]) => void;
-  edges: Edge[];
-  setEdges: (edges: Edge[]) => void;
-  onNodesChange: OnNodesChange;
-  onEdgesChange: OnEdgesChange;
-  onConnect: OnConnect;
-};
-
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
 const useStore = create<RFState>((set, get) => ({
   nodes: initialNodes,
   edges: initialEdges,
+  selectedNode: null,
+  selectedEdge: null,
+  setSelectedNode: (node: Node | null) => set({ selectedNode: node }),
+  setSelectedEdge: (edge: Edge | null) => set({ selectedEdge: edge }),
   setNodes: (nodes: Node[]) => set({ nodes }),
   setEdges: (edges: Edge[]) => set({ edges }),
   onNodesChange: (changes: NodeChange[]) => {
