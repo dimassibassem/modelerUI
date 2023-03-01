@@ -9,7 +9,7 @@ const app: Application = express()
 const port: number = 3001
 app.use(cors())
 app.use(express.static('uploaded_images'))
-app.use(bodyParser.json())
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ extended: true }))
 app.post('/api/add-model', async (req: Request, res: Response) => {
 

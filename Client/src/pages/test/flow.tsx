@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from 'react'
+import React, { useState, useRef, useMemo, useEffect } from 'react'
 import ReactFlow, {
   ReactFlowProvider,
   useNodesState,
@@ -10,8 +10,6 @@ import ReactFlow, {
 import 'reactflow/dist/style.css'
 import { ReactFlowInstance } from '@reactflow/core/dist/esm/types/instance'
 import { shallow } from 'zustand/shallow'
-import { toPng } from 'html-to-image'
-import axios from 'axios'
 import Sidebar from '../../components/Sidebar'
 import useOnDropNode from '../../hooks/useOnDropNode'
 import useOnDragNode from '../../hooks/useOnDragNode'
@@ -26,6 +24,7 @@ import Circle from '../../components/flowShapes/Circle'
 import Oval from '../../components/flowShapes/Oval'
 import Square from '../../components/flowShapes/Square'
 import LoadModal from '../../components/LoadModal'
+import CustomPanel from '../../components/CustomPanel'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -44,6 +43,7 @@ let id = 0
 const setId = (type: string) => `${type}_${id++}`
 const DnDFlow = () => {
   const reactFlowWrapper = useRef<HTMLInputElement>(null)
+  const [openLoadModal, setOpenLoadModal] = useState(false)
   const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null)
   const {
     nodes,
@@ -95,34 +95,6 @@ const DnDFlow = () => {
     }
   }
 
-  const imageFromHTML = async () => {
-    if (reactFlowInstance) {
-      const reactFlow = document.querySelector('.react-flow') as HTMLElement
-      const dataURI = await toPng(reactFlow, {
-        filter: (node) =>
-          // we don't want to add the minimap and the controls and the panel to the image
-          !(node?.classList?.contains('react-flow__minimap') ||
-            node?.classList?.contains('react-flow__controls') ||
-            node?.classList?.contains('react-flow__panel'))
-      })
-      // // transform the dataURL to an image file
-      // const blob = await fetch(dataURL).then((r) => r.blob())
-      // const image = new File([blob], 'reactflow.png', { type: 'image/png' })
-      // console.log(image)
-      const instance = reactFlowInstance.toObject()
-
-      await axios.post('http://localhost:3001/api/add-model', {
-          instance,
-          dataURI
-        }
-      )
-    }
-  }
-  const loadModels = async () => {
-    const { data } = await axios.get('http://localhost:3001/api/get-models')
-    console.log(data)
-  }
-
   return (
     <div className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
       <ReactFlowProvider>
@@ -145,71 +117,11 @@ const DnDFlow = () => {
             <MiniMap style={{ background: '#ccc' }}
                      nodeColor={(node: Node) => nodeColor(node)}
                      nodeStrokeWidth={3} zoomable pannable />
-            <Panel position='top-right' className='bg-gray-600 p-1'>
-              <button type='button' className='bg-gray-200 m-1 p-1' onClick={() => {
-                setNodes([])
-                setEdges([])
-              }}>
-                Clear
-              </button>
-              <button type='button' className='bg-gray-200 m-1 p-1' onClick={async () => {
-                await imageFromHTML()
-              }
-              }>
-                Save
-              </button>
-              <button type='button' className='bg-gray-200 m-1 p-1' onClick={() => {
-                if (reactFlowInstance) {
-                  reactFlowInstance.fitView()
-                }
-              }
-              }>
-                Fit view
-              </button>
-
-              <button type='button' className='bg-gray-200 m-1 p-1' onClick={() => {
-                if (reactFlowInstance) {
-                  reactFlowInstance.zoomIn()
-                }
-              }
-              }>
-                Zoom in
-              </button>
-              <button type='button' className='bg-gray-200 m-1 p-1' onClick={() => {
-                if (reactFlowInstance) {
-                  reactFlowInstance.zoomOut()
-                }
-              }
-              }>
-                Zoom out
-              </button>
-              <button type='button' className='bg-gray-200 m-1 p-1' onClick={() => {
-                if (reactFlowInstance) {
-                  reactFlowInstance.zoomTo(1)
-                }
-              }
-              }>
-                Zoom to 1
-              </button>
-
-              <button type='button' className='bg-gray-200 m-1 p-1' onClick={() => {
-                if (reactFlowInstance) {
-                  reactFlowInstance.zoomTo(0.5)
-                }
-              }
-              }>
-                Zoom to 0.5
-              </button>
-
-              <button type='button' className='bg-gray-200 m-1 p-1' onClick={async () => {
-                await loadModels()
-              }
-              }>
-                Load
-              </button>
-            </Panel>
+            <CustomPanel setNodes={setNodes} setEdges={setEdges}
+                         reactFlowInstance={reactFlowInstance} setOpenLoadModal={setOpenLoadModal} />
           </ReactFlow>
         </div>
+        <LoadModal open={openLoadModal} setOpen={setOpenLoadModal} reactFlowInstance={reactFlowInstance} />
       </ReactFlowProvider>
       <RightSidebar />
     </div>

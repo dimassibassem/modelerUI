@@ -1,8 +1,10 @@
 import { Fragment, useEffect, useState } from 'react'
 import { Transition } from '@headlessui/react'
 import axios from 'axios'
-import { Edge } from 'reactflow'
-
+import { shallow } from 'zustand/shallow'
+import { ReactFlowInstance, Edge } from 'reactflow'
+import useStore from '../store'
+import { RFState } from '../types/RFState'
 
 const loadModels = async () => {
   const { data } = await axios.get('http://localhost:3001/api/get-models')
@@ -22,14 +24,27 @@ type Model = {
     }
   }
 }
+const selector = (state: RFState) => ({
+  setNodes: state.setNodes,
+  setEdges: state.setEdges
+})
 
-const LoadModal = () => {
-  const [open, setOpen] = useState(true)
+const LoadModal = ({
+                     open,
+                     setOpen,
+                     reactFlowInstance
+                   }: { open: boolean, setOpen: (arg0: boolean) => void, reactFlowInstance: ReactFlowInstance | null }) => {
+  const {
+    setNodes,
+    setEdges
+  } = useStore(selector, shallow)
   const [models, setModels] = useState<Model[]>([])
   useEffect(() => {
-    loadModels().then((data) => setModels(data)
-    )
-  }, [])
+    if (open) {
+      loadModels().then((data) => setModels(data)
+      )
+    }
+  }, [open])
   return (
     <Transition.Root show={open} as={Fragment}>
       <div className='relative z-10'>
@@ -72,10 +87,18 @@ const LoadModal = () => {
                             <div
                               className=' flex h-24 w-fit flex-shrink-0 items-center justify-center rounded-l-md text-sm font-medium text-white'
                             >
-                              <img className=' shadow hover:shadow-2xl' src={model.fileName} alt='' />
+                              <img className=' shadow hover:shadow-2xl' src={model.fileName} alt=''
+                                   onClick={() => {
+                                     setNodes(model.instance.nodes)
+                                     setEdges(model.instance.edges)
+                                     reactFlowInstance?.fitView()
+                                     reactFlowInstance?.zoomTo(1)
+                                     setOpen(false)
+                                   }} />
                             </div>
                           </li>
-                        ))}
+                        ))
+                        }
                       </ul>
                     </div>
                   </div>
@@ -84,8 +107,11 @@ const LoadModal = () => {
                   <button
                     type='button'
                     className='inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm'
+                    onClick={() => {
+                      setOpen(false)
+                    }}
                   >
-                    Go back to dashboard
+                    Go back to the Modeler
                   </button>
                 </div>
               </div>

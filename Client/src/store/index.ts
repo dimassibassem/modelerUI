@@ -10,6 +10,7 @@ import {
   applyEdgeChanges, MarkerType
 } from 'reactflow'
 
+import { EdgeProps } from '@reactflow/core/dist/esm/types/edges'
 import { RFState } from '../types/RFState'
 
 const initialEdges: Edge[] = []
@@ -56,10 +57,10 @@ const useStore = create<RFState>((set, get) => ({
     })
   },
   onConnect: (connection: Connection) => {
-    const newEdge : Edge = {
+    const newEdge: EdgeProps = {
       ...connection,
       markerEnd: {
-        type: MarkerType.ArrowClosed,
+        type: MarkerType.Arrow
       }
     }
     set({
