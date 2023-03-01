@@ -2,6 +2,8 @@
   "name": "modelerui",
   "private": true,
   "version": "0.0.0",
+  "description": "Modeler UI",
+  "author": "Bassem Dimassi",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +14,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.12",
     "@heroicons/react": "^2.0.16",
+    "@reactflow/node-resizer": "^2.0.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "elkjs": "^0.8.2",
     "react": "^18.2.0",

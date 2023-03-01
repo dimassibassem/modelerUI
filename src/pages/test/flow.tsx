@@ -11,11 +11,9 @@ import 'reactflow/dist/style.css'
 import { ReactFlowInstance } from '@reactflow/core/dist/esm/types/instance'
 import { shallow } from 'zustand/shallow'
 import Sidebar from '../../components/Sidebar'
-import TextUpdaterNode from '../../components/TextUpdaterNode'
 import './index.css'
 import useOnDropNode from '../../hooks/useOnDropNode'
 import useOnDragNode from '../../hooks/useOnDragNode'
-import useOnConnectEdge from '../../hooks/useOnConnectEdge'
 import useHandleSelected from '../../hooks/useHandleSelected'
 import Decision from '../../components/flowShapes/Decision'
 import Trapezoid from '../../components/flowShapes/Trapezoid'
@@ -97,7 +95,6 @@ const DnDFlow = () => {
   }
 
   // if (reactFlowInstance) console.log(reactFlowInstance.toObject())
-
   return (
     <div className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
       <ReactFlowProvider>
