@@ -1,10 +1,10 @@
-import { Handle, Position, Node } from 'reactflow'
-import React, { memo, useState } from 'react'
+import { Handle, Position, Node, NodeProps } from 'reactflow'
+import React, { ComponentType, FC, memo, useState } from 'react'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
-import { Icon } from '@iconify/react';
+import { Icon } from '@iconify/react'
 
-const Square = ({ data, selected }: Node) => {
+const Square: FC<Node> = ({ data, selected }: Node) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   return (
@@ -15,7 +15,7 @@ const Square = ({ data, selected }: Node) => {
           setHeight(props.height)
         }
       } />
-      <Icon icon="material-symbols:square" color="#999" width={width} height={height} />
+      <Icon icon='material-symbols:square' color='#999' width={width} height={height} />
       <Handle type='target' position={Position.Top} />
       <Handle type='source' position={Position.Bottom} id='b' />
     </div>
@@ -23,4 +23,4 @@ const Square = ({ data, selected }: Node) => {
 }
 
 
-export default memo(Square)
+export default memo<Node>(props => <Square {...props} />) as unknown as ComponentType<NodeProps<Node>>

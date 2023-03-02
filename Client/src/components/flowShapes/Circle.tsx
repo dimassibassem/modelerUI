@@ -1,10 +1,11 @@
-import { Handle, Node, Position } from 'reactflow'
+import { Handle, Node, NodeProps, Position } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
-import { memo, useState } from 'react'
+import { ComponentType, FC, memo, useState } from 'react'
 import { Icon } from '@iconify/react'
 
-const Circle = ({ data, selected }: Node) => {
+
+const Circle: FC<Node> = ({ data, selected }: Node) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   return (
@@ -22,4 +23,4 @@ const Circle = ({ data, selected }: Node) => {
   )
 }
 
-export default memo(Circle)
+export default memo<Node>(props => <Circle {...props} />) as unknown as ComponentType<NodeProps<Node>>

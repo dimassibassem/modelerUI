@@ -1,5 +1,5 @@
-import React, {  memo, useState } from 'react'
-import { Handle, Node, Position } from 'reactflow'
+import React, { ComponentType, memo, useState } from 'react'
+import { Handle, Node, NodeProps, Position } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
 import { Icon } from '@iconify/react'
@@ -7,6 +7,7 @@ import { Icon } from '@iconify/react'
 const Trapezoid = ({ data, selected }: Node) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
+
   return (
     <div className='min-h-[40px] w-full min-w-[50px] h-full'>
       <NodeResizer color='#ff0071' isVisible={selected} minWidth={50} minHeight={50} onResize={
@@ -22,4 +23,4 @@ const Trapezoid = ({ data, selected }: Node) => {
   )
 }
 
-export default memo(Trapezoid)
+export default memo<Node>(props => <Trapezoid {...props} />) as unknown as ComponentType<NodeProps<Node>>
