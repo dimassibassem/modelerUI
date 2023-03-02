@@ -1,24 +1,46 @@
 import { ArrowDownCircleIcon, ArrowUpCircleIcon, HomeIcon, UsersIcon } from '@heroicons/react/24/outline'
 import { useState, DragEvent } from 'react'
 import { Link } from 'react-router-dom'
+import { Icon } from '@iconify/react'
 import logoBankerise from '../assets/logo-bankerise.png'
-import { CircleShape, DiamondShape, OvalShape, ParallelogramShape, SquareShape, TrapezoidShape } from './Shapes'
 
 const shapes = [
-  { name: 'input', icon: HomeIcon },
-  { name: 'output', icon: UsersIcon },
-  { name: 'decision', icon: DiamondShape },
-  { name: 'trapezoid', icon: TrapezoidShape },
-  { name: 'parallelogram', icon: ParallelogramShape },
-  { name: 'circle', icon: CircleShape },
-  { name: 'oval', icon: OvalShape },
-  { name: 'square', icon: SquareShape }
+  { name: 'input', icon: "HomeIcon" },
+  { name: 'output', icon: 'UsersIcon' },
+  { name: 'decision', icon: 'Diamond' },
+  { name: 'trapezoid', icon: 'Trapezoid' },
+  { name: 'parallelogram', icon: 'Parallelogram' },
+  { name: 'circle', icon: 'Circle' },
+  { name: 'oval', icon: 'Oval' },
+  { name: 'square', icon: 'Square' }
 ]
 const onDragStart = (event: DragEvent<HTMLDivElement>, nodeType: string) => {
   event.dataTransfer.setData('application/reactflow', nodeType)
   event.dataTransfer.effectAllowed = 'move'
 }
 
+const iconSwitcher = (icon: string) => {
+  switch (icon) {
+    case "HomeIcon":
+      return <HomeIcon className='h-5 w-5' />
+    case "UsersIcon":
+      return <UsersIcon className='h-5 w-5' />
+    case 'Diamond':
+      return <Icon icon='bi:diamond' height={24} width={24} />
+    case 'Trapezoid':
+      return <Icon icon='icon-park-outline:trapezoid' height={24} width={24} />
+    case 'Parallelogram':
+      return <Icon icon='icon-park-outline:parallelogram' height={24} width={24} />
+    case 'Circle':
+      return <Icon icon='material-symbols:circle-outline' height={24} width={24} />
+    case 'Oval':
+      return <Icon icon="fluent:oval-32-regular" height={24} width={24} />
+    case 'Square':
+      return <Icon icon='material-symbols:square-outline' height={24} width={24} />
+    default:
+      return <HomeIcon className='h-5 w-5' />
+  }
+}
 const Sidebar = () => {
   const [expanded, setExpanded] = useState(true)
   const toggleExpanded = () => setExpanded(!expanded)
@@ -41,7 +63,7 @@ const Sidebar = () => {
             {expanded ? <ArrowDownCircleIcon className='h-5 w-5' onClick={toggleExpanded} /> :
               <ArrowUpCircleIcon className='h-5 w-5' onClick={toggleExpanded} />}
           </span>
-          {expanded ?
+          {expanded &&
             <>
               {shapes.map((item) => (
                 <div
@@ -64,13 +86,12 @@ const Sidebar = () => {
                 >
                   <div className='text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6'
                        aria-hidden='true'>
-                    <item.icon height={24} width={24} />
+                    {iconSwitcher(item.icon)}
                   </div>
                   <span className='flex-1'>{item.name}</span>
                 </div>
               ))}
-            </>
-            : null}
+            </>}
         </nav>
       </div>
       <div className='flex flex-shrink-0 border-t border-gray-200 p-4'>
