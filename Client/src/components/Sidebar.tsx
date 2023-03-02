@@ -1,5 +1,6 @@
 import { ArrowDownCircleIcon, ArrowUpCircleIcon, HomeIcon, UsersIcon } from '@heroicons/react/24/outline'
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import logoBankerise from '../assets/logo-bankerise.png'
 import { CircleShape, DiamondShape, OvalShape, ParallelogramShape, SquareShape, TrapezoidShape } from './SidebarShapes'
 
@@ -73,7 +74,9 @@ const Sidebar = () => {
         </nav>
       </div>
       <div className='flex flex-shrink-0 border-t border-gray-200 p-4'>
-        <a href='#' className='group block w-full flex-shrink-0'>
+        <Link
+          to='/profile'
+          className='group block w-full flex-shrink-0'>
           <div className='flex items-center'>
             <div>
               <img
@@ -87,7 +90,7 @@ const Sidebar = () => {
               <p className='text-xs font-medium text-gray-500 group-hover:text-gray-700'>View profile</p>
             </div>
           </div>
-        </a>
+        </Link>
       </div>
     </div>
   )

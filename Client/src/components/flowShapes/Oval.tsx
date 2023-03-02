@@ -2,8 +2,7 @@ import { Handle, Position } from 'reactflow'
 
 const handleStyle = { left: 10 }
 
-const Oval = ({ data }) => {
-  return (
+const Oval = ({ data }) => (
     <div className=''>
       <div className='w-[100px] h-[50px] rounded-[100px_/_50px] bg-amber-500 ' />
       <Handle type='target' position={Position.Left} />
@@ -15,6 +14,5 @@ const Oval = ({ data }) => {
       <Handle type='source' position={Position.Right} id='b' />
     </div>
   )
-}
 
 export default Oval

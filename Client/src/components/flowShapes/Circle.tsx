@@ -1,10 +1,8 @@
-import { ChangeEvent, useCallback } from 'react'
 import { Handle, Position } from 'reactflow'
 
 const handleStyle = { left: 10 }
 
-const Circle = ({ data }) => {
-  return (
+const Circle = ({ data }) => (
     <div className='relative bg-no-repeat bg-center bg-contain h-[50px] w-full'>
       <div className='w-[50px] h-[50px] rounded-[50%] bg-red-700' />
       <Handle type='target' position={Position.Left} />
@@ -16,6 +14,5 @@ const Circle = ({ data }) => {
       <Handle type='source' position={Position.Right} id='b' />
     </div>
   )
-}
 
 export default Circle

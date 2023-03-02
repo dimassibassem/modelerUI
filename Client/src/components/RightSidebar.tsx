@@ -26,8 +26,6 @@ const RightSidebar = () => {
             type='button'
             className='ml-4 bg-white rounded-full h-10 w-10 flex items-center justify-center text-gray-400 hover:bg-gray-100  focus:outline-none focus:ring-2 focus:ring-white'
           >
-            {/*<HeartIconSolid className='h-8 w-8 text-red-300' aria-hidden='true' />*/}
-            {/*<HeartIconSolid className='h-8 w-8 text-red-600 ' aria-hidden='true' />*/}
             <span className='sr-only'>Favorite</span>
           </button>
         </div>

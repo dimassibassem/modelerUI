@@ -5,9 +5,7 @@ import '@reactflow/node-resizer/dist/style.css';
 
 const handleStyle = { left: 10 }
 
-const Square = ({ data, selected }) => {
-
-  return (
+const Square = ({ data, selected }) => (
     <div className=''>
       <NodeResizer color='#ff0071' isVisible={selected} minWidth={100} minHeight={30} />
       <div className=' w-auto h-auto bg-indigo-700 p-4 ' />
@@ -20,6 +18,5 @@ const Square = ({ data, selected }) => {
       <Handle type='source' position={Position.Right} id='b' />
     </div>
   )
-}
 
 export default memo(Square)

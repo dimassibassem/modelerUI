@@ -60,7 +60,8 @@
     "no-unused-vars": "off",
     "no-plusplus": "off",
     "@typescript-eslint/no-empty-function": "off",
-    "jsx-a11y/label-has-associated-control": "off"
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/click-events-have-key-events": "off"
   },
   "settings": {
     "react": {
