@@ -1,10 +1,10 @@
-import { ComponentType, FC, memo, useState } from 'react'
+import { ComponentType, memo, useState } from 'react'
 import { Handle, Position, Node, NodeProps } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
 import { Icon } from '@iconify/react'
 
-const Parallelogram: FC<Node> = ({ data, selected }: Node) => {
+const Parallelogram = ({ data, selected }: Node) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   return (

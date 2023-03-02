@@ -1,10 +1,10 @@
 import { Handle, Position, Node, NodeProps } from 'reactflow'
-import React, { ComponentType, FC, memo, useState } from 'react'
+import React, { ComponentType, memo, useState } from 'react'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
 import { Icon } from '@iconify/react'
 
-const Square: FC<Node> = ({ data, selected }: Node) => {
+const Square = ({ data, selected }: Node) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   return (

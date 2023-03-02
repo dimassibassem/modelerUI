@@ -1,10 +1,10 @@
 import { Handle, Node, NodeProps, Position } from 'reactflow'
 import { NodeResizer } from '@reactflow/node-resizer'
 import '@reactflow/node-resizer/dist/style.css'
-import { ComponentType, FC, memo, useState } from 'react'
+import { ComponentType, memo, useState } from 'react'
 import { Icon } from '@iconify/react'
 
-const Diamond: FC<Node> = ({ data, id, selected }: Node) => {
+const Diamond = ({ data, id, selected }: Node) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   return (
