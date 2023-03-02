@@ -14,8 +14,7 @@ const imageFromHTML = async (reactFlowInstance: ReactFlowInstance | null) => {
           node?.classList?.contains('react-flow__panel'))
     })
     const instance = reactFlowInstance.toObject()
-
-    await axios.post(`${process.env.API_ENDPOINT}/api/add-model}`, {
+    await axios.post(`${process.env.API_ENDPOINT}/api/add-model`, {
         instance,
         dataURI
       }

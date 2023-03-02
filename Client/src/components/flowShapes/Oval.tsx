@@ -1,8 +1,8 @@
 import { Handle, Node, Position } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
-import React, { useState } from 'react'
-import { OvalShape } from '../Shapes'
+import React, { memo, useState } from 'react'
+import { Icon } from '@iconify/react'
 
 const Oval = ({ data, selected }: Node) => {
   const [width, setWidth] = useState(50)
@@ -15,11 +15,11 @@ const Oval = ({ data, selected }: Node) => {
           setHeight(props.height)
         }
       } />
-      <OvalShape width={width} height={height} />
+      <Icon icon='fluent:oval-48-filled' color='#999' width={width} height={height} />
       <Handle type='target' position={Position.Top} />
       <Handle type='source' position={Position.Bottom} id='b' />
     </div>
   )
 }
 
-export default Oval
+export default memo(Oval)

@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import { Handle, Position,Node } from 'reactflow'
+import { memo, useState } from 'react'
+import { Handle, Position, Node } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
-import { ParallelogramShape } from '../Shapes'
+import { Icon } from '@iconify/react'
 
-const Parallelogram = ({ data, selected }:Node) => {
+const Parallelogram = ({ data, selected }: Node) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   return (
@@ -15,11 +15,11 @@ const Parallelogram = ({ data, selected }:Node) => {
           setHeight(props.height)
         }
       } />
-      <ParallelogramShape width={width} height={height} />
+      <Icon icon='icon-park-solid:parallelogram' color='#999' width={width} height={height} />
       <Handle type='target' position={Position.Top} />
       <Handle type='source' position={Position.Bottom} id='b' />
     </div>
   )
 }
 
-export default Parallelogram
+export default memo(Parallelogram)

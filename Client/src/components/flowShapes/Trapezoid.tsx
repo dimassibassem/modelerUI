@@ -1,10 +1,10 @@
-import React, { ChangeEvent, useCallback, useState } from 'react'
+import React, {  memo, useState } from 'react'
 import { Handle, Node, Position } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
-import { TrapezoidShape } from '../Shapes'
+import { Icon } from '@iconify/react'
 
-const Trapezoid = ({ data, selected }:Node) => {
+const Trapezoid = ({ data, selected }: Node) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   return (
@@ -15,11 +15,11 @@ const Trapezoid = ({ data, selected }:Node) => {
           setHeight(props.height)
         }
       } />
-      <TrapezoidShape width={width} height={height} />
+      <Icon icon='icon-park-solid:trapezoid' color='#999' width={width} height={height} />
       <Handle type='target' position={Position.Top} />
       <Handle type='source' position={Position.Bottom} id='b' />
     </div>
   )
 }
 
-export default Trapezoid
+export default memo(Trapezoid)

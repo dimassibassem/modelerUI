@@ -1,8 +1,8 @@
 import { Handle, Node, Position } from 'reactflow'
 import { NodeResizer } from '@reactflow/node-resizer'
 import '@reactflow/node-resizer/dist/style.css'
-import { useState } from 'react'
-import { DiamondShape } from '../Shapes'
+import { memo, useState } from 'react'
+import { Icon } from '@iconify/react'
 
 const Diamond = ({ data, id, selected }: Node) => {
   const [width, setWidth] = useState(50)
@@ -15,10 +15,10 @@ const Diamond = ({ data, id, selected }: Node) => {
           setHeight(props.height)
         }
       } />
-      <DiamondShape width={width} height={height} />
+      <Icon icon="bi:diamond-fill" color="#999" width={width} height={height} />
       <Handle type='target' position={Position.Top} />
       <Handle type='source' position={Position.Bottom} id='b' />
     </div>
   )
 }
-export default Diamond
+export default memo(Diamond)

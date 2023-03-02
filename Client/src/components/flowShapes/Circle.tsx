@@ -1,8 +1,8 @@
 import { Handle, Node, Position } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
-import { useState } from 'react'
-import { CircleShape } from '../Shapes'
+import { memo, useState } from 'react'
+import { Icon } from '@iconify/react'
 
 const Circle = ({ data, selected }: Node) => {
   const [width, setWidth] = useState(50)
@@ -15,11 +15,11 @@ const Circle = ({ data, selected }: Node) => {
           setHeight(props.height)
         }
       } />
-      <CircleShape width={width} height={height} />
+      <Icon icon='material-symbols:circle' color='#999' width={width} height={height} />
       <Handle type='target' position={Position.Top} />
       <Handle type='source' position={Position.Bottom} id='b' />
     </div>
   )
 }
 
-export default Circle
+export default memo(Circle)
