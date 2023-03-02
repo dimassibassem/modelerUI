@@ -1,12 +1,10 @@
-import { Handle, Position, Node } from 'reactflow'
-import React, { memo, useState } from 'react'
-import '@reactflow/node-resizer/dist/style.css'
+import { Handle, Node, Position } from 'reactflow'
 import { NodeResizer } from '@reactflow/node-resizer'
-import { SquareShape } from '../Shapes'
+import '@reactflow/node-resizer/dist/style.css'
+import { useState } from 'react'
+import { DiamondShape } from '../Shapes'
 
-const handleStyle = { left: 10 }
-
-const Square = ({ data, selected }: Node) => {
+const Diamond = ({ data, id, selected }: Node) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   return (
@@ -17,12 +15,10 @@ const Square = ({ data, selected }: Node) => {
           setHeight(props.height)
         }
       } />
-      <SquareShape width={width} height={height} />
+      <DiamondShape width={width} height={height} />
       <Handle type='target' position={Position.Top} />
       <Handle type='source' position={Position.Bottom} id='b' />
     </div>
   )
 }
-
-
-export default memo(Square)
+export default Diamond

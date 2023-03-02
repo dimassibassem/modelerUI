@@ -4,7 +4,6 @@ export type RFState = {
   nodes: Node[];
   setNodes: (nodes: Node[]) => void;
   edges: Edge[];
-
   setEdges: (edges: Edge[]) => void;
   selectedNode: Node | null;
   setSelectedNode: (node: Node | null) => void;

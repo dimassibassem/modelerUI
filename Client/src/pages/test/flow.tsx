@@ -12,7 +12,7 @@ import Sidebar from '../../components/Sidebar'
 import useOnDropNode from '../../hooks/useOnDropNode'
 import useOnDragNode from '../../hooks/useOnDragNode'
 import useHandleSelected from '../../hooks/useHandleSelected'
-import Decision from '../../components/flowShapes/Decision'
+import Diamond from '../../components/flowShapes/Diamond'
 import Trapezoid from '../../components/flowShapes/Trapezoid'
 import Parallelogram from '../../components/flowShapes/Parallelogram'
 import useStore from '../../store'
@@ -57,7 +57,7 @@ const DnDFlow = () => {
 
     const nodeTypes = useMemo(
         () => ({
-            decision: Decision,
+            decision: Diamond,
             trapezoid: Trapezoid,
             parallelogram: Parallelogram,
             circle: Circle,

@@ -1,8 +1,8 @@
 import { ArrowDownCircleIcon, ArrowUpCircleIcon, HomeIcon, UsersIcon } from '@heroicons/react/24/outline'
-import React, { useState } from 'react'
+import { useState, DragEvent } from 'react'
 import { Link } from 'react-router-dom'
 import logoBankerise from '../assets/logo-bankerise.png'
-import { CircleShape, DiamondShape, OvalShape, ParallelogramShape, SquareShape, TrapezoidShape } from './SidebarShapes'
+import { CircleShape, DiamondShape, OvalShape, ParallelogramShape, SquareShape, TrapezoidShape } from './Shapes'
 
 const shapes = [
   { name: 'input', icon: HomeIcon },
@@ -14,7 +14,7 @@ const shapes = [
   { name: 'oval', icon: OvalShape },
   { name: 'square', icon: SquareShape }
 ]
-const onDragStart = (event: React.DragEvent<HTMLDivElement>, nodeType: string) => {
+const onDragStart = (event: DragEvent<HTMLDivElement>, nodeType: string) => {
   event.dataTransfer.setData('application/reactflow', nodeType)
   event.dataTransfer.effectAllowed = 'move'
 }
@@ -64,7 +64,7 @@ const Sidebar = () => {
                 >
                   <div className='text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6'
                        aria-hidden='true'>
-                    <item.icon />
+                    <item.icon height={24} width={24} />
                   </div>
                   <span className='flex-1'>{item.name}</span>
                 </div>

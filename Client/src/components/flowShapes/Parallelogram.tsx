@@ -1,22 +1,22 @@
-import { ChangeEvent, useCallback } from 'react'
-import { Handle, Position } from 'reactflow'
+import { useState } from 'react'
+import { Handle, Position,Node } from 'reactflow'
+import '@reactflow/node-resizer/dist/style.css'
+import { NodeResizer } from '@reactflow/node-resizer'
+import { ParallelogramShape } from '../Shapes'
 
-const handleStyle = { left: 10 }
-
-const Parallelogram = ({ data }) => {
-  const onChange = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
-    console.log(evt.target.value)
-  }, [])
-
+const Parallelogram = ({ data, selected }:Node) => {
+  const [width, setWidth] = useState(50)
+  const [height, setHeight] = useState(50)
   return (
-    <div className='relative bg-no-repeat bg-center bg-contain h-[50px] w-full'>
-      <div className='w-[100px] h-[50px] skew-x-[20deg] bg-[#555]' />
-      <Handle type='target' position={Position.Top} style={{ left: 50 }} />
-      <div>
-        {/* <label htmlFor="text">Text:</label> */}
-        {/* <input id="text" name="text" onChange={onChange} /> */}
-      </div>
-      {/* <Handle type="source" position={Position.Bottom} id="a" style={handleStyle} /> */}
+    <div className='min-h-[40px] w-full min-w-[50px] h-full'>
+      <NodeResizer color='#ff0071' isVisible={selected} minWidth={50} minHeight={50} onResize={
+        (event, props) => {
+          setWidth(props.width)
+          setHeight(props.height)
+        }
+      } />
+      <ParallelogramShape width={width} height={height} />
+      <Handle type='target' position={Position.Top} />
       <Handle type='source' position={Position.Bottom} id='b' />
     </div>
   )
