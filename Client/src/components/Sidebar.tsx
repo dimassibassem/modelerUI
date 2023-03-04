@@ -7,7 +7,7 @@ import logoBankerise from '../assets/logo-bankerise.png'
 const shapes = [
   { name: 'input', icon: "HomeIcon" },
   { name: 'output', icon: 'UsersIcon' },
-  { name: 'decision', icon: 'Diamond' },
+  { name: 'diamond', icon: 'Diamond' },
   { name: 'trapezoid', icon: 'Trapezoid' },
   { name: 'parallelogram', icon: 'Parallelogram' },
   { name: 'circle', icon: 'Circle' },
