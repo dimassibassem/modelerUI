@@ -1,12 +1,12 @@
-import { Handle, Node, NodeProps, NodeToolbar, Position } from 'reactflow'
+import { Handle, Node, NodeToolbar, Position, NodeProps } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
-import React, { ComponentType, memo, useRef, useState } from 'react'
+import React, { ComponentType, useRef, useState } from 'react'
 import { Icon } from '@iconify/react'
 import { useHover } from 'usehooks-ts'
 import useShowToolbar from '../../hooks/useShowToolbar'
 
-const Oval = ({ data, selected }: Node) => {
+const Oval : ComponentType<NodeProps<Node>> = ({ id, data, selected }) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   const hoverRef = useRef(null)
@@ -39,4 +39,4 @@ const Oval = ({ data, selected }: Node) => {
   )
 }
 
-export default memo<Node>(props => <Oval {...props} />) as unknown as ComponentType<NodeProps<Node>>
+export default Oval

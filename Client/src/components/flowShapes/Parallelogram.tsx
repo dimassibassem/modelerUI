@@ -1,4 +1,4 @@
-import React, { ComponentType, memo, useRef, useState } from 'react'
+import React, { ComponentType, useRef, useState } from 'react'
 import { Handle, Position, Node, NodeProps, NodeToolbar } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
@@ -6,7 +6,7 @@ import { Icon } from '@iconify/react'
 import { useHover } from 'usehooks-ts'
 import useShowToolbar from '../../hooks/useShowToolbar'
 
-const Parallelogram = ({ data, selected }: Node) => {
+const Parallelogram: ComponentType<NodeProps<Node>> = ({ data, selected }) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   const hoverRef = useRef(null)
@@ -38,4 +38,4 @@ const Parallelogram = ({ data, selected }: Node) => {
   )
 }
 
-export default memo<Node>(props => <Parallelogram {...props} />) as unknown as ComponentType<NodeProps<Node>>
+export default Parallelogram

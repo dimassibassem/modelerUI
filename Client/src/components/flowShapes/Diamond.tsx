@@ -6,7 +6,7 @@ import { Icon } from '@iconify/react'
 import { useHover } from 'usehooks-ts'
 import useShowToolbar from '../../hooks/useShowToolbar'
 
-const Diamond = ({ data, id, selected }: Node) => {
+const Diamond: ComponentType<NodeProps<Node>> = ({ data, id, selected }) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   const hoverRef = useRef(null)
@@ -41,4 +41,4 @@ const Diamond = ({ data, id, selected }: Node) => {
     </div>
   )
 }
-export default memo<Node>(props => <Diamond {...props} />) as unknown as ComponentType<NodeProps<Node>>
+export default Diamond
