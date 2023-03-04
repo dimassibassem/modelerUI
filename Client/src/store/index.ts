@@ -15,12 +15,11 @@ import { RFState } from '../types/RFState'
 
 const initialEdges: Edge[] = []
 const initialNodes: Node[] = [
-
   {
     id: '2',
-    type: 'decision',
-    data: { label: 'decision' },
-    position: { x: 100, y: 100 }
+    type: 'diamond',
+    data: { label: 'diamond' },
+    position: { x: -200, y: 0 }
   },
   {
     id: '3',
