@@ -6,13 +6,14 @@ import { Icon } from '@iconify/react'
 import { useHover } from 'usehooks-ts'
 import useShowToolbar from '../../hooks/useShowToolbar'
 
-const Oval : ComponentType<NodeProps<Node>> = ({ id, data, selected }) => {
+const Oval: ComponentType<NodeProps<Node>> = ({ id, data,dragging, selected }) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   const hoverRef = useRef(null)
   const isHover = useHover(hoverRef)
   const [showToolbar, setShowToolbar] = useState(false)
-  useShowToolbar(isHover, setShowToolbar)
+  useShowToolbar(isHover, dragging, setShowToolbar)
+
   return (
     <div ref={hoverRef} className='min-h-[40px] w-full min-w-[50px] h-full'>
       <NodeToolbar isVisible={showToolbar} position={Position.Top}>
