@@ -38,6 +38,18 @@ const Diamond: ComponentType<NodeProps<Node>> = ({ data, dragging, selected }) =
         id='bottom'
         style={{ width: width / 15, height: width / 15 }}
         type='source' position={Position.Bottom} />
+      <Handle
+        style={{ width: width / 15, height: width / 15 }}
+        position={Position.Left}
+        type='source'
+        id='left'
+      />
+      <Handle
+        style={{ width: width / 15, height: width / 15 }}
+        position={Position.Right}
+        type='source'
+        id='right'
+      />
     </div>
   )
 }

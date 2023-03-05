@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from 'react'
+import React, { useState, useRef } from 'react'
 import ReactFlow, {
   ReactFlowProvider,
   Background,
@@ -11,17 +11,14 @@ import Sidebar from '../../components/Sidebar'
 import useOnDropNode from '../../hooks/useOnDropNode'
 import useOnDragNode from '../../hooks/useOnDragNode'
 import useHandleSelected from '../../hooks/useHandleSelected'
-import Diamond from '../../components/flowShapes/Diamond'
-import Trapezoid from '../../components/flowShapes/Trapezoid'
-import Parallelogram from '../../components/flowShapes/Parallelogram'
 import useStore from '../../store'
 import { RFState } from '../../types/RFState'
 import RightSidebar from '../../components/RightSidebar'
-import Circle from '../../components/flowShapes/Circle'
-import Oval from '../../components/flowShapes/Oval'
-import Square from '../../components/flowShapes/Square'
 import LoadModal from '../../components/LoadModal'
 import CustomPanel from '../../components/CustomPanel'
+import nodeColor from '../../utils'
+import nodeTypes from '../../utils/nodeTypes'
+import FloatingEdge from '../../components/edge/FloatingEdge'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -38,6 +35,10 @@ const selector = (state: RFState) => ({
 let id = 0
 
 const setId = (type: string) => `${type}_${id++}`
+
+const edgeTypes = {
+  floating: FloatingEdge,
+};
 const DnDFlow = () => {
   const reactFlowWrapper = useRef<HTMLInputElement>(null)
   const [openLoadModal, setOpenLoadModal] = useState(false)
@@ -54,43 +55,9 @@ const DnDFlow = () => {
     setSelectedEdge
   } = useStore(selector, shallow)
 
-  const nodeTypes = useMemo(
-    () => ({
-      diamond: Diamond,
-      trapezoid: Trapezoid,
-      parallelogram: Parallelogram,
-      circle: Circle,
-      oval: Oval,
-      square: Square
-    }),
-    []
-  )
   const onDragOver = useOnDragNode()
   const onDrop = useOnDropNode(reactFlowWrapper, reactFlowInstance, setNodes, setId, nodes)
   useHandleSelected(nodes, edges, setSelectedNode, setSelectedEdge)
-
-  const nodeColor = (node: Node) => {
-    switch (node.type) {
-      case 'input':
-        return '#cdff54'
-      case 'output':
-        return '#6865A5'
-      case 'trapezoid':
-        return '#f88000'
-      case 'parallelogram':
-        return '#ff05f1'
-      case 'diamond':
-        return '#86c20b'
-      case 'circle':
-        return '#00ffff'
-      case 'oval':
-        return '#1f17ef'
-      case 'square':
-        return '#cdff54'
-      default:
-        return '#ff0072'
-    }
-  }
 
   return (
     <div className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
@@ -108,6 +75,7 @@ const DnDFlow = () => {
             onInit={setReactFlowInstance}
             onDrop={onDrop}
             onDragOver={onDragOver}
+            edgeTypes={edgeTypes}
             fitView
           >
             <Background color='#4f46e5' variant={'dots' as BackgroundVariant} gap={10} size={1} />

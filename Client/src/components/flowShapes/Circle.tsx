@@ -6,7 +6,7 @@ import { Icon } from '@iconify/react'
 import { useHover } from 'usehooks-ts'
 import useShowToolbar from '../../hooks/useShowToolbar'
 
-const Circle: ComponentType<NodeProps<Node>> = ({ data, selected,dragging }) => {
+const Circle: ComponentType<NodeProps<Node>> = ({ data, selected, dragging }) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   const hoverRef = useRef(null)
@@ -39,6 +39,18 @@ const Circle: ComponentType<NodeProps<Node>> = ({ data, selected,dragging }) => 
         position={Position.Bottom}
         type='source'
         id='bottom'
+      />
+      <Handle
+        style={{ width: width / 15, height: width / 15 }}
+        position={Position.Left}
+        type='source'
+        id='left'
+      />
+      <Handle
+        style={{ width: width / 15, height: width / 15 }}
+        position={Position.Right}
+        type='source'
+        id='right'
       />
     </div>
   )
