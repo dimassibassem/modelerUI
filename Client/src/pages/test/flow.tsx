@@ -3,10 +3,9 @@ import ReactFlow, {
   ReactFlowProvider,
   Background,
   MiniMap,
-  Node, BackgroundVariant, ConnectionMode
+  Node, BackgroundVariant, ConnectionMode, ReactFlowInstance
 } from 'reactflow'
 import 'reactflow/dist/style.css'
-import { ReactFlowInstance } from '@reactflow/core/dist/esm/types/instance'
 import { shallow } from 'zustand/shallow'
 import Sidebar from '../../components/Sidebar'
 import useOnDropNode from '../../hooks/useOnDropNode'
