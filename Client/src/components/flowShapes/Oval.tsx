@@ -36,6 +36,18 @@ const Oval: ComponentType<NodeProps<Node>> = ({ id, data,dragging, selected }) =
       <Handle style={{ width: width / 15, height: width / 15 }}
               position={Position.Bottom} type='source'
               id='bottom' />
+      <Handle
+        style={{ width: width / 15, height: width / 15 }}
+        position={Position.Left}
+        type='source'
+        id='left'
+      />
+      <Handle
+        style={{ width: width / 15, height: width / 15 }}
+        position={Position.Right}
+        type='source'
+        id='right'
+      />
     </div>
   )
 }

@@ -1,12 +1,12 @@
-import { ArrowDownCircleIcon, ArrowUpCircleIcon, HomeIcon, UsersIcon } from '@heroicons/react/24/outline'
+import { ArrowDownCircleIcon, ArrowUpCircleIcon } from '@heroicons/react/24/outline'
 import { useState, DragEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { Icon } from '@iconify/react'
 import logoBankerise from '../assets/logo-bankerise.png'
 
 const shapes = [
-  { name: 'input', icon: "HomeIcon" },
-  { name: 'output', icon: 'UsersIcon' },
+  { name: 'start', icon: 'Start' },
+  { name: 'end', icon: 'End' },
   { name: 'diamond', icon: 'Diamond' },
   { name: 'trapezoid', icon: 'Trapezoid' },
   { name: 'parallelogram', icon: 'Parallelogram' },
@@ -21,10 +21,10 @@ const onDragStart = (event: DragEvent<HTMLDivElement>, nodeType: string) => {
 
 const iconSwitcher = (icon: string) => {
   switch (icon) {
-    case "HomeIcon":
-      return <HomeIcon className='h-5 w-5' />
-    case "UsersIcon":
-      return <UsersIcon className='h-5 w-5' />
+    case 'Start':
+      return <Icon icon='mdi:asterisk-circle-outline' height={24} width={24} />
+    case 'End':
+      return <Icon icon='mdi:circle-slice-8' height={24} width={24} />
     case 'Diamond':
       return <Icon icon='bi:diamond' height={24} width={24} />
     case 'Trapezoid':
@@ -34,11 +34,11 @@ const iconSwitcher = (icon: string) => {
     case 'Circle':
       return <Icon icon='material-symbols:circle-outline' height={24} width={24} />
     case 'Oval':
-      return <Icon icon="fluent:oval-32-regular" height={24} width={24} />
+      return <Icon icon='fluent:oval-32-regular' height={24} width={24} />
     case 'Square':
       return <Icon icon='material-symbols:square-outline' height={24} width={24} />
     default:
-      return <HomeIcon className='h-5 w-5' />
+      return <div />
   }
 }
 const Sidebar = () => {

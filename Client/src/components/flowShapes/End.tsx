@@ -1,12 +1,12 @@
 import { Handle, Node, NodeProps, NodeToolbar, Position } from 'reactflow'
-import React, { ComponentType, memo, useRef, useState } from 'react'
-import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
+import '@reactflow/node-resizer/dist/style.css'
+import { ComponentType, memo, useRef, useState } from 'react'
 import { Icon } from '@iconify/react'
 import { useHover } from 'usehooks-ts'
 import useShowToolbar from '../../hooks/useShowToolbar'
 
-const Square: ComponentType<NodeProps<Node>> = ({ data, dragging, selected }) => {
+const End: ComponentType<NodeProps<Node>> = ({ data, dragging, selected }) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   const hoverRef = useRef(null)
@@ -28,13 +28,16 @@ const Square: ComponentType<NodeProps<Node>> = ({ data, dragging, selected }) =>
           setHeight(props.height)
         }
       } />
-      <Icon icon='material-symbols:square' color='#999' width={width} height={height} />
-      <Handle style={{ width: width / 15, height: width / 15 }}
-              type='source'
-              id='top' position={Position.Top} />
-      <Handle style={{ width: width / 15, height: width / 15 }}
-              type='source'
-              id='bottom' position={Position.Bottom} />
+      <Icon icon='mdi:circle-slice-8' color='#999' width={width} height={height} />
+      <Handle
+        style={{ width: width / 15, height: width / 15 }}
+        type='source' position={Position.Top}
+        id='top'
+      />
+      <Handle
+        id='bottom'
+        style={{ width: width / 15, height: width / 15 }}
+        type='source' position={Position.Bottom} />
       <Handle
         style={{ width: width / 15, height: width / 15 }}
         position={Position.Left}
@@ -50,6 +53,4 @@ const Square: ComponentType<NodeProps<Node>> = ({ data, dragging, selected }) =>
     </div>
   )
 }
-
-
-export default memo(Square)
+export default memo(End)
