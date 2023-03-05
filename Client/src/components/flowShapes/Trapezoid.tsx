@@ -1,4 +1,4 @@
-import React, { ComponentType, useRef, useState } from 'react'
+import React, { ComponentType, memo, useRef, useState } from 'react'
 import { Handle, Node, NodeProps, NodeToolbar, Position } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
@@ -38,4 +38,4 @@ const Trapezoid: ComponentType<NodeProps<Node>> = ({ data, selected }) => {
   )
 }
 
-export default Trapezoid
+export default memo(Trapezoid)

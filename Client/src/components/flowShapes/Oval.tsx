@@ -1,7 +1,7 @@
 import { Handle, Node, NodeToolbar, Position, NodeProps } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
-import React, { ComponentType, useRef, useState } from 'react'
+import React, { ComponentType, memo, useRef, useState } from 'react'
 import { Icon } from '@iconify/react'
 import { useHover } from 'usehooks-ts'
 import useShowToolbar from '../../hooks/useShowToolbar'
@@ -39,4 +39,4 @@ const Oval : ComponentType<NodeProps<Node>> = ({ id, data, selected }) => {
   )
 }
 
-export default Oval
+export default memo(Oval)

@@ -41,4 +41,4 @@ const Diamond: ComponentType<NodeProps<Node>> = ({ data, id, selected }) => {
     </div>
   )
 }
-export default Diamond
+export default memo(Diamond)

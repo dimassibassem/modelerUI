@@ -1,7 +1,7 @@
 import { Handle, Node, NodeProps, NodeToolbar, Position } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
-import { ComponentType, useRef, useState } from 'react'
+import { ComponentType, memo, useRef, useState } from 'react'
 import { Icon } from '@iconify/react'
 import { useHover } from 'usehooks-ts'
 import useShowToolbar from '../../hooks/useShowToolbar'
@@ -43,4 +43,4 @@ const Circle: ComponentType<NodeProps<Node>> = ({ data, selected }) => {
   )
 }
 
-export default Circle
+export default memo(Circle)

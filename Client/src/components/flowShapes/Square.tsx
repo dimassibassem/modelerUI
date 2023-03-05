@@ -1,5 +1,5 @@
 import { Handle, Node, NodeProps, NodeToolbar, Position } from 'reactflow'
-import React, { ComponentType, useRef, useState } from 'react'
+import React, { ComponentType, memo, useRef, useState } from 'react'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
 import { Icon } from '@iconify/react'
@@ -40,4 +40,4 @@ const Square: ComponentType<NodeProps<Node>> = ({ data, selected }) => {
 }
 
 
-export default Square
+export default memo(Square)
