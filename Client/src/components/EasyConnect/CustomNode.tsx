@@ -17,7 +17,7 @@ const CustomNode = ({ id, isConnectable, dragging, selected }: NodeProps) => {
   useShowToolbar(isHover, dragging, setShowToolbar)
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
-  const [ShowResizer, setShowResizer] = useState(false)
+  const [showResizer, setShowResizer] = useState(false)
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     if (event.detail === 2) setShowResizer(true)
@@ -35,18 +35,21 @@ const CustomNode = ({ id, isConnectable, dragging, selected }: NodeProps) => {
           </div>
         </NodeToolbar>
 
-        <NodeResizer color='#ff0071' isVisible={ShowResizer} minWidth={50} minHeight={50} onResize={
+        <NodeResizer color='#ff0071' isVisible={showResizer} minWidth={50}
+                     minHeight={50} onResize={
           (event, props) => {
             setWidth(props.width)
             setHeight(props.height)
           }} />
-        <Icon icon='fluent:oval-48-filled' color='#999' width={width} height={height} />
+        <Icon icon='fluent:oval-48-filled' color='#999' width={width}
+              height={height} />
 
         <Handle
           style={{
+            visibility: showResizer ? 'hidden' : 'visible',
             zIndex: 2,
-            width: !ShowResizer ? '100%' : '0%',
-            height: !ShowResizer ? '100%' : '0%',
+            width: '100%',
+            height: '100%',
             position: 'absolute',
             top: 0,
             left: 0,
@@ -61,9 +64,10 @@ const CustomNode = ({ id, isConnectable, dragging, selected }: NodeProps) => {
         />
         <Handle
           style={{
+            visibility: showResizer ? 'hidden' : 'visible',
             zIndex: isTarget ? 3 : 1,
-            width: !ShowResizer ? '100%' : '0%',
-            height: !ShowResizer ? '100%' : '0%',
+            width: '100%',
+            height: '100%',
             position: 'absolute',
             top: 0,
             left: 0,
