@@ -78,7 +78,7 @@ const DnDFlow = () => {
             edgeTypes={edgeTypes}
             fitView
           >
-            <Background color='#4f46e5' variant={'dots' as BackgroundVariant} gap={10} size={1} />
+            <Background color='#4f46e5' variant={BackgroundVariant.Dots} gap={10} size={1} />
             <MiniMap style={{ background: '#ccc' }}
                      nodeColor={(node: Node) => nodeColor(node)}
                      nodeStrokeWidth={3} zoomable pannable />
