@@ -1,19 +1,20 @@
-import React, { ComponentType, memo, useRef, useState } from 'react'
-import { Handle, Node, NodeProps, NodeToolbar, Position } from 'reactflow'
+import React, { FC, memo, useRef, useState } from 'react'
+import { Handle, NodeProps, NodeToolbar, Position } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
-import { Icon } from '@iconify/react'
 import { useHover } from 'usehooks-ts'
+import CssFilterConverter from 'css-filter-converter'
 import useShowToolbar from '../../hooks/useShowToolbar'
+import trapezoid from '../../assets/Trapezoid.png'
 
-const Trapezoid: ComponentType<NodeProps<Node>> = ({ data, dragging, selected }) => {
+const Trapezoid: FC<NodeProps> = ({ data, dragging, selected }) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   const hoverRef = useRef(null)
   const isHover = useHover(hoverRef)
   const [showToolbar, setShowToolbar] = useState(false)
   useShowToolbar(isHover, dragging, setShowToolbar)
-
+  const filter = CssFilterConverter.hexToFilter('#1f17ef').color
   return (
     <div ref={hoverRef} className='min-h-[40px] w-full min-w-[50px] h-full'>
       <NodeToolbar isVisible={showToolbar} position={Position.Top}>
@@ -28,7 +29,11 @@ const Trapezoid: ComponentType<NodeProps<Node>> = ({ data, dragging, selected })
           setHeight(props.height)
         }
       } />
-      <Icon icon='icon-park-solid:trapezoid' color='#999' width={width} height={height} />
+      <img src={trapezoid} alt='trapezoid'
+           style={{
+             width, height, filter: filter || 'none'
+           }}
+      />
       <Handle style={{ width: width / 15, height: width / 15 }}
               type='source'
               id='top' position={Position.Top} />

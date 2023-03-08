@@ -8,14 +8,12 @@ const nodeColor = (node: Node) => {
       return '#6865A5'
     case 'trapezoid':
       return '#f88000'
-    case 'parallelogram':
+    case 'hexagon':
       return '#ff05f1'
     case 'diamond':
       return '#86c20b'
     case 'circle':
       return '#00ffff'
-    case 'oval':
-      return '#1f17ef'
     case 'square':
       return '#cdff54'
     default:

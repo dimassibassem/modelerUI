@@ -1,19 +1,21 @@
-import { Handle, Node, NodeProps, NodeToolbar, Position } from 'reactflow'
-import React, { ComponentType, memo, useRef, useState } from 'react'
+import { Handle, NodeProps, NodeToolbar, Position } from 'reactflow'
+import React, { FC, memo, useRef, useState } from 'react'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
 import { Icon } from '@iconify/react'
 import { useHover } from 'usehooks-ts'
 import useShowToolbar from '../../hooks/useShowToolbar'
+import rect from '../../assets/Rect.png'
+import CssFilterConverter from 'css-filter-converter'
 
-const Square: ComponentType<NodeProps<Node>> = ({ data, dragging, selected }) => {
+const Square: FC<NodeProps> = ({ data, dragging, selected }) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   const hoverRef = useRef(null)
   const isHover = useHover(hoverRef)
   const [showToolbar, setShowToolbar] = useState(false)
   useShowToolbar(isHover, dragging, setShowToolbar)
-
+  const filter = CssFilterConverter.hexToFilter('#1f17ef').color
   return (
     <div ref={hoverRef} className='min-h-[40px] w-full min-w-[50px] h-full'>
       <NodeToolbar isVisible={showToolbar} position={Position.Top}>
@@ -28,7 +30,11 @@ const Square: ComponentType<NodeProps<Node>> = ({ data, dragging, selected }) =>
           setHeight(props.height)
         }
       } />
-      <Icon icon='material-symbols:square' color='#999' width={width} height={height} />
+      <img src={rect} alt='rect' style={
+        {
+          width, height, filter: filter || 'none'
+        }
+      } />
       <Handle style={{ width: width / 15, height: width / 15 }}
               type='source'
               id='top' position={Position.Top} />

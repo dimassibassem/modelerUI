@@ -1,19 +1,20 @@
-import { Handle, Node, NodeToolbar, Position, NodeProps } from 'reactflow'
+import React, { FC, memo, useRef, useState } from 'react'
+import { Handle, Position, NodeProps, NodeToolbar } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
-import React, { ComponentType, memo, useRef, useState } from 'react'
-import { Icon } from '@iconify/react'
 import { useHover } from 'usehooks-ts'
 import useShowToolbar from '../../hooks/useShowToolbar'
+import hexagon from '../../assets/Hexagon.png'
+import CssFilterConverter from 'css-filter-converter'
 
-const Oval: ComponentType<NodeProps<Node>> = ({ id, data,dragging, selected }) => {
+const Hexagon: FC<NodeProps> = ({ data, dragging, selected }) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   const hoverRef = useRef(null)
   const isHover = useHover(hoverRef)
   const [showToolbar, setShowToolbar] = useState(false)
   useShowToolbar(isHover, dragging, setShowToolbar)
-
+  const filter = CssFilterConverter.hexToFilter('#da93ff').color
   return (
     <div ref={hoverRef} className='min-h-[40px] w-full min-w-[50px] h-full'>
       <NodeToolbar isVisible={showToolbar} position={Position.Top}>
@@ -28,14 +29,18 @@ const Oval: ComponentType<NodeProps<Node>> = ({ id, data,dragging, selected }) =
           setHeight(props.height)
         }
       } />
-      <Icon icon='fluent:oval-48-filled' color='#999' width={width} height={height} />
-      <Handle
-        style={{ width: width / 15, height: width / 15 }}
-        type='source'
-        id='top' position={Position.Top} />
+      <img src={hexagon} alt='hexagon' style={
+        {
+          width, height,
+          filter: filter || 'none'
+        }} />
+
       <Handle style={{ width: width / 15, height: width / 15 }}
-              position={Position.Bottom} type='source'
-              id='bottom' />
+              type='source'
+              id='top' position={Position.Top} />
+      <Handle style={{ width: width / 15, height: width / 15 }}
+              type='source'
+              id='bottom' position={Position.Bottom} />
       <Handle
         style={{ width: width / 15, height: width / 15 }}
         position={Position.Left}
@@ -52,4 +57,4 @@ const Oval: ComponentType<NodeProps<Node>> = ({ id, data,dragging, selected }) =
   )
 }
 
-export default memo(Oval)
+export default memo(Hexagon)

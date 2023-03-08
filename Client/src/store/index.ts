@@ -22,8 +22,8 @@ const initialNodes: Node[] = [
   },
   {
     id: '3',
-    type: 'parallelogram',
-    data: { label: 'parallelogram' },
+    type: 'hexagon',
+    data: { label: 'hexagon' },
     position: { x: 400, y: 100 }
   },
   {

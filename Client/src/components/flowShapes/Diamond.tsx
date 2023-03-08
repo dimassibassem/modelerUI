@@ -1,19 +1,20 @@
-import { Handle, Node, NodeProps, NodeToolbar, Position } from 'reactflow'
+import { Handle, NodeProps, NodeToolbar, Position } from 'reactflow'
 import { NodeResizer } from '@reactflow/node-resizer'
 import '@reactflow/node-resizer/dist/style.css'
-import { ComponentType, memo, useRef, useState } from 'react'
-import { Icon } from '@iconify/react'
+import { FC, memo, useRef, useState } from 'react'
 import { useHover } from 'usehooks-ts'
+import CssFilterConverter from 'css-filter-converter'
 import useShowToolbar from '../../hooks/useShowToolbar'
+import diamond from '../../assets/Diamond.png'
 
-const Diamond: ComponentType<NodeProps<Node>> = ({ data, dragging, selected }) => {
+const Diamond: FC<NodeProps> = ({ data, dragging, selected }) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   const hoverRef = useRef(null)
   const isHover = useHover(hoverRef)
   const [showToolbar, setShowToolbar] = useState(false)
   useShowToolbar(isHover, dragging, setShowToolbar)
-
+  const filter = CssFilterConverter.hexToFilter('#ffa13e').color
   return (
     <div ref={hoverRef} className='min-h-[40px] w-full min-w-[50px] h-full'>
       <NodeToolbar isVisible={showToolbar} position={Position.Top}>
@@ -28,7 +29,13 @@ const Diamond: ComponentType<NodeProps<Node>> = ({ data, dragging, selected }) =
           setHeight(props.height)
         }
       } />
-      <Icon icon='bi:diamond-fill' color='#999' width={width} height={height}/>
+      <div>
+        <img src={diamond} style={{
+          width, height, filter: filter || 'none'
+        }} alt='diamond' />
+        <div className='absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>text</div>
+      </div>
+
       <Handle
         style={{ width: width / 15, height: width / 15 }}
         type='source' position={Position.Top}

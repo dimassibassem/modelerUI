@@ -1,12 +1,12 @@
 import { Handle, Node, NodeProps, NodeToolbar, Position } from 'reactflow'
 import { NodeResizer } from '@reactflow/node-resizer'
 import '@reactflow/node-resizer/dist/style.css'
-import { ComponentType, memo, useRef, useState } from 'react'
+import { FC, memo, useRef, useState } from 'react'
 import { Icon } from '@iconify/react'
 import { useHover } from 'usehooks-ts'
 import useShowToolbar from '../../hooks/useShowToolbar'
 
-const End: ComponentType<NodeProps<Node>> = ({ data, dragging, selected }) => {
+const End: FC<NodeProps> = ({ data, dragging, selected }) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   const hoverRef = useRef(null)

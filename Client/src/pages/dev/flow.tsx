@@ -61,8 +61,8 @@ const DnDFlow = () => {
 
   return (
     <div className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
-      <ReactFlowProvider>
         <Sidebar />
+      <ReactFlowProvider>
         <div className='grow h-full' ref={reactFlowWrapper}>
           <ReactFlow
             nodes={nodes}
@@ -86,8 +86,8 @@ const DnDFlow = () => {
                          reactFlowInstance={reactFlowInstance} setOpenLoadModal={setOpenLoadModal} />
           </ReactFlow>
         </div>
-        <LoadModal open={openLoadModal} setOpen={setOpenLoadModal} reactFlowInstance={reactFlowInstance} />
       </ReactFlowProvider>
+        <LoadModal open={openLoadModal} setOpen={setOpenLoadModal} reactFlowInstance={reactFlowInstance} />
       <RightSidebar />
     </div>
   )

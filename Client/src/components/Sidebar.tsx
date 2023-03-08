@@ -9,9 +9,8 @@ const shapes = [
   { name: 'end', icon: 'End' },
   { name: 'diamond', icon: 'Diamond' },
   { name: 'trapezoid', icon: 'Trapezoid' },
-  { name: 'parallelogram', icon: 'Parallelogram' },
+  { name: 'hexagon', icon: 'Hexagon' },
   { name: 'circle', icon: 'Circle' },
-  { name: 'oval', icon: 'Oval' },
   { name: 'square', icon: 'Square' }
 ]
 const onDragStart = (event: DragEvent<HTMLDivElement>, nodeType: string) => {
@@ -29,12 +28,10 @@ const iconSwitcher = (icon: string) => {
       return <Icon icon='bi:diamond' height={24} width={24} />
     case 'Trapezoid':
       return <Icon icon='icon-park-outline:trapezoid' height={24} width={24} />
-    case 'Parallelogram':
+    case 'Hexagon':
       return <Icon icon='icon-park-outline:parallelogram' height={24} width={24} />
     case 'Circle':
       return <Icon icon='material-symbols:circle-outline' height={24} width={24} />
-    case 'Oval':
-      return <Icon icon='fluent:oval-32-regular' height={24} width={24} />
     case 'Square':
       return <Icon icon='material-symbols:square-outline' height={24} width={24} />
     default:

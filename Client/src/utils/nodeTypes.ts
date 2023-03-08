@@ -1,8 +1,7 @@
 import Diamond from '../components/flowShapes/Diamond'
 import Trapezoid from '../components/flowShapes/Trapezoid'
-import Parallelogram from '../components/flowShapes/Parallelogram'
+import Hexagon from '../components/flowShapes/Hexagon'
 import Circle from '../components/flowShapes/Circle'
-import Oval from '../components/flowShapes/Oval'
 import Square from '../components/flowShapes/Square'
 import Start from '../components/flowShapes/Start'
 import End from '../components/flowShapes/End'
@@ -12,9 +11,8 @@ const nodeTypes = {
   end: End,
   diamond: Diamond,
   trapezoid: Trapezoid,
-  parallelogram: Parallelogram,
+  hexagon: Hexagon,
   circle: Circle,
-  oval: Oval,
   square: Square
 }
 

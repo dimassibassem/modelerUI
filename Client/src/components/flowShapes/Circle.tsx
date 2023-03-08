@@ -1,19 +1,21 @@
-import { Handle, Node, NodeProps, NodeToolbar, Position } from 'reactflow'
+import { Handle, NodeProps, NodeToolbar, Position } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
-import { ComponentType, memo, useRef, useState } from 'react'
+import { FC, memo, useRef, useState } from 'react'
 import { Icon } from '@iconify/react'
 import { useHover } from 'usehooks-ts'
 import useShowToolbar from '../../hooks/useShowToolbar'
+import circle from '../../assets/Circle.png'
+import CssFilterConverter from 'css-filter-converter'
 
-const Circle: ComponentType<NodeProps<Node>> = ({ data, selected, dragging }) => {
+const Circle: FC<NodeProps> = ({ data, selected, dragging }) => {
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   const hoverRef = useRef(null)
   const isHover = useHover(hoverRef)
   const [showToolbar, setShowToolbar] = useState(false)
   useShowToolbar(isHover, dragging, setShowToolbar)
-
+  const filter = CssFilterConverter.hexToFilter('#ec1111').color
   return (
     <div ref={hoverRef} className='min-h-[40px] w-full min-w-[50px] h-full'>
       <NodeToolbar isVisible={showToolbar} position={Position.Top}>
@@ -28,7 +30,10 @@ const Circle: ComponentType<NodeProps<Node>> = ({ data, selected, dragging }) =>
           setHeight(props.height)
         }
       } />
-      <Icon icon='material-symbols:circle' color='#999' width={width} height={height} />
+      <img src={circle} alt='circle' style={
+        {
+          width, height, filter: filter || 'none'
+        }} />
       <Handle
         style={{ width: width / 15, height: width / 15 }}
         type='source' position={Position.Top}

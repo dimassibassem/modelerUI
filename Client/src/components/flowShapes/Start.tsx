@@ -1,13 +1,13 @@
-import { Handle, Node, NodeProps, NodeToolbar, Position } from 'reactflow'
+import { Handle, NodeProps, NodeToolbar, Position } from 'reactflow'
 import { NodeResizer } from '@reactflow/node-resizer'
 import '@reactflow/node-resizer/dist/style.css'
-import { ComponentType, memo, useRef, useState } from 'react'
-import { Icon } from '@iconify/react'
+import { FC, memo, useRef, useState } from 'react'
 import { useHover } from 'usehooks-ts'
 import useShowToolbar from '../../hooks/useShowToolbar'
+import start from '../../assets/start.png'
 
-const Start: ComponentType<NodeProps<Node>> = ({ data, dragging, selected }) => {
-  const [width, setWidth] = useState(50)
+const Start: FC<NodeProps> = ({ data, dragging, selected }) => {
+  const [width, setWidth] = useState(100)
   const [height, setHeight] = useState(50)
   const hoverRef = useRef(null)
   const isHover = useHover(hoverRef)
@@ -22,13 +22,14 @@ const Start: ComponentType<NodeProps<Node>> = ({ data, dragging, selected }) => 
           >help ???</h1>
         </div>
       </NodeToolbar>
-      <NodeResizer color='#ff0071' isVisible={selected} minWidth={50} minHeight={50} onResize={
+      <NodeResizer color='#ff0071' isVisible={selected} minWidth={100} minHeight={50} onResize={
         (event, props) => {
           setWidth(props.width)
           setHeight(props.height)
         }
       } />
-      <Icon icon="mdi:asterisk-circle-outline" color='#999' width={width} height={height} />
+      <img src={start} alt='start' style={{ width, height }} />
+
       <Handle
         style={{ width: width / 15, height: width / 15 }}
         type='source' position={Position.Top}
