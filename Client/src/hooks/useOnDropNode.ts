@@ -1,5 +1,6 @@
 import { DragEvent, RefObject, useCallback } from 'react'
 import { XYPosition, Node, ReactFlowInstance } from 'reactflow'
+import connectableWith from "../utils/connectableWith"
 
 function useOnDropNode(reactFlowWrapper: RefObject<HTMLInputElement>,
                        reactFlowInstance: ReactFlowInstance | null,
@@ -31,9 +32,11 @@ function useOnDropNode(reactFlowWrapper: RefObject<HTMLInputElement>,
         position,
         data: {
           label: `${typeNId}`,
-          text: 'text'
+          text: 'text',
+          connectableWith: connectableWith(type)
         }
       }
+
 
       setNodes(nodes.concat(newNode))
 

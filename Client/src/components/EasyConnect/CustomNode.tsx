@@ -8,7 +8,7 @@ import useShowToolbar from '../../hooks/useShowToolbar'
 
 const connectionNodeIdSelector = (state: ReactFlowState) => state.connectionNodeId
 
-const CustomNode = ({ id, isConnectable, dragging, selected }: NodeProps) => {
+const CustomNode = ({ id, isConnectable, dragging }: NodeProps) => {
   const connectionNodeId = useStore(connectionNodeIdSelector)
   const isTarget = connectionNodeId && connectionNodeId !== id
   const hoverRef = useRef(null)

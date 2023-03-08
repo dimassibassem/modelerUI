@@ -11,25 +11,35 @@ import {
 } from 'reactflow'
 
 import { RFState } from '../types/RFState'
+import connectableWith from '../utils/connectableWith'
 
 const initialEdges: Edge[] = []
 const initialNodes: Node[] = [
   {
     id: '2',
     type: 'diamond',
-    data: { label: 'diamond' },
+    data: {
+      label: 'diamond',
+      connectableWith: connectableWith('diamond')
+    },
     position: { x: -200, y: 0 }
   },
   {
     id: '3',
     type: 'hexagon',
-    data: { label: 'hexagon' },
+    data: {
+      label: 'hexagon',
+      connectableWith: connectableWith('hexagon')
+    },
     position: { x: 400, y: 100 }
   },
   {
     id: '4',
     type: 'trapezoid',
-    data: { label: 'trapezoid' },
+    data: {
+      label: 'trapezoid',
+      connectableWith: connectableWith('trapezoid')
+    },
     position: { x: 250, y: 250 }
   }
 ]
@@ -57,8 +67,8 @@ const useStore = create<RFState>((set, get) => ({
   onConnect: (connection: Connection) => {
     const newEdge = {
       ...connection,
-      id: `${connection.source}-${connection.target}`,
-      type: 'floating',
+      id: `${connection.source}-from-${connection.sourceHandle}-->${connection.target}-to-${connection.targetHandle}`,
+      // type: 'floating',
       markerEnd: { type: MarkerType.Arrow }
     }
 

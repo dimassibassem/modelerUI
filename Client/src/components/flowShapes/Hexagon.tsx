@@ -1,13 +1,20 @@
 import React, { FC, memo, useRef, useState } from 'react'
-import { Handle, Position, NodeProps, NodeToolbar } from 'reactflow'
+import { Handle, Position, NodeProps, NodeToolbar, Connection } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
 import { useHover } from 'usehooks-ts'
+import { shallow } from 'zustand/shallow'
+import CssFilterConverter from 'css-filter-converter'
 import useShowToolbar from '../../hooks/useShowToolbar'
 import hexagon from '../../assets/Hexagon.png'
-import CssFilterConverter from 'css-filter-converter'
+import useStore from '../../store'
+import { RFState } from '../../types/RFState'
 
+const selector = (state: RFState) => ({
+  nodes: state.nodes,
+})
 const Hexagon: FC<NodeProps> = ({ data, dragging, selected }) => {
+  const { nodes } = useStore(selector, shallow)
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
   const hoverRef = useRef(null)
@@ -15,6 +22,13 @@ const Hexagon: FC<NodeProps> = ({ data, dragging, selected }) => {
   const [showToolbar, setShowToolbar] = useState(false)
   useShowToolbar(isHover, dragging, setShowToolbar)
   const filter = CssFilterConverter.hexToFilter('#da93ff').color
+
+  const isValidConnection = (connection : Connection) => {
+    const { target } = connection
+    const targetNode = nodes.find((node) => node.id === target)
+    return data.connectableWith.includes(targetNode?.type)
+  }
+
   return (
     <div ref={hoverRef} className='min-h-[40px] w-full min-w-[50px] h-full'>
       <NodeToolbar isVisible={showToolbar} position={Position.Top}>
@@ -37,21 +51,25 @@ const Hexagon: FC<NodeProps> = ({ data, dragging, selected }) => {
 
       <Handle style={{ width: width / 15, height: width / 15 }}
               type='source'
-              id='top' position={Position.Top} />
+              id='top' position={Position.Top}
+              isValidConnection={isValidConnection}/>
       <Handle style={{ width: width / 15, height: width / 15 }}
               type='source'
-              id='bottom' position={Position.Bottom} />
+              id='bottom' position={Position.Bottom}
+              isValidConnection={isValidConnection}/>
       <Handle
         style={{ width: width / 15, height: width / 15 }}
         position={Position.Left}
         type='source'
         id='left'
+        isValidConnection={isValidConnection}
       />
       <Handle
         style={{ width: width / 15, height: width / 15 }}
         position={Position.Right}
         type='source'
         id='right'
+        isValidConnection={isValidConnection}
       />
     </div>
   )
