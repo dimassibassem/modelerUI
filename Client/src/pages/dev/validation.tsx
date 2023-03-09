@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import ReactFlow, {
   ReactFlowProvider,
   Background,
@@ -14,7 +14,7 @@ import useOnDragNode from '../../hooks/useOnDragNode'
 import useHandleSelected from '../../hooks/useHandleSelected'
 import useStore from '../../store'
 import { RFState } from '../../types/RFState'
-import RightSidebar from '../../components/RightSidebar'
+import RightSidebar from '../../components/RightSidebar/RightSidebar'
 import LoadModal from '../../components/LoadModal'
 import CustomPanel from '../../components/CustomPanel'
 import nodeColor from '../../utils/nodeColor'

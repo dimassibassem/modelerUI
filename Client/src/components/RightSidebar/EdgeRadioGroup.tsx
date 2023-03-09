@@ -1,7 +1,12 @@
 import { RadioGroup } from '@headlessui/react'
-import classNames from '../utils/classNames'
+import { FC } from 'react'
+import classNames from '../../utils/classNames'
+
 const edgeProps = ['straight', 'smoothstep', 'step', 'default']
-const EdgeRadioGroup = ({ edgeType, setEdgeType }) => (
+const EdgeRadioGroup: FC<{ edgeType: string, setEdgeType: (edgeType: string) => void }> = ({
+                                                                                             edgeType,
+                                                                                             setEdgeType
+                                                                                           }) => (
   <RadioGroup value={edgeType} onChange={(type) => {
     setEdgeType(type)
   }} className='mt-2 py-3'>

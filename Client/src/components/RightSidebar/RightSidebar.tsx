@@ -1,6 +1,6 @@
 import { shallow } from 'zustand/shallow'
-import { RFState } from '../types/RFState'
-import useStore from '../store'
+import { RFState } from '../../types/RFState'
+import useStore from '../../store'
 import SelectedEdgeProps from './SelectedEdgeProps'
 import SelectedNodeProps from './SelectedNodeProps'
 

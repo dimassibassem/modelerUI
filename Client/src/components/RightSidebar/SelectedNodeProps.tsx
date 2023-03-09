@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import useStore from '../store'
-import { RFState } from '../types/RFState'
+import useStore from '../../store'
+import { RFState } from '../../types/RFState'
 
 const selector = (state: RFState) => ({
   selectedNode: state.selectedNode,
