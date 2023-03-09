@@ -1,20 +1,6 @@
 .validationflow {
 }
 
-
-/*.validationflow :global .react-flow__node-customnode {*/
-/*  background: #e6e6e9;*/
-/*  border: 1px solid #ddd;*/
-/*}*/
-
-/*.validationflow :global .react-flow__node-custominput .react-flow__handle {*/
-/*  background: #e6e6e9;*/
-/*}*/
-
-/*.validationflow :global .react-flow__node-custominput {*/
-/*  background: #fff;*/
-/*}*/
-
 .validationflow :global .connecting {
   background: #ff6060;
 }

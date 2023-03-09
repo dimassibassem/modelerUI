@@ -1,0 +1,32 @@
+import { RadioGroup } from '@headlessui/react'
+import { MarkerType } from 'reactflow'
+import classNames from '../utils/classNames'
+
+const EdgeMarkerTypeRadio = ({
+                          selectedEdgeMarkerType,
+                          setSelectedEdgeMarkerType,
+                               markerTypes
+                        }: { markerTypes: MarkerType[], selectedEdgeMarkerType: string, setSelectedEdgeMarkerType: (arg0: MarkerType) => void }) => (
+  <RadioGroup value={selectedEdgeMarkerType} onChange={setSelectedEdgeMarkerType} className='mt-2 py-3'>
+    <div className='grid grid-cols-2 gap-3 '>
+      {markerTypes.map((markerType) => (
+        <RadioGroup.Option
+          key={markerType}
+          value={markerType}
+          className={({ active, checked }) =>
+            classNames(
+              active ? 'ring-2 ring-indigo-600 ring-offset-2' : '',
+              checked
+                ? 'bg-indigo-600 text-white hover:bg-indigo-500'
+                : 'ring-1 ring-inset ring-gray-300 bg-white text-gray-900 hover:bg-gray-50',
+              'flex items-center justify-center rounded-md py-3 px-3 text-sm font-semibold uppercase sm:flex-1 cursor-pointer focus:outline-none'
+            )
+          }
+        >
+          <RadioGroup.Label as='span'>{markerType}</RadioGroup.Label>
+        </RadioGroup.Option>
+      ))}
+    </div>
+  </RadioGroup>
+)
+export default EdgeMarkerTypeRadio
