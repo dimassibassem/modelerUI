@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import ReactFlow, {
   ReactFlowProvider,
   Background,
@@ -85,10 +85,14 @@ const DnDFlow = () => {
             <CustomPanel setNodes={setNodes} setEdges={setEdges}
                          reactFlowInstance={reactFlowInstance} setOpenLoadModal={setOpenLoadModal} />
             <Panel className='bg-gray-600 p-1' position='bottom-left'>
-              <button className='bg-gray-200 m-1 p-1' type='button' onClick={() => onLayout('TB', nodes, edges, setNodes)}>
-                vertical layout</button>
-              <button className='bg-gray-200 m-1 p-1' type='button' onClick={() => onLayout('LR', nodes, edges, setNodes)}>
-                horizontal layout</button>
+              <button className='bg-gray-200 m-1 p-1' type='button'
+                      onClick={() => onLayout('TB', nodes, edges, setNodes)}>
+                vertical layout
+              </button>
+              <button className='bg-gray-200 m-1 p-1' type='button'
+                      onClick={() => onLayout('LR', nodes, edges, setNodes)}>
+                horizontal layout
+              </button>
             </Panel>
           </ReactFlow>
         </div>
