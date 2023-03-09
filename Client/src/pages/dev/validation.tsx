@@ -3,7 +3,8 @@ import ReactFlow, {
   ReactFlowProvider,
   Background,
   MiniMap,
-  Node, BackgroundVariant, ConnectionMode, ReactFlowInstance
+  Node, BackgroundVariant, ConnectionMode, ReactFlowInstance,
+  Panel
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 import { shallow } from 'zustand/shallow'
@@ -18,8 +19,8 @@ import LoadModal from '../../components/LoadModal'
 import CustomPanel from '../../components/CustomPanel'
 import nodeColor from '../../utils/nodeColor'
 import nodeTypes from '../../utils/nodeTypes'
-// import FloatingEdge from '../../components/edge/FloatingEdge'
 import styles from '../../validation.module.css'
+import onLayout from '../../utils/onLayout'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -37,9 +38,7 @@ let id = 0
 
 const setId = (type: string) => `${type}_${id++}`
 
-// const edgeTypes = {
-//   floating: FloatingEdge,
-// };
+
 const DnDFlow = () => {
   const reactFlowWrapper = useRef<HTMLInputElement>(null)
   const [openLoadModal, setOpenLoadModal] = useState(false)
@@ -76,7 +75,6 @@ const DnDFlow = () => {
             onInit={setReactFlowInstance}
             onDrop={onDrop}
             onDragOver={onDragOver}
-            // edgeTypes={edgeTypes}
             className={styles.validationflow}
             fitView
           >
@@ -86,6 +84,12 @@ const DnDFlow = () => {
                      nodeStrokeWidth={3} zoomable pannable />
             <CustomPanel setNodes={setNodes} setEdges={setEdges}
                          reactFlowInstance={reactFlowInstance} setOpenLoadModal={setOpenLoadModal} />
+            <Panel className='bg-gray-600 p-1' position='bottom-left'>
+              <button className='bg-gray-200 m-1 p-1' type='button' onClick={() => onLayout('TB', nodes, edges, setNodes)}>
+                vertical layout</button>
+              <button className='bg-gray-200 m-1 p-1' type='button' onClick={() => onLayout('LR', nodes, edges, setNodes)}>
+                horizontal layout</button>
+            </Panel>
           </ReactFlow>
         </div>
       </ReactFlowProvider>

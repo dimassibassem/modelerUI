@@ -42,11 +42,15 @@ const Trapezoid: FC<NodeProps> = ({ data, dragging, selected }) => {
           setHeight(props.height)
         }
       } />
-      <img src={trapezoid} alt='trapezoid'
-           style={{
-             width, height, filter: filter || 'none'
-           }}
-      />
+      <div>
+        <img src={trapezoid} alt='trapezoid'
+             style={{
+               width, height, filter: filter || 'none'
+             }}
+        />
+        <div className='absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>{data.text}</div>
+      </div>
+
       <Handle style={{ width: width / 15, height: width / 15 }}
               type='source'
               id='top' position={Position.Top}

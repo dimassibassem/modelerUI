@@ -41,9 +41,13 @@ const Start: FC<NodeProps> = ({ data, dragging, selected }) => {
           setHeight(props.height)
         }
       } />
+      <div>
       <img src={start} alt='start' style={{ width, height }} />
+      <div className='absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>{data.text}</div>
+    </div>
 
-      <Handle
+
+  <Handle
         style={{ width: width / 15, height: width / 15 }}
         type='source' position={Position.Top}
         id='top'

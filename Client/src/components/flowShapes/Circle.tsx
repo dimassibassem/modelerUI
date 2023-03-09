@@ -11,12 +11,12 @@ import useStore from '../../store'
 import { RFState } from '../../types/RFState'
 
 const selector = (state: RFState) => ({
-  nodes: state.nodes,
+  nodes: state.nodes
 })
 
 const Circle: FC<NodeProps> = ({ data, selected, dragging }) => {
   const {
-    nodes,
+    nodes
   } = useStore(selector, shallow)
   const [width, setWidth] = useState(50)
   const [height, setHeight] = useState(50)
@@ -26,7 +26,7 @@ const Circle: FC<NodeProps> = ({ data, selected, dragging }) => {
   useShowToolbar(isHover, dragging, setShowToolbar)
   const filter = CssFilterConverter.hexToFilter('#ec1111').color
 
-  const isValidConnection = (connection : Connection) => {
+  const isValidConnection = (connection: Connection) => {
     const { target } = connection
     const targetNode = nodes.find((node) => node.id === target)
     return data.connectableWith.includes(targetNode?.type)
@@ -45,10 +45,14 @@ const Circle: FC<NodeProps> = ({ data, selected, dragging }) => {
           setHeight(props.height)
         }
       } />
-      <img src={circle} alt='circle' style={
-        {
-          width, height, filter: filter || 'none'
-        }} />
+      <div>
+        <img src={circle} alt='circle' style={
+          {
+            width, height, filter: filter || 'none'
+          }} />
+        <div className='absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>{data.text}</div>
+      </div>
+
       <Handle
         style={{ width: width / 15, height: width / 15 }}
         type='source' position={Position.Top}

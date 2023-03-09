@@ -67,7 +67,7 @@ const useStore = create<RFState>((set, get) => ({
   onConnect: (connection: Connection) => {
     const newEdge = {
       ...connection,
-      id: `${connection.source}-from-${connection.sourceHandle}-->${connection.target}-to-${connection.targetHandle}`,
+      id: `${connection.source}-from-${connection.sourceHandle}-->${connection.target}-from-${connection.targetHandle}`,
       // type: 'floating',
       markerEnd: { type: MarkerType.Arrow }
     }

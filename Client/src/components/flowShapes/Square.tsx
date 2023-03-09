@@ -11,7 +11,7 @@ import useStore from '../../store'
 import { RFState } from '../../types/RFState'
 
 const selector = (state: RFState) => ({
-  nodes: state.nodes,
+  nodes: state.nodes
 })
 const Square: FC<NodeProps> = ({ data, dragging, selected }) => {
   const { nodes } = useStore(selector, shallow)
@@ -22,7 +22,7 @@ const Square: FC<NodeProps> = ({ data, dragging, selected }) => {
   const [showToolbar, setShowToolbar] = useState(false)
   useShowToolbar(isHover, dragging, setShowToolbar)
   const filter = CssFilterConverter.hexToFilter('#1f17ef').color
-  const isValidConnection = (connection : Connection) => {
+  const isValidConnection = (connection: Connection) => {
     const { target } = connection
     const targetNode = nodes.find((node) => node.id === target)
     return data.connectableWith.includes(targetNode?.type)
@@ -42,19 +42,23 @@ const Square: FC<NodeProps> = ({ data, dragging, selected }) => {
           setHeight(props.height)
         }
       } />
-      <img src={rect} alt='rect' style={
-        {
-          width, height, filter: filter || 'none'
-        }
-      } />
+      <div>
+        <img src={rect} alt='rect' style={
+          {
+            width, height, filter: filter || 'none'
+          }
+        } />
+        <div className='absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>{data.text}</div>
+      </div>
+
       <Handle style={{ width: width / 15, height: width / 15 }}
               type='source'
               id='top' position={Position.Top}
-              isValidConnection={isValidConnection}/>
+              isValidConnection={isValidConnection} />
       <Handle style={{ width: width / 15, height: width / 15 }}
               type='source'
               id='bottom' position={Position.Bottom}
-              isValidConnection={isValidConnection}/>
+              isValidConnection={isValidConnection} />
       <Handle
         style={{ width: width / 15, height: width / 15 }}
         position={Position.Left}

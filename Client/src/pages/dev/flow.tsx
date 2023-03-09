@@ -16,7 +16,7 @@ import { RFState } from '../../types/RFState'
 import RightSidebar from '../../components/RightSidebar'
 import LoadModal from '../../components/LoadModal'
 import CustomPanel from '../../components/CustomPanel'
-import nodeColor from '../../utils'
+import nodeColor from '../../utils/nodeColor'
 import nodeTypes from '../../utils/nodeTypes'
 import FloatingEdge from '../../components/edge/FloatingEdge'
 

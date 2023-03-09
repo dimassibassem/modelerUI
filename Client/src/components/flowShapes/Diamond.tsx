@@ -46,7 +46,7 @@ const Diamond: FC<NodeProps> = ({ data, dragging, selected }) => {
         <img src={diamond} style={{
           width, height, filter: filter || 'none'
         }} alt='diamond' />
-        <div className='absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>text</div>
+        <div className='absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>{data.text}</div>
       </div>
 
       <Handle
