@@ -32,7 +32,7 @@ const RightSidebar = () => {
   const [labelBg, setLabelBg] = useState('#ffffff')
   const [nodeText, setNodeText] = useState('')
 // todo : this need to be refactored and check memory leak
-  
+
   useEffect(() => {
     if (selectedEdge) {
       setEdges(edges.map(edge => edge.id === selectedEdge.id ? {
