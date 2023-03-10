@@ -24,7 +24,7 @@ const SelectedEdgeProps = () => {
   const [strokeWidth, setStrokeWidth] = useState(Number(selectedEdge?.style?.strokeWidth) || 1)
   const [label, setLabel] = useState(selectedEdge?.label || '')
   const [labelBg, setLabelBg] = useState(selectedEdge?.labelBgStyle?.fill || '#ffffff')
-
+  console.log(selectedEdge?.markerEnd)
   useEffect(() => {
     if (selectedEdge) {
       setEdges(edges.map((edge) => edge.id === selectedEdge.id ? {
