@@ -1,7 +1,6 @@
 import { Position, internalsSymbol, Node } from 'reactflow'
 
-const getHandleCoordsByPosition:
-  (node: any, handlePosition: any) => [number, number] = (node, handlePosition) => {
+const getHandleCoordsByPosition = (node: any, handlePosition: Position) => {
   // all handles are from type source, that's why we use handleBounds.source here
   const handle = node[internalsSymbol].handleBounds.source.find(
     (h: any) => h.position === handlePosition
@@ -35,7 +34,7 @@ const getHandleCoordsByPosition:
   return [x, y]
 }
 
-function getNodeCenter(node : any) {
+function getNodeCenter(node: any) {
   return {
     x: node.positionAbsolute.x + node.width / 2,
     y: node.positionAbsolute.y + node.height / 2
@@ -66,7 +65,7 @@ function getParams(nodeA: Node, nodeB: Node) {
 
 // returns the parameters (sx, sy, tx, ty, sourcePos, targetPos) you need to create an edge
 // eslint-disable-next-line import/prefer-default-export
-export function getEdgeParams(source : Node, target : Node) {
+export function getEdgeParams(source: any, target: any) {
   const [sx, sy, sourcePos] = getParams(source, target)
   const [tx, ty, targetPos] = getParams(target, source)
 
