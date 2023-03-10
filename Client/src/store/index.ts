@@ -51,6 +51,7 @@ const useStore = create<RFState>((set, get) => ({
   selectedNode: null,
   selectedEdge: null,
   setSelectedNode: (node: Node | null) => set({ selectedNode: node }),
+// @ts-ignore
   setSelectedEdge: (edge: Edge | null) => set({ selectedEdge: edge }),
   setNodes: (nodes: Node[]) => set({ nodes }),
   setEdges: (edges: Edge[]) => set({ edges }),

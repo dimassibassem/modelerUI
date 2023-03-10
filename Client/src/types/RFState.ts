@@ -1,7 +1,7 @@
 import { Edge, Node,EdgeMarker, OnConnect, OnEdgesChange, OnNodesChange } from 'reactflow'
 import { CSSProperties, ReactNode } from 'react'
 
-interface SelectedEdge {
+export interface SelectedEdge {
   id: string;
   type?: string;
   source: string;

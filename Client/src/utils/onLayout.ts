@@ -3,7 +3,7 @@ import dagre from 'dagre'
 
 const dagreGraph = new dagre.graphlib.Graph()
 dagreGraph.setDefaultEdgeLabel(() => ({}))
-const onLayout = (direction: string,nodes:Node[],edges:Edge[],setNodes: (arg0: Node<any, string | undefined>[]) => void) => {
+const onLayout = (direction: string, nodes: Node[], edges: Edge[], setNodes: (arg0: Node[]) => void) => {
   const isHorizontal = direction === 'LR'
   dagreGraph.setGraph({ rankdir: direction })
 
