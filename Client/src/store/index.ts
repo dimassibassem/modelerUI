@@ -7,7 +7,7 @@ import {
   NodeChange,
   addEdge,
   applyNodeChanges,
-  applyEdgeChanges, MarkerType
+  applyEdgeChanges, MarkerType, Position
 } from 'reactflow'
 
 import { RFState } from '../types/RFState'
@@ -20,6 +20,12 @@ const initialNodes: Node[] = [
     type: 'diamond',
     data: {
       label: 'diamond',
+      handles: [
+        { position: Position.Top, enable: true },
+        { position: Position.Bottom, enable: true },
+        { position: Position.Left, enable: true },
+        { position: Position.Right, enable: true }
+      ],
       connectableWith: connectableWith('diamond')
     },
     position: { x: -200, y: 0 }
@@ -29,6 +35,12 @@ const initialNodes: Node[] = [
     type: 'hexagon',
     data: {
       label: 'hexagon',
+      handles: [
+        { position: Position.Top, enable: true },
+        { position: Position.Bottom, enable: true },
+        { position: Position.Left, enable: true },
+        { position: Position.Right, enable: true }
+      ],
       connectableWith: connectableWith('hexagon')
     },
     position: { x: 400, y: 100 }
@@ -38,6 +50,12 @@ const initialNodes: Node[] = [
     type: 'trapezoid',
     data: {
       label: 'trapezoid',
+      handles: [
+        { position: Position.Top, enable: true },
+        { position: Position.Bottom, enable: true },
+        { position: Position.Left, enable: true },
+        { position: Position.Right, enable: true }
+      ],
       connectableWith: connectableWith('trapezoid')
     },
     position: { x: 250, y: 250 }

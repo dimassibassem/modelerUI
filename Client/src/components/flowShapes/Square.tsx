@@ -1,4 +1,4 @@
-import { Connection, Handle, NodeProps, NodeToolbar, Position } from 'reactflow'
+import { Connection, NodeProps, NodeToolbar, Position } from 'reactflow'
 import React, { FC, memo, useRef, useState } from 'react'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
@@ -9,6 +9,7 @@ import useShowToolbar from '../../hooks/useShowToolbar'
 import rect from '../../assets/Rect.png'
 import useStore from '../../store'
 import { RFState } from '../../types/RFState'
+import Handles from '../Handles'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes
@@ -51,26 +52,9 @@ const Square: FC<NodeProps> = ({ data, dragging, selected }) => {
         <div className='absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>{data.text}</div>
       </div>
 
-      <Handle style={{ width: width / 15, height: width / 15 }}
-              type='source'
-              id='top' position={Position.Top}
-              isValidConnection={isValidConnection} />
-      <Handle style={{ width: width / 15, height: width / 15 }}
-              type='source'
-              id='bottom' position={Position.Bottom}
-              isValidConnection={isValidConnection} />
-      <Handle
-        style={{ width: width / 15, height: width / 15 }}
-        position={Position.Left}
-        type='source'
-        id='left'
-        isValidConnection={isValidConnection}
-      />
-      <Handle
-        style={{ width: width / 15, height: width / 15 }}
-        position={Position.Right}
-        type='source'
-        id='right'
+      <Handles
+        width={width}
+        handles={data.handles}
         isValidConnection={isValidConnection}
       />
     </div>

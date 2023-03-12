@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import useStore from '../../store'
 import { RFState } from '../../types/RFState'
+import HandleCheckBoxes from './HandleCheckBoxes'
 
 const selector = (state: RFState) => ({
   selectedNode: state.selectedNode,
   setNodes: state.setNodes,
-  nodes: state.nodes
+  nodes: state.nodes,
+  edges: state.edges,
 })
 
 const SelectedNodeProps = () => {
-  const { selectedNode, setNodes, nodes } = useStore(selector, shallow)
-  const [nodeText, setNodeText] = useState(selectedNode?.data?.text || '')
-
+  const { selectedNode, setNodes, nodes,edges } = useStore(selector, shallow)
+  const [nodeText, setNodeText] = useState(selectedNode?.data.text || '')
   useEffect(() => {
     if (selectedNode && !selectedNode.dragging) {
       setNodes(nodes.map(node => node.id === selectedNode.id ? {
@@ -27,9 +28,10 @@ const SelectedNodeProps = () => {
 
   useEffect(() => {
     if (selectedNode && !selectedNode.dragging) {
-      setNodeText(selectedNode?.data?.text || '')
+      setNodeText(selectedNode?.data.text || '')
     }
   }, [nodes, selectedNode])
+
 
   return (
     <div>
@@ -45,7 +47,10 @@ const SelectedNodeProps = () => {
           onChange={(e) => setNodeText(e.target.value)}
         />
       </div>
+
+     <HandleCheckBoxes selectedNode={selectedNode} setNodes={setNodes} nodes={nodes} edges={edges} />
     </div>
+
   )
 }
 
