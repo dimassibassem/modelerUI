@@ -15,7 +15,7 @@ const SelectedNodeProps = () => {
   const { selectedNode, setNodes, nodes,edges } = useStore(selector, shallow)
   const [nodeText, setNodeText] = useState(selectedNode?.data.text || '')
   useEffect(() => {
-    if (selectedNode && !selectedNode.dragging) {
+    if (selectedNode && !selectedNode.dragging && !selectedNode.resizing) {
       setNodes(nodes.map(node => node.id === selectedNode.id ? {
         ...node,
         data: {
@@ -27,7 +27,7 @@ const SelectedNodeProps = () => {
   }, [nodeText])
 
   useEffect(() => {
-    if (selectedNode && !selectedNode.dragging) {
+    if (selectedNode && !selectedNode.dragging && !selectedNode.resizing) {
       setNodeText(selectedNode?.data.text || '')
     }
   }, [nodes, selectedNode])

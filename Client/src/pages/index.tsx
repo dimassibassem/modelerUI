@@ -64,7 +64,6 @@ const DnDFlow = () => {
     document.querySelector('#root > div > div.grow.h-full > div > div.react-flow__panel.react-flow__attribution.bottom.right')?.remove()
   }, [])
 
-
   return (
     <div className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
       <Sidebar />
