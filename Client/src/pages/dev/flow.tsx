@@ -39,7 +39,7 @@ const setId = (type: string) => `${type}_${id++}`
 const edgeTypes = {
   floating: FloatingEdge,
 };
-const DnDFlow = () => {
+const Flow = () => {
   const reactFlowWrapper = useRef<HTMLInputElement>(null)
   const [openLoadModal, setOpenLoadModal] = useState(false)
   const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null)
@@ -94,4 +94,4 @@ const DnDFlow = () => {
 }
 
 
-export default DnDFlow
+export default Flow
