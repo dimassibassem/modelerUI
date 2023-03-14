@@ -1,32 +1,25 @@
-import { Connection, NodeProps, NodeToolbar, Position } from 'reactflow'
+import { NodeProps, NodeToolbar, Position } from 'reactflow'
 import { NodeResizer } from '@reactflow/node-resizer'
 import '@reactflow/node-resizer/dist/style.css'
-import { FC, memo, useRef, useState } from 'react'
-import { useHover } from 'usehooks-ts'
-import { shallow } from 'zustand/shallow'
+import { FC, memo } from 'react'
 import useShowToolbar from '../../hooks/useShowToolbar'
 import start from '../../assets/start.png'
-import useStore from '../../store'
-import { RFState } from '../../types/RFState'
 import Handles from '../Handles'
+import useCustomNodeProps from '../../hooks/useCustomNodeProps'
 
-const selector = (state: RFState) => ({
-  nodes: state.nodes,
-})
-const Start: FC<NodeProps> = ({ data, dragging, selected }) => {
-  const { nodes } = useStore(selector, shallow)
-  const [width, setWidth] = useState(100)
-  const [height, setHeight] = useState(50)
-  const hoverRef = useRef(null)
-  const isHover = useHover(hoverRef)
-  const [showToolbar, setShowToolbar] = useState(false)
+const Start: FC<NodeProps> = ({ type, data, dragging, selected }) => {
+  const {
+    width,
+    height,
+    setHeight,
+    setWidth,
+    hoverRef,
+    isHover,
+    showToolbar,
+    setShowToolbar,
+    isValidConnection
+  } = useCustomNodeProps(data, type, 100, 50)
   useShowToolbar(isHover, dragging, setShowToolbar)
-
-  const isValidConnection = (connection : Connection) => {
-    const { target } = connection
-    const targetNode = nodes.find((node) => node.id === target)
-    return data.connectableWith.includes(targetNode?.type)
-  }
 
   return (
     <div ref={hoverRef} className='min-h-[40px] w-full min-w-[50px] h-full'>
@@ -43,9 +36,9 @@ const Start: FC<NodeProps> = ({ data, dragging, selected }) => {
         }
       } />
       <div>
-      <img src={start} alt='start' style={{ width, height }} />
-      <div className='absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>{data.text}</div>
-    </div>
+        <img src={start} alt='start' style={{ width, height }} />
+        <div className='absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>{data.text}</div>
+      </div>
 
       <Handles
         width={width}
