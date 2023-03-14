@@ -1,34 +1,27 @@
-import React, { FC, memo, useRef, useState } from 'react'
-import { Position, NodeProps, NodeToolbar, Connection } from 'reactflow'
+import React, { FC, memo } from 'react'
+import { Position, NodeProps, NodeToolbar } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
-import { useHover } from 'usehooks-ts'
-import { shallow } from 'zustand/shallow'
-import CssFilterConverter from 'css-filter-converter'
 import useShowToolbar from '../../hooks/useShowToolbar'
 import hexagon from '../../assets/Hexagon.png'
-import useStore from '../../store'
-import { RFState } from '../../types/RFState'
 import Handles from '../Handles'
+import useCustomNodeProps from '../../hooks/useCustomNodeProps'
 
-const selector = (state: RFState) => ({
-  nodes: state.nodes
-})
-const Hexagon: FC<NodeProps> = ({ data, dragging, selected }) => {
-  const { nodes } = useStore(selector, shallow)
-  const [width, setWidth] = useState(50)
-  const [height, setHeight] = useState(50)
-  const hoverRef = useRef(null)
-  const isHover = useHover(hoverRef)
-  const [showToolbar, setShowToolbar] = useState(false)
+const Hexagon: FC<NodeProps> = ({ type, data, dragging, selected }) => {
+  const {
+    width,
+    height,
+    setHeight,
+    setWidth,
+    hoverRef,
+    isHover,
+    showToolbar,
+    setShowToolbar,
+    filter,
+    isValidConnection
+  } = useCustomNodeProps(data, type, 50, 50)
+
   useShowToolbar(isHover, dragging, setShowToolbar)
-  const filter = CssFilterConverter.hexToFilter('#da93ff').color
-
-  const isValidConnection = (connection: Connection) => {
-    const { target } = connection
-    const targetNode = nodes.find((node) => node.id === target)
-    return data.connectableWith.includes(targetNode?.type)
-  }
 
   return (
     <div ref={hoverRef} className='min-h-[40px] w-full min-w-[50px] h-full'>

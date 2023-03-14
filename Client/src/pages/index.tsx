@@ -85,7 +85,7 @@ const DnDFlow = () => {
           >
             <Background color='#4f46e5' variant={BackgroundVariant.Dots} gap={10} size={1} />
             <MiniMap style={{ background: '#ccc' }}
-                     nodeColor={(node: Node) => nodeColor(node)}
+                     nodeColor={(node: Node) => nodeColor(node.type)}
                      nodeStrokeWidth={3} zoomable pannable />
             <CustomPanel setNodes={setNodes} setEdges={setEdges}
                          reactFlowInstance={reactFlowInstance} setOpenLoadModal={setOpenLoadModal} />

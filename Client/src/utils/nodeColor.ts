@@ -1,7 +1,6 @@
-import { Node } from 'reactflow'
 
-const nodeColor = (node: Node) => {
-  switch (node.type) {
+const nodeColor = (type: string | undefined) => {
+  switch (type) {
     case 'start':
       return '#cdff54'
     case 'end':
