@@ -3,16 +3,17 @@ import { shallow } from 'zustand/shallow'
 import useStore from '../../store'
 import { RFState } from '../../types/RFState'
 import HandleCheckBoxes from './HandleCheckBoxes'
+import Attributes from './Attributes'
 
 const selector = (state: RFState) => ({
   selectedNode: state.selectedNode,
   setNodes: state.setNodes,
   nodes: state.nodes,
-  edges: state.edges,
+  edges: state.edges
 })
 
 const SelectedNodeProps = () => {
-  const { selectedNode, setNodes, nodes,edges } = useStore(selector, shallow)
+  const { selectedNode, setNodes, nodes, edges } = useStore(selector, shallow)
   const [nodeText, setNodeText] = useState(selectedNode?.data.text || '')
   useEffect(() => {
     if (selectedNode && !selectedNode.dragging && !selectedNode.resizing) {
@@ -32,7 +33,7 @@ const SelectedNodeProps = () => {
     }
   }, [nodes, selectedNode])
 
-
+  const attributesKeys = Object.keys(selectedNode?.data.attributes)
   return (
     <div>
       <label htmlFor='node-text' className='ml-3 text-sm font-medium text-gray-900'>Label</label>
@@ -48,7 +49,12 @@ const SelectedNodeProps = () => {
         />
       </div>
 
-     <HandleCheckBoxes selectedNode={selectedNode} setNodes={setNodes} nodes={nodes} edges={edges} />
+      <HandleCheckBoxes selectedNode={selectedNode} setNodes={setNodes} nodes={nodes} edges={edges} />
+
+      <Attributes attributes={attributesKeys}
+                  setNodes={setNodes}
+                  nodes={nodes}
+                  selectedNode={selectedNode} />
     </div>
 
   )

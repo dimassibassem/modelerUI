@@ -1,5 +1,6 @@
 import { Edge, Node,EdgeMarker, OnConnect, OnEdgesChange, OnNodesChange } from 'reactflow'
 import { CSSProperties, ReactNode } from 'react'
+import Process from './Process'
 
 export interface SelectedEdge {
   id: string;
@@ -32,6 +33,8 @@ export interface SelectedEdge {
 }
 
 export type RFState = {
+  process: Process;
+  setProcess: (process: Process) => void;
   nodes: Node[];
   setNodes: (nodes: Node[]) => void;
   edges: Edge[];

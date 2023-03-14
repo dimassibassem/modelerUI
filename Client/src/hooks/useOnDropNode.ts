@@ -1,6 +1,7 @@
 import { DragEvent, RefObject, useCallback } from 'react'
 import { XYPosition, Node, ReactFlowInstance, Position } from 'reactflow'
 import connectableWith from '../utils/connectableWith'
+import attributeSwitcher from '../utils/attributeSwitcher'
 
 function useOnDropNode(reactFlowWrapper: RefObject<HTMLInputElement>,
                        reactFlowInstance: ReactFlowInstance | null,
@@ -39,6 +40,7 @@ function useOnDropNode(reactFlowWrapper: RefObject<HTMLInputElement>,
             { position: Position.Left, enable: true },
             { position: Position.Right, enable: true }
           ],
+          attributes: attributeSwitcher(type),
           connectableWith: connectableWith(type)
         }
       }

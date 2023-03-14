@@ -12,6 +12,8 @@ import {
 
 import { RFState } from '../types/RFState'
 import connectableWith from '../utils/connectableWith'
+import Process from '../types/Process'
+import attributeSwitcher from '../utils/attributeSwitcher'
 
 const initialEdges: Edge[] = []
 const initialNodes: Node[] = [
@@ -26,6 +28,7 @@ const initialNodes: Node[] = [
         { position: Position.Left, enable: true },
         { position: Position.Right, enable: true }
       ],
+      attributes: attributeSwitcher('diamond'),
       connectableWith: connectableWith('diamond')
     },
     position: { x: -200, y: 0 }
@@ -41,6 +44,7 @@ const initialNodes: Node[] = [
         { position: Position.Left, enable: true },
         { position: Position.Right, enable: true }
       ],
+      attributes: attributeSwitcher('hexagon'),
       connectableWith: connectableWith('hexagon')
     },
     position: { x: 400, y: 100 }
@@ -56,14 +60,28 @@ const initialNodes: Node[] = [
         { position: Position.Left, enable: true },
         { position: Position.Right, enable: true }
       ],
+      attributes: attributeSwitcher('trapezoid'),
       connectableWith: connectableWith('trapezoid')
     },
     position: { x: 250, y: 250 }
   }
 ]
 
+const initialProcess: Process = {
+  steps: [],
+  name: '',
+  description: '',
+  hook: {
+    name: '',
+    channel: 'MOB',
+    isAsync: false
+  }
+}
+
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
 const useStore = create<RFState>((set, get) => ({
+  process: initialProcess,
+  setProcess: (process: Process) => set({ process }),
   nodes: initialNodes,
   edges: initialEdges,
   selectedNode: null,

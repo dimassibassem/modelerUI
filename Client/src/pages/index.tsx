@@ -21,6 +21,7 @@ import nodeColor from '../utils/nodeColor'
 import nodeTypes from '../utils/nodeTypes'
 import styles from '../validation.module.css'
 import onLayout from '../utils/onLayout'
+import ProcessDefinition from '../components/ProcessDefinition'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -31,7 +32,9 @@ const selector = (state: RFState) => ({
   setNodes: state.setNodes,
   setEdges: state.setEdges,
   setSelectedNode: state.setSelectedNode,
-  setSelectedEdge: state.setSelectedEdge
+  setSelectedEdge: state.setSelectedEdge,
+  process: state.process,
+  setProcess: state.setProcess
 })
 
 let id = 0
@@ -43,6 +46,7 @@ const DnDFlow = () => {
   const reactFlowWrapper = useRef<HTMLInputElement>(null)
   const [openLoadModal, setOpenLoadModal] = useState(false)
   const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null)
+  const [processDefOpenModal, setProcessDefOpenModal] = useState(true)
   const {
     nodes,
     edges,
@@ -52,7 +56,9 @@ const DnDFlow = () => {
     onEdgesChange,
     onConnect,
     setSelectedNode,
-    setSelectedEdge
+    setSelectedEdge,
+    process,
+    setProcess
   } = useStore(selector, shallow)
 
   const onDragOver = useOnDragNode()
@@ -64,8 +70,44 @@ const DnDFlow = () => {
     document.querySelector('#root > div > div.grow.h-full > div > div.react-flow__panel.react-flow__attribution.bottom.right')?.remove()
   }, [])
 
+  const LogProcessJSON = (e: Event) => {
+    e.preventDefault()
+    const startNode = nodes.find(node => node.type === 'start')
+    const endNode = nodes.find(node => node.type === 'end')
+    if (!startNode) {
+      alert('Process must have a start node')
+      return
+    }
+    if (!endNode) {
+      alert('Process must have an end node')
+      return
+    }
+
+    const steps = [{ [`${startNode.type}`]: startNode.id }]
+    let currentNode: Node | undefined = startNode
+    while (currentNode?.id !== endNode.id) {
+      const nextNode = edges.find(edge => edge.source === currentNode?.id)
+      const isNextNodeAnEndNode = nextNode?.target === endNode.id
+      if (isNextNodeAnEndNode) {
+        steps.push({ [`${endNode.type}`]: endNode.id })
+        break
+      }
+      if (!nextNode) {
+        alert('Process must have a valid path from start to end node')
+        return
+      }
+      const nextNodeId = nextNode.target
+      const foundedNode = nodes.find(node => node.id === nextNodeId)
+      steps.push({ [`${foundedNode?.type}`]: foundedNode?.data.attributes })
+      currentNode = nodes.find(node => node.id === nextNode.target)
+    }
+    setProcess({ ...process, steps })
+  }
+
+  console.log(process)
   return (
     <div className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
+      <ProcessDefinition open={processDefOpenModal} setOpen={setProcessDefOpenModal} />
       <Sidebar />
       <ReactFlowProvider>
         <div className='grow h-full' ref={reactFlowWrapper}>
@@ -97,6 +139,13 @@ const DnDFlow = () => {
               <button className='bg-gray-200 m-1 p-1' type='button'
                       onClick={() => onLayout('LR', nodes, edges, setNodes)}>
                 horizontal layout
+              </button>
+            </Panel>
+
+            <Panel className='bg-gray-600 p-1' position='top-left'>
+              <button className='bg-gray-200 m-1 p-1' type='button'
+                      onClick={LogProcessJSON}>
+                Log Process JSON
               </button>
             </Panel>
           </ReactFlow>

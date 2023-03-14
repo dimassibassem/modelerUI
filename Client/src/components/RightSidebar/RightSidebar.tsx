@@ -6,7 +6,7 @@ import SelectedNodeProps from './SelectedNodeProps'
 
 const selector = (state: RFState) => ({
   selectedNode: state.selectedNode,
-  selectedEdge: state.selectedEdge,
+  selectedEdge: state.selectedEdge
 })
 const RightSidebar = () => {
   const { selectedNode, selectedEdge } = useStore(selector, shallow)
@@ -14,10 +14,8 @@ const RightSidebar = () => {
   return (
     <aside
       className='hidden w-96 bg-white p-8 border-l border-gray-200 overflow-y-auto lg:block overscroll-auto hover:overscroll-contain h-[90vh] scrollbar scrollbar-transparent scrollbar-track-transparent sticky'>
-      {selectedEdge &&
-        <SelectedEdgeProps  />}
+      {selectedEdge && <SelectedEdgeProps />}
       {selectedNode && <SelectedNodeProps />}
-
     </aside>
   )
 
