@@ -23,6 +23,7 @@ import styles from '../validation.module.css'
 import onLayout from '../utils/onLayout'
 import ProcessDefinition from '../components/ProcessDefinition'
 import { createGraph, findAllPaths } from '../utils/graphPath'
+import Process from '../types/Process'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -98,7 +99,7 @@ const DnDFlow = () => {
       }
     }))
     console.log({ ...process, steps })
-    setProcess({ ...process, steps })
+    setProcess({ ...process, steps } as Process)
   }
 
 
