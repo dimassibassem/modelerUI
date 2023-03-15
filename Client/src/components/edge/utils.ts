@@ -1,10 +1,13 @@
 import { Position, internalsSymbol, Node } from 'reactflow'
 
-const getHandleCoordsByPosition = (node: any, handlePosition: Position) => {
+const getHandleCoordsByPosition = (node: Node, handlePosition: Position) => {
   // all handles are from type source, that's why we use handleBounds.source here
-  const handle = node[internalsSymbol].handleBounds.source.find(
+  const handle = node[internalsSymbol]?.handleBounds?.source?.find(
     (h: any) => h.position === handlePosition
   )
+  if (!handle) {
+    return [0, 0]
+  }
   let offsetX = handle.width / 2
   let offsetY = handle.height / 2
 
@@ -27,6 +30,11 @@ const getHandleCoordsByPosition = (node: any, handlePosition: Position) => {
     default:
       break
   }
+
+  if (!node || !node.positionAbsolute) {
+    return [0, 0]
+  }
+
 
   const x = node.positionAbsolute.x + handle.x + offsetX
   const y = node.positionAbsolute.y + handle.y + offsetY
