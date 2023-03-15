@@ -22,6 +22,7 @@ import nodeTypes from '../utils/nodeTypes'
 import styles from '../validation.module.css'
 import onLayout from '../utils/onLayout'
 import ProcessDefinition from '../components/ProcessDefinition'
+import { createGraph, findAllPaths } from '../utils/graphPath'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -70,41 +71,37 @@ const DnDFlow = () => {
     document.querySelector('#root > div > div.grow.h-full > div > div.react-flow__panel.react-flow__attribution.bottom.right')?.remove()
   }, [])
 
-  const LogProcessJSON = (e: Event) => {
-    e.preventDefault()
+
+  const updateProcess = () => {
     const startNode = nodes.find(node => node.type === 'start')
     const endNode = nodes.find(node => node.type === 'end')
     if (!startNode) {
-      alert('Process must have a start node')
+      alert('Please add a start node')
       return
     }
     if (!endNode) {
-      alert('Process must have an end node')
+      alert('Please add an end node')
       return
     }
-
-    const steps = [{ [`${startNode.type}`]: startNode.id }]
-    let currentNode: Node | undefined = startNode
-    while (currentNode?.id !== endNode.id) {
-      const nextNode = edges.find(edge => edge.source === currentNode?.id)
-      const isNextNodeAnEndNode = nextNode?.target === endNode.id
-      if (isNextNodeAnEndNode) {
-        steps.push({ [`${endNode.type}`]: endNode.id })
-        break
-      }
-      if (!nextNode) {
-        alert('Process must have a valid path from start to end node')
-        return
-      }
-      const nextNodeId = nextNode.target
-      const foundedNode = nodes.find(node => node.id === nextNodeId)
-      steps.push({ [`${foundedNode?.type}`]: foundedNode?.data.attributes })
-      currentNode = nodes.find(node => node.id === nextNode.target)
+    const graph = createGraph(nodes, edges)
+    if (!startNode || !endNode) return
+    const paths = findAllPaths(graph, startNode.id, endNode.id)
+    if (paths.length === 0) {
+      alert('No valid steps found')
+      return
     }
+    const steps = paths.map(path => path.map(nodeId => {
+      const node = nodes.find(nd => nd.id === nodeId)
+      return node?.type === 'start' || node?.type === 'end' ? { type: node?.type } : {
+        type: node?.type,
+        attributes: node?.data.attributes
+      }
+    }))
+    console.log({ ...process, steps })
     setProcess({ ...process, steps })
   }
 
-  console.log(process)
+
   return (
     <div className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
       <ProcessDefinition open={processDefOpenModal} setOpen={setProcessDefOpenModal} />
@@ -144,7 +141,9 @@ const DnDFlow = () => {
 
             <Panel className='bg-gray-600 p-1' position='top-left'>
               <button className='bg-gray-200 m-1 p-1' type='button'
-                      onClick={LogProcessJSON}>
+                      onClick={() => {
+                        updateProcess()
+                      }}>
                 Log Process JSON
               </button>
             </Panel>
