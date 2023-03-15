@@ -13,7 +13,7 @@ export interface SelectedEdge {
   animated?: boolean;
   hidden?: boolean;
   deletable?: boolean;
-  data?: any;
+  data?: never;
   className?: string;
   sourceNode?: Node;
   targetNode?: Node;

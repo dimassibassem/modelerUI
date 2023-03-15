@@ -1,5 +1,5 @@
 type Process = {
-  steps: any[],
+  steps: never[],
   name: string,
   description: string,
   hook: {
