@@ -2,7 +2,6 @@
   "parser": "@typescript-eslint/parser",
   // Specifies the ESLint parser
   "extends": [
-    "plugin:@typescript-eslint/recommended",
     // Uses the recommended rules from the @typescript-eslint/eslint-plugin
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -24,14 +23,16 @@
   ],
   "rules": {
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
-    "@typescript-eslint/no-explicit-any": "off",
     "react/no-unescaped-entities": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "no-param-reassign": "off",
+    "no-restricted-syntax": "off",
     "react/jsx-filename-extension": [
       1,
       {
