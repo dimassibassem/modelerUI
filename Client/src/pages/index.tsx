@@ -4,7 +4,7 @@ import ReactFlow, {
   Background,
   MiniMap,
   Node, BackgroundVariant, ConnectionMode, ReactFlowInstance,
-  Panel
+  Panel, Connection
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 import { shallow } from 'zustand/shallow'
@@ -104,6 +104,12 @@ const DnDFlow = () => {
     setProcess({ ...process, steps } as Process)
   }
 
+  const isValidConnection = (connection: Connection) => {
+    const { target, source } = connection
+    const targetNode = nodes.find((node) => node.id === target)
+    const sourceNode = nodes.find((node) => node.id === source)
+    return sourceNode?.data.connectableWith.includes(targetNode?.type)
+  }
 
   return (
     <div className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
@@ -124,6 +130,7 @@ const DnDFlow = () => {
             onDrop={onDrop}
             onDragOver={onDragOver}
             className={styles.validationflow}
+            isValidConnection={isValidConnection}
             fitView
           >
             <Background color='#4f46e5' variant={BackgroundVariant.Dots} gap={10} size={1} />

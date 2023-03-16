@@ -18,8 +18,7 @@ const Circle: FC<NodeProps> = ({ type, data, selected, dragging }) => {
     showToolbar,
     setShowToolbar,
     filter,
-    isValidConnection
-  } = useCustomNodeProps(data, type, 50, 50)
+  } = useCustomNodeProps(type, 50, 50)
 
   useShowToolbar(isHover, dragging, setShowToolbar)
 
@@ -48,7 +47,6 @@ const Circle: FC<NodeProps> = ({ type, data, selected, dragging }) => {
       <Handles
         width={width}
         handles={data.handles}
-        isValidConnection={isValidConnection}
       />
 
     </div>

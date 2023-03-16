@@ -102,7 +102,6 @@ const useStore = create<RFState>((set, get) => ({
       edges: applyEdgeChanges(changes, get().edges)
     })
   },
-
   onEdgeUpdate: (oldEdge: Edge, newConnection: Connection) => {
     set({
       edges: updateEdge(oldEdge, newConnection, get().edges)

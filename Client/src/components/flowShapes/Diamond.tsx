@@ -18,8 +18,7 @@ const Diamond: FC<NodeProps> = ({ type, data, dragging, selected }) => {
     showToolbar,
     setShowToolbar,
     filter,
-    isValidConnection
-  } = useCustomNodeProps(data, type, 50, 50)
+  } = useCustomNodeProps(type, 50, 50)
 
   useShowToolbar(isHover, dragging, setShowToolbar)
 
@@ -47,7 +46,6 @@ const Diamond: FC<NodeProps> = ({ type, data, dragging, selected }) => {
       <Handles
         width={width}
         handles={data.handles}
-        isValidConnection={isValidConnection}
       />
     </div>
   )

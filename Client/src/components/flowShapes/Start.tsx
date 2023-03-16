@@ -17,8 +17,7 @@ const Start: FC<NodeProps> = ({ type, data, dragging, selected }) => {
     isHover,
     showToolbar,
     setShowToolbar,
-    isValidConnection
-  } = useCustomNodeProps(data, type, 100, 50)
+  } = useCustomNodeProps(type, 100, 50)
   useShowToolbar(isHover, dragging, setShowToolbar)
 
   return (
@@ -43,7 +42,6 @@ const Start: FC<NodeProps> = ({ type, data, dragging, selected }) => {
       <Handles
         width={width}
         handles={data.handles}
-        isValidConnection={isValidConnection}
       />
 
     </div>

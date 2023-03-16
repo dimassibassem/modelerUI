@@ -17,9 +17,8 @@ const Hexagon: FC<NodeProps> = ({ type, data, dragging, selected }) => {
     isHover,
     showToolbar,
     setShowToolbar,
-    filter,
-    isValidConnection
-  } = useCustomNodeProps(data, type, 50, 50)
+    filter
+  } = useCustomNodeProps(type, 50, 50)
 
   useShowToolbar(isHover, dragging, setShowToolbar)
 
@@ -49,7 +48,6 @@ const Hexagon: FC<NodeProps> = ({ type, data, dragging, selected }) => {
       <Handles
         width={width}
         handles={data.handles}
-        isValidConnection={isValidConnection}
       />
     </div>
   )
