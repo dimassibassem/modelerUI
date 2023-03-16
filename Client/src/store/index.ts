@@ -7,7 +7,7 @@ import {
   NodeChange,
   addEdge,
   applyNodeChanges,
-  applyEdgeChanges, MarkerType, Position
+  applyEdgeChanges, MarkerType, Position, updateEdge
 } from 'reactflow'
 
 import { RFState } from '../types/RFState'
@@ -86,6 +86,7 @@ const useStore = create<RFState>((set, get) => ({
   edges: initialEdges,
   selectedNode: null,
   selectedEdge: null,
+
   setSelectedNode: (node: Node | null) => set({ selectedNode: node }),
 // @ts-ignore
   setSelectedEdge: (edge: Edge | null) => set({ selectedEdge: edge }),
@@ -101,6 +102,13 @@ const useStore = create<RFState>((set, get) => ({
       edges: applyEdgeChanges(changes, get().edges)
     })
   },
+
+  onEdgeUpdate: (oldEdge: Edge, newConnection: Connection) => {
+    set({
+      edges: updateEdge(oldEdge, newConnection, get().edges)
+    })
+  },
+
   onConnect: (connection: Connection) => {
     const newEdge = {
       ...connection,

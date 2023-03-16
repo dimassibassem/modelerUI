@@ -1,4 +1,4 @@
-import { Edge, Node,EdgeMarker, OnConnect, OnEdgesChange, OnNodesChange } from 'reactflow'
+import { Edge, Node, EdgeMarker, OnConnect, OnEdgesChange, OnNodesChange, Connection } from 'reactflow'
 import { CSSProperties, ReactNode } from 'react'
 import Process from './Process'
 
@@ -45,5 +45,6 @@ export type RFState = {
   setSelectedEdge: (edge: Edge | null) => void;
   onNodesChange: OnNodesChange;
   onEdgesChange: OnEdgesChange;
+  onEdgeUpdate: (oldEdge: Edge, newConnection: Connection) => void;
   onConnect: OnConnect;
 };

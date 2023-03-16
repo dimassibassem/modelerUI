@@ -36,7 +36,8 @@ const selector = (state: RFState) => ({
   setSelectedNode: state.setSelectedNode,
   setSelectedEdge: state.setSelectedEdge,
   process: state.process,
-  setProcess: state.setProcess
+  setProcess: state.setProcess,
+  onEdgeUpdate: state.onEdgeUpdate,
 })
 
 let id = 0
@@ -59,8 +60,9 @@ const DnDFlow = () => {
     onConnect,
     setSelectedNode,
     setSelectedEdge,
+    onEdgeUpdate,
     process,
-    setProcess
+    setProcess,
   } = useStore(selector, shallow)
 
   const onDragOver = useOnDragNode()
@@ -118,6 +120,7 @@ const DnDFlow = () => {
             onConnect={onConnect}
             connectionMode={ConnectionMode.Loose}
             onInit={setReactFlowInstance}
+            onEdgeUpdate={onEdgeUpdate}
             onDrop={onDrop}
             onDragOver={onDragOver}
             className={styles.validationflow}
