@@ -42,12 +42,12 @@ function useOnDropNode(reactFlowWrapper: RefObject<HTMLInputElement>,
           ],
           attributes: attributeSwitcher(type),
           connectableWith: connectableWith(type)
-        }
+        },
+        width: 50,
+        height: 50
       }
 
-
       setNodes(nodes.concat(newNode))
-
     },
     [setId, nodes, reactFlowInstance, reactFlowWrapper, setNodes]
   )

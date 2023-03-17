@@ -3,7 +3,7 @@ import { Transition } from '@headlessui/react'
 import axios from 'axios'
 import { shallow } from 'zustand/shallow'
 import { ReactFlowInstance } from 'reactflow'
-import useStore from '../store'
+import { useFlowStore } from '../store'
 import { RFState } from '../types/RFState'
 import { Model } from '../types/Model'
 
@@ -25,7 +25,7 @@ const LoadModal = ({
   const {
     setNodes,
     setEdges
-  } = useStore(selector, shallow)
+  } = useFlowStore(selector, shallow)
   const [models, setModels] = useState<Model[]>([])
   useEffect(() => {
     if (open) loadModels().then((data) => setModels(data)

@@ -7,7 +7,7 @@ import classNames from '../../utils/classNames'
 import EdgeMarkerTypeRadio from './EdgeMarkerTypeRadio'
 import EdgeStrokeSize from './EdgeStrokeSize'
 import { RFState } from '../../types/RFState'
-import useStore from '../../store'
+import { useFlowStore } from '../../store'
 
 const selector = (state: RFState) => ({
   selectedEdge: state.selectedEdge,
@@ -17,7 +17,7 @@ const selector = (state: RFState) => ({
 })
 
 const SelectedEdgeProps = () => {
-  const { selectedEdge, edges, setEdges } = useStore(selector, shallow)
+  const { selectedEdge, edges, setEdges } = useFlowStore(selector, shallow)
   const [type, setType] = useState(selectedEdge?.type || 'default')
   const [animated, setAnimated] = useState(selectedEdge?.animated || false)
   const [edgeMarkerType, setEdgeMarkerType] = useState(selectedEdge?.markerEnd?.type || MarkerType.Arrow)

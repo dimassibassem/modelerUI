@@ -1,6 +1,6 @@
 import { shallow } from 'zustand/shallow'
 import { RFState } from '../../types/RFState'
-import useStore from '../../store'
+import { useFlowStore } from '../../store'
 import SelectedEdgeProps from './SelectedEdgeProps'
 import SelectedNodeProps from './SelectedNodeProps'
 
@@ -9,7 +9,7 @@ const selector = (state: RFState) => ({
   selectedEdge: state.selectedEdge
 })
 const RightSidebar = () => {
-  const { selectedNode, selectedEdge } = useStore(selector, shallow)
+  const { selectedNode, selectedEdge } = useFlowStore(selector, shallow)
 
   return (
     <aside

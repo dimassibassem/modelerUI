@@ -3,7 +3,7 @@ import { Transition, Switch, RadioGroup } from '@headlessui/react'
 import { shallow } from 'zustand/shallow'
 import classNames from '../utils/classNames'
 import { RFState } from '../types/RFState'
-import useStore from '../store'
+import { useFlowStore } from '../store'
 
 const Channels = ['MOB', 'WEB']
 const selector = (state: RFState) => ({
@@ -13,7 +13,7 @@ const selector = (state: RFState) => ({
 
 
 const ProcessDefinition = ({ open, setOpen }: { open: boolean, setOpen: (arg0: boolean) => void }) => {
-  const { setProcess, process } = useStore(selector, shallow)
+  const { setProcess, process } = useFlowStore(selector, shallow)
   const [state, setState] = useState({
     name: '',
     description: '',
