@@ -4,7 +4,7 @@ import ReactFlow, {
   Background,
   MiniMap,
   Node, BackgroundVariant, ConnectionMode, ReactFlowInstance,
-  Panel, Connection
+  Panel
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 import { shallow } from 'zustand/shallow'
@@ -24,6 +24,7 @@ import onLayout from '../utils/onLayout'
 import ProcessDefinition from '../components/ProcessDefinition'
 import { createGraph, findAllPaths } from '../utils/graphPath'
 import Process from '../types/Process'
+import isValidConnection from '../utils/isValidConnection'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -104,92 +105,84 @@ const DnDFlow = () => {
     setProcess({ ...process, steps } as Process)
   }
 
-  const isValidConnection = (connection: Connection) => {
-    const { target, source } = connection
-    const targetNode = nodes.find((node) => node.id === target)
-    const sourceNode = nodes.find((node) => node.id === source)
-    return sourceNode?.data.connectableWith.includes(targetNode?.type)
-  }
-
-  const { undo, redo, futureStates, pastStates,pause,resume } = useTemporalStore(
+  const { undo, redo, futureStates, pastStates, pause, resume } = useTemporalStore(
     (state) => state
   )
 
+  console.log('futureStates: ', futureStates, 'pastStates: ', pastStates)
 
-    console.log('futureStates: ', futureStates, 'pastStates: ', pastStates)
+  return (
+    <div className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
+      <ProcessDefinition open={processDefOpenModal} setOpen={setProcessDefOpenModal} />
+      <Sidebar />
+      <ReactFlowProvider>
+        <div className='grow h-full' ref={reactFlowWrapper}>
+          <ReactFlow
+            nodes={nodes}
+            nodeTypes={nodeTypes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            onNodeDragStart={pause}
+            onNodeDrag={pause}
+            onNodeDragStop={resume}
+            connectionMode={ConnectionMode.Loose}
+            onInit={setReactFlowInstance}
+            onEdgeUpdate={onEdgeUpdate}
+            onDrop={onDrop}
+            onDragOver={onDragOver}
+            className={styles.validationflow}
+            isValidConnection={isValidConnection(nodes)}
+            fitView
+          >
+            <Background color='#4f46e5' variant={BackgroundVariant.Dots} gap={10} size={1} />
+            <MiniMap style={{ background: '#ccc' }}
+                     nodeColor={(node: Node) => nodeColor(node.type)}
+                     nodeStrokeWidth={3} zoomable pannable />
+            <CustomPanel setNodes={setNodes} setEdges={setEdges}
+                         reactFlowInstance={reactFlowInstance} setOpenLoadModal={setOpenLoadModal} />
+            <Panel className='bg-gray-600 p-1' position='bottom-left'>
+              <button className='bg-gray-200 m-1 p-1' type='button'
+                      onClick={() => onLayout('TB', nodes, edges, setNodes)}>
+                vertical layout
+              </button>
+              <button className='bg-gray-200 m-1 p-1' type='button'
+                      onClick={() => onLayout('LR', nodes, edges, setNodes)}>
+                horizontal layout
+              </button>
+            </Panel>
 
-    return (
-      <div className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
-        <ProcessDefinition open={processDefOpenModal} setOpen={setProcessDefOpenModal} />
-        <Sidebar />
-        <ReactFlowProvider>
-          <div className='grow h-full' ref={reactFlowWrapper}>
-            <ReactFlow
-              nodes={nodes}
-              nodeTypes={nodeTypes}
-              edges={edges}
-              onNodesChange={onNodesChange}
-              onEdgesChange={onEdgesChange}
-              onConnect={onConnect}
-              onNodeDragStart={pause}
-              onNodeDrag={pause}
-              onNodeDragStop={resume}
-              connectionMode={ConnectionMode.Loose}
-              onInit={setReactFlowInstance}
-              onEdgeUpdate={onEdgeUpdate}
-              onDrop={onDrop}
-              onDragOver={onDragOver}
-              className={styles.validationflow}
-              isValidConnection={isValidConnection}
-              fitView
-            >
-              <Background color='#4f46e5' variant={BackgroundVariant.Dots} gap={10} size={1} />
-              <MiniMap style={{ background: '#ccc' }}
-                       nodeColor={(node: Node) => nodeColor(node.type)}
-                       nodeStrokeWidth={3} zoomable pannable />
-              <CustomPanel setNodes={setNodes} setEdges={setEdges}
-                           reactFlowInstance={reactFlowInstance} setOpenLoadModal={setOpenLoadModal} />
-              <Panel className='bg-gray-600 p-1' position='bottom-left'>
-                <button className='bg-gray-200 m-1 p-1' type='button'
-                        onClick={() => onLayout('TB', nodes, edges, setNodes)}>
-                  vertical layout
-                </button>
-                <button className='bg-gray-200 m-1 p-1' type='button'
-                        onClick={() => onLayout('LR', nodes, edges, setNodes)}>
-                  horizontal layout
-                </button>
-              </Panel>
-
-              <Panel className='bg-gray-600 p-1' position='top-left'>
-                <button className='bg-gray-200 m-1 p-1' type='button'
-                        onClick={() => {
-                          updateProcess()
-                        }}>
-                  Log Process JSON
-                </button>
-                <button className='bg-gray-200 m-1 p-1' type='button'
-                        onClick={() => {
-                          undo()
-                        }}
-                        disabled={pastStates.length === 0}>
-                  Undo
-                </button>
-                <button className='bg-gray-200 m-1 p-1' type='button'
-                        onClick={() => {
-                          redo()
-                        }}
-                        disabled={futureStates.length === 0}>
-                  Redo
-                </button>
-              </Panel>
-            </ReactFlow>
-          </div>
-        </ReactFlowProvider>
-        <LoadModal open={openLoadModal} setOpen={setOpenLoadModal} reactFlowInstance={reactFlowInstance} />
-        <RightSidebar />
-      </div>
-    )
-  }
+            <Panel className='bg-gray-600 p-1' position='top-left'>
+              <button className='bg-gray-200 m-1 p-1' type='button'
+                      onClick={() => {
+                        updateProcess()
+                      }}>
+                Log Process JSON
+              </button>
+              <button className='bg-gray-200 m-1 p-1' type='button'
+                      onClick={() => {
+                        undo()
+                      }}
+                      disabled={pastStates.length === 0}>
+                Undo
+              </button>
+              <button className='bg-gray-200 m-1 p-1' type='button'
+                      onClick={() => {
+                        redo()
+                      }}
+                      disabled={futureStates.length === 0}>
+                Redo
+              </button>
+            </Panel>
+          </ReactFlow>
+        </div>
+      </ReactFlowProvider>
+      <LoadModal open={openLoadModal} setOpen={setOpenLoadModal} reactFlowInstance={reactFlowInstance} />
+      <RightSidebar />
+    </div>
+  )
+}
 
 
-  export default DnDFlow
+export default DnDFlow
