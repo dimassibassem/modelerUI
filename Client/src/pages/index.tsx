@@ -7,6 +7,7 @@ import ReactFlow, {
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 import { shallow } from 'zustand/shallow'
+import { useEventListener } from 'usehooks-ts'
 import Sidebar from '../components/Sidebar'
 import useOnDropNode from '../hooks/useOnDropNode'
 import useOnDragNode from '../hooks/useOnDragNode'
@@ -47,10 +48,6 @@ const setId = (type: string) => `${type}_${id++}`
 
 
 const DnDFlow = () => {
-  const reactFlowWrapper = useRef<HTMLInputElement>(null)
-  const [openLoadModal, setOpenLoadModal] = useState(false)
-  const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null)
-  const [processDefOpenModal, setProcessDefOpenModal] = useState(true)
   const {
     nodes,
     edges,
@@ -65,17 +62,31 @@ const DnDFlow = () => {
     process,
     setProcess
   } = useFlowStore(selector, shallow)
+  const { undo, redo, pause, resume } = useTemporalStore(
+    (state) => state
+  )
+
+  const reactFlowWrapper = useRef<HTMLInputElement>(null)
+  const [openLoadModal, setOpenLoadModal] = useState(false)
+  const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null)
+  const [processDefOpenModal, setProcessDefOpenModal] = useState(true)
 
   const onDragOver = useOnDragNode()
   const onDrop = useOnDropNode(reactFlowWrapper, reactFlowInstance, setNodes, setId, nodes)
   useHandleSelected(nodes, edges, setSelectedNode, setSelectedEdge)
-
   useRemoveWatermark()
 
-  const { pause, resume } = useTemporalStore(
-    (state) => state
-  )
-  console.log(nodes)
+  useEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.keyCode === 90) {
+      e.preventDefault()
+      undo()
+    }
+    if (e.ctrlKey && e.keyCode === 89) {
+      e.preventDefault()
+      redo()
+    }
+  })
+
   return (
     <div className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
       <ProcessDefinition open={processDefOpenModal} setOpen={setProcessDefOpenModal} />
