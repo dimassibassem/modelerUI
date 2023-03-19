@@ -1,9 +1,9 @@
-import { ArrowDownCircleIcon, ArrowUpCircleIcon } from '@heroicons/react/24/outline'
 import { useState, DragEvent } from 'react'
 import { Link } from 'react-router-dom'
 import logoBankerise from '../assets/logo-bankerise.png'
 import iconSwitcher from './iconSwitcher'
 import NodeTypes from '../types/NodeTypes'
+import classNames from '../utils/classNames'
 
 const shapes = [
   NodeTypes.Start,
@@ -31,15 +31,17 @@ const Sidebar = () => {
             alt='Bankerise'
           />
         </div>
-        <nav className='mt-5 flex-1 space-y-1 bg-white px-2' aria-label='Sidebar'>
-          <span className='grid grid-cols-3 gap-4 '>
-            <div
-              className='ml-6 col-span-2 text-gray-600 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md '>
-              Shapes
-            </div>
-            {expanded ? <ArrowDownCircleIcon className='h-5 w-5' onClick={toggleExpanded} /> :
-              <ArrowUpCircleIcon className='h-5 w-5' onClick={toggleExpanded} />}
-          </span>
+        <nav className='mt-5 flex-1' aria-label='Sidebar'>
+          <button
+            type='button'
+            onClick={toggleExpanded}
+            className={
+              classNames(
+                expanded ? 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' : 'bg-gray-100 text-gray-900',
+                'ml-3 text-gray-600 hover:text-gray-900 items-center p-2 text-sm font-medium rounded-md flex w-full max-w-[90%]')
+            }>
+            Shapes
+          </button>
           {expanded &&
             <>
               {shapes.map((item) => (
@@ -59,7 +61,7 @@ const Sidebar = () => {
                     const target = event.target as HTMLElement
                     target.style.opacity = '1'
                   }}
-                  draggable
+                  draggable="true"
                 >
                   <div className='text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6'
                        aria-hidden='true'>
