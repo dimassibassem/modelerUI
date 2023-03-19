@@ -128,16 +128,16 @@ const useFlowStore = create(devtools(temporal<RFState>(
         const { nodes, edges } = state
         return { nodes, edges }
       },
-      equality: (a, b) => {
+      equality: (a, b) =>
 
         /*
          Info: avoid the changes of properties of selected node or edge to be
           recorded in the history we need to exclude them from the equality check
        */
 
-        return equal(a, b)
+         equal(a, b)
 
-      }
+
     }
   ))
 )

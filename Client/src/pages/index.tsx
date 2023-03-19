@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import ReactFlow, {
   ReactFlowProvider,
   Background,
@@ -22,9 +22,9 @@ import nodeTypes from '../utils/nodeTypes'
 import styles from '../validation.module.css'
 import onLayout from '../utils/onLayout'
 import ProcessDefinition from '../components/ProcessDefinition'
-import { createGraph, findAllPaths } from '../utils/graphPath'
-import Process from '../types/Process'
 import isValidConnection from '../utils/isValidConnection'
+import processDefinition from '../utils/processDefinition'
+import useRemoveWatermark from '../hooks/useRemoveWatermark'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -70,46 +70,11 @@ const DnDFlow = () => {
   const onDrop = useOnDropNode(reactFlowWrapper, reactFlowInstance, setNodes, setId, nodes)
   useHandleSelected(nodes, edges, setSelectedNode, setSelectedEdge)
 
-  // Removing Reactflow watermark
-  useEffect(() => {
-    document.querySelector('#root > div > div.grow.h-full > div > div.react-flow__panel.react-flow__attribution.bottom.right')?.remove()
-  }, [])
-
-
-  const updateProcess = () => {
-    const startNode = nodes.find(node => node.type === 'start')
-    const endNode = nodes.find(node => node.type === 'end')
-    if (!startNode) {
-      alert('Please add a start node')
-      return
-    }
-    if (!endNode) {
-      alert('Please add an end node')
-      return
-    }
-    const graph = createGraph(nodes, edges)
-    if (!startNode || !endNode) return
-    const paths = findAllPaths(graph, startNode.id, endNode.id)
-    if (paths.length === 0) {
-      alert('No valid steps found')
-      return
-    }
-    const steps = paths.map(path => path.map(nodeId => {
-      const node = nodes.find(nd => nd.id === nodeId)
-      return node?.type === 'start' || node?.type === 'end' ? { type: node?.type } : {
-        type: node?.type,
-        attributes: node?.data.attributes
-      }
-    }))
-    console.log({ ...process, steps })
-    setProcess({ ...process, steps } as Process)
-  }
+  useRemoveWatermark()
 
   const { undo, redo, futureStates, pastStates, pause, resume } = useTemporalStore(
     (state) => state
   )
-
-  console.log('futureStates: ', futureStates, 'pastStates: ', pastStates)
 
   return (
     <div className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
@@ -156,7 +121,7 @@ const DnDFlow = () => {
             <Panel className='bg-gray-600 p-1' position='top-left'>
               <button className='bg-gray-200 m-1 p-1' type='button'
                       onClick={() => {
-                        updateProcess()
+                        processDefinition(nodes, edges, setProcess, process)
                       }}>
                 Log Process JSON
               </button>
