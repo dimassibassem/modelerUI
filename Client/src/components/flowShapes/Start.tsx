@@ -6,6 +6,7 @@ import useShowToolbar from '../../hooks/useShowToolbar'
 import start from '../../assets/start.png'
 import Handles from '../Handles'
 import useCustomNodeProps from '../../hooks/useCustomNodeProps'
+import NodeTypes from '../../types/NodeTypes'
 
 const Start: FC<NodeProps> = ({ type, data, dragging, selected }) => {
   const {
@@ -16,8 +17,8 @@ const Start: FC<NodeProps> = ({ type, data, dragging, selected }) => {
     hoverRef,
     isHover,
     showToolbar,
-    setShowToolbar,
-  } = useCustomNodeProps(type, 100, 50)
+    setShowToolbar
+  } = useCustomNodeProps(type as NodeTypes, 100, 50)
   useShowToolbar(isHover, dragging, setShowToolbar)
 
   return (

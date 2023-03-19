@@ -1,19 +1,18 @@
+import NodeTypes from '../types/NodeTypes'
 
-const nodeColor = (type: string | undefined) => {
+const nodeColor = (type: NodeTypes) => {
   switch (type) {
-    case 'start':
+    case NodeTypes.Start:
       return '#cdff54'
-    case 'end':
+    case NodeTypes.End:
       return '#6865A5'
-    case 'trapezoid':
-      return '#f88000'
-    case 'hexagon':
+    case NodeTypes.Execution:
       return '#ff05f1'
-    case 'diamond':
+    case NodeTypes.Policies:
       return '#86c20b'
-    case 'circle':
+    case NodeTypes.Provisioners:
       return '#00ffff'
-    case 'square':
+    case NodeTypes.Rule:
       return '#cdff54'
     default:
       return '#ff0072'

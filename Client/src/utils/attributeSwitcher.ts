@@ -1,29 +1,31 @@
-const attributeSwitcher = (type: string) => {
+import NodeTypes from '../types/NodeTypes'
+
+const attributeSwitcher = (type: NodeTypes) => {
   switch (type) {
-    case 'diamond':
+    case NodeTypes.Policies:
       return {
         name: '',
         channel: ''
       }
-    case 'circle':
+    case NodeTypes.Provisioners:
       return {
         name: '',
         challenge: '',
         channel: ''
       }
-    case 'square':
+    case NodeTypes.Rule:
       return {
         name: '',
         enricher: '',
         channel: ''
       }
-    case 'hexagon':
+    case NodeTypes.Execution:
       return {
         name: '',
         channel: ''
       }
-      default:
-        return {}
+    default:
+      return {}
   }
 }
 export default attributeSwitcher

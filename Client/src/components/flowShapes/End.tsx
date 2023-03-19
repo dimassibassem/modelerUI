@@ -6,6 +6,7 @@ import { Icon } from '@iconify/react'
 import useShowToolbar from '../../hooks/useShowToolbar'
 import Handles from '../Handles'
 import useCustomNodeProps from '../../hooks/useCustomNodeProps'
+import NodeTypes from '../../types/NodeTypes'
 
 const End: FC<NodeProps> = ({ type, data, dragging, selected }) => {
   const {
@@ -17,7 +18,7 @@ const End: FC<NodeProps> = ({ type, data, dragging, selected }) => {
     isHover,
     showToolbar,
     setShowToolbar
-  } = useCustomNodeProps(type, 50, 50)
+  } = useCustomNodeProps(type as NodeTypes, 50, 50)
 
   useShowToolbar(isHover, dragging, setShowToolbar)
 

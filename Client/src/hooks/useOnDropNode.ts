@@ -2,6 +2,7 @@ import { DragEvent, RefObject, useCallback } from 'react'
 import { XYPosition, Node, ReactFlowInstance, Position } from 'reactflow'
 import connectableWith from '../utils/connectableWith'
 import attributeSwitcher from '../utils/attributeSwitcher'
+import NodeTypes from '../types/NodeTypes'
 
 function useOnDropNode(reactFlowWrapper: RefObject<HTMLInputElement>,
                        reactFlowInstance: ReactFlowInstance | null,
@@ -12,7 +13,7 @@ function useOnDropNode(reactFlowWrapper: RefObject<HTMLInputElement>,
     (event: DragEvent) => {
       event.preventDefault()
       const reactFlowBounds = reactFlowWrapper.current?.getBoundingClientRect()
-      const type = event.dataTransfer.getData('application/reactflow')
+      const type = event.dataTransfer.getData('application/reactflow') as NodeTypes
 
       // check if the dropped element is valid
       if (typeof type === 'undefined' || !type) {

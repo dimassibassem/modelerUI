@@ -1,43 +1,23 @@
 import { ArrowDownCircleIcon, ArrowUpCircleIcon } from '@heroicons/react/24/outline'
 import { useState, DragEvent } from 'react'
 import { Link } from 'react-router-dom'
-import { Icon } from '@iconify/react'
 import logoBankerise from '../assets/logo-bankerise.png'
+import iconSwitcher from './iconSwitcher'
+import NodeTypes from '../types/NodeTypes'
 
 const shapes = [
-  { name: 'start', icon: 'Start' },
-  { name: 'end', icon: 'End' },
-  { name: 'diamond', icon: 'Diamond' },
-  { name: 'trapezoid', icon: 'Trapezoid' },
-  { name: 'hexagon', icon: 'Hexagon' },
-  { name: 'circle', icon: 'Circle' },
-  { name: 'square', icon: 'Square' }
+  NodeTypes.Start,
+  NodeTypes.End,
+  NodeTypes.Policies,
+  NodeTypes.Execution,
+  NodeTypes.Provisioners,
+  NodeTypes.Rule
 ]
-const onDragStart = (event: DragEvent<HTMLDivElement>, nodeType: string) => {
+const onDragStart = (event: DragEvent<HTMLDivElement>, nodeType: NodeTypes) => {
   event.dataTransfer.setData('application/reactflow', nodeType)
   event.dataTransfer.effectAllowed = 'move'
 }
 
-const iconSwitcher = (icon: string) => {
-  switch (icon) {
-    case 'Start':
-      return <Icon icon='mdi:asterisk-circle-outline' height={24} width={24} />
-    case 'End':
-      return <Icon icon='mdi:circle-slice-8' height={24} width={24} />
-    case 'Diamond':
-      return <Icon icon='bi:diamond' height={24} width={24} />
-    case 'Trapezoid':
-      return <Icon icon='icon-park-outline:trapezoid' height={24} width={24} />
-    case 'Hexagon':
-      return <Icon icon='icon-park-outline:parallelogram' height={24} width={24} />
-    case 'Circle':
-      return <Icon icon='material-symbols:circle-outline' height={24} width={24} />
-    case 'Square':
-      return <Icon icon='material-symbols:square-outline' height={24} width={24} />
-    default:
-      return <div />
-  }
-}
 const Sidebar = () => {
   const [expanded, setExpanded] = useState(true)
   const toggleExpanded = () => setExpanded(!expanded)
@@ -64,10 +44,10 @@ const Sidebar = () => {
             <>
               {shapes.map((item) => (
                 <div
-                  key={item.name}
+                  key={item}
                   className='text-gray-600 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                   onDragStart={(event) => {
-                    onDragStart(event, item.name)
+                    onDragStart(event, item)
                   }}
                   onDrag={(event) => {
                     event.preventDefault()
@@ -83,9 +63,9 @@ const Sidebar = () => {
                 >
                   <div className='text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6'
                        aria-hidden='true'>
-                    {iconSwitcher(item.icon)}
+                    {iconSwitcher(item)}
                   </div>
-                  <span className='flex-1'>{item.name}</span>
+                  <span className='flex-1'>{item}</span>
                 </div>
               ))}
             </>}

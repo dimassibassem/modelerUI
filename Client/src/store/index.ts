@@ -16,56 +16,41 @@ import { RFState } from '../types/RFState'
 import connectableWith from '../utils/connectableWith'
 import Process from '../types/Process'
 import attributeSwitcher from '../utils/attributeSwitcher'
+import NodeTypes from '../types/NodeTypes'
 
 const initialEdges: Edge[] = []
 const initialNodes: Node[] = [
   {
     id: '2',
-    type: 'diamond',
+    type: NodeTypes.Policies,
     data: {
-      label: 'diamond',
+      label: NodeTypes.Policies,
       handles: [
         { position: Position.Top, enable: true },
         { position: Position.Bottom, enable: true },
         { position: Position.Left, enable: true },
         { position: Position.Right, enable: true }
       ],
-      attributes: attributeSwitcher('diamond'),
-      connectableWith: connectableWith('diamond')
+      attributes: attributeSwitcher(NodeTypes.Policies),
+      connectableWith: connectableWith(NodeTypes.Policies)
     },
     position: { x: -200, y: 0 }
   },
   {
     id: '3',
-    type: 'hexagon',
+    type: NodeTypes.Execution,
     data: {
-      label: 'hexagon',
+      label: NodeTypes.Execution,
       handles: [
         { position: Position.Top, enable: true },
         { position: Position.Bottom, enable: true },
         { position: Position.Left, enable: true },
         { position: Position.Right, enable: true }
       ],
-      attributes: attributeSwitcher('hexagon'),
-      connectableWith: connectableWith('hexagon')
+      attributes: attributeSwitcher(NodeTypes.Execution),
+      connectableWith: connectableWith(NodeTypes.Execution)
     },
     position: { x: 400, y: 100 }
-  },
-  {
-    id: '4',
-    type: 'trapezoid',
-    data: {
-      label: 'trapezoid',
-      handles: [
-        { position: Position.Top, enable: true },
-        { position: Position.Bottom, enable: true },
-        { position: Position.Left, enable: true },
-        { position: Position.Right, enable: true }
-      ],
-      attributes: attributeSwitcher('trapezoid'),
-      connectableWith: connectableWith('trapezoid')
-    },
-    position: { x: 250, y: 250 }
   }
 ]
 
@@ -135,7 +120,7 @@ const useFlowStore = create(devtools(temporal<RFState>(
           recorded in the history we need to exclude them from the equality check
        */
 
-         equal(a, b)
+        equal(a, b)
 
 
     }

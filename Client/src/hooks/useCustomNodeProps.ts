@@ -2,8 +2,9 @@ import { useRef, useState } from 'react'
 import { useHover } from 'usehooks-ts'
 import CssFilterConverter from 'css-filter-converter'
 import nodeColor from '../utils/nodeColor'
+import NodeTypes from '../types/NodeTypes'
 
-function useCustomNodeProps( type: string | undefined, w: number, h: number) {
+function useCustomNodeProps(type: NodeTypes, w: number, h: number) {
   const [width, setWidth] = useState(w)
   const [height, setHeight] = useState(h)
   const hoverRef = useRef(null)
@@ -12,7 +13,7 @@ function useCustomNodeProps( type: string | undefined, w: number, h: number) {
   const filter = CssFilterConverter.hexToFilter(nodeColor(type)).color
 
   return {
-  width, height, setHeight, setWidth, hoverRef, isHover, showToolbar, setShowToolbar, filter
+    width, height, setHeight, setWidth, hoverRef, isHover, showToolbar, setShowToolbar, filter
   }
 }
 

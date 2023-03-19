@@ -1,13 +1,14 @@
-import { NodeProps, NodeToolbar, Position } from 'reactflow'
-import { NodeResizer } from '@reactflow/node-resizer'
+import React, { FC, memo } from 'react'
+import { Position, NodeProps, NodeToolbar } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
-import { FC, memo } from 'react'
+import { NodeResizer } from '@reactflow/node-resizer'
 import useShowToolbar from '../../hooks/useShowToolbar'
-import diamond from '../../assets/Diamond.png'
+import execution from '../../assets/Hexagon.png'
 import Handles from '../Handles'
 import useCustomNodeProps from '../../hooks/useCustomNodeProps'
+import NodeTypes from '../../types/NodeTypes'
 
-const Diamond: FC<NodeProps> = ({ type, data, dragging, selected }) => {
+const Execution: FC<NodeProps> = ({ type, data, dragging, selected }) => {
   const {
     width,
     height,
@@ -17,8 +18,8 @@ const Diamond: FC<NodeProps> = ({ type, data, dragging, selected }) => {
     isHover,
     showToolbar,
     setShowToolbar,
-    filter,
-  } = useCustomNodeProps(type, 50, 50)
+    filter
+  } = useCustomNodeProps(type as NodeTypes, 50, 50)
 
   useShowToolbar(isHover, dragging, setShowToolbar)
 
@@ -37,9 +38,11 @@ const Diamond: FC<NodeProps> = ({ type, data, dragging, selected }) => {
         }
       } />
       <div>
-        <img src={diamond} style={{
-          width, height, filter: filter || 'none'
-        }} alt='diamond' />
+        <img src={execution} alt='execution' style={
+          {
+            width, height,
+            filter: filter || 'none'
+          }} />
         <div className='absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>{data.text}</div>
       </div>
 
@@ -50,4 +53,5 @@ const Diamond: FC<NodeProps> = ({ type, data, dragging, selected }) => {
     </div>
   )
 }
-export default memo(Diamond)
+
+export default memo(Execution)

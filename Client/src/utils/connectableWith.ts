@@ -1,21 +1,22 @@
-const connectableWith = (type: string) => {
+import NodeTypes from '../types/NodeTypes'
+
+const connectableWith = (type: NodeTypes): NodeTypes[] => {
   switch (type) {
-    case 'start':
-      return ['end', 'diamond', 'trapezoid', 'hexagon', 'circle', 'square']
-    case 'end':
-      return ['start', 'diamond', 'trapezoid', 'hexagon', 'circle', 'square']
-    case 'diamond':
-      return ['end', 'trapezoid', 'hexagon', 'circle', 'square']
-    case 'trapezoid':
-      return ['start', 'end', 'hexagon', 'circle', 'square']
-    case 'hexagon':
-      return ['start', 'end', 'hexagon', 'circle', 'square']
-    case 'circle':
-      return ['start', 'end', 'hexagon', 'square']
-    case 'square':
-      return ['start', 'end', 'diamond', 'square']
+    case NodeTypes.Start:
+      return [NodeTypes.End, NodeTypes.Policies, NodeTypes.Execution, NodeTypes.Provisioners, NodeTypes.Rule]
+    case NodeTypes.End:
+      return []
+    case NodeTypes.Policies:
+      return [NodeTypes.End, NodeTypes.Policies, NodeTypes.Execution, NodeTypes.Rule]
+    case NodeTypes.Provisioners:
+      return [NodeTypes.End, NodeTypes.Policies, NodeTypes.Execution, NodeTypes.Provisioners, NodeTypes.Rule]
+    case NodeTypes.Rule:
+      return [NodeTypes.End, NodeTypes.Execution, NodeTypes.Provisioners, NodeTypes.Rule]
+    case NodeTypes.Execution:
+      return [NodeTypes.End, NodeTypes.Policies, NodeTypes.Provisioners, NodeTypes.Rule]
     default:
-      return ['start', 'end', 'diamond', 'trapezoid', 'hexagon', 'circle', 'square']
+      return [NodeTypes.End, NodeTypes.Policies, NodeTypes.Execution, NodeTypes.Provisioners]
   }
 }
+
 export default connectableWith

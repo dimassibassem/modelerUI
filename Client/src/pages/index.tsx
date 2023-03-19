@@ -3,8 +3,7 @@ import ReactFlow, {
   ReactFlowProvider,
   Background,
   MiniMap,
-  Node, BackgroundVariant, ConnectionMode, ReactFlowInstance,
-  Panel
+  Node, BackgroundVariant, ConnectionMode, ReactFlowInstance
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 import { shallow } from 'zustand/shallow'
@@ -16,15 +15,16 @@ import { useFlowStore, useTemporalStore } from '../store'
 import { RFState } from '../types/RFState'
 import RightSidebar from '../components/RightSidebar/RightSidebar'
 import LoadModal from '../components/LoadModal'
-import CustomPanel from '../components/CustomPanel'
+import TopRightPanel from '../components/panels/TopRightPanel'
 import nodeColor from '../utils/nodeColor'
 import nodeTypes from '../utils/nodeTypes'
 import styles from '../validation.module.css'
-import onLayout from '../utils/onLayout'
 import ProcessDefinition from '../components/ProcessDefinition'
 import isValidConnection from '../utils/isValidConnection'
-import processDefinition from '../utils/processDefinition'
 import useRemoveWatermark from '../hooks/useRemoveWatermark'
+import BottomLeftPanel from '../components/panels/BottomLeftPanel'
+import TopLeftPanel from '../components/panels/TopLeftPanel'
+import NodeTypes from '../types/NodeTypes'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -72,10 +72,10 @@ const DnDFlow = () => {
 
   useRemoveWatermark()
 
-  const { undo, redo, futureStates, pastStates, pause, resume } = useTemporalStore(
+  const { pause, resume } = useTemporalStore(
     (state) => state
   )
-
+  console.log(nodes)
   return (
     <div className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
       <ProcessDefinition open={processDefOpenModal} setOpen={setProcessDefOpenModal} />
@@ -103,43 +103,14 @@ const DnDFlow = () => {
           >
             <Background color='#4f46e5' variant={BackgroundVariant.Dots} gap={10} size={1} />
             <MiniMap style={{ background: '#ccc' }}
-                     nodeColor={(node: Node) => nodeColor(node.type)}
+                     nodeColor={(node: Node) => nodeColor(node.type as NodeTypes)}
                      nodeStrokeWidth={3} zoomable pannable />
-            <CustomPanel setNodes={setNodes} setEdges={setEdges}
-                         reactFlowInstance={reactFlowInstance} setOpenLoadModal={setOpenLoadModal} />
-            <Panel className='bg-gray-600 p-1' position='bottom-left'>
-              <button className='bg-gray-200 m-1 p-1' type='button'
-                      onClick={() => onLayout('TB', nodes, edges, setNodes)}>
-                vertical layout
-              </button>
-              <button className='bg-gray-200 m-1 p-1' type='button'
-                      onClick={() => onLayout('LR', nodes, edges, setNodes)}>
-                horizontal layout
-              </button>
-            </Panel>
+            <TopRightPanel setNodes={setNodes} setEdges={setEdges}
+                           reactFlowInstance={reactFlowInstance} setOpenLoadModal={setOpenLoadModal} />
+            <BottomLeftPanel edges={edges} nodes={nodes} setNodes={setNodes} />
 
-            <Panel className='bg-gray-600 p-1' position='top-left'>
-              <button className='bg-gray-200 m-1 p-1' type='button'
-                      onClick={() => {
-                        processDefinition(nodes, edges, setProcess, process)
-                      }}>
-                Log Process JSON
-              </button>
-              <button className='bg-gray-200 m-1 p-1' type='button'
-                      onClick={() => {
-                        undo()
-                      }}
-                      disabled={pastStates.length === 0}>
-                Undo
-              </button>
-              <button className='bg-gray-200 m-1 p-1' type='button'
-                      onClick={() => {
-                        redo()
-                      }}
-                      disabled={futureStates.length === 0}>
-                Redo
-              </button>
-            </Panel>
+            <TopLeftPanel edges={edges} nodes={nodes} process={process} setProcess={setProcess} />
+
           </ReactFlow>
         </div>
       </ReactFlowProvider>

@@ -1,13 +1,14 @@
 import { NodeProps, NodeToolbar, Position } from 'reactflow'
-import React, { FC, memo } from 'react'
-import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
+import '@reactflow/node-resizer/dist/style.css'
+import { FC, memo } from 'react'
 import useShowToolbar from '../../hooks/useShowToolbar'
-import rect from '../../assets/Rect.png'
+import policies from '../../assets/Diamond.png'
 import Handles from '../Handles'
 import useCustomNodeProps from '../../hooks/useCustomNodeProps'
+import NodeTypes from '../../types/NodeTypes'
 
-const Square: FC<NodeProps> = ({ type, data, dragging, selected }) => {
+const Policies: FC<NodeProps> = ({ type, data, dragging, selected }) => {
   const {
     width,
     height,
@@ -17,8 +18,9 @@ const Square: FC<NodeProps> = ({ type, data, dragging, selected }) => {
     isHover,
     showToolbar,
     setShowToolbar,
-    filter,
-  } = useCustomNodeProps(type, 50, 50)
+    filter
+  } = useCustomNodeProps(type as NodeTypes, 50, 50)
+
   useShowToolbar(isHover, dragging, setShowToolbar)
 
   return (
@@ -36,11 +38,9 @@ const Square: FC<NodeProps> = ({ type, data, dragging, selected }) => {
         }
       } />
       <div>
-        <img src={rect} alt='rect' style={
-          {
-            width, height, filter: filter || 'none'
-          }
-        } />
+        <img src={policies} style={{
+          width, height, filter: filter || 'none'
+        }} alt='policies' />
         <div className='absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>{data.text}</div>
       </div>
 
@@ -51,6 +51,4 @@ const Square: FC<NodeProps> = ({ type, data, dragging, selected }) => {
     </div>
   )
 }
-
-
-export default memo(Square)
+export default memo(Policies)

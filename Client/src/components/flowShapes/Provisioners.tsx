@@ -1,13 +1,14 @@
-import React, { FC, memo } from 'react'
-import { Position, NodeProps, NodeToolbar } from 'reactflow'
+import { NodeProps, NodeToolbar, Position } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
+import { FC, memo } from 'react'
 import useShowToolbar from '../../hooks/useShowToolbar'
-import hexagon from '../../assets/Hexagon.png'
+import provisioners from '../../assets/Circle.png'
 import Handles from '../Handles'
 import useCustomNodeProps from '../../hooks/useCustomNodeProps'
+import NodeTypes from '../../types/NodeTypes'
 
-const Hexagon: FC<NodeProps> = ({ type, data, dragging, selected }) => {
+const Provisioners: FC<NodeProps> = ({ type, data, selected, dragging }) => {
   const {
     width,
     height,
@@ -18,7 +19,7 @@ const Hexagon: FC<NodeProps> = ({ type, data, dragging, selected }) => {
     showToolbar,
     setShowToolbar,
     filter
-  } = useCustomNodeProps(type, 50, 50)
+  } = useCustomNodeProps(type as NodeTypes, 50, 50)
 
   useShowToolbar(isHover, dragging, setShowToolbar)
 
@@ -37,10 +38,9 @@ const Hexagon: FC<NodeProps> = ({ type, data, dragging, selected }) => {
         }
       } />
       <div>
-        <img src={hexagon} alt='hexagon' style={
+        <img src={provisioners} alt='provisioners' style={
           {
-            width, height,
-            filter: filter || 'none'
+            width, height, filter: filter || 'none'
           }} />
         <div className='absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>{data.text}</div>
       </div>
@@ -49,8 +49,9 @@ const Hexagon: FC<NodeProps> = ({ type, data, dragging, selected }) => {
         width={width}
         handles={data.handles}
       />
+
     </div>
   )
 }
 
-export default memo(Hexagon)
+export default memo(Provisioners)
