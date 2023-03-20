@@ -34,7 +34,7 @@ export const handleItemClick = async ({
           )
           canvas.remove()
         }
-
+        props.setOpenNotification(true)
       }
     }
       break
@@ -47,14 +47,16 @@ export const handleContextMenu = (event: MouseEvent,
                                   show: (params: {
                                     event: MouseEvent, props: { [key: string]: any }
                                   }) => void,
-                                  copy: (text: string) => Promise<boolean>
+                                  copy: (text: string) => Promise<boolean>,
+                                  setOpenNotification: (open: boolean) => void,
 ) => {
   show({
     event,
     props: {
       key: 'value',
       reactFlowInstance,
-      copy
+      copy,
+      setOpenNotification
     }
   })
 }

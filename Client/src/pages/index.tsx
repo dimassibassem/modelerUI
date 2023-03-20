@@ -7,7 +7,7 @@ import ReactFlow, {
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 import { shallow } from 'zustand/shallow'
-import { useEventListener,useCopyToClipboard } from 'usehooks-ts'
+import { useEventListener, useCopyToClipboard } from 'usehooks-ts'
 import { useContextMenu } from 'react-contexify'
 import Sidebar from '../components/Sidebar'
 import useOnDropNode from '../hooks/useOnDropNode'
@@ -30,6 +30,7 @@ import NodeTypes from '../types/NodeTypes'
 import 'react-contexify/ReactContexify.css'
 import { handleContextMenu } from '../utils/handleContextMenu'
 import ContextMenu from '../components/ContextMenu'
+import Notification from '../components/Notification'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -95,14 +96,13 @@ const DnDFlow = () => {
     id: MENU_ID
   })
   const [value, copy] = useCopyToClipboard()
-
+  const [openNotification, setOpenNotification] = useState(false)
   return (
     <div
-      onContextMenu={(event) => handleContextMenu(event, reactFlowInstance, show,copy)}
+      onContextMenu={(event) => handleContextMenu(event, reactFlowInstance, show, copy,setOpenNotification)}
       className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
-
+      <Notification open={openNotification} setOpen={setOpenNotification} />
       <ContextMenu MENU_ID={MENU_ID} />
-
       <ProcessDefinition open={processDefOpenModal} setOpen={setProcessDefOpenModal} />
       <Sidebar />
       <ReactFlowProvider>
@@ -126,6 +126,7 @@ const DnDFlow = () => {
             isValidConnection={isValidConnection(nodes)}
             fitView
           >
+
             <Background color='#4f46e5' variant={BackgroundVariant.Dots} gap={10} size={1} />
             <MiniMap style={{ background: '#ccc' }}
                      nodeColor={(node: Node) => nodeColor(node.type as NodeTypes)}
