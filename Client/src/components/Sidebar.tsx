@@ -17,8 +17,6 @@ const shapes = [
 const onDragStart = (event: DragEvent<HTMLDivElement>, nodeType: NodeTypes, previewImage: string) => {
   const img = new Image()
   img.src = previewImage
-  img.width = 100
-  img.height = 100
   event.dataTransfer.setData('application/reactflow', nodeType)
   event.dataTransfer.effectAllowed = 'move'
   event.dataTransfer.setDragImage(img, 10, 10)
@@ -28,8 +26,11 @@ const handlePreviewDragImage = (event: MouseEvent<HTMLDivElement> | FocusEvent<H
   event.preventDefault()
   const svgElement = (event.target as Element).querySelector<SVGElement>('svg')
   if (svgElement) {
+  const svgCopy = svgElement.cloneNode(true) as SVGElement
+  svgCopy?.setAttribute('width', '80')
+  svgCopy?.setAttribute('height', '80')
     const img = new Image()
-    img.src = `data:image/svg+xml;utf8,${encodeURIComponent(svgElement.outerHTML)}`
+    img.src = `data:image/svg+xml;utf8,${encodeURIComponent(svgCopy.outerHTML)}`
     setPreviewImage(img.src)
   }
 }
