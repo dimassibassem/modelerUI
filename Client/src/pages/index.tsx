@@ -8,6 +8,7 @@ import ReactFlow, {
 import 'reactflow/dist/style.css'
 import { shallow } from 'zustand/shallow'
 import { useEventListener } from 'usehooks-ts'
+import { useContextMenu } from 'react-contexify'
 import Sidebar from '../components/Sidebar'
 import useOnDropNode from '../hooks/useOnDropNode'
 import useOnDragNode from '../hooks/useOnDragNode'
@@ -26,6 +27,9 @@ import useRemoveWatermark from '../hooks/useRemoveWatermark'
 import BottomLeftPanel from '../components/panels/BottomLeftPanel'
 import TopLeftPanel from '../components/panels/TopLeftPanel'
 import NodeTypes from '../types/NodeTypes'
+import 'react-contexify/ReactContexify.css'
+import { handleContextMenu } from '../utils/handleContextMenu'
+import ContextMenu from '../components/ContextMenu'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -42,11 +46,11 @@ const selector = (state: RFState) => ({
   onEdgeUpdate: state.onEdgeUpdate
 })
 
-let id = 0
+let nodeId = 0
 
-const setId = (type: string) => `${type}_${id++}`
+const setId = (type: string) => `${type}_${nodeId++}`
 
-
+const MENU_ID = 'Context_Menu'
 const DnDFlow = () => {
   const {
     nodes,
@@ -87,8 +91,17 @@ const DnDFlow = () => {
     }
   })
 
+  const { show } = useContextMenu({
+    id: MENU_ID
+  })
+
   return (
-    <div className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
+    <div
+      onContextMenu={(event) => handleContextMenu(event, show)}
+      className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
+
+      <ContextMenu MENU_ID={MENU_ID} />
+
       <ProcessDefinition open={processDefOpenModal} setOpen={setProcessDefOpenModal} />
       <Sidebar />
       <ReactFlowProvider>
