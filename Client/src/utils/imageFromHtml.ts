@@ -1,6 +1,5 @@
 import { ReactFlowInstance } from 'reactflow'
 import { toPng } from 'html-to-image'
-import axios from 'axios'
 
 const imageFromHTML = async (reactFlowInstance: ReactFlowInstance | null) => {
   if (reactFlowInstance) {
@@ -13,12 +12,9 @@ const imageFromHTML = async (reactFlowInstance: ReactFlowInstance | null) => {
           node?.classList?.contains('react-flow__panel'))
     })
     const instance = reactFlowInstance.toObject()
-    await axios.post(`${process.env.API_ENDPOINT}/api/add-model`, {
-        instance,
-        dataURI
-      }
-    )
+    return { dataURI, instance }
   }
+  return null
 }
 
 export default imageFromHTML

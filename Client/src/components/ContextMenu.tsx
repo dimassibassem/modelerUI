@@ -6,6 +6,7 @@ const ContextMenu = ({ MENU_ID }: { MENU_ID: string }) => (
     <Menu id={MENU_ID}>
       <Item id='copy' onClick={handleItemClick}>Copy</Item>
       <Item id='cut' onClick={handleItemClick}>Cut</Item>
+      <Item id='copyAsImage' onClick={handleItemClick}>Copy As Image</Item>
       <Separator />
       <Item disabled>Disabled</Item>
       <Separator />

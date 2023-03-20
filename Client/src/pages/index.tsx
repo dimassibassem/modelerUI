@@ -7,7 +7,7 @@ import ReactFlow, {
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 import { shallow } from 'zustand/shallow'
-import { useEventListener } from 'usehooks-ts'
+import { useEventListener,useCopyToClipboard } from 'usehooks-ts'
 import { useContextMenu } from 'react-contexify'
 import Sidebar from '../components/Sidebar'
 import useOnDropNode from '../hooks/useOnDropNode'
@@ -94,10 +94,11 @@ const DnDFlow = () => {
   const { show } = useContextMenu({
     id: MENU_ID
   })
+  const [value, copy] = useCopyToClipboard()
 
   return (
     <div
-      onContextMenu={(event) => handleContextMenu(event, show)}
+      onContextMenu={(event) => handleContextMenu(event, reactFlowInstance, show,copy)}
       className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
 
       <ContextMenu MENU_ID={MENU_ID} />
