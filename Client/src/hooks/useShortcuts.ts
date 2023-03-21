@@ -14,42 +14,50 @@ const useShortcuts = (reactFlowInstance: ReactFlowInstance | null,
                       undo: () => void,
                       redo: () => void) => {
 
-  useEventListener('keydown', (e) => {
-    if (e.ctrlKey && e.keyCode === 90) {
-      e.preventDefault()
-      undo()
-    }
-    if (e.ctrlKey && e.keyCode === 89) {
-      e.preventDefault()
-      redo()
-    }
-  })
-
-  useEventListener('keydown', (e) => {
-    if (e.ctrlKey && e.keyCode === 65) {
-      e.preventDefault()
-      selectNodes(reactFlowInstance)
-      selectEdges(reactFlowInstance)
-    }
-  })
-
   useEventListener('keydown', async (e) => {
-    if (e.ctrlKey && e.keyCode === 67) {
-      await copySelected(reactFlowInstance, lastNodeIdNumber, setLastNodeIdNumber, copy)
+    switch (e.keyCode) {
+      case 90: // Ctrl+Z
+        if (e.ctrlKey) {
+          e.preventDefault()
+          undo()
+        }
+        break
+      case 89: // Ctrl+Y
+        if (e.ctrlKey) {
+          e.preventDefault()
+          redo()
+        }
+        break
+      case 65: // Ctrl+A
+        if (e.ctrlKey) {
+          e.preventDefault()
+          selectNodes(reactFlowInstance)
+          selectEdges(reactFlowInstance)
+        }
+        break
+      case 67: // Ctrl+C
+        if (e.ctrlKey) {
+          e.preventDefault()
+          await copySelected(reactFlowInstance, lastNodeIdNumber, setLastNodeIdNumber, copy)
+        }
+        break
+      case 86: // Ctrl+V
+        if (e.ctrlKey) {
+          e.preventDefault()
+          await pasteFromClipboard(reactFlowInstance, lastNodeIdNumber, setLastNodeIdNumber)
+        }
+        break
+      case 88: // Ctrl+X
+        if (e.ctrlKey) {
+          e.preventDefault()
+          await cutSelected(reactFlowInstance, lastNodeIdNumber, setLastNodeIdNumber, copy)
+        }
+        break
+      default:
+        break
     }
   })
 
-  useEventListener('keydown', async (e) => {
-    if (e.ctrlKey && e.keyCode === 86) {
-      await pasteFromClipboard(reactFlowInstance, lastNodeIdNumber, setLastNodeIdNumber)
-    }
-  })
-
-  useEventListener('keydown', async (e) => {
-    if (e.ctrlKey && e.keyCode === 88) {
-      await cutSelected(reactFlowInstance, lastNodeIdNumber, setLastNodeIdNumber, copy)
-    }
-  })
 }
 
 export default useShortcuts
