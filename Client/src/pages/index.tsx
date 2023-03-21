@@ -28,7 +28,7 @@ import BottomLeftPanel from '../components/panels/BottomLeftPanel'
 import TopLeftPanel from '../components/panels/TopLeftPanel'
 import NodeTypes from '../types/NodeTypes'
 import 'react-contexify/ReactContexify.css'
-import { handleContextMenu } from '../utils/handleContextMenu'
+import { handleContextMenu } from '../utils/ContextMenu/handleContextMenu'
 import ContextMenu from '../components/ContextMenu'
 import Notification from '../components/Notification'
 
@@ -47,9 +47,7 @@ const selector = (state: RFState) => ({
   onEdgeUpdate: state.onEdgeUpdate
 })
 
-let nodeId = 0
 
-const setId = (type: string) => `${type}_${nodeId++}`
 
 const MENU_ID = 'Context_Menu'
 const DnDFlow = () => {
@@ -75,6 +73,11 @@ const DnDFlow = () => {
   const [openLoadModal, setOpenLoadModal] = useState(false)
   const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null)
   const [processDefOpenModal, setProcessDefOpenModal] = useState(true)
+  const[lastNodeIdNumber,setLastNodeIdNumber]=useState(0)
+  const setId = (type: string) => {
+    setLastNodeIdNumber(lastNodeIdNumber+1)
+    return(`${type}_${lastNodeIdNumber}`)
+  }
 
   const onDragOver = useOnDragNode()
   const onDrop = useOnDropNode(reactFlowWrapper, reactFlowInstance, setNodes, setId, nodes)
@@ -97,9 +100,10 @@ const DnDFlow = () => {
   })
   const [value, copy] = useCopyToClipboard()
   const [openNotification, setOpenNotification] = useState(false)
+
   return (
     <div
-      onContextMenu={(event) => handleContextMenu(event, reactFlowInstance, show, copy,setOpenNotification)}
+      onContextMenu={(event) => handleContextMenu(event, reactFlowInstance, show, copy,setOpenNotification,lastNodeIdNumber,setLastNodeIdNumber)}
       className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
       <Notification open={openNotification} setOpen={setOpenNotification} />
       <ContextMenu MENU_ID={MENU_ID} />
@@ -126,7 +130,6 @@ const DnDFlow = () => {
             isValidConnection={isValidConnection(nodes)}
             fitView
           >
-
             <Background color='#4f46e5' variant={BackgroundVariant.Dots} gap={10} size={1} />
             <MiniMap style={{ background: '#ccc' }}
                      nodeColor={(node: Node) => nodeColor(node.type as NodeTypes)}
