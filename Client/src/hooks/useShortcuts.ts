@@ -12,7 +12,9 @@ const useShortcuts = (reactFlowInstance: ReactFlowInstance | null,
                       setLastNodeIdNumber: Dispatch<SetStateAction<number>>,
                       copy: (text: string) => Promise<boolean>,
                       undo: () => void,
-                      redo: () => void) => {
+                      redo: () => void,
+                      setNotificationData: (data: { [key: string]: unknown }) => void,
+                      setOpen: (open: boolean) => void) => {
 
   useEventListener('keydown', async (e) => {
     switch (e.keyCode) {
@@ -44,7 +46,7 @@ const useShortcuts = (reactFlowInstance: ReactFlowInstance | null,
       case 86: // Ctrl+V
         if (e.ctrlKey) {
           e.preventDefault()
-          await pasteFromClipboard(reactFlowInstance, lastNodeIdNumber, setLastNodeIdNumber)
+          await pasteFromClipboard(reactFlowInstance, lastNodeIdNumber, setLastNodeIdNumber, setNotificationData,setOpen)
         }
         break
       case 88: // Ctrl+X

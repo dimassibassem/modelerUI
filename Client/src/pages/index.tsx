@@ -48,8 +48,6 @@ const selector = (state: RFState) => ({
   onEdgeUpdate: state.onEdgeUpdate
 })
 
-
-
 const MENU_ID = 'Context_Menu'
 const DnDFlow = () => {
   const {
@@ -74,30 +72,30 @@ const DnDFlow = () => {
   const [openLoadModal, setOpenLoadModal] = useState(false)
   const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null)
   const [processDefOpenModal, setProcessDefOpenModal] = useState(true)
-  const[lastNodeIdNumber,setLastNodeIdNumber]=useState(0)
+  const [lastNodeIdNumber, setLastNodeIdNumber] = useState(0)
   const [value, copy] = useCopyToClipboard()
   const [openNotification, setOpenNotification] = useState(false)
+  const [notificationData, setNotificationData] = useState({})
   const setId = (type: string) => {
-    setLastNodeIdNumber(lastNodeIdNumber+1)
-    return(`${type}_${lastNodeIdNumber}`)
+    setLastNodeIdNumber(lastNodeIdNumber + 1)
+    return (`${type}_${lastNodeIdNumber}`)
   }
 
   const onDragOver = useOnDragNode()
   const onDrop = useOnDropNode(reactFlowWrapper, reactFlowInstance, setNodes, setId, nodes)
   useHandleSelected(nodes, edges, setSelectedNode, setSelectedEdge)
   useRemoveWatermark()
-  useShortcuts(reactFlowInstance,lastNodeIdNumber,setLastNodeIdNumber,copy,undo,redo)
+  useShortcuts(reactFlowInstance, lastNodeIdNumber, setLastNodeIdNumber, copy, undo, redo, setNotificationData, setOpenNotification)
 
   const { show } = useContextMenu({
     id: MENU_ID
   })
 
-
   return (
     <div
-      onContextMenu={(event) => handleContextMenu(event, reactFlowInstance, show, copy,setOpenNotification,lastNodeIdNumber,setLastNodeIdNumber)}
+      onContextMenu={(event) => handleContextMenu(event, reactFlowInstance, show, copy, setOpenNotification, lastNodeIdNumber, setLastNodeIdNumber, setNotificationData)}
       className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
-      <Notification open={openNotification} setOpen={setOpenNotification} />
+      <Notification open={openNotification} setOpen={setOpenNotification} data={notificationData} />
       <ContextMenu MENU_ID={MENU_ID} />
       <ProcessDefinition open={processDefOpenModal} setOpen={setProcessDefOpenModal} />
       <Sidebar />

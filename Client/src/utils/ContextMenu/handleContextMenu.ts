@@ -20,7 +20,7 @@ export const handleItemClick = async ({
       break
     }
     case ContextMenuItems.Paste: {
-      await pasteFromClipboard(props.reactFlowInstance, props.lastNodeId, props.setLastNodeId,event)
+      await pasteFromClipboard(props.reactFlowInstance, props.lastNodeId, props.setLastNodeId, props.setNotificationData, props.setOpenNotification, event)
       break
     }
     case ContextMenuItems.Cut:
@@ -50,12 +50,13 @@ export const handleItemClick = async ({
 export const handleContextMenu = (event: MouseEvent,
                                   reactFlowInstance: ReactFlowInstance | null,
                                   show: (params: {
-                                    event: MouseEvent, props: { [key: string]: any }
+                                    event: MouseEvent, props: { [key: string]: unknown }
                                   }) => void,
                                   copy: (text: string) => Promise<boolean>,
                                   setOpenNotification: (open: boolean) => void,
                                   lastNodeId: number,
-                                  setLastNodeId: (id: number) => void
+                                  setLastNodeId: (id: number) => void,
+                                  setNotificationData: (data: { [key: string]: unknown }) => void
 ) => {
   show({
     event,
@@ -65,7 +66,8 @@ export const handleContextMenu = (event: MouseEvent,
       copy,
       setOpenNotification,
       lastNodeId,
-      setLastNodeId
+      setLastNodeId,
+      setNotificationData
     }
   })
 }

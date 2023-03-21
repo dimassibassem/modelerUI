@@ -5,8 +5,15 @@ const pasteFromClipboard = async (
   reactFlowInstance: ReactFlowInstance | null,
   lastNodeId: number,
   setLastNodeId: (lastNodeId: number) => void,
+  setNotificationData: (data: { [key: string]: unknown }) => void,
+  setOpenNotification: (open: boolean) => void,
   event?: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement> | React.KeyboardEvent<HTMLElement> | KeyboardEvent) => {
   const json = await navigator.clipboard.readText()
+  if (!json || !json.startsWith('{')) {
+    setNotificationData({ error: 'No valid data in clipboard' })
+    setOpenNotification(true)
+    return
+  }
   const data = JSON.parse(json)
   let clickedPosition: XYPosition | undefined
   if (event) {
