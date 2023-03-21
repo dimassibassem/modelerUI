@@ -28,8 +28,6 @@ const ContextMenu = ({
       <Item id={ContextMenuItems.SelectEdges} onClick={handleItemClick}>Select Edges</Item>
       <Item id={ContextMenuItems.SelectAll} onClick={handleItemClick}>Select all</Item>
       <Separator />
-      <Item disabled>Disabled</Item>
-      <Separator />
       <Submenu label='Foobar'>
         <Item id='reload' onClick={handleItemClick}>Reload</Item>
         <Item id='something' onClick={handleItemClick}>Do something else</Item>

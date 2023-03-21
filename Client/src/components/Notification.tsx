@@ -7,8 +7,7 @@ const Notification = ({ open, setOpen, data }: {
   open: boolean,
   setOpen: Dispatch<SetStateAction<boolean>>
   data: {
-    error?: string,
-    success?: string
+    success: string, message: string
   }
 }) => {
 
@@ -47,26 +46,24 @@ const Notification = ({ open, setOpen, data }: {
               className='pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5'>
               <div className='p-4'>
                 <div className='flex items-start'>
-                  {!data.error ? <>
-                      <div className='flex-shrink-0'>
-                        <CheckCircleIcon
-                          className='h-6 w-6 text-green-400' aria-hidden='true' />
-                      </div>
-                      <div className='ml-3 w-0 flex-1 pt-0.5'>
-                        <p className='text-sm font-medium text-gray-900'>Successfully copied to clipboard !</p>
-                        {/* <p className='mt-1 text-sm text-gray-500'>Anyone with a link can now view this file.</p> */}
-                      </div>
-                    </>
-                    :
-                    <>
-                      <div className='flex-shrink-0'>
-                        <ExclamationTriangleIcon className='h-6 w-6 text-red-400' aria-hidden='true' />
-                      </div>
-                      <div className='ml-3 w-0 flex-1 pt-0.5'>
-                        <p className='text-sm font-medium text-gray-900'>{data.error}</p>
-                        {/* <p className='mt-1 text-sm text-gray-500'>Anyone with a link can now view this file.</p> */}
-                      </div>
-                    </>
+                  {data.success ? <>
+                    <div className='flex-shrink-0'>
+                      <CheckCircleIcon
+                        className='h-6 w-6 text-green-400' aria-hidden='true' />
+                    </div>
+                    <div className='ml-3 w-0 flex-1 pt-0.5'>
+                      <p className='text-sm font-medium text-gray-900'>{data.message}</p>
+                      {/* <p className='mt-1 text-sm text-gray-500'>Anyone with a link can now view this file.</p> */}
+                    </div>
+                  </> : <>
+                    <div className='flex-shrink-0'>
+                      <ExclamationTriangleIcon className='h-6 w-6 text-red-400' aria-hidden='true' />
+                    </div>
+                    <div className='ml-3 w-0 flex-1 pt-0.5'>
+                      <p className='text-sm font-medium text-gray-900'>{data.message}</p>
+                      {/* <p className='mt-1 text-sm text-gray-500'>Anyone with a link can now view this file.</p> */}
+                    </div>
+                  </>
                   }
                   <div className='ml-4 flex flex-shrink-0'>
                     <button

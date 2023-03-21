@@ -10,7 +10,7 @@ const pasteFromClipboard = async (
   event?: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement> | React.KeyboardEvent<HTMLElement> | KeyboardEvent) => {
   const json = await navigator.clipboard.readText()
   if (!json || !json.startsWith('{')) {
-    setNotificationData({ error: 'No valid data in clipboard' })
+    setNotificationData({ success: false, message: 'Clipboard is empty or contains invalid data' })
     setOpenNotification(true)
     return
   }

@@ -27,7 +27,7 @@ export const handleItemClick = async ({
       await cutSelected(props.reactFlowInstance, props.lastNodeId, props.setLastNodeId, props.copy)
       break
     case ContextMenuItems.CopyAsImage: {
-      await copyAsImage(props.reactFlowInstance, props.setOpenNotification)
+      await copyAsImage(props.reactFlowInstance, props.setOpenNotification, props.setNotificationData)
       break
     }
     case ContextMenuItems.SelectNodes: {
