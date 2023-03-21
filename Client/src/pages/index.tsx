@@ -7,7 +7,7 @@ import ReactFlow, {
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 import { shallow } from 'zustand/shallow'
-import { useEventListener, useCopyToClipboard } from 'usehooks-ts'
+import { useCopyToClipboard } from 'usehooks-ts'
 import { useContextMenu } from 'react-contexify'
 import Sidebar from '../components/Sidebar'
 import useOnDropNode from '../hooks/useOnDropNode'
@@ -31,6 +31,7 @@ import 'react-contexify/ReactContexify.css'
 import { handleContextMenu } from '../utils/ContextMenu/handleContextMenu'
 import ContextMenu from '../components/ContextMenu'
 import Notification from '../components/Notification'
+import useShortcuts from '../hooks/useShortcuts'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -65,15 +66,17 @@ const DnDFlow = () => {
     process,
     setProcess
   } = useFlowStore(selector, shallow)
+
   const { undo, redo, pause, resume } = useTemporalStore(
     (state) => state
   )
-
   const reactFlowWrapper = useRef<HTMLInputElement>(null)
   const [openLoadModal, setOpenLoadModal] = useState(false)
   const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null)
   const [processDefOpenModal, setProcessDefOpenModal] = useState(true)
   const[lastNodeIdNumber,setLastNodeIdNumber]=useState(0)
+  const [value, copy] = useCopyToClipboard()
+  const [openNotification, setOpenNotification] = useState(false)
   const setId = (type: string) => {
     setLastNodeIdNumber(lastNodeIdNumber+1)
     return(`${type}_${lastNodeIdNumber}`)
@@ -83,23 +86,12 @@ const DnDFlow = () => {
   const onDrop = useOnDropNode(reactFlowWrapper, reactFlowInstance, setNodes, setId, nodes)
   useHandleSelected(nodes, edges, setSelectedNode, setSelectedEdge)
   useRemoveWatermark()
-
-  useEventListener('keydown', (e) => {
-    if (e.ctrlKey && e.keyCode === 90) {
-      e.preventDefault()
-      undo()
-    }
-    if (e.ctrlKey && e.keyCode === 89) {
-      e.preventDefault()
-      redo()
-    }
-  })
+  useShortcuts(reactFlowInstance,lastNodeIdNumber,setLastNodeIdNumber,copy,undo,redo)
 
   const { show } = useContextMenu({
     id: MENU_ID
   })
-  const [value, copy] = useCopyToClipboard()
-  const [openNotification, setOpenNotification] = useState(false)
+
 
   return (
     <div
