@@ -5,7 +5,7 @@ const pasteFromClipboard = async (
   reactFlowInstance: ReactFlowInstance | null,
   lastNodeId: number,
   setLastNodeId: (lastNodeId: number) => void,
-  setNotificationData: (data: { [key: string]: unknown }) => void,
+  setNotificationData: (data:{success: boolean, message: string}) => void,
   setOpenNotification: (open: boolean) => void,
   event?: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement> | React.KeyboardEvent<HTMLElement> | KeyboardEvent) => {
   const json = await navigator.clipboard.readText()

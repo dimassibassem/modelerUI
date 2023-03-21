@@ -56,8 +56,7 @@ export const handleContextMenu = (event: MouseEvent,
                                   setOpenNotification: (open: boolean) => void,
                                   lastNodeId: number,
                                   setLastNodeId: (id: number) => void,
-                                  setNotificationData: (data: { [key: string]: unknown }) => void
-) => {
+                                  setNotificationData: (data: { success: boolean, message: string }) => void) => {
   show({
     event,
     props: {

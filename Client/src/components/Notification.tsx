@@ -7,7 +7,7 @@ const Notification = ({ open, setOpen, data }: {
   open: boolean,
   setOpen: Dispatch<SetStateAction<boolean>>
   data: {
-    success: string, message: string
+    success: boolean, message: string
   }
 }) => {
 

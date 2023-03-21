@@ -75,7 +75,7 @@ const DnDFlow = () => {
   const [lastNodeIdNumber, setLastNodeIdNumber] = useState(0)
   const [value, copy] = useCopyToClipboard()
   const [openNotification, setOpenNotification] = useState(false)
-  const [notificationData, setNotificationData] = useState({})
+  const [notificationData, setNotificationData] = useState({success: false, message: ''})
   const setId = (type: string) => {
     setLastNodeIdNumber(lastNodeIdNumber + 1)
     return (`${type}_${lastNodeIdNumber}`)
@@ -90,7 +90,7 @@ const DnDFlow = () => {
   const { show } = useContextMenu({
     id: MENU_ID
   })
-
+// info : better to change reactFlowInstance.getNodes to nodes from store
   return (
     <div
       onContextMenu={(event) => handleContextMenu(event, reactFlowInstance, show, copy, setOpenNotification, lastNodeIdNumber, setLastNodeIdNumber, setNotificationData)}

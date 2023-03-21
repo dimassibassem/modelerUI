@@ -13,7 +13,7 @@ const useShortcuts = (reactFlowInstance: ReactFlowInstance | null,
                       copy: (text: string) => Promise<boolean>,
                       undo: () => void,
                       redo: () => void,
-                      setNotificationData: (data: { [key: string]: unknown }) => void,
+                      setNotificationData: (data:{success: boolean, message: string}) => void,
                       setOpen: (open: boolean) => void) => {
 
   useEventListener('keydown', async (e) => {
