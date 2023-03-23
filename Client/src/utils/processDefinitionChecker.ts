@@ -5,11 +5,16 @@ import Process from '../types/Process'
 const processDefinitionChecker = (nodes: Node[], edges: Edge[], setProcess: (process: Process) => void, process: Process) => {
   const startNode = nodes.find(node => node.type === 'start')
   const endNode = nodes.find(node => node.type === 'end')
-  if (!startNode || !endNode) return
+  if (!startNode || !endNode) {
+    setProcess({ ...process, steps: [] } as Process)
+    return
+  }
   const graph = createGraph(nodes, edges)
-  if (!startNode || !endNode) return
   const paths = findAllPaths(graph, startNode.id, endNode.id)
-  if (paths.length === 0) return
+  if (paths.length === 0) {
+    setProcess({ ...process, steps: [] } as Process)
+    return
+  }
   const steps = paths.map(path => path.map(nodeId => {
     const node = nodes.find(nd => nd.id === nodeId)
     return node?.type === 'start' || node?.type === 'end' ? {
