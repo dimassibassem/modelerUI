@@ -3,6 +3,8 @@ import { Edge, Node, ReactFlowInstance, XYPosition } from 'reactflow'
 
 const pasteFromClipboard = async (
   reactFlowInstance: ReactFlowInstance | null,
+  setNodes: (nodes: Node[]) => void,
+  setEdges: (edges: Edge[]) => void,
   lastNodeId: number,
   setLastNodeId: (lastNodeId: number) => void,
   setNotificationData: (data:{success: boolean, message: string}) => void,
@@ -58,8 +60,8 @@ const pasteFromClipboard = async (
   })
   const nodes = reactFlowInstance?.getNodes()
   const edges = reactFlowInstance?.getEdges()
-  reactFlowInstance?.setNodes([...nodes ?? [], ...copiedNodesWithNewIds])
-  reactFlowInstance?.setEdges([...edges ?? [], ...copiedEdgesWithNewIds])
+  setNodes([...nodes ?? [], ...copiedNodesWithNewIds])
+  setEdges([...edges ?? [], ...copiedEdgesWithNewIds])
   setLastNodeId(lastNodeId + copiedNodesWithNewIds.length)
 }
 

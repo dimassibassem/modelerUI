@@ -1,5 +1,17 @@
+
+type Steps = {
+  id: string,
+  type: string,
+  attributes?: {
+    name?: string,
+    channel?: string,
+    challenge?: string,
+    enricher?: string
+  }
+}[]
+
 type Process = {
-  steps: never[],
+  steps: Steps[],
   name: string,
   description: string,
   hook: {

@@ -1,9 +1,9 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import ReactFlow, {
   ReactFlowProvider,
   Background,
   MiniMap,
-  Node, BackgroundVariant, ConnectionMode, ReactFlowInstance
+  Node, BackgroundVariant, ConnectionMode, ReactFlowInstance, Edge
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 import { shallow } from 'zustand/shallow'
@@ -32,6 +32,8 @@ import { handleContextMenu } from '../utils/ContextMenu/handleContextMenu'
 import ContextMenu from '../components/ContextMenu'
 import Notification from '../components/Notification'
 import useShortcuts from '../hooks/useShortcuts'
+import processDefinitionChecker from '../utils/processDefinitionChecker'
+import Process from '../types/Process'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -75,7 +77,7 @@ const DnDFlow = () => {
   const [lastNodeIdNumber, setLastNodeIdNumber] = useState(0)
   const [value, copy] = useCopyToClipboard()
   const [openNotification, setOpenNotification] = useState(false)
-  const [notificationData, setNotificationData] = useState({success: false, message: ''})
+  const [notificationData, setNotificationData] = useState({ success: false, message: '' })
   const setId = (type: string) => {
     setLastNodeIdNumber(lastNodeIdNumber + 1)
     return (`${type}_${lastNodeIdNumber}`)
@@ -85,15 +87,17 @@ const DnDFlow = () => {
   const onDrop = useOnDropNode(reactFlowWrapper, reactFlowInstance, setNodes, setId, nodes)
   useHandleSelected(nodes, edges, setSelectedNode, setSelectedEdge)
   useRemoveWatermark()
-  useShortcuts(reactFlowInstance, lastNodeIdNumber, setLastNodeIdNumber, copy, undo, redo, setNotificationData, setOpenNotification)
+  useShortcuts(reactFlowInstance, setNodes, setEdges, lastNodeIdNumber, setLastNodeIdNumber, copy, undo, redo, setNotificationData, setOpenNotification)
+  const { show } = useContextMenu({ id: MENU_ID })
 
-  const { show } = useContextMenu({
-    id: MENU_ID
-  })
-// info : better to change reactFlowInstance.getNodes to nodes from store
+  useEffect(
+    () => {
+      processDefinitionChecker(nodes, edges, setProcess, process)
+    }, [nodes, edges])
+
   return (
     <div
-      onContextMenu={(event) => handleContextMenu(event, reactFlowInstance, show, copy, setOpenNotification, lastNodeIdNumber, setLastNodeIdNumber, setNotificationData)}
+      onContextMenu={(event) => handleContextMenu(event, reactFlowInstance, setNodes, setEdges, show, copy, setOpenNotification, lastNodeIdNumber, setLastNodeIdNumber, setNotificationData)}
       className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
       <Notification open={openNotification} setOpen={setOpenNotification} data={notificationData} />
       <ContextMenu MENU_ID={MENU_ID} />

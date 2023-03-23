@@ -5,7 +5,7 @@ import classNames from '../utils/classNames'
 import { RFState } from '../types/RFState'
 import { useFlowStore } from '../store'
 
-const Channels = ['MOB', 'WEB']
+
 const selector = (state: RFState) => ({
   setProcess: state.setProcess,
   process: state.process
@@ -14,20 +14,6 @@ const selector = (state: RFState) => ({
 
 const ProcessDefinition = ({ open, setOpen }: { open: boolean, setOpen: (arg0: boolean) => void }) => {
   const { setProcess, process } = useFlowStore(selector, shallow)
-  const [state, setState] = useState({
-    name: '',
-    description: '',
-    hook: '',
-    channel: 'MOB',
-    isAsync: false
-  })
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setState({
-      ...state,
-      [e.target.name]: e.target.value
-    })
-  }
 
   return (
     <Transition.Root show={open}>
@@ -70,7 +56,13 @@ const ProcessDefinition = ({ open, setOpen }: { open: boolean, setOpen: (arg0: b
                           type='text'
                           name='name'
                           id='name'
-                          onChange={handleChange}
+                          onChange={(e) => {
+                            setProcess(
+                              {
+                                ...process,
+                                name: e.target.value
+                              })
+                          }}
                           className='block w-full max-w-lg rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6'
                         />
                       </div>
@@ -87,85 +79,15 @@ const ProcessDefinition = ({ open, setOpen }: { open: boolean, setOpen: (arg0: b
                           type='text'
                           name='description'
                           id='description'
-                          onChange={handleChange}
+                          onChange={(e) => {
+                            setProcess(
+                              {
+                                ...process,
+                                description: e.target.value
+                              })
+                          }}
                           className='block w-full max-w-lg rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6'
                         />
-                      </div>
-                    </div>
-
-                    <div
-                      className='sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5'>
-                      <label htmlFor='hook'
-                             className='block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5'>
-                        Hook
-                      </label>
-                      <div className='mt-2 sm:col-span-2 sm:mt-0'>
-                        <input
-                          type='text'
-                          name='hook'
-                          id='hook'
-                          onChange={handleChange}
-                          className='block w-full max-w-lg rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6'
-                        />
-                      </div>
-                    </div>
-
-                    <div
-                      className='sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-gray-200 sm:pt-2'>
-                      <label htmlFor='channel'
-                             className='block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5'>
-                        Channel
-                      </label>
-                      <div className='mt-2 sm:col-span-2 sm:mt-0'>
-                        <RadioGroup value={state.channel} onChange={(ch) => {
-                          setState({ ...state, channel: ch })
-                        }}>
-                          <div className='grid grid-cols-2 gap-3 '>
-                            {Channels.map((canal) => (
-                              <RadioGroup.Option
-                                key={canal}
-                                value={canal}
-                                className={({ active, checked }) =>
-                                  classNames(
-                                    active ? 'ring-2 ring-indigo-600 ring-offset-2' : '',
-                                    checked
-                                      ? 'bg-indigo-600 text-white hover:bg-indigo-500'
-                                      : 'ring-1 ring-inset ring-gray-300 bg-white text-gray-900 hover:bg-gray-50',
-                                    'flex items-center justify-center rounded-md py-3 px-3 text-sm font-semibold uppercase sm:flex-1 cursor-pointer focus:outline-none'
-                                  )
-                                }
-                              >
-                                <RadioGroup.Label as='span'>{canal}</RadioGroup.Label>
-                              </RadioGroup.Option>
-                            ))}
-                          </div>
-                        </RadioGroup>
-                      </div>
-                    </div>
-
-                    <div
-                      className='sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-gray-200 sm:pt-2'>
-                      <label htmlFor='isAsynchronous'
-                             className='block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5'>
-                        isAsync
-                      </label>
-                      <div className='mt-2 sm:col-span-2 '>
-                        <Switch
-                          checked={state.isAsync}
-                          onChange={() => setState({ ...state, isAsync: !state.isAsync })}
-                          className={classNames(
-                            state.isAsync ? 'bg-indigo-600' : 'bg-gray-200',
-                            'relative inline-flex h-5 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2'
-                          )}
-                        >
-                          <span
-                            aria-hidden='true'
-                            className={classNames(
-                              state.isAsync ? 'translate-x-5' : 'translate-x-0',
-                              'pointer-events-none inline-block h-4 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out'
-                            )}
-                          />
-                        </Switch>
                       </div>
                     </div>
 
@@ -176,18 +98,7 @@ const ProcessDefinition = ({ open, setOpen }: { open: boolean, setOpen: (arg0: b
                     type='button'
                     className='inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm'
                     onClick={() => {
-                      if (state.name !== '' && state.description !== '' && state.hook !== '' && state.channel !== '') {
-                        setProcess(
-                          {
-                            steps: process.steps,
-                            name: state.name,
-                            description: state.description,
-                            hook: {
-                              name: state.hook,
-                              channel: state.channel,
-                              isAsync: state.isAsync
-                            }
-                          })
+                      if (process.name !== '' && process.description) {
                         setOpen(false)
                       } else {
                         alert('Please fill all the fields')

@@ -7,52 +7,16 @@ import {
   NodeChange,
   addEdge,
   applyNodeChanges,
-  applyEdgeChanges, MarkerType, Position, updateEdge
+  applyEdgeChanges, MarkerType, updateEdge
 } from 'reactflow'
 import { temporal, TemporalState } from 'zundo'
 import { devtools } from 'zustand/middleware'
 import equal from 'deep-equal'
 import { RFState } from '../types/RFState'
-import connectableWith from '../utils/connectableWith'
 import Process from '../types/Process'
-import attributeSwitcher from '../utils/attributeSwitcher'
-import NodeTypes from '../types/NodeTypes'
 
 const initialEdges: Edge[] = []
-const initialNodes: Node[] = [
-  {
-    id: '2',
-    type: NodeTypes.Policies,
-    data: {
-      label: NodeTypes.Policies,
-      handles: [
-        { position: Position.Top, enable: true },
-        { position: Position.Bottom, enable: true },
-        { position: Position.Left, enable: true },
-        { position: Position.Right, enable: true }
-      ],
-      attributes: attributeSwitcher(NodeTypes.Policies),
-      connectableWith: connectableWith(NodeTypes.Policies)
-    },
-    position: { x: -200, y: 0 }
-  },
-  {
-    id: '3',
-    type: NodeTypes.Execution,
-    data: {
-      label: NodeTypes.Execution,
-      handles: [
-        { position: Position.Top, enable: true },
-        { position: Position.Bottom, enable: true },
-        { position: Position.Left, enable: true },
-        { position: Position.Right, enable: true }
-      ],
-      attributes: attributeSwitcher(NodeTypes.Execution),
-      connectableWith: connectableWith(NodeTypes.Execution)
-    },
-    position: { x: 400, y: 100 }
-  }
-]
+const initialNodes: Node[] = []
 
 const initialProcess: Process = {
   steps: [],
@@ -65,7 +29,7 @@ const initialProcess: Process = {
   }
 }
 
-// this is our useStore hook that we can use in our components to get parts of the store and call actions
+// this is our useFlowStore hook that we can use in our components to get parts of the store and call actions
 const useFlowStore = create(devtools(temporal<RFState>(
     (set, get) => ({
       process: initialProcess,
@@ -116,7 +80,7 @@ const useFlowStore = create(devtools(temporal<RFState>(
       equality: (a, b) =>
 
         /*
-         Info: avoid the changes of properties of selected node or edge to be
+         Info: to avoid the changes of properties of selected node or edge to be
           recorded in the history we need to exclude them from the equality check
        */
 

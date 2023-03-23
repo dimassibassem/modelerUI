@@ -1,7 +1,11 @@
 import { Edge, Node, ReactFlowInstance } from 'reactflow'
 import { Dispatch, SetStateAction } from 'react'
 
-const copySelected = async (reactFlowInstance: ReactFlowInstance | null, lastNodeId: number, setLastNodeId: Dispatch<SetStateAction<number>>, copy: (text: string) => Promise<boolean>) => {
+const copySelected = async (reactFlowInstance: ReactFlowInstance | null,
+                            lastNodeId: number,
+                            setLastNodeId: Dispatch<SetStateAction<number>>,
+                            copy: (text: string) => Promise<boolean>
+) => {
   const nodes = reactFlowInstance?.getNodes()
   const edges = reactFlowInstance?.getEdges()
   const selectedNodes = nodes?.filter((node: Node) => node.selected)

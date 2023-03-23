@@ -1,6 +1,6 @@
 import { ItemParams } from 'react-contexify'
 import { MouseEvent } from 'react'
-import { ReactFlowInstance } from 'reactflow'
+import { Node, Edge, ReactFlowInstance } from 'reactflow'
 import copyAsImage from './copyAsImage'
 import selectNodes from './selectNodes'
 import selectEdges from './selectEdges'
@@ -20,11 +20,11 @@ export const handleItemClick = async ({
       break
     }
     case ContextMenuItems.Paste: {
-      await pasteFromClipboard(props.reactFlowInstance, props.lastNodeId, props.setLastNodeId, props.setNotificationData, props.setOpenNotification, event)
+      await pasteFromClipboard(props.reactFlowInstance, props.setNodes, props.setEdges, props.lastNodeId, props.setLastNodeId, props.setNotificationData, props.setOpenNotification, event)
       break
     }
     case ContextMenuItems.Cut:
-      await cutSelected(props.reactFlowInstance, props.lastNodeId, props.setLastNodeId, props.copy)
+      await cutSelected(props.reactFlowInstance, props.setNodes, props.setEdges, props.lastNodeId, props.setLastNodeId, props.copy)
       break
     case ContextMenuItems.CopyAsImage: {
       await copyAsImage(props.reactFlowInstance, props.setOpenNotification, props.setNotificationData)
@@ -49,6 +49,8 @@ export const handleItemClick = async ({
 
 export const handleContextMenu = (event: MouseEvent,
                                   reactFlowInstance: ReactFlowInstance | null,
+                                  setNodes: (nodes: Node[]) => void,
+                                  setEdges: (edges: Edge[]) => void,
                                   show: (params: {
                                     event: MouseEvent, props: { [key: string]: unknown }
                                   }) => void,
@@ -62,6 +64,8 @@ export const handleContextMenu = (event: MouseEvent,
     props: {
       key: 'value',
       reactFlowInstance,
+      setNodes,
+      setEdges,
       copy,
       setOpenNotification,
       lastNodeId,

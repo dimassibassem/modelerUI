@@ -18,14 +18,14 @@ const TopLeftPanel = ({ nodes, edges, setProcess, process }:
   )
   return (
     <Panel className='grid grid-cols-1 gap-2' position='top-left'>
-      <button
-        className='rounded-full bg-indigo-600 py-1 px-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-        type='button'
-        onClick={() => {
-          processDefinition(nodes, edges, setProcess, process)
-        }}>
-        Log Process JSON
-      </button>
+      {/* <button */}
+      {/*  className='rounded-full bg-indigo-600 py-1 px-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' */}
+      {/*  type='button' */}
+      {/*  onClick={() => { */}
+      {/*    processDefinition(nodes, edges, setProcess, process) */}
+      {/*  }}> */}
+      {/*  Log Process JSON */}
+      {/* </button> */}
       <div className='grid grid-cols-2 items-stretch gap-2'>
         <button className={
           classNames(pastStates.length === 0 ? 'bg-white text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50' : 'bg-indigo-600 text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
