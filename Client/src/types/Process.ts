@@ -1,8 +1,8 @@
-
 type Steps = {
   id: string,
   type: string,
   attributes?: {
+    [key: string]: string | undefined; // add index signature
     name?: string,
     channel?: string,
     challenge?: string,
