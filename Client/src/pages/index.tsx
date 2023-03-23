@@ -3,7 +3,7 @@ import ReactFlow, {
   ReactFlowProvider,
   Background,
   MiniMap,
-  Node, BackgroundVariant, ConnectionMode, ReactFlowInstance, Edge
+  Node, BackgroundVariant, ConnectionMode, ReactFlowInstance
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 import { shallow } from 'zustand/shallow'
@@ -33,7 +33,6 @@ import ContextMenu from '../components/ContextMenu'
 import Notification from '../components/Notification'
 import useShortcuts from '../hooks/useShortcuts'
 import processDefinitionChecker from '../utils/processDefinitionChecker'
-import Process from '../types/Process'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -132,7 +131,7 @@ const DnDFlow = () => {
                            reactFlowInstance={reactFlowInstance} setOpenLoadModal={setOpenLoadModal} />
             <BottomLeftPanel edges={edges} nodes={nodes} setNodes={setNodes} />
 
-            <TopLeftPanel edges={edges} nodes={nodes} process={process} setProcess={setProcess} />
+            <TopLeftPanel />
 
           </ReactFlow>
         </div>

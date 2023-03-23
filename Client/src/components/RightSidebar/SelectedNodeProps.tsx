@@ -10,11 +10,10 @@ const selector = (state: RFState) => ({
   setNodes: state.setNodes,
   nodes: state.nodes,
   edges: state.edges,
-  process: state.process
 })
 
 const SelectedNodeProps = () => {
-  const { selectedNode, setNodes, nodes, edges,process } = useFlowStore(selector, shallow)
+  const { selectedNode, setNodes, nodes, edges } = useFlowStore(selector, shallow)
   const [nodeText, setNodeText] = useState(selectedNode?.data.text || '')
   useEffect(() => {
     if (selectedNode && !selectedNode.dragging && !selectedNode.resizing) {
