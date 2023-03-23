@@ -1,10 +1,10 @@
 import { ChevronRightIcon } from '@heroicons/react/20/solid'
 import { shallow } from 'zustand/shallow'
 import React, { useId, useState } from 'react'
-import { Node } from 'reactflow'
 import { useFlowStore } from '../../store'
 import { RFState } from '../../types/RFState'
 import classNames from '../../utils/classNames'
+import handleStepsChange from '../../utils/handleStepChange'
 
 const selector = (state: RFState) => ({
   process: state.process,
@@ -12,6 +12,7 @@ const selector = (state: RFState) => ({
   setNodes: state.setNodes,
   nodes: state.nodes
 })
+
 const StepsList = () => {
   const { process, setProcess, setNodes, nodes } = useFlowStore(selector, shallow)
   const [expanded, setExpanded] = useState<number[][]>([])
@@ -74,45 +75,7 @@ const StepsList = () => {
                                           name={`${step.id}_${key}`}
                                           id={`${step.id}_${key}`}
                                           value={process.steps?.[stepsArrayIndex][stepArrayIndex].attributes?.[key]}
-                                          onChange={(e) => {
-                                            setProcess({
-                                                ...process,
-                                                steps: process.steps.map((stepsArray, index) => {
-                                                  if (index === stepsArrayIndex) {
-                                                    return stepsArray.map((currStep, stepInd) => {
-                                                      if (stepInd === stepArrayIndex) {
-                                                        return {
-                                                          ...currStep,
-                                                          attributes: {
-                                                            ...currStep.attributes,
-                                                            [key]: e.target.value
-                                                          }
-                                                        }
-                                                      }
-                                                      return currStep
-                                                    })
-                                                  }
-                                                  return stepsArray
-                                                })
-                                              }
-                                            )
-                                            setNodes(nodes.map((node: Node) => {
-                                                if (node.id === step.id) {
-                                                  return {
-                                                    ...node,
-                                                    data: {
-                                                      ...node.data,
-                                                      attributes: {
-                                                        ...node.data.attributes,
-                                                        [key]: e.target.value
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                                return node
-                                              }
-                                            ))
-                                          }}
+                                          onChange={(e) => handleStepsChange(e, key, step, stepsArrayIndex, stepArrayIndex, process, setProcess, setNodes, nodes)}
                                         />
                                       </div>
                                     </div>
