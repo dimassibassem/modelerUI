@@ -3,7 +3,7 @@ import NodeTypes from '../types/NodeTypes'
 const nodeColor = (type: NodeTypes) => {
   switch (type) {
     case NodeTypes.Start:
-      return '#cdff54'
+      return '#b2c711'
     case NodeTypes.End:
       return '#6865A5'
     case NodeTypes.Execution:

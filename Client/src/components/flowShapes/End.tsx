@@ -1,12 +1,12 @@
 import { NodeProps, NodeToolbar, Position } from 'reactflow'
 import { NodeResizer } from '@reactflow/node-resizer'
 import '@reactflow/node-resizer/dist/style.css'
-import { FC, memo } from 'react'
-import { Icon } from '@iconify/react'
+import React, { FC, memo } from 'react'
 import useShowToolbar from '../../hooks/useShowToolbar'
 import Handles from '../Handles'
 import useCustomNodeProps from '../../hooks/useCustomNodeProps'
 import NodeTypes from '../../types/NodeTypes'
+import end from '../../assets/end.png'
 
 const End: FC<NodeProps> = ({ type, data, dragging, selected }) => {
   const {
@@ -17,7 +17,8 @@ const End: FC<NodeProps> = ({ type, data, dragging, selected }) => {
     hoverRef,
     isHover,
     showToolbar,
-    setShowToolbar
+    setShowToolbar,
+    filter
   } = useCustomNodeProps(type as NodeTypes, 50, 50)
 
   useShowToolbar(isHover, dragging, setShowToolbar)
@@ -36,7 +37,14 @@ const End: FC<NodeProps> = ({ type, data, dragging, selected }) => {
           setHeight(props.height)
         }
       } />
-      <Icon icon='mdi:circle-slice-8' color='#999' width={width} height={height} />
+      <div>
+        <img src={end} alt='end' style={
+          {
+            width, height,
+            filter: filter || 'none'
+          }} />
+        <div className='absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>{data.text}</div>
+      </div>
       <Handles
         width={width}
         handles={data.handles}

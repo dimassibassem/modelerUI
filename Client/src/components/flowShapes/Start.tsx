@@ -17,8 +17,9 @@ const Start: FC<NodeProps> = ({ type, data, dragging, selected }) => {
     hoverRef,
     isHover,
     showToolbar,
-    setShowToolbar
-  } = useCustomNodeProps(type as NodeTypes, 100, 50)
+    setShowToolbar,
+    filter
+  } = useCustomNodeProps(type as NodeTypes, 50, 50)
   useShowToolbar(isHover, dragging, setShowToolbar)
 
   return (
@@ -29,14 +30,18 @@ const Start: FC<NodeProps> = ({ type, data, dragging, selected }) => {
           >help ???</h1>
         </div>
       </NodeToolbar>
-      <NodeResizer color='#ff0071' isVisible={selected} minWidth={100} minHeight={50} onResize={
+      <NodeResizer color='#ff0071' isVisible={selected} minWidth={50} minHeight={50} onResize={
         (event, props) => {
           setWidth(props.width)
           setHeight(props.height)
         }
       } />
       <div>
-        <img src={start} alt='start' style={{ width, height }} />
+        <img src={start} alt='start' style={
+          {
+            width, height,
+            filter: filter || 'none'
+          }} />
         <div className='absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>{data.text}</div>
       </div>
 
