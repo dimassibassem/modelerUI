@@ -77,6 +77,8 @@ const DnDFlow = () => {
   const [value, copy] = useCopyToClipboard()
   const [openNotification, setOpenNotification] = useState(false)
   const [notificationData, setNotificationData] = useState({ success: false, message: '' })
+
+
   const setId = (type: string) => {
     setLastNodeIdNumber(lastNodeIdNumber + 1)
     return (`${type}_${lastNodeIdNumber}`)
@@ -93,6 +95,7 @@ const DnDFlow = () => {
     () => {
       processDefinitionChecker(nodes, edges, setProcess, process)
     }, [nodes, edges])
+
 
   return (
     <div
@@ -129,7 +132,7 @@ const DnDFlow = () => {
                      nodeStrokeWidth={3} zoomable pannable />
             <TopRightPanel setNodes={setNodes} setEdges={setEdges}
                            reactFlowInstance={reactFlowInstance} setOpenLoadModal={setOpenLoadModal} />
-            <BottomLeftPanel edges={edges} nodes={nodes} setNodes={setNodes} />
+            <BottomLeftPanel edges={edges} nodes={nodes} setNodes={setNodes} setEdges={setEdges} />
 
             <TopLeftPanel />
 

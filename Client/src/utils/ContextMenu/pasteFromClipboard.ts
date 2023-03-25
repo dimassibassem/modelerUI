@@ -1,13 +1,14 @@
 import React from 'react'
 import { Edge, Node, ReactFlowInstance, XYPosition } from 'reactflow'
 
+let padding = 0
 const pasteFromClipboard = async (
   reactFlowInstance: ReactFlowInstance | null,
   setNodes: (nodes: Node[]) => void,
   setEdges: (edges: Edge[]) => void,
   lastNodeId: number,
   setLastNodeId: (lastNodeId: number) => void,
-  setNotificationData: (data:{success: boolean, message: string}) => void,
+  setNotificationData: (data: { success: boolean, message: string }) => void,
   setOpenNotification: (open: boolean) => void,
   event?: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement> | React.KeyboardEvent<HTMLElement> | KeyboardEvent) => {
   const json = await navigator.clipboard.readText()
@@ -49,13 +50,14 @@ const pasteFromClipboard = async (
     const idSuffix = node.id.substring(separatorIndex) // Get the suffix of the ID after the separator
     const newIdSuffix = (numberId + lastNodeId).toString().padStart(idSuffix.length, '0')// Append the incremented value to the suffix
     const newId = `${node.id.substring(0, separatorIndex)}${newIdSuffix}`
+    if (!clickedPosition) padding += 20
     return ({
       ...node,
       id: newId,
       position: clickedPosition ? {
-        x: clickedPosition.x + node.position.x - 400,
-        y: clickedPosition.y + node.position.y - 250
-      } : { x: node.position.x + 20, y: node.position.y + 20 }
+        x: clickedPosition.x - node.position.x ,
+        y: clickedPosition.y - node.position.y
+      } : { x: node.position.x + padding, y: node.position.y + padding }
     })
   })
   const nodes = reactFlowInstance?.getNodes()

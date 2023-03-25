@@ -2,7 +2,7 @@ import { Handle, Position } from 'reactflow'
 
 const Handles = ({
                    width,
-                   handles,
+                   handles
                  }: {
   width: number, handles: {
     position: Position,
