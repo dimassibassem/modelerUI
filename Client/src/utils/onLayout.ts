@@ -8,23 +8,23 @@ dagreGraph.setDefaultEdgeLabel(() => ({}))
 function handleHandles(direction: HorizontalLayout | VerticalLayout, node: Node) {
   switch (direction) {
     case HorizontalLayout.RightToLeft:
-      node.targetPosition = Position.Right;
-      node.sourcePosition = Position.Left;
-      break;
+      node.targetPosition = Position.Right
+      node.sourcePosition = Position.Left
+      break
     case HorizontalLayout.LeftToRight:
-      node.targetPosition = Position.Left;
-      node.sourcePosition = Position.Right;
-      break;
+      node.targetPosition = Position.Left
+      node.sourcePosition = Position.Right
+      break
     case VerticalLayout.TopToBottom:
-      node.targetPosition = Position.Top;
-      node.sourcePosition = Position.Bottom;
-      break;
+      node.targetPosition = Position.Top
+      node.sourcePosition = Position.Bottom
+      break
     case VerticalLayout.BottomToTop:
-      node.targetPosition = Position.Bottom;
-      node.sourcePosition = Position.Top;
-      break;
+      node.targetPosition = Position.Bottom
+      node.sourcePosition = Position.Top
+      break
     default:
-      break;
+      break
   }
 }
 
@@ -35,8 +35,8 @@ const onLayout = (direction: HorizontalLayout | VerticalLayout, nodes: Node[], e
 
   nodes.forEach((node) => {
     dagreGraph.setNode(node.id, {
-      width: typeof node.style?.width === 'number' ? (node.style?.width ?? 0) + 20 || 100 : 100,
-      height: typeof node.style?.height === 'number' ? (node.style?.height ?? 0) + 20 || 100 : 100
+      width: typeof node.style?.width === 'number' && (node.style?.width ?? 0) + 20 || 100,
+      height: typeof node.style?.height === 'number' && (node.style?.height ?? 0) + 20 || 100
     })
   })
 
