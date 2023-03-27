@@ -93,7 +93,9 @@ const DnDFlow = () => {
 
   useEffect(
     () => {
-      processDefinitionChecker(nodes, edges, setProcess, process)
+      if (nodes.some((node) => !node.dragging)) {
+        processDefinitionChecker(nodes, edges, setProcess, process)
+      }
     }, [nodes, edges])
 
 

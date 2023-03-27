@@ -29,48 +29,53 @@ const initialProcess: Process = {
   }
 }
 
+
 // this is our useFlowStore hook that we can use in our components to get parts of the store and call actions
-const useFlowStore = create(devtools(temporal<RFState>(
-    (set, get) => ({
-      process: initialProcess,
-      nodes: initialNodes,
-      edges: initialEdges,
-      selectedNode: null,
-      selectedEdge: null,
-      setProcess: (process: Process) => set({ process }),
-      setSelectedNode: (node: Node | null) => set({ selectedNode: node }),
-// @ts-ignore
-      setSelectedEdge: (edge: Edge | null) => set({ selectedEdge: edge }),
-      setNodes: (nodes: Node[]) => set({ nodes }),
-      setEdges: (edges: Edge[]) => set({ edges }),
-      onNodesChange: (changes: NodeChange[]) => {
-        set({
-          nodes: applyNodeChanges(changes, get().nodes)
-        })
-      },
-      onEdgesChange: (changes: EdgeChange[]) => {
-        set({
-          edges: applyEdgeChanges(changes, get().edges)
-        })
-      },
-      onEdgeUpdate: (oldEdge: Edge, newConnection: Connection) => {
-        set({
-          edges: updateEdge(oldEdge, newConnection, get().edges)
-        })
-      },
+const useFlowStore = create(temporal<RFState>
+  // @ts-ignore
+  (devtools((set, get) => ({
+        process: initialProcess,
+        nodes: initialNodes,
+        edges: initialEdges,
+        selectedNode: null,
+        selectedEdge: null,
+        setProcess: (process: Process) => set({ process }, false, 'setProcess'),
+        setSelectedNode: (node: Node | null) => set({ selectedNode: node }, false, 'setSelectedNode'),
+        setSelectedEdge: (edge: Edge | null) => set({ selectedEdge: edge }, false, 'setSelectedEdge'),
+        setNodes: (nodes: Node[]) => set({ nodes }, false, 'setNodes'),
+        setEdges: (edges: Edge[]) => set({ edges }, false, 'setEdges'),
+        onNodesChange: (changes: NodeChange[]) => {
+          set({
+            nodes: applyNodeChanges(changes, get().nodes)
+          }, false, 'onNodesChange')
+        },
+        onEdgesChange: (changes: EdgeChange[]) => {
+          set({
+            edges: applyEdgeChanges(changes, get().edges)
+          }, false, 'onEdgesChange')
+        },
+        onEdgeUpdate: (oldEdge: Edge, newConnection: Connection) => {
+          set({
+            edges: updateEdge(oldEdge, newConnection, get().edges)
+          }, false, 'onEdgeUpdate')
+        },
 
-      onConnect: (connection: Connection) => {
-        const newEdge = {
-          ...connection,
-          id: `${connection.source}-from-${connection.sourceHandle}-->${connection.target}-from-${connection.targetHandle}`,
-          markerEnd: { type: MarkerType.Arrow }
+        onConnect: (connection: Connection) => {
+          const newEdge = {
+            ...connection,
+            id: `${connection.source}-from-${connection.sourceHandle}-->${connection.target}-from-${connection.targetHandle}`,
+            markerEnd: { type: MarkerType.Arrow }
+          }
+
+          set({
+            edges: addEdge(newEdge, get().edges)
+          }, false, 'onConnect')
         }
-
-        set({
-          edges: addEdge(newEdge, get().edges)
-        })
-      }
-    }),
+      })
+      , {
+        name: 'FlowStore',
+        enabled: true
+      }),
     {
       // @ts-ignore
       partialize: (state) => {
@@ -79,19 +84,22 @@ const useFlowStore = create(devtools(temporal<RFState>(
       },
       equality: (a, b) =>
 
-        /*
-         Info: to avoid the changes of properties of selected node or edge to be
-          recorded in the history we need to exclude them from the equality check
-       */
-
-        equal(a, b)
-
+        equal(
+          {
+            nodes: a.nodes,
+            edges: a.edges
+          },
+          {
+            nodes: b.nodes,
+            edges: b.edges
+          }
+        )
 
     }
-  ))
+  )
 )
 
-const useTemporalStore = <T>(
+const useTemporalStore = <T, >(
   selector: (state: TemporalState<RFState>) => T,
   equality?: (a: T, b: T) => boolean
   // @ts-ignore

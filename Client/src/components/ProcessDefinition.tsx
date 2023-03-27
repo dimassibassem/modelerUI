@@ -1,18 +1,18 @@
-import React from 'react'
-import { Transition,} from '@headlessui/react'
+import React, { useState } from 'react'
+import { Transition } from '@headlessui/react'
 import { shallow } from 'zustand/shallow'
 import { RFState } from '../types/RFState'
 import { useFlowStore } from '../store'
-
 
 const selector = (state: RFState) => ({
   setProcess: state.setProcess,
   process: state.process
 })
 
-
 const ProcessDefinition = ({ open, setOpen }: { open: boolean, setOpen: (arg0: boolean) => void }) => {
   const { setProcess, process } = useFlowStore(selector, shallow)
+  const [name, setName] = useState<string>('')
+  const [description, setDescription] = useState<string>('')
 
   return (
     <Transition.Root show={open}>
@@ -56,11 +56,7 @@ const ProcessDefinition = ({ open, setOpen }: { open: boolean, setOpen: (arg0: b
                           name='name'
                           id='name'
                           onChange={(e) => {
-                            setProcess(
-                              {
-                                ...process,
-                                name: e.target.value
-                              })
+                            setName(e.target.value)
                           }}
                           className='block w-full max-w-lg rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6'
                         />
@@ -79,11 +75,7 @@ const ProcessDefinition = ({ open, setOpen }: { open: boolean, setOpen: (arg0: b
                           name='description'
                           id='description'
                           onChange={(e) => {
-                            setProcess(
-                              {
-                                ...process,
-                                description: e.target.value
-                              })
+                            setDescription(e.target.value)
                           }}
                           className='block w-full max-w-lg rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6'
                         />
@@ -97,7 +89,12 @@ const ProcessDefinition = ({ open, setOpen }: { open: boolean, setOpen: (arg0: b
                     type='button'
                     className='inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm'
                     onClick={() => {
-                      if (process.name !== '' && process.description) {
+                      if (name !== '' && description !== '') {
+                        setProcess({
+                          ...process,
+                          name,
+                          description
+                        })
                         setOpen(false)
                       } else {
                         alert('Please fill all the fields')

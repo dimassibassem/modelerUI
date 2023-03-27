@@ -6,13 +6,14 @@ const processDefinitionChecker = (nodes: Node[], edges: Edge[], setProcess: (pro
   const startNode = nodes.find(node => node.type === 'start')
   const endNode = nodes.find(node => node.type === 'end')
   if (!startNode || !endNode) {
-    setProcess({ ...process, steps: [] } as Process)
+    if (process.steps.length > 0)
+      setProcess({ ...process, steps: [] } as Process)
     return
   }
   const graph = createGraph(nodes, edges)
   const paths = findAllPaths(graph, startNode.id, endNode.id)
   if (paths.length === 0) {
-    setProcess({ ...process, steps: [] } as Process)
+    if (process.steps.length > 0) setProcess({ ...process, steps: [] } as Process)
     return
   }
   const steps = paths.map(path => path.map(nodeId => {
