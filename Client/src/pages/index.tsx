@@ -15,7 +15,7 @@ import useOnDragNode from '@/hooks/useOnDragNode'
 import useHandleSelected from '@/hooks/useHandleSelected'
 import { useFlowStore, useTemporalStore } from '@/store'
 import { RFState } from '@/types/RFState'
-import RightSidebar from '@/components/RightSidebar/RightSidebar'
+import RightSidebar from '@/components/rightSidebar/RightSidebar'
 import LoadModal from '@/components/LoadModal'
 import TopRightPanel from '@/components/panels/TopRightPanel'
 import nodeColor from '@/utils/nodeColor'
@@ -117,7 +117,7 @@ const DnDFlow = () => {
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
             onNodeDragStart={pause}
-            onNodeDrag={pause}
+            // onNodeDrag={pause}
             onNodeDragStop={resume}
             connectionMode={ConnectionMode.Loose}
             onInit={setReactFlowInstance}
