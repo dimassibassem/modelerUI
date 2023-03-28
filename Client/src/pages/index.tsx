@@ -98,17 +98,17 @@ const DnDFlow = () => {
       }
     }, [nodes, edges])
 
-
   return (
     <div
-      onContextMenu={(event) => handleContextMenu(event, reactFlowInstance, setNodes, setEdges, show, copy, setOpenNotification, lastNodeIdNumber, setLastNodeIdNumber, setNotificationData)}
       className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
       <Notification open={openNotification} setOpen={setOpenNotification} data={notificationData} />
       <ContextMenu MENU_ID={MENU_ID} />
       <ProcessDefinition open={processDefOpenModal} setOpen={setProcessDefOpenModal} />
       <Sidebar />
       <ReactFlowProvider>
-        <div className='grow h-full' ref={reactFlowWrapper}>
+        <div
+          onContextMenu={(event) => handleContextMenu(event, reactFlowInstance, setNodes, setEdges, show, copy, setOpenNotification, lastNodeIdNumber, setLastNodeIdNumber, setNotificationData)}
+          className='grow h-full' ref={reactFlowWrapper}>
           <ReactFlow
             nodes={nodes}
             nodeTypes={nodeTypes}

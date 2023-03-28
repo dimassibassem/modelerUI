@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useFlowStore } from '@/store'
+import { useFlowStore, useTemporalStore } from '@/store'
 import { RFState } from '@/types/RFState'
 import HandleCheckBoxes from './HandleCheckBoxes'
 import Attributes from './Attributes'
@@ -9,14 +9,18 @@ const selector = (state: RFState) => ({
   selectedNode: state.selectedNode,
   setNodes: state.setNodes,
   nodes: state.nodes,
-  edges: state.edges,
+  edges: state.edges
 })
 
 const SelectedNodeProps = () => {
   const { selectedNode, setNodes, nodes, edges } = useFlowStore(selector, shallow)
   const [nodeText, setNodeText] = useState(selectedNode?.data.text || '')
+  const { pause, resume } = useTemporalStore(
+    (state) => state
+  )
   useEffect(() => {
     if (selectedNode && !selectedNode.dragging && !selectedNode.resizing) {
+      pause()
       setNodes(nodes.map(node => node.id === selectedNode.id ? {
         ...node,
         data: {
@@ -25,6 +29,7 @@ const SelectedNodeProps = () => {
         }
       } : node))
     }
+    resume()
   }, [nodeText])
 
   useEffect(() => {

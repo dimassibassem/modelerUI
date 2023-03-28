@@ -81,7 +81,8 @@ const StepsList = () => {
                                     </div>
                                   </div>
                                 )}
-                            </> : <ChevronRightIcon className='h-5 w-5 text-gray-400' aria-hidden='true' />
+                            </> : <ChevronRightIcon className='h-5 w-5 text-gray-400 hover:cursor-pointer' aria-hidden='true'
+                                                    onClick={() => toggleExpand(stepsArrayIndex, stepArrayIndex)} />
                             }
                           </div>
                         </div>

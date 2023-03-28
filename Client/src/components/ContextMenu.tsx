@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Item, Separator, Submenu } from 'react-contexify'
+import { Menu, Item, Separator } from 'react-contexify'
 import { Node } from 'reactflow'
 import { shallow } from 'zustand/shallow'
 import { handleItemClick } from '@/utils/ContextMenu/handleContextMenu'
@@ -28,10 +28,6 @@ const ContextMenu = ({
       <Item id={ContextMenuItems.SelectEdges} onClick={handleItemClick}>Select Edges</Item>
       <Item id={ContextMenuItems.SelectAll} onClick={handleItemClick}>Select all</Item>
       <Separator />
-      <Submenu label='Foobar'>
-        <Item id='reload' onClick={handleItemClick}>Reload</Item>
-        <Item id='something' onClick={handleItemClick}>Do something else</Item>
-      </Submenu>
     </Menu>
   )
 }

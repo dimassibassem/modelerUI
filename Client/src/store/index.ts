@@ -79,8 +79,8 @@ const useFlowStore = create(temporal<RFState>
     {
       // @ts-ignore
       partialize: (state) => {
-        const { nodes, edges } = state
-        return { nodes, edges }
+        const { nodes, edges, process } = state
+        return { nodes, edges, process }
       },
       equality: (a, b) =>
 
@@ -93,8 +93,13 @@ const useFlowStore = create(temporal<RFState>
             nodes: b.nodes,
             edges: b.edges
           }
-        )
-
+        ) &&
+        equal(
+          {
+            process: a.process.name + a.process.description + a.process.hook.channel + a.process.hook.isAsync
+          }, {
+            process: b.process.name + b.process.description + b.process.hook.channel + b.process.hook.isAsync
+          })
     }
   )
 )

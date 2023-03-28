@@ -58,9 +58,11 @@ const onLayout = (direction: HorizontalLayout | VerticalLayout, nodes: Node[], e
     setEdges(edges.map((edge) => {
         if (edge.source === node.id) {
           edge.sourceHandle = node.sourcePosition
+          edge.id = `${edge.source}-from-${edge.sourceHandle}-->${edge.target}-from-${edge.targetHandle}`
         }
         if (edge.target === node.id) {
           edge.targetHandle = node.targetPosition
+          edge.id = `${edge.source}-from-${edge.sourceHandle}-->${edge.target}-from-${edge.targetHandle}`
         }
         return edge
       }
