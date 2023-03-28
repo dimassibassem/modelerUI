@@ -1,6 +1,6 @@
 import { RadioGroup } from '@headlessui/react'
 import { FC } from 'react'
-import classNames from '../../utils/classNames'
+import classNames from '@/utils/classNames'
 
 const edgeProps = ['straight', 'smoothstep', 'step', 'default']
 const EdgeRadioGroup: FC<{ edgeType: string, setEdgeType: (edgeType: string) => void }> = ({

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Edge, Node, Panel, ReactFlowInstance } from 'reactflow'
 import axios from 'axios'
-import imageFromHTML from '../../utils/imageFromHtml'
+import imageFromHTML from '@/utils/imageFromHtml'
 
 const TopRightPanel = ({ setNodes, setEdges, reactFlowInstance, setOpenLoadModal }: {
                          setNodes: (nodes: Node[]) => void,

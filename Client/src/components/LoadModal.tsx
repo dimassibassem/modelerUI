@@ -3,9 +3,9 @@ import { Transition } from '@headlessui/react'
 import axios from 'axios'
 import { shallow } from 'zustand/shallow'
 import { ReactFlowInstance } from 'reactflow'
-import { useFlowStore } from '../store'
-import { RFState } from '../types/RFState'
-import { Model } from '../types/Model'
+import { useFlowStore } from '@/store'
+import { RFState } from '@/types/RFState'
+import { Model } from '@/types/Model'
 
 const loadModels = async () => {
   const { data } = await axios.get(`${process.env.API_ENDPOINT}/api/get-models`)

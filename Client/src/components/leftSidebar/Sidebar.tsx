@@ -1,9 +1,9 @@
 import React, { useState, DragEvent, MouseEvent, FocusEvent } from 'react'
 import { Link } from 'react-router-dom'
-import logoBankerise from '../assets/logo-bankerise.png'
-import iconSwitcher from './iconSwitcher'
-import NodeTypes from '../types/NodeTypes'
-import classNames from '../utils/classNames'
+import logoBankerise from '@/assets/logo-bankerise.png'
+import iconSwitcher from '@/components/leftSidebar/iconSwitcher'
+import NodeTypes from '@/types/NodeTypes'
+import classNames from '@/utils/classNames'
 
 const shapes = [
   NodeTypes.Start,

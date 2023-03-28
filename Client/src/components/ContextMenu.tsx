@@ -2,10 +2,10 @@ import React from 'react'
 import { Menu, Item, Separator, Submenu } from 'react-contexify'
 import { Node } from 'reactflow'
 import { shallow } from 'zustand/shallow'
-import { handleItemClick } from '../utils/ContextMenu/handleContextMenu'
-import ContextMenuItems from '../types/ContextMenuItems'
-import { RFState } from '../types/RFState'
-import { useFlowStore } from '../store'
+import { handleItemClick } from '@/utils/ContextMenu/handleContextMenu'
+import ContextMenuItems from '@/types/ContextMenuItems'
+import { RFState } from '@/types/RFState'
+import { useFlowStore } from '@/store'
 
 const handleDisable = (selectedNodes: Node[] | undefined) => !(selectedNodes && selectedNodes.length > 0)
 const selector = (state: RFState) => ({

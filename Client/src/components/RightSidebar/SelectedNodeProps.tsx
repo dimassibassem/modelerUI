@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useFlowStore } from '../../store'
-import { RFState } from '../../types/RFState'
+import { useFlowStore } from '@/store'
+import { RFState } from '@/types/RFState'
 import HandleCheckBoxes from './HandleCheckBoxes'
 import Attributes from './Attributes'
 

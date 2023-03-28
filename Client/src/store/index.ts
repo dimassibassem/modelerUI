@@ -12,8 +12,8 @@ import {
 import { temporal, TemporalState } from 'zundo'
 import { devtools } from 'zustand/middleware'
 import equal from 'deep-equal'
-import { RFState } from '../types/RFState'
-import Process from '../types/Process'
+import { RFState } from '@/types/RFState'
+import Process from '@/types/Process'
 
 const initialEdges: Edge[] = []
 const initialNodes: Node[] = []

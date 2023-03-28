@@ -1,9 +1,9 @@
 import React from 'react'
 import { RadioGroup, Switch } from '@headlessui/react'
 import { shallow } from 'zustand/shallow'
-import classNames from '../../utils/classNames'
-import { useFlowStore } from '../../store'
-import { RFState } from '../../types/RFState'
+import classNames from '@/utils/classNames'
+import { useFlowStore } from '@/store'
+import { RFState } from '@/types/RFState'
 import StepsList from './StepsList'
 
 const Channels = ['MOB', 'WEB']

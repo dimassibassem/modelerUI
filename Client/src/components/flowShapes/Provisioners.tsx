@@ -2,11 +2,11 @@ import { NodeProps, NodeToolbar, Position } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
 import { FC, memo } from 'react'
-import useShowToolbar from '../../hooks/useShowToolbar'
-import provisioners from '../../assets/Circle.png'
-import Handles from '../Handles'
-import useCustomNodeProps from '../../hooks/useCustomNodeProps'
-import NodeTypes from '../../types/NodeTypes'
+import useShowToolbar from '@/hooks/useShowToolbar'
+import provisioners from '@/assets/Circle.png'
+import Handles from '@/components/Handles'
+import useCustomNodeProps from '@/hooks/useCustomNodeProps'
+import NodeTypes from '@/types/NodeTypes'
 
 const Provisioners: FC<NodeProps> = ({ type, data, selected, dragging }) => {
   const {

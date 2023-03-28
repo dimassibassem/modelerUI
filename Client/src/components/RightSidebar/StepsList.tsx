@@ -1,10 +1,10 @@
 import { ChevronRightIcon } from '@heroicons/react/20/solid'
 import { shallow } from 'zustand/shallow'
 import React, { useId, useState } from 'react'
-import { useFlowStore } from '../../store'
-import { RFState } from '../../types/RFState'
-import classNames from '../../utils/classNames'
-import handleStepsChange from '../../utils/handleStepChange'
+import { useFlowStore } from '@/store'
+import { RFState } from '@/types/RFState'
+import classNames from '@/utils/classNames'
+import handleStepsChange from '@/utils/handleStepChange'
 
 const selector = (state: RFState) => ({
   process: state.process,

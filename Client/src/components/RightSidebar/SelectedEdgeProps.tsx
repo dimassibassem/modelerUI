@@ -3,11 +3,11 @@ import { Switch } from '@headlessui/react'
 import { EdgeMarker, MarkerType } from 'reactflow'
 import { shallow } from 'zustand/shallow'
 import EdgeRadioGroup from './EdgeRadioGroup'
-import classNames from '../../utils/classNames'
+import classNames from '@/utils/classNames'
 import EdgeMarkerTypeRadio from './EdgeMarkerTypeRadio'
 import EdgeStrokeSize from './EdgeStrokeSize'
-import { RFState } from '../../types/RFState'
-import { useFlowStore } from '../../store'
+import { RFState } from '@/types/RFState'
+import { useFlowStore } from '@/store'
 
 const selector = (state: RFState) => ({
   selectedEdge: state.selectedEdge,

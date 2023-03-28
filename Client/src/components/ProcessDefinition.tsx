@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Transition } from '@headlessui/react'
 import { shallow } from 'zustand/shallow'
-import { RFState } from '../types/RFState'
-import { useFlowStore } from '../store'
+import { RFState } from '@/types/RFState'
+import { useFlowStore } from '@/store'
 
 const selector = (state: RFState) => ({
   setProcess: state.setProcess,

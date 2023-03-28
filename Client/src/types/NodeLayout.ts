@@ -1,4 +1,3 @@
-
 enum VerticalLayout {
   TopToBottom = 'TB',
   BottomToTop = 'BT',

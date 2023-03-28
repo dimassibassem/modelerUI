@@ -1,8 +1,8 @@
 import { DragEvent, RefObject, useCallback } from 'react'
 import { XYPosition, Node, ReactFlowInstance, Position } from 'reactflow'
-import connectableWith from '../utils/connectableWith'
-import attributeSwitcher from '../utils/attributeSwitcher'
-import NodeTypes from '../types/NodeTypes'
+import connectableWith from '@/utils/connectableWith'
+import attributeSwitcher from '@/utils/attributeSwitcher'
+import NodeTypes from '@/types/NodeTypes'
 
 function useOnDropNode(reactFlowWrapper: RefObject<HTMLInputElement>,
                        reactFlowInstance: ReactFlowInstance | null,

@@ -1,11 +1,11 @@
 import { useEventListener } from 'usehooks-ts'
 import { Edge, Node, ReactFlowInstance } from 'reactflow'
 import { Dispatch, SetStateAction } from 'react'
-import selectNodes from '../utils/ContextMenu/selectNodes'
-import selectEdges from '../utils/ContextMenu/selectEdges'
-import copySelected from '../utils/ContextMenu/copySelected'
-import pasteFromClipboard from '../utils/ContextMenu/pasteFromClipboard'
-import cutSelected from '../utils/ContextMenu/cutSelected'
+import selectNodes from '@/utils/ContextMenu/selectNodes'
+import selectEdges from '@/utils/ContextMenu/selectEdges'
+import copySelected from '@/utils/ContextMenu/copySelected'
+import pasteFromClipboard from '@/utils/ContextMenu/pasteFromClipboard'
+import cutSelected from '@/utils/ContextMenu/cutSelected'
 
 const useShortcuts = (reactFlowInstance: ReactFlowInstance | null,
                       setNodes: (nodes: Node[]) => void,

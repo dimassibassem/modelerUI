@@ -2,11 +2,11 @@ import React, { FC, memo } from 'react'
 import { Position, NodeProps, NodeToolbar } from 'reactflow'
 import '@reactflow/node-resizer/dist/style.css'
 import { NodeResizer } from '@reactflow/node-resizer'
-import useShowToolbar from '../../hooks/useShowToolbar'
-import execution from '../../assets/Hexagon.png'
-import Handles from '../Handles'
-import useCustomNodeProps from '../../hooks/useCustomNodeProps'
-import NodeTypes from '../../types/NodeTypes'
+import useShowToolbar from '@/hooks/useShowToolbar'
+import execution from '@/assets/Hexagon.png'
+import Handles from '@/components/Handles'
+import useCustomNodeProps from '@/hooks/useCustomNodeProps'
+import NodeTypes from '@/types/NodeTypes'
 
 const Execution: FC<NodeProps> = ({ type, data, dragging, selected }) => {
   const {

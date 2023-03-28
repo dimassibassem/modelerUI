@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react'
 import { useHover } from 'usehooks-ts'
 import CssFilterConverter from 'css-filter-converter'
-import nodeColor from '../utils/nodeColor'
-import NodeTypes from '../types/NodeTypes'
+import nodeColor from '@/utils/nodeColor'
+import NodeTypes from '@/types/NodeTypes'
 
 function useCustomNodeProps(type: NodeTypes, w: number, h: number) {
   const [width, setWidth] = useState(w)

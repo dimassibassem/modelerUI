@@ -6,7 +6,7 @@ import selectNodes from './selectNodes'
 import selectEdges from './selectEdges'
 import copySelected from './copySelected'
 import pasteFromClipboard from './pasteFromClipboard'
-import ContextMenuItems from '../../types/ContextMenuItems'
+import ContextMenuItems from '@/types/ContextMenuItems'
 import cutSelected from './cutSelected'
 
 export const handleItemClick = async ({

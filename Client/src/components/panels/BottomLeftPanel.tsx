@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Edge, Node, Panel } from 'reactflow'
-import onLayout from '../../utils/onLayout'
-import { VerticalLayout, HorizontalLayout } from '../../types/NodeLayout'
+import onLayout from '@/utils/onLayout'
+import { VerticalLayout, HorizontalLayout } from '@/types/NodeLayout'
 
 const BottomLeftPanel = ({ nodes, edges, setNodes, setEdges }: {
   nodes: Node[],

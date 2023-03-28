@@ -1,7 +1,7 @@
 import { RadioGroup } from '@headlessui/react'
 import { MarkerType } from 'reactflow'
 import { FC } from 'react'
-import classNames from '../../utils/classNames'
+import classNames from '@/utils/classNames'
 
 
 const markerTypes = [MarkerType.Arrow, MarkerType.ArrowClosed]

@@ -1,4 +1,4 @@
-import NodeTypes from '../types/NodeTypes'
+import NodeTypes from '@/types/NodeTypes'
 
 const connectableWith = (type: NodeTypes): NodeTypes[] => {
   switch (type) {

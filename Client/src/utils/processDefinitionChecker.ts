@@ -1,6 +1,6 @@
 import { Edge, Node } from 'reactflow'
 import { createGraph, findAllPaths } from './graphPath'
-import Process from '../types/Process'
+import Process from '@/types/Process'
 
 const processDefinitionChecker = (nodes: Node[], edges: Edge[], setProcess: (process: Process) => void, process: Process) => {
   const startNode = nodes.find(node => node.type === 'start')

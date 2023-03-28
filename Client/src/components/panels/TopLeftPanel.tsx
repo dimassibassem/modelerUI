@@ -1,7 +1,7 @@
 import React from 'react'
 import { Panel } from 'reactflow'
-import classNames from '../../utils/classNames'
-import { useTemporalStore } from '../../store'
+import classNames from '@/utils/classNames'
+import { useTemporalStore } from '@/store'
 
 const TopLeftPanel = () => {
   const { undo, redo, futureStates, pastStates } = useTemporalStore(

@@ -1,8 +1,8 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import NotFound from '../src/pages/404'
+import NotFound from '@/pages/404'
 
-const DnDFlow = lazy(() => import('../src/pages/index'))
+const DnDFlow = lazy(() => import('@/pages/index'))
 
 const App = () => (
   <Suspense fallback={<p>Loading...</p>}>

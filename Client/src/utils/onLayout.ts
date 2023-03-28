@@ -1,6 +1,6 @@
 import { Position, Node, Edge } from 'reactflow'
 import dagre from 'dagre'
-import { HorizontalLayout, VerticalLayout } from '../types/NodeLayout'
+import { HorizontalLayout, VerticalLayout } from '@/types/NodeLayout'
 
 const dagreGraph = new dagre.graphlib.Graph()
 dagreGraph.setDefaultEdgeLabel(() => ({}))

@@ -11,6 +11,12 @@ export default defineConfig({
     'process.env': {
       API_URL: JSON.stringify(process.env.API_URL)
     }
+  },
+  resolve: {
+    alias: {
+      '@': `${__dirname}/src`,
+    }
   }
+
 })
 
