@@ -1,6 +1,4 @@
-import { NodeProps, NodeToolbar, Position } from 'reactflow'
-import { NodeResizer } from '@reactflow/node-resizer'
-import '@reactflow/node-resizer/dist/style.css'
+import { NodeProps, NodeToolbar, Position,NodeResizer } from 'reactflow'
 import React, { FC, memo } from 'react'
 import useShowToolbar from '@/hooks/useShowToolbar'
 import Handles from '@/components/Handles'
@@ -31,7 +29,7 @@ const End: FC<NodeProps> = ({ type, data, dragging, selected }) => {
           >help ???</h1>
         </div>
       </NodeToolbar>
-      <NodeResizer color='#ff0071' isVisible={selected} minWidth={50} minHeight={50} onResize={
+      <NodeResizer keepAspectRatio color='#ff0071' isVisible={selected} minWidth={50} minHeight={50} onResize={
         (event, props) => {
           setWidth(props.width)
           setHeight(props.height)

@@ -1,6 +1,4 @@
-import { NodeProps, NodeToolbar, Position } from 'reactflow'
-import { NodeResizer } from '@reactflow/node-resizer'
-import '@reactflow/node-resizer/dist/style.css'
+import { NodeProps, NodeToolbar, Position, NodeResizer } from 'reactflow'
 import { FC, memo } from 'react'
 import useShowToolbar from '@/hooks/useShowToolbar'
 import start from '@/assets/start.png'
