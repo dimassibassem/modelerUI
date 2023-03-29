@@ -4,7 +4,6 @@ import onLayout from '@/utils/onLayout'
 import { HorizontalLayout, VerticalLayout } from '@/types/NodeLayout'
 import NodeTypes from '@/types/NodeTypes'
 
-
 let nodes: Node[] = [
   {
     id: 'start_0',
