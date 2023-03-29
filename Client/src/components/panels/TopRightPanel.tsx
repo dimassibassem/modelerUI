@@ -12,7 +12,7 @@ const TopRightPanel = ({ setNodes, setEdges, reactFlowInstance, setOpenLoadModal
 ) => (
   <Panel position='top-right' className='grid grid-cols-6 gap-1'>
     <button type='button'
-            className='rounded bg-red-50 py-1 px-2 text-sm font-semibold text-red-600 shadow-sm hover:bg-red-100'
+            className='rounded bg-red-50 py-1 px-2 text-sm font-semibold text-red-700 shadow-sm hover:bg-red-100'
             onClick={() => {
               setNodes([])
               setEdges([])
@@ -20,7 +20,7 @@ const TopRightPanel = ({ setNodes, setEdges, reactFlowInstance, setOpenLoadModal
       Clear
     </button>
     <button type='button'
-            className='rounded bg-green-50 py-1 px-2 text-sm font-semibold text-green-600 shadow-sm hover:bg-green-100'
+            className='rounded bg-green-50 py-1 px-2 text-sm font-semibold text-green-700 shadow-sm hover:bg-green-100'
             onClick={async () => {
               const result = await imageFromHTML(reactFlowInstance)
               await axios.post(`${process.env.API_ENDPOINT}/api/add-model`, result)
