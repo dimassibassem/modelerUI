@@ -3,6 +3,7 @@ import dagre from 'dagre'
 import { HorizontalLayout, VerticalLayout } from '@/types/NodeLayout'
 
 const dagreGraph = new dagre.graphlib.Graph()
+
 dagreGraph.setDefaultEdgeLabel(() => ({}))
 
 function handleHandles(direction: HorizontalLayout | VerticalLayout, node: Node) {
@@ -27,10 +28,11 @@ function handleHandles(direction: HorizontalLayout | VerticalLayout, node: Node)
       break
   }
 }
-
+// todo: update this function it is not working properly
 const onLayout = (direction: HorizontalLayout | VerticalLayout, nodes: Node[], edges: Edge[], setNodes: (arg0: Node[]) => void,
                   setEdges: (arg0: Edge[]) => void
 ) => {
+
   dagreGraph.setGraph({ rankdir: direction })
 
   nodes.forEach((node) => {

@@ -1,21 +1,21 @@
-import { Edge,Node } from 'reactflow'
+import { Edge, Node } from 'reactflow'
 
 type Graph = Record<string, string[]>;
 
 function createGraph(nodes: Node[], edges: Edge[]): Graph {
-  const graph: Graph = {};
+  const graph: Graph = {}
 
   // Add nodes to the graph
   for (const node of nodes) {
-    graph[node.id] = [];
+    graph[node.id] = []
   }
 
   // Add edges to the graph
   for (const edge of edges) {
-    graph[edge.source].push(edge.target);
+    graph[edge.source].push(edge.target)
   }
 
-  return graph;
+  return graph
 }
 
 function findAllPaths(
@@ -26,17 +26,17 @@ function findAllPaths(
   path: string[] = []
 ): string[][] {
   // Add current node to path
-  path.push(start);
+  path.push(start)
 
   // Mark current node as visited and on path
-  visited.set(start, (visited.get(start) || 0) + 1);
+  visited.set(start, (visited.get(start) || 0) + 1)
 
   // Initialize result
-  const result: string[][] = [];
+  const result: string[][] = []
 
   // Check if we reached the end
   if (start === end) {
-    result.push([...path]);
+    result.push([...path])
   } else {
     // Recursively search all neighbors
     for (const neighbor of graph[start]) {
@@ -45,22 +45,22 @@ function findAllPaths(
         visited.get(neighbor) !== 2 ||
         (neighbor === end && visited.get(start) !== 2)
       ) {
-        result.push(...findAllPaths(graph, neighbor, end, visited, path));
+        result.push(...findAllPaths(graph, neighbor, end, visited, path))
       }
     }
   }
 
   // Remove current node from path and mark as not on path
-  path.pop();
-  visited.set(start, visited.get(start)! - 1);
+  path.pop()
+  visited.set(start, visited.get(start)! - 1)
 
   // Clean up visited map
   if (visited.get(start) === 0) {
-    visited.delete(start);
+    visited.delete(start)
   }
 
-  return result;
+  return result
 }
 
 
-export { createGraph, findAllPaths };
+export { createGraph, findAllPaths }
