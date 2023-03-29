@@ -26,9 +26,9 @@ const handlePreviewDragImage = (event: MouseEvent<HTMLDivElement> | FocusEvent<H
   event.preventDefault()
   const svgElement = (event.target as Element).querySelector<SVGElement>('svg')
   if (svgElement) {
-  const svgCopy = svgElement.cloneNode(true) as SVGElement
-  svgCopy?.setAttribute('width', '80')
-  svgCopy?.setAttribute('height', '80')
+    const svgCopy = svgElement.cloneNode(true) as SVGElement
+    svgCopy?.setAttribute('width', '80')
+    svgCopy?.setAttribute('height', '80')
     const img = new Image()
     img.src = `data:image/svg+xml;utf8,${encodeURIComponent(svgCopy.outerHTML)}`
     setPreviewImage(img.src)
@@ -42,12 +42,14 @@ const Sidebar = () => {
 
 
   return (
-    <div className='flex min-h-0 flex-1 flex-col border-r border-gray-200 bg-white max-w-[20%]  '>
+    <div className='min-h-0 flex-1 flex-col border-r border-gray-200 bg-white max-w-[20%] hidden lg:flex '>
       <div className='flex flex-1 flex-col overflow-y-auto pt-5 pb-4  '>
         <div className='flex flex-shrink-0 items-center px-4'>
           <img
             className='h-16 w-auto'
             src={logoBankerise}
+            height='50'
+            width='50'
             alt='Bankerise'
           />
         </div>
