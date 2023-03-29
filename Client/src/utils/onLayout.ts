@@ -28,7 +28,8 @@ function handleHandles(direction: HorizontalLayout | VerticalLayout, node: Node)
       break
   }
 }
-// todo: update this function it is not working properly
+
+// todo: update this function it's not working properly
 const onLayout = (direction: HorizontalLayout | VerticalLayout, nodes: Node[], edges: Edge[], setNodes: (arg0: Node[]) => void,
                   setEdges: (arg0: Edge[]) => void
 ) => {
@@ -53,7 +54,8 @@ const onLayout = (direction: HorizontalLayout | VerticalLayout, nodes: Node[], e
 
     handleHandles(direction, node)
     node.position = {
-      x: nodeWithPosition.x + Math.random() / 1000,
+      x: nodeWithPosition.x,
+      // + Math.random() / 1000,
       y: nodeWithPosition.y
     }
 
