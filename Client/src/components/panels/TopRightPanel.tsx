@@ -23,7 +23,11 @@ const TopRightPanel = ({ setNodes, setEdges, reactFlowInstance, setOpenLoadModal
             className='rounded bg-green-50 py-1 px-2 text-sm font-semibold text-green-700 shadow-sm hover:bg-green-100'
             onClick={async () => {
               const result = await imageFromHTML(reactFlowInstance)
-              await axios.post(`${process.env.API_ENDPOINT}/api/add-model`, result)
+              try {
+                await axios.post(`${process.env.API_ENDPOINT}/api/add-model`, result)
+              } catch (e) {
+                console.error(e)
+              }
             }}>
       Save
     </button>
@@ -62,10 +66,7 @@ const TopRightPanel = ({ setNodes, setEdges, reactFlowInstance, setOpenLoadModal
 
     <button type='button'
             className='rounded bg-gray-100 py-1 px-2 text-sm font-semibold text-gray-600 shadow-sm hover:bg-gray-200'
-            onClick={async () => {
-              setOpenLoadModal(true)
-            }
-            }>
+            onClick={() => setOpenLoadModal(true)}>
       Load
     </button>
   </Panel>
