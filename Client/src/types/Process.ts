@@ -8,10 +8,10 @@ type Steps = {
     challenge?: string,
     enricher?: string
   }
-}[]
+}
 
 type Process = {
-  steps: Steps[],
+  steps: Steps[][],
   name: string,
   description: string,
   hook: {
