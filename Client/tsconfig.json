@@ -21,11 +21,20 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
-    }
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "types": [
+      "cypress",
+      "cypress-real-events",
+      "@4tw/cypress-drag-drop"
+    ]
   },
   "include": [
-    "src"
+    "src",
+    "**/*.ts",
+    "**/*.tsx"
   ],
   "references": [
     {
