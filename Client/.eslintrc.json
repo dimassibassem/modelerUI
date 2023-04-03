@@ -6,6 +6,7 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:cypress/recommended",
     "plugin:react/recommended",
     "airbnb",
     "plugin:react-hooks/recommended",
@@ -19,9 +20,16 @@
   },
   "plugins": [
     "react",
-    "prettier"
+    "prettier",
+    "cypress"
   ],
   "rules": {
+    "cypress/no-assigning-return-values": "error",
+    "cypress/no-unnecessary-waiting": "error",
+    "cypress/assertion-before-screenshot": "warn",
+    "cypress/no-force": "warn",
+    "cypress/no-async-tests": "error",
+    "cypress/no-pause": "error",
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": "warn",
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
