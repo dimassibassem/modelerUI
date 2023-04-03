@@ -5,7 +5,6 @@ import ReactFlow, {
   MiniMap,
   Node, BackgroundVariant, ConnectionMode, ReactFlowInstance
 } from 'reactflow'
-import 'reactflow/dist/style.css'
 import { shallow } from 'zustand/shallow'
 import { useCopyToClipboard } from 'usehooks-ts'
 import { useContextMenu } from 'react-contexify'
@@ -20,19 +19,20 @@ import LoadModal from '@/components/LoadModal'
 import TopRightPanel from '@/components/panels/TopRightPanel'
 import nodeColor from '@/utils/nodeColor'
 import nodeTypes from '@/utils/nodeTypes'
-import styles from '@/validation.module.css'
 import ProcessDefinition from '@/components/ProcessDefinition'
 import isValidConnection from '@/utils/isValidConnection'
 import useRemoveWatermark from '@/hooks/useRemoveWatermark'
 import BottomLeftPanel from '@/components/panels/BottomLeftPanel'
 import TopLeftPanel from '@/components/panels/TopLeftPanel'
 import NodeTypes from '@/types/NodeTypes'
-import 'react-contexify/ReactContexify.css'
 import { handleContextMenu } from '@/utils/ContextMenu/handleContextMenu'
 import ContextMenu from '@/components/ContextMenu'
 import Notification from '@/components/Notification'
 import useShortcuts from '@/hooks/useShortcuts'
 import processDefinitionChecker from '@/utils/processDefinitionChecker'
+import styles from '@/validation.module.css'
+import 'reactflow/dist/style.css'
+import 'react-contexify/ReactContexify.css'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
