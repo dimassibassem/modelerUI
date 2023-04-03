@@ -1,12 +1,15 @@
 import { NodeProps, NodeToolbar, Position, NodeResizer } from 'reactflow'
-import { FC, memo } from 'react'
+import React, { FC, memo } from 'react'
 import useShowToolbar from '@/hooks/useShowToolbar'
 import policies from '@/assets/Diamond.png'
 import Handles from '@/components/Handles'
 import useCustomNodeProps from '@/hooks/useCustomNodeProps'
 import NodeTypes from '@/types/NodeTypes'
+import useHandleNodeSize from '@/hooks/useHandleNodeSize'
+import { useTemporalStore } from '@/store'
 
-const Policies: FC<NodeProps> = ({ type, data, dragging, selected }) => {
+const Policies: FC<NodeProps> = ({ id, type, data, dragging, selected }) => {
+  const { pause, resume } = useTemporalStore((state) => state)
   const {
     width,
     height,
@@ -18,9 +21,8 @@ const Policies: FC<NodeProps> = ({ type, data, dragging, selected }) => {
     setShowToolbar,
     filter
   } = useCustomNodeProps(type as NodeTypes, 50, 50)
-
   useShowToolbar(isHover, dragging, setShowToolbar)
-
+  useHandleNodeSize(id, setWidth, setHeight)
   return (
     <div ref={hoverRef} className='min-h-[40px] w-full min-w-[50px] h-full'>
       <NodeToolbar isVisible={showToolbar} position={Position.Top}>
@@ -29,12 +31,16 @@ const Policies: FC<NodeProps> = ({ type, data, dragging, selected }) => {
           >help ???</h1>
         </div>
       </NodeToolbar>
-      <NodeResizer keepAspectRatio color='#ff0071' isVisible={selected} minWidth={50} minHeight={50} onResize={
-        (event, props) => {
-          setWidth(props.width)
-          setHeight(props.height)
-        }
-      } />
+      <NodeResizer keepAspectRatio color='#ff0071' isVisible={selected} minWidth={50} minHeight={50}
+                   onResizeStart={() => pause()}
+                   onResize={
+                     (event, props) => {
+                       setWidth(props.width)
+                       setHeight(props.height)
+                     }
+                   }
+                   onResizeEnd={() => resume()}
+      />
       <div>
         <img src={policies} style={{
           width, height, filter: filter || 'none'

@@ -1,12 +1,15 @@
-import { NodeProps, NodeToolbar, Position,NodeResizer } from 'reactflow'
+import { NodeProps, NodeToolbar, Position, NodeResizer } from 'reactflow'
 import React, { FC, memo } from 'react'
 import useShowToolbar from '@/hooks/useShowToolbar'
 import Handles from '@/components/Handles'
 import useCustomNodeProps from '@/hooks/useCustomNodeProps'
 import NodeTypes from '@/types/NodeTypes'
 import end from '@/assets/end.png'
+import useHandleNodeSize from '@/hooks/useHandleNodeSize'
+import { useTemporalStore } from '@/store'
 
-const End: FC<NodeProps> = ({ type, data, dragging, selected }) => {
+const End: FC<NodeProps> = ({ id, type, data, dragging, selected }) => {
+  const { pause, resume } = useTemporalStore((state) => state)
   const {
     width,
     height,
@@ -20,7 +23,7 @@ const End: FC<NodeProps> = ({ type, data, dragging, selected }) => {
   } = useCustomNodeProps(type as NodeTypes, 50, 50)
 
   useShowToolbar(isHover, dragging, setShowToolbar)
-
+  useHandleNodeSize(id, setWidth, setHeight)
   return (
     <div ref={hoverRef} className='min-h-[40px] w-full min-w-[50px] h-full'>
       <NodeToolbar isVisible={showToolbar} position={Position.Top}>
@@ -29,12 +32,16 @@ const End: FC<NodeProps> = ({ type, data, dragging, selected }) => {
           >help ???</h1>
         </div>
       </NodeToolbar>
-      <NodeResizer keepAspectRatio color='#ff0071' isVisible={selected} minWidth={50} minHeight={50} onResize={
-        (event, props) => {
-          setWidth(props.width)
-          setHeight(props.height)
-        }
-      } />
+      <NodeResizer keepAspectRatio color='#ff0071' isVisible={selected} minWidth={50} minHeight={50}
+                   onResizeStart={() => pause()}
+                   onResize={
+                     (event, props) => {
+                       setWidth(props.width)
+                       setHeight(props.height)
+                     }
+                   }
+                   onResizeEnd={() => resume()}
+      />
       <div>
         <img src={end} alt='end' style={
           {

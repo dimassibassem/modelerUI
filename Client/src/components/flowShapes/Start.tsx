@@ -1,12 +1,15 @@
 import { NodeProps, NodeToolbar, Position, NodeResizer } from 'reactflow'
-import { FC, memo } from 'react'
+import React, { FC, memo } from 'react'
 import useShowToolbar from '@/hooks/useShowToolbar'
 import start from '@/assets/start.png'
 import Handles from '@/components/Handles'
 import useCustomNodeProps from '@/hooks/useCustomNodeProps'
 import NodeTypes from '@/types/NodeTypes'
+import useHandleNodeSize from '@/hooks/useHandleNodeSize'
+import { useTemporalStore } from '@/store'
 
-const Start: FC<NodeProps> = ({ type, data, dragging, selected }) => {
+const Start: FC<NodeProps> = ({ id, type, data, dragging, selected }) => {
+  const { pause, resume } = useTemporalStore((state) => state)
   const {
     width,
     height,
@@ -19,7 +22,7 @@ const Start: FC<NodeProps> = ({ type, data, dragging, selected }) => {
     filter
   } = useCustomNodeProps(type as NodeTypes, 50, 50)
   useShowToolbar(isHover, dragging, setShowToolbar)
-
+  useHandleNodeSize(id, setWidth, setHeight)
   return (
     <div ref={hoverRef} className='min-h-[40px] w-full min-w-[50px] h-full'>
       <NodeToolbar isVisible={showToolbar} position={Position.Top}>
@@ -28,12 +31,16 @@ const Start: FC<NodeProps> = ({ type, data, dragging, selected }) => {
           >help ???</h1>
         </div>
       </NodeToolbar>
-      <NodeResizer color='#ff0071' isVisible={selected} minWidth={50} minHeight={50} onResize={
-        (event, props) => {
-          setWidth(props.width)
-          setHeight(props.height)
-        }
-      } />
+      <NodeResizer keepAspectRatio color='#ff0071' isVisible={selected} minWidth={50} minHeight={50}
+                   onResizeStart={() => pause()}
+                   onResize={
+                     (event, props) => {
+                       setWidth(props.width)
+                       setHeight(props.height)
+                     }
+                   }
+                   onResizeEnd={() => resume()}
+      />
       <div>
         <img src={start} alt='start' style={
           {
