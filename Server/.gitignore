@@ -9,4 +9,5 @@ gen
 node_modules
 .env
 
-
+yarn.lock
+pnpm-lock.yaml
