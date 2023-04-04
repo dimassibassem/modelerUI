@@ -29,7 +29,6 @@ function handleHandles(direction: HorizontalLayout | VerticalLayout, node: Node)
   }
 }
 
-// todo: update this function it's not working properly
 const onLayout = (direction: HorizontalLayout | VerticalLayout, nodes: Node[], edges: Edge[], setNodes: (arg0: Node[]) => void,
                   setEdges: (arg0: Edge[]) => void
 ) => {
@@ -62,11 +61,9 @@ const onLayout = (direction: HorizontalLayout | VerticalLayout, nodes: Node[], e
     setEdges(edges.map((edge) => {
         if (edge.source === node.id) {
           edge.sourceHandle = node.sourcePosition
-          edge.id = `${edge.source}-from-${edge.sourceHandle}-->${edge.target}-from-${edge.targetHandle}`
         }
         if (edge.target === node.id) {
           edge.targetHandle = node.targetPosition
-          edge.id = `${edge.source}-from-${edge.sourceHandle}-->${edge.target}-from-${edge.targetHandle}`
         }
         return edge
       }

@@ -12,6 +12,7 @@ import {
 import { temporal, TemporalState } from 'zundo'
 import { devtools } from 'zustand/middleware'
 import equal from 'deep-equal'
+import uniqid from 'uniqid'
 import { RFState } from '@/types/RFState'
 import Process from '@/types/Process'
 
@@ -63,7 +64,7 @@ const useFlowStore = create(temporal<RFState>
         onConnect: (connection: Connection) => {
           const newEdge = {
             ...connection,
-            id: `${connection.source}-from-${connection.sourceHandle}-->${connection.target}-from-${connection.targetHandle}`,
+            id: uniqid(),
             markerEnd: { type: MarkerType.Arrow }
           }
 

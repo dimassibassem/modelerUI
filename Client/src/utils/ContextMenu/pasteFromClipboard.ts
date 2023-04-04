@@ -1,5 +1,15 @@
 import React from 'react'
 import { Edge, Node, ReactFlowInstance, XYPosition } from 'reactflow'
+import uniqid from 'uniqid'
+
+function isJson(str: string) {
+  try {
+    JSON.parse(str)
+  } catch (e) {
+    return false
+  }
+  return true
+}
 
 let padding = 0
 const pasteFromClipboard = async (
@@ -12,7 +22,7 @@ const pasteFromClipboard = async (
   setOpenNotification: (open: boolean) => void,
   event?: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement> | React.KeyboardEvent<HTMLElement> | KeyboardEvent) => {
   const json = await navigator.clipboard.readText()
-  if (!json || !json.startsWith('{')) {
+  if (!json || !isJson(json)) {
     setNotificationData({ success: false, message: 'Clipboard is empty or contains invalid data' })
     setOpenNotification(true)
     return
@@ -26,22 +36,21 @@ const pasteFromClipboard = async (
     })
   }
   const copiedEdgesWithNewIds = data.edges.map((edge: Edge) => {
-    const sourceSeparatorIndex = edge.source.indexOf('_') + 1// Get the index of the separator character
-    const sourceNumberId = parseInt(edge.source.substring(sourceSeparatorIndex, edge.source.length), 10)// Get the number of the ID after the separator
+     const sourceSeparatorIndex = edge.source.indexOf('_') + 1// Get the index of the separator character
+     const sourceNumberId = parseInt(edge.source.substring(sourceSeparatorIndex, edge.source.length), 10)// Get the number of the ID after the separator
     const sourceIdSuffix = edge.source.substring(sourceSeparatorIndex) // Get the suffix of the ID after the separator
     const newSourceIdSuffix = (sourceNumberId + lastNodeId).toString().padStart(sourceIdSuffix.length, '0')// Append the incremented value to the suffix
-    const newSource = `${edge.source.substring(0, sourceSeparatorIndex)}${newSourceIdSuffix}`
-    const targetSeparatorIndex = edge.target.indexOf('_') + 1// Get the index of the separator character
-    const targetNumberId = parseInt(edge.target.substring(targetSeparatorIndex, edge.target.length), 10)// Get the number of the ID after the separator
-    const targetIdSuffix = edge.target.substring(targetSeparatorIndex) // Get the suffix of the ID after the separator
-    const newTargetIdSuffix = (targetNumberId + lastNodeId).toString().padStart(targetIdSuffix.length, '0')// Append the incremented value to the suffix
-    const newTarget = `${edge.target.substring(0, targetSeparatorIndex)}${newTargetIdSuffix}`
-    const newId = `${newSource}-from-${edge.sourceHandle}-to-${newTarget}-from-${edge.targetHandle}`
+     const newSource = `${edge.source.substring(0, sourceSeparatorIndex)}${newSourceIdSuffix}`
+     const targetSeparatorIndex = edge.target.indexOf('_') + 1// Get the index of the separator character
+     const targetNumberId = parseInt(edge.target.substring(targetSeparatorIndex, edge.target.length), 10)// Get the number of the ID after the separator
+     const targetIdSuffix = edge.target.substring(targetSeparatorIndex) // Get the suffix of the ID after the separator
+     const newTargetIdSuffix = (targetNumberId + lastNodeId).toString().padStart(targetIdSuffix.length, '0')// Append the incremented value to the suffix
+     const newTarget = `${edge.target.substring(0, targetSeparatorIndex)}${newTargetIdSuffix}`
     return ({
       ...edge,
       source: newSource,
       target: newTarget,
-      id: newId
+      id: uniqid()
     })
   })
   const copiedNodesWithNewIds = data.nodes.map((node: Node) => {
@@ -55,7 +64,7 @@ const pasteFromClipboard = async (
       ...node,
       id: newId,
       position: clickedPosition ? {
-        x: clickedPosition.x - node.position.x ,
+        x: clickedPosition.x - node.position.x,
         y: clickedPosition.y - node.position.y
       } : { x: node.position.x + padding, y: node.position.y + padding }
     })

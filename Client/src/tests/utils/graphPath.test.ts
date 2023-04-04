@@ -1,5 +1,6 @@
 import { Edge, Node } from 'reactflow'
 import { describe, it, expect } from 'vitest'
+import uniqid from 'uniqid'
 import { createGraph, findAllPaths } from '@/utils/graphPath'
 import NodeTypes from '@/types/NodeTypes'
 
@@ -16,11 +17,11 @@ describe('createGraph', () => {
   it('should return a graph', () => {
 
     const edges: Edge[] = [
-      { id: 'start_0-->policies_2', source: 'start_0', target: 'policies_2' },
-      { id: 'policies_2-->provisioners_3', source: 'policies_2', target: 'provisioners_3' },
-      { id: 'provisioners_3-->execution_4', source: 'provisioners_3', target: 'execution_4' },
-      { id: 'execution_4-->rule_5', source: 'execution_4', target: 'rule_5' },
-      { id: 'rule_5-->end_1', source: 'rule_5', target: 'end_1' }
+      { id: uniqid(), source: 'start_0', target: 'policies_2' },
+      { id: uniqid(), source: 'policies_2', target: 'provisioners_3' },
+      { id: uniqid(), source: 'provisioners_3', target: 'execution_4' },
+      { id: uniqid(), source: 'execution_4', target: 'rule_5' },
+      { id: uniqid(), source: 'rule_5', target: 'end_1' }
     ]
     const graph = createGraph(nodes, edges)
     expect(graph).toEqual({
@@ -36,13 +37,13 @@ describe('createGraph', () => {
   it('should return a graph with multiple paths', () => {
 
     const edges: Edge[] = [
-      { id: 'start_0-->policies_2', source: 'start_0', target: 'policies_2' },
-      { id: 'policies_2-->provisioners_3', source: 'policies_2', target: 'provisioners_3' },
-      { id: 'provisioners_3-->execution_4', source: 'provisioners_3', target: 'execution_4' },
-      { id: 'execution_4-->rule_5', source: 'execution_4', target: 'rule_5' },
-      { id: 'rule_5-->end_1', source: 'rule_5', target: 'end_1' },
-      { id: 'start_0-->execution_4', source: 'start_0', target: 'execution_4' },
-      { id: 'execution_4-->end_1', source: 'execution_4', target: 'end_1' }
+      { id: uniqid(), source: 'start_0', target: 'policies_2' },
+      { id: uniqid(), source: 'policies_2', target: 'provisioners_3' },
+      { id: uniqid(), source: 'provisioners_3', target: 'execution_4' },
+      { id: uniqid(), source: 'execution_4', target: 'rule_5' },
+      { id: uniqid(), source: 'rule_5', target: 'end_1' },
+      { id: uniqid(), source: 'start_0', target: 'execution_4' },
+      { id: uniqid(), source: 'execution_4', target: 'end_1' }
     ]
     const graph = createGraph(nodes, edges)
     expect(graph).toEqual({

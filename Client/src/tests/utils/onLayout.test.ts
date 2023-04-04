@@ -1,5 +1,6 @@
 import { Edge, Node, Position } from 'reactflow'
 import { describe, expect, it } from 'vitest'
+import uniqid from 'uniqid'
 import onLayout from '@/utils/onLayout'
 import { HorizontalLayout, VerticalLayout } from '@/types/NodeLayout'
 import NodeTypes from '@/types/NodeTypes'
@@ -22,7 +23,7 @@ let nodes: Node[] = [
 ]
 let edges: Edge[] = [
   {
-    id: 'start_0-from-top-->end_1-from-bottom',
+    id: uniqid(),
     source: 'start_0',
     target: 'end_1'
   }

@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { Edge, getConnectedEdges, getIncomers, getOutgoers, MarkerType, Node } from 'reactflow'
 import { shallow } from 'zustand/shallow'
+import uniqid from 'uniqid'
 import { RFState } from '@/types/RFState'
 import { useFlowStore } from '@/store'
 
@@ -49,7 +50,7 @@ const useOnNodesDelete = () => {
               ...accum,
               ...targetsWithConnectedHandle.map(({ targetHandle, id: targetId }) => (
                 {
-                  id: `${sourceId}-from-${sourceHandle}-->${targetId}-from-${targetHandle}`,
+                  id: uniqid(),
                   source: sourceId,
                   sourceHandle,
                   target: targetId,
