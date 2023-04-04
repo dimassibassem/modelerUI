@@ -33,6 +33,7 @@ import processDefinitionChecker from '@/utils/processDefinitionChecker'
 import styles from '@/validation.module.css'
 import 'reactflow/dist/style.css'
 import 'react-contexify/ReactContexify.css'
+import useOnNodesDelete from '@/hooks/useOnNodeDelete'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -97,7 +98,7 @@ const DnDFlow = () => {
         processDefinitionChecker(nodes, edges, setProcess, process)
       }
     }, [nodes, edges])
-
+  const onNodeDelete = useOnNodesDelete()
   return (
     <div
       className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
@@ -117,7 +118,7 @@ const DnDFlow = () => {
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
             onNodeDragStart={pause}
-            // onNodeDrag={pause}
+            onNodesDelete={onNodeDelete}
             onNodeDragStop={resume}
             connectionMode={ConnectionMode.Loose}
             onInit={setReactFlowInstance}
