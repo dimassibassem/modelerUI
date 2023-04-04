@@ -11,7 +11,7 @@ const selector = (state: RFState) => ({
   setEdges: state.setEdges
 })
 
-const useOnNodesDelete = () => {
+const useOnNodesDelete = (chainRecovery: boolean) => {
   const {
     nodes,
     edges,
@@ -19,9 +19,9 @@ const useOnNodesDelete = () => {
   } = useFlowStore(selector, shallow)
 
   return (useCallback((deleted: Node[]) => {
+    if (chainRecovery) {
       setEdges(
         deleted.reduce((acc: Edge[], node: Node) => {
-
           const incomers = getIncomers(node, nodes, edges)
           const outgoers = getOutgoers(node, nodes, edges)
           const connectedEdges = getConnectedEdges([node], edges)
@@ -39,10 +39,10 @@ const useOnNodesDelete = () => {
             }
           ))
           const targetsWithConnectedHandle = targetsInfo.map(edge => (
-              {
-                id: edge.target,
-                targetHandle: edge.targetHandle
-              }))
+            {
+              id: edge.target,
+              targetHandle: edge.targetHandle
+            }))
 
           const remainingEdges = acc.filter((edge) => !connectedEdges.includes(edge))
 
@@ -63,7 +63,9 @@ const useOnNodesDelete = () => {
           return [...remainingEdges, ...createdEdges]
         }, edges)
       )
-    }, [nodes, edges]
+    }
+
+    }, [nodes, edges, chainRecovery]
   ))
 
 }
