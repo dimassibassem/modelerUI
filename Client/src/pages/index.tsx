@@ -34,6 +34,7 @@ import styles from '@/validation.module.css'
 import 'reactflow/dist/style.css'
 import 'react-contexify/ReactContexify.css'
 import useOnNodesDelete from '@/hooks/useOnNodeDelete'
+import useProcessDefinitionChecker from '@/hooks/useProcessDefinitionChecker'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -45,8 +46,6 @@ const selector = (state: RFState) => ({
   setEdges: state.setEdges,
   setSelectedNode: state.setSelectedNode,
   setSelectedEdge: state.setSelectedEdge,
-  process: state.process,
-  setProcess: state.setProcess,
   onEdgeUpdate: state.onEdgeUpdate
 })
 
@@ -63,8 +62,6 @@ const DnDFlow = () => {
     setSelectedNode,
     setSelectedEdge,
     onEdgeUpdate,
-    process,
-    setProcess
   } = useFlowStore(selector, shallow)
 
   const { undo, redo, pause, resume } = useTemporalStore(
@@ -78,7 +75,7 @@ const DnDFlow = () => {
   const [value, copy] = useCopyToClipboard()
   const [openNotification, setOpenNotification] = useState(false)
   const [notificationData, setNotificationData] = useState({ success: false, message: '' })
-
+  const [chainRecovery, setChainRecovery] = useState<boolean>(false)
 
   const setId = (type: string) => {
     setLastNodeIdNumber(lastNodeIdNumber + 1)
@@ -91,14 +88,9 @@ const DnDFlow = () => {
   useRemoveWatermark()
   useShortcuts(reactFlowInstance, setNodes, setEdges, lastNodeIdNumber, setLastNodeIdNumber, copy, undo, redo, setNotificationData, setOpenNotification)
   const { show } = useContextMenu({ id: MENU_ID })
+  useProcessDefinitionChecker()
+  const onNodeDelete = useOnNodesDelete(chainRecovery)
 
-  useEffect(
-    () => {
-      if (nodes.some((node) => !node.dragging)) {
-        processDefinitionChecker(nodes, edges, setProcess, process)
-      }
-    }, [nodes, edges])
-  const onNodeDelete = useOnNodesDelete()
   return (
     <div
       className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
@@ -135,7 +127,8 @@ const DnDFlow = () => {
                      nodeStrokeWidth={3} zoomable pannable />
             <TopRightPanel setNodes={setNodes} setEdges={setEdges}
                            reactFlowInstance={reactFlowInstance} setOpenLoadModal={setOpenLoadModal} />
-            <BottomLeftPanel edges={edges} nodes={nodes} setNodes={setNodes} setEdges={setEdges} />
+            <BottomLeftPanel reactFlowInstance={reactFlowInstance} edges={edges} nodes={nodes} setNodes={setNodes}
+                             setEdges={setEdges} setChainRecovery={setChainRecovery} chainRecovery={chainRecovery} />
 
             <TopLeftPanel />
 
