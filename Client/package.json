@@ -14,7 +14,8 @@
     "test-e2e": "cypress run --e2e --headless",
     "test-unit": "vitest --watch false",
     "test-unit:dev": "vitest",
-    "test": "npm run test-unit && npm run test-e2e"
+    "test": "npm run test-unit && npm run test-e2e",
+    "sonar-scanner": "node sonar-scanner.js"
   },
   "dependencies": {
     "@4tw/cypress-drag-drop": "^2.2.3",
@@ -69,6 +70,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "postcss": "^8.4.21",
     "prettier": "^2.8.7",
+    "sonarqube-scanner": "^3.0.1",
     "typescript": "^5.0.3"
   },
   "prettier": {
