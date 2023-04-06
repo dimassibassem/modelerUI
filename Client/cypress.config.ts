@@ -8,7 +8,7 @@ export default defineConfig({
     viewportHeight: 720,
     video: false,
     screenshotOnRunFailure: false,
-    retries: 2
+    retries: 0,
   },
   component: {
     devServer: {

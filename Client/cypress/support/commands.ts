@@ -1,9 +1,11 @@
 import '@4tw/cypress-drag-drop'
+import "cypress-real-events";
 
 Cypress.Commands.add('dragPane', ({ from, to }) =>
   cy
     .window()
     .then((window) =>
+      // eslint-disable-next-line cypress/unsafe-to-chain-command,cypress/no-force
       cy
         .get('.react-flow__pane')
         .trigger('mousedown', from.x, from.y, { view: window })
@@ -13,6 +15,7 @@ Cypress.Commands.add('dragPane', ({ from, to }) =>
 )
 
 Cypress.Commands.add('zoomPane', (wheelDelta: number) =>
+  // eslint-disable-next-line cypress/no-unnecessary-waiting,cypress/unsafe-to-chain-command
   cy.get('.react-flow__pane').trigger('wheel', 'center', { deltaY: wheelDelta }).wait(250)
 )
 
@@ -41,13 +44,11 @@ Cypress.Commands.add('isOutsideViewport', { prevSubject: true }, (subject) => {
   })
 })
 
-let nodePositionPadding = 0
 
-Cypress.Commands.add('dragAndDrop', (el) => {
+Cypress.Commands.add('dragAndDrop', (el,nodePositionPadding) => {
   const dataTransfer = new DataTransfer()
   // @ts-ignore
   cy.get(el).trigger('dragstart', { dataTransfer })
-  nodePositionPadding += 100
   cy.get('#root > div > div.grow.h-full > div > div.react-flow__renderer > div')
     .trigger('drop', { dataTransfer, clientX: 100 + nodePositionPadding, clientY: 100 + nodePositionPadding })
 })
