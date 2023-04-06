@@ -1,4 +1,4 @@
-import dragAndDropAllNodes from '../support/dragAndDropAllNodes'
+import initWithAllNodes from '../support/initWithAllNodes'
 
 describe('Handle Chain recovery', () => {
 
@@ -7,7 +7,7 @@ describe('Handle Chain recovery', () => {
   })
 
   it('Should not reconnect the chain after a node is deleted', () => {
-    dragAndDropAllNodes()
+    initWithAllNodes()
     cy.dragPane({ from: { x: 100, y: 200 }, to: { x: 10, y: 0 } })
     cy.zoomPane(20)
 
@@ -49,7 +49,7 @@ describe('Handle Chain recovery', () => {
   })
 
   it('Should reconnect the chain after a node is deleted', () => {
-    dragAndDropAllNodes()
+    initWithAllNodes()
     cy.dragPane({ from: { x: 100, y: 200 }, to: { x: 10, y: 0 } })
     cy.zoomPane(20)
     // cy.dragPane({ from: { x: 100, y: 190 }, to: { x: 0, y: 0 } })

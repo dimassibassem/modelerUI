@@ -1,10 +1,10 @@
-import dragAndDropAllNodes from '../support/dragAndDropAllNodes'
+import initWithAllNodes from '../support/initWithAllNodes'
 
 describe('Keyboard Shortcuts', () => {
 
   beforeEach(() => {
     cy.visit('/')
-    dragAndDropAllNodes()
+    initWithAllNodes()
   })
 
   it('selects all nodes', () => {

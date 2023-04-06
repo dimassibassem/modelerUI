@@ -1,10 +1,10 @@
-import dragAndDropAllNodes from '../support/dragAndDropAllNodes'
+import initWithAllNodes from '../support/initWithAllNodes'
 
 describe('Context Menu', () => {
 
   beforeEach(() => {
     cy.visit('/')
-    dragAndDropAllNodes()
+    initWithAllNodes()
   })
 
   it('opens context menu', () => {

@@ -2,7 +2,7 @@ import * as Chance from 'chance'
 
 const chance = new Chance()
 
-const dragAndDropAllNodes = () => {
+const initWithAllNodes = () => {
   cy.get('#root > div > div:nth-child(2) > div > div.fixed.inset-0.z-10.overflow-y-auto > div > div > div')
     .should('be.visible')
   cy.get('#name')
@@ -22,4 +22,4 @@ const dragAndDropAllNodes = () => {
   })
 }
 
-export default dragAndDropAllNodes
+export default initWithAllNodes

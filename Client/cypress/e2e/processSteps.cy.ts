@@ -1,4 +1,4 @@
-import dragAndDropAllNodes from '../support/dragAndDropAllNodes'
+import initWithAllNodes from '../support/initWithAllNodes'
 
 describe('Valid steps in Sidebar', () => {
 
@@ -7,7 +7,7 @@ describe('Valid steps in Sidebar', () => {
   })
 
   it('Should render valid steps in sidebar', () => {
-    dragAndDropAllNodes()
+    initWithAllNodes()
 
     cy
       .get('#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div > div > div.react-flow__handle.react-flow__handle-left.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator')
