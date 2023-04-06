@@ -53,8 +53,8 @@ const BottomLeftPanel = ({ reactFlowInstance, nodes, edges, chainRecovery, setCh
 
       <div className=' grid grid-cols-4 gap-2 justify-items-stretch'>
 
-        <button type='button'
-                className={classNames(chainRecovery ? 'bg-indigo-200 hover:bg-indigo-300' : 'bg-indigo-50 hover:bg-indigo-100',
+        <button id='chainRecovery' type='button'
+                className={classNames(chainRecovery ? 'bg-indigo-300 hover:bg-indigo-200' : 'bg-indigo-50 hover:bg-indigo-100',
                   'rounded bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm ')}
                 onClick={() => {
                   setChainRecovery(!chainRecovery)
