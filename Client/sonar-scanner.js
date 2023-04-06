@@ -6,13 +6,13 @@ dotenv.config()
 scanner(
   {
     serverUrl: process.env.SONARQUBE_URL,
-    token : process.env.SONARQUBE_TOKEN,
     options: {
       'sonar.projectName': 'ModelerUI',
+      "sonar.token" : process.env.SONARQUBE_TOKEN,
       'sonar.projectKey': process.env.SONARQUBE_PROJECT_KEY ,
       'sonar.projectDescription': 'ModelerUI',
       'sonar.sources': 'src',
-      'sonar.test.inclusions': 'src/**/*.spec.ts,src/**/*.spec.tsx'
+      'sonar.test.inclusions': 'src/tests/**,cypress/**',
     }
   },
   () => process.exit()
