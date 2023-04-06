@@ -14,7 +14,7 @@ const Handles = ({
       handles.map((handle) => (
         handle.enable &&
         <Handle key={handle.position}
-                style={{ width: width / 15, height: width / 15 }}
+                style={{ width: width / 10, height: width / 10 }}
                 type='source' position={handle.position}
                 id={handle.position}
         />
