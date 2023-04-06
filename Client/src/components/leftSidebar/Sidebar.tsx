@@ -14,31 +14,33 @@ const shapes = [
   NodeTypes.Rule
 ]
 
-const onDragStart = (event: DragEvent<HTMLDivElement>, nodeType: NodeTypes, previewImage: string) => {
-  const img = new Image()
-  img.src = previewImage
+const onDragStart = (event: DragEvent<HTMLDivElement>, nodeType: NodeTypes,
+                     // previewImage: string
+) => {
+  // const img = new Image()
+  // img.src = previewImage
   event.dataTransfer.setData('application/reactflow', nodeType)
   event.dataTransfer.effectAllowed = 'move'
-  event.dataTransfer.setDragImage(img, 10, 10)
+  // event.dataTransfer.setDragImage(img, 10, 10)
 }
 
-const handlePreviewDragImage = (event: MouseEvent<HTMLDivElement> | FocusEvent<HTMLDivElement>, setPreviewImage: (previewImage: string) => void) => {
-  event.preventDefault()
-  const svgElement = (event.target as Element).querySelector<SVGElement>('svg')
-  if (svgElement) {
-    const svgCopy = svgElement.cloneNode(true) as SVGElement
-    svgCopy?.setAttribute('width', '80')
-    svgCopy?.setAttribute('height', '80')
-    const img = new Image()
-    img.src = `data:image/svg+xml;utf8,${encodeURIComponent(svgCopy.outerHTML)}`
-    setPreviewImage(img.src)
-  }
-}
+// const handlePreviewDragImage = (event: MouseEvent<HTMLDivElement> | FocusEvent<HTMLDivElement>, setPreviewImage: (previewImage: string) => void) => {
+//   event.preventDefault()
+//   const svgElement = (event.target as Element).querySelector<SVGElement>('svg')
+//   if (svgElement) {
+//     const svgCopy = svgElement.cloneNode(true) as SVGElement
+//     svgCopy?.setAttribute('width', '80')
+//     svgCopy?.setAttribute('height', '80')
+//     const img = new Image()
+//     img.src = `data:image/svg+xml;utf8,${encodeURIComponent(svgCopy.outerHTML)}`
+//     setPreviewImage(img.src)
+//   }
+// }
 
 const Sidebar = () => {
   const [expanded, setExpanded] = useState(true)
   const toggleExpanded = () => setExpanded(!expanded)
-  const [previewImage, setPreviewImage] = useState<string>('')
+  // const [previewImage, setPreviewImage] = useState<string>('')
 
 
   return (
@@ -68,16 +70,18 @@ const Sidebar = () => {
             <>
               {shapes.map((item) => (
                 <div
-                  onMouseOver={(event: MouseEvent<HTMLDivElement>) => {
-                    handlePreviewDragImage(event, setPreviewImage)
-                  }}
-                  onFocus={(event: FocusEvent<HTMLDivElement>) => {
-                    handlePreviewDragImage(event, setPreviewImage)
-                  }}
+                  // onMouseOver={(event: MouseEvent<HTMLDivElement>) => {
+                  //   handlePreviewDragImage(event, setPreviewImage)
+                  // }}
+                  // onFocus={(event: FocusEvent<HTMLDivElement>) => {
+                  //   handlePreviewDragImage(event, setPreviewImage)
+                  // }}
                   key={item}
                   className='text-gray-600 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                   onDragStart={(event) => {
-                    onDragStart(event, item, previewImage)
+                    onDragStart(event, item,
+                      // previewImage
+                    )
                   }}
                   onDrag={(event) => {
                     event.preventDefault()
