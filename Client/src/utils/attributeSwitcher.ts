@@ -1,37 +1,31 @@
 import NodeTypes from '@/types/NodeTypes'
 
-type AttributeMap = {
-  [key in Exclude<NodeTypes, NodeTypes.Start | NodeTypes.End>]: {
-    name: string,
-    challenge?: string,
-    enricher?: string,
-    channel: string
+const attributeSwitcher = (type: NodeTypes) => {
+  switch (type) {
+    case NodeTypes.Policies:
+      return {
+        name: '',
+        channel: ''
+      }
+    case NodeTypes.Provisioners:
+      return {
+        name: '',
+        challenge: '',
+        channel: ''
+      }
+    case NodeTypes.Rule:
+      return {
+        name: '',
+        enricher: '',
+        channel: ''
+      }
+      case NodeTypes.Execution:
+      return {
+        name: '',
+        channel: ''
+      }
+    default:
+      return {}
   }
 }
-
-const attributeSwitcher = (type: keyof AttributeMap): AttributeMap[keyof AttributeMap] => {
-  const attributeMap: AttributeMap = {
-    [NodeTypes.Policies]: {
-      name: '',
-      channel: ''
-    },
-    [NodeTypes.Provisioners]: {
-      name: '',
-      challenge: '',
-      channel: ''
-    },
-    [NodeTypes.Rule]: {
-      name: '',
-      enricher: '',
-      channel: ''
-    },
-    [NodeTypes.Execution]: {
-      name: '',
-      channel: ''
-    }
-  }
-
-  return attributeMap[type] || {}
-}
-
 export default attributeSwitcher
