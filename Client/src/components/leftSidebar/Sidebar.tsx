@@ -1,5 +1,6 @@
 import React, { useState, DragEvent, MouseEvent, FocusEvent } from 'react'
 import { Link } from 'react-router-dom'
+import { isEdge, isSafari } from 'react-device-detect'
 import logoBankerise from '@/assets/logo-bankerise.png'
 import iconSwitcher from '@/components/leftSidebar/iconSwitcher'
 import NodeTypes from '@/types/NodeTypes'
@@ -21,19 +22,11 @@ const onDragStart = (event: DragEvent<HTMLDivElement>, nodeType: NodeTypes,
   img.src = previewImage
   event.dataTransfer.setData('application/reactflow', nodeType)
   event.dataTransfer.effectAllowed = 'move'
-  event.dataTransfer.setDragImage(img, 10, 10)
-  if (typeof event.dataTransfer.setDragImage === 'function') {
-    console.log('setDragImage available')
-    // Use setDragImage if it's available
+  if (isEdge) {
     event.dataTransfer.setDragImage(img, 10, 10)
-  } else {
-    console.log('setDragImage not available')
-    // Use forceFallback if setDragImage is not available
-    // @ts-ignore
-    event.dataTransfer.forceFallback = true
-    event.dataTransfer.setData('text/plain', nodeType)
   }
 
+  // @ts-ignore
   // event.dataTransfer.forceFallback = true
 }
 
