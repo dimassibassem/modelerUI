@@ -22,8 +22,19 @@ const onDragStart = (event: DragEvent<HTMLDivElement>, nodeType: NodeTypes,
   event.dataTransfer.setData('application/reactflow', nodeType)
   event.dataTransfer.effectAllowed = 'move'
   event.dataTransfer.setDragImage(img, 10, 10)
-  // @ts-ignore
-  event.dataTransfer.forceFallback = true
+  if (typeof event.dataTransfer.setDragImage === 'function') {
+    console.log('setDragImage available')
+    // Use setDragImage if it's available
+    event.dataTransfer.setDragImage(img, 10, 10)
+  } else {
+    console.log('setDragImage not available')
+    // Use forceFallback if setDragImage is not available
+    // @ts-ignore
+    event.dataTransfer.forceFallback = true
+    event.dataTransfer.setData('text/plain', nodeType)
+  }
+
+  // event.dataTransfer.forceFallback = true
 }
 
 const handlePreviewDragImage = (event: MouseEvent<HTMLDivElement> | FocusEvent<HTMLDivElement>, setPreviewImage: (previewImage: string) => void) => {
