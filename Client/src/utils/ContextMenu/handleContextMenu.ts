@@ -48,29 +48,31 @@ export const handleItemClick = async ({
 }
 
 export const handleContextMenu = (event: MouseEvent,
-                                  reactFlowInstance: ReactFlowInstance | null,
-                                  setNodes: (nodes: Node[]) => void,
-                                  setEdges: (edges: Edge[]) => void,
-                                  show: (params: {
-                                    event: MouseEvent, props: { [key: string]: unknown }
-                                  }) => void,
-                                  copy: (text: string) => Promise<boolean>,
-                                  setOpenNotification: (open: boolean) => void,
-                                  lastNodeId: number,
-                                  setLastNodeId: (id: number) => void,
-                                  setNotificationData: (data: { success: boolean, message: string }) => void) => {
-  show({
+                                  props: {
+                                    reactFlowInstance: ReactFlowInstance | null,
+                                    setNodes: (nodes: Node[]) => void,
+                                    setEdges: (edges: Edge[]) => void,
+                                    show: (params: {
+                                      event: MouseEvent, props: { [key: string]: unknown }
+                                    }) => void,
+                                    copy: (text: string) => Promise<boolean>,
+                                    setOpenNotification: (open: boolean) => void,
+                                    lastNodeIdNumber: number,
+                                    setLastNodeIdNumber: (id: number) => void,
+                                    setNotificationData: (data: { success: boolean, message: string }) => void
+                                  }) => {
+  props.show({
     event,
     props: {
       key: 'value',
-      reactFlowInstance,
-      setNodes,
-      setEdges,
-      copy,
-      setOpenNotification,
-      lastNodeId,
-      setLastNodeId,
-      setNotificationData
+      reactFlowInstance: props.reactFlowInstance,
+      setNodes: props.setNodes,
+      setEdges: props.setEdges,
+      copy: props.copy,
+      setOpenNotification: props.setOpenNotification,
+      lastNodeId: props.lastNodeIdNumber,
+      setLastNodeId: props.setLastNodeIdNumber,
+      setNotificationData: props.setNotificationData
     }
   })
 }

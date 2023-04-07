@@ -1,6 +1,6 @@
 import React, { useState, DragEvent, MouseEvent, FocusEvent } from 'react'
 import { Link } from 'react-router-dom'
-import { isEdge, isSafari } from 'react-device-detect'
+import { isEdge } from 'react-device-detect'
 import logoBankerise from '@/assets/logo-bankerise.png'
 import iconSwitcher from '@/components/leftSidebar/iconSwitcher'
 import NodeTypes from '@/types/NodeTypes'

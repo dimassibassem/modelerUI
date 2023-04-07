@@ -1,15 +1,22 @@
 import { useEventListener } from 'usehooks-ts'
-import { Edge, Node, ReactFlowInstance } from 'reactflow'
+import {  ReactFlowInstance } from 'reactflow'
 import { Dispatch, SetStateAction } from 'react'
+import { shallow } from 'zustand/shallow'
 import selectNodes from '@/utils/ContextMenu/selectNodes'
 import selectEdges from '@/utils/ContextMenu/selectEdges'
 import copySelected from '@/utils/ContextMenu/copySelected'
 import pasteFromClipboard from '@/utils/ContextMenu/pasteFromClipboard'
 import cutSelected from '@/utils/ContextMenu/cutSelected'
+import { RFState } from '@/types/RFState'
+import { useFlowStore } from '@/store'
 
+const selector = (state: RFState) => ({
+  nodes: state.nodes,
+  edges: state.edges,
+  setNodes: state.setNodes,
+  setEdges: state.setEdges,
+})
 const useShortcuts = (reactFlowInstance: ReactFlowInstance | null,
-                      setNodes: (nodes: Node[]) => void,
-                      setEdges: (edges: Edge[]) => void,
                       lastNodeIdNumber: number,
                       setLastNodeIdNumber: Dispatch<SetStateAction<number>>,
                       copy: (text: string) => Promise<boolean>,
@@ -18,40 +25,42 @@ const useShortcuts = (reactFlowInstance: ReactFlowInstance | null,
                       setNotificationData: (data: { success: boolean, message: string }) => void,
                       setOpen: (open: boolean) => void) => {
 
+  const { setNodes, setEdges } =  useFlowStore(selector, shallow)
+
   useEventListener('keydown', async (e) => {
-    switch (e.keyCode) {
-      case 90: // Ctrl+Z
+    switch (e.key) {
+      case 'z':
         if (e.ctrlKey) {
           e.preventDefault()
           undo()
         }
         break
-      case 89: // Ctrl+Y
+      case 'y':
         if (e.ctrlKey) {
           e.preventDefault()
           redo()
         }
         break
-      case 65: // Ctrl+A
+      case 'a':
         if (e.ctrlKey) {
           e.preventDefault()
           selectNodes(reactFlowInstance)
           selectEdges(reactFlowInstance)
         }
         break
-      case 67: // Ctrl+C
+      case 'c':
         if (e.ctrlKey) {
           e.preventDefault()
           await copySelected(reactFlowInstance, lastNodeIdNumber, setLastNodeIdNumber, copy)
         }
         break
-      case 86: // Ctrl+V
+      case 'v':
         if (e.ctrlKey) {
           e.preventDefault()
           await pasteFromClipboard(reactFlowInstance, setNodes, setEdges, lastNodeIdNumber, setLastNodeIdNumber, setNotificationData, setOpen)
         }
         break
-      case 88: // Ctrl+X
+      case 'x':
         if (e.ctrlKey) {
           e.preventDefault()
           await cutSelected(reactFlowInstance, setNodes, setEdges, lastNodeIdNumber, setLastNodeIdNumber, copy)
@@ -61,6 +70,7 @@ const useShortcuts = (reactFlowInstance: ReactFlowInstance | null,
         break
     }
   })
+
 
 }
 

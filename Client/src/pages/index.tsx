@@ -71,7 +71,7 @@ const DnDFlow = () => {
   const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null)
   const [processDefOpenModal, setProcessDefOpenModal] = useState(true)
   const [lastNodeIdNumber, setLastNodeIdNumber] = useState(0)
-  const [value, copy] = useCopyToClipboard()
+  const [, copy] = useCopyToClipboard()
   const [openNotification, setOpenNotification] = useState(false)
   const [notificationData, setNotificationData] = useState({ success: false, message: '' })
   const [chainRecovery, setChainRecovery] = useState<boolean>(false)
@@ -85,7 +85,7 @@ const DnDFlow = () => {
   const onDrop = useOnDropNode(reactFlowWrapper, reactFlowInstance, setNodes, setId, nodes)
   useHandleSelected(nodes, edges, setSelectedNode, setSelectedEdge)
   useRemoveWatermark()
-  useShortcuts(reactFlowInstance, setNodes, setEdges, lastNodeIdNumber, setLastNodeIdNumber, copy, undo, redo, setNotificationData, setOpenNotification)
+  useShortcuts(reactFlowInstance, lastNodeIdNumber, setLastNodeIdNumber, copy, undo, redo, setNotificationData, setOpenNotification)
   const { show } = useContextMenu({ id: MENU_ID })
   useProcessDefinitionChecker()
   const onNodeDelete = useOnNodesDelete(chainRecovery)
@@ -99,7 +99,18 @@ const DnDFlow = () => {
       <Sidebar />
       <ReactFlowProvider>
         <div
-          onContextMenu={(event) => handleContextMenu(event, reactFlowInstance, setNodes, setEdges, show, copy, setOpenNotification, lastNodeIdNumber, setLastNodeIdNumber, setNotificationData)}
+          onContextMenu={(event) =>
+            handleContextMenu(event, {
+              reactFlowInstance,
+              setNodes,
+              setEdges,
+              show,
+              copy,
+              setOpenNotification,
+              lastNodeIdNumber,
+              setLastNodeIdNumber,
+              setNotificationData
+            })}
           className='grow h-full' ref={reactFlowWrapper}>
           <ReactFlow
             nodes={nodes}

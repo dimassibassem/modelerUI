@@ -5,7 +5,7 @@ function useHandleSelected(nodes: Node[],
                            edges: Edge[],
                            setSelectedNode: (node: Node | null) => void,
                            setSelectedEdge: (edge: Edge | null) => void) {
-  const foundSelectedNode = nodes.find(node => node.selected && !node.dragging)
+  const foundSelectedNode = nodes.find(node => node.selected)
   const foundSelectedEdge = edges.find(edge => edge.selected)
   useEffect(() => {
       if (foundSelectedNode) {
