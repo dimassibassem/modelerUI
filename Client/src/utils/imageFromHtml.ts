@@ -7,9 +7,11 @@ const imageFromHTML = async (reactFlowInstance: ReactFlowInstance | null) => {
     const dataURI = await toPng(reactFlow, {
       filter: (node) =>
         // we don't want to add the minimap, the controls and the panel to the image
-        !(node?.classList?.contains('react-flow__minimap') ||
+        !(
+          node?.classList?.contains('react-flow__minimap') ||
           node?.classList?.contains('react-flow__controls') ||
-          node?.classList?.contains('react-flow__panel'))
+          node?.classList?.contains('react-flow__panel')
+        )
     })
     const instance = reactFlowInstance.toObject()
     return { dataURI, instance }

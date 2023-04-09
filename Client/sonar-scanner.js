@@ -8,11 +8,11 @@ scanner(
     serverUrl: process.env.SONARQUBE_URL,
     options: {
       'sonar.projectName': 'ModelerUI',
-      "sonar.token" : process.env.SONARQUBE_TOKEN,
-      'sonar.projectKey': process.env.SONARQUBE_PROJECT_KEY ,
+      'sonar.token': process.env.SONARQUBE_TOKEN,
+      'sonar.projectKey': process.env.SONARQUBE_PROJECT_KEY,
       'sonar.projectDescription': 'ModelerUI',
       'sonar.sources': 'src',
-      'sonar.test.inclusions': 'src/tests/**,cypress/**',
+      'sonar.test.inclusions': 'src/tests/**,cypress/**'
     }
   },
   () => process.exit()

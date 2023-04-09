@@ -5,8 +5,7 @@ enum ContextMenuItems {
   SelectAll = 'selectAll',
   SelectNodes = 'selectNodes',
   SelectEdges = 'selectEdges',
-  CopyAsImage = 'copyAsImage',
-
+  CopyAsImage = 'copyAsImage'
 }
 
 export default ContextMenuItems

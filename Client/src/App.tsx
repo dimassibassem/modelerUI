@@ -10,7 +10,7 @@ const App = () => (
     <Router>
       <Routes>
         <Route index element={<DnDFlow />} />
-        <Route path='*' element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   </Suspense>

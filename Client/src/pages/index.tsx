@@ -3,7 +3,10 @@ import ReactFlow, {
   ReactFlowProvider,
   Background,
   MiniMap,
-  Node, BackgroundVariant, ConnectionMode, ReactFlowInstance
+  Node,
+  BackgroundVariant,
+  ConnectionMode,
+  ReactFlowInstance
 } from 'reactflow'
 import { shallow } from 'zustand/shallow'
 import { useCopyToClipboard } from 'usehooks-ts'
@@ -60,42 +63,63 @@ const DnDFlow = () => {
     onConnect,
     setSelectedNode,
     setSelectedEdge,
-    onEdgeUpdate,
+    onEdgeUpdate
   } = useFlowStore(selector, shallow)
 
-  const { pause, resume } = useTemporalStore(
-    (state) => state
-  )
+  const { pause, resume } = useTemporalStore((state) => state)
   const reactFlowWrapper = useRef<HTMLInputElement>(null)
   const [openLoadModal, setOpenLoadModal] = useState(false)
-  const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null)
+  const [reactFlowInstance, setReactFlowInstance] =
+    useState<ReactFlowInstance | null>(null)
   const [processDefOpenModal, setProcessDefOpenModal] = useState(true)
   const [lastNodeIdNumber, setLastNodeIdNumber] = useState(0)
   const [, copy] = useCopyToClipboard()
   const [openNotification, setOpenNotification] = useState(false)
-  const [notificationData, setNotificationData] = useState({ success: false, message: '' })
+  const [notificationData, setNotificationData] = useState({
+    success: false,
+    message: ''
+  })
   const [chainRecovery, setChainRecovery] = useState<boolean>(false)
 
   const setId = (type: string) => {
     setLastNodeIdNumber(lastNodeIdNumber + 1)
-    return (`${type}_${lastNodeIdNumber}`)
+    return `${type}_${lastNodeIdNumber}`
   }
 
   const onDragOver = useOnDragNode()
-  const onDrop = useOnDropNode(reactFlowWrapper, reactFlowInstance, setNodes, setId, nodes)
+  const onDrop = useOnDropNode(
+    reactFlowWrapper,
+    reactFlowInstance,
+    setNodes,
+    setId,
+    nodes
+  )
   useHandleSelected(nodes, edges, setSelectedNode, setSelectedEdge)
   useRemoveWatermark()
-  useShortcuts(reactFlowInstance, lastNodeIdNumber, setLastNodeIdNumber, copy, setNotificationData, setOpenNotification)
+  useShortcuts(
+    reactFlowInstance,
+    lastNodeIdNumber,
+    setLastNodeIdNumber,
+    copy,
+    setNotificationData,
+    setOpenNotification
+  )
   const { show } = useContextMenu({ id: MENU_ID })
   useProcessDefinitionChecker()
   const onNodeDelete = useOnNodesDelete(chainRecovery)
 
   return (
-    <div
-      className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
-      <Notification open={openNotification} setOpen={setOpenNotification} data={notificationData} />
+    <div className="flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0">
+      <Notification
+        open={openNotification}
+        setOpen={setOpenNotification}
+        data={notificationData}
+      />
       <ContextMenu MENU_ID={MENU_ID} />
-      <ProcessDefinition open={processDefOpenModal} setOpen={setProcessDefOpenModal} />
+      <ProcessDefinition
+        open={processDefOpenModal}
+        setOpen={setProcessDefOpenModal}
+      />
       <Sidebar />
       <ReactFlowProvider>
         <div
@@ -110,8 +134,11 @@ const DnDFlow = () => {
               lastNodeIdNumber,
               setLastNodeIdNumber,
               setNotificationData
-            })}
-          className='grow h-full' ref={reactFlowWrapper}>
+            })
+          }
+          className="grow h-full"
+          ref={reactFlowWrapper}
+        >
           <ReactFlow
             nodes={nodes}
             nodeTypes={nodeTypes}
@@ -131,25 +158,47 @@ const DnDFlow = () => {
             isValidConnection={isValidConnection(nodes)}
             fitView
           >
-            <Background color='#4f46e5' variant={BackgroundVariant.Dots} gap={10} size={1} />
-            <MiniMap style={{ background: '#ccc' }}
-                     nodeColor={(node: Node) => nodeColor(node.type as NodeTypes)}
-                     nodeStrokeWidth={3} zoomable pannable />
-            <TopRightPanel setNodes={setNodes} setEdges={setEdges}
-                           reactFlowInstance={reactFlowInstance} setOpenLoadModal={setOpenLoadModal} />
-            <BottomLeftPanel reactFlowInstance={reactFlowInstance} edges={edges} nodes={nodes} setNodes={setNodes}
-                             setEdges={setEdges} setChainRecovery={setChainRecovery} chainRecovery={chainRecovery} />
+            <Background
+              color="#4f46e5"
+              variant={BackgroundVariant.Dots}
+              gap={10}
+              size={1}
+            />
+            <MiniMap
+              style={{ background: '#ccc' }}
+              nodeColor={(node: Node) => nodeColor(node.type as NodeTypes)}
+              nodeStrokeWidth={3}
+              zoomable
+              pannable
+            />
+            <TopRightPanel
+              setNodes={setNodes}
+              setEdges={setEdges}
+              reactFlowInstance={reactFlowInstance}
+              setOpenLoadModal={setOpenLoadModal}
+            />
+            <BottomLeftPanel
+              reactFlowInstance={reactFlowInstance}
+              edges={edges}
+              nodes={nodes}
+              setNodes={setNodes}
+              setEdges={setEdges}
+              setChainRecovery={setChainRecovery}
+              chainRecovery={chainRecovery}
+            />
 
             <TopLeftPanel />
-
           </ReactFlow>
         </div>
       </ReactFlowProvider>
-      <LoadModal open={openLoadModal} setOpen={setOpenLoadModal} reactFlowInstance={reactFlowInstance} />
+      <LoadModal
+        open={openLoadModal}
+        setOpen={setOpenLoadModal}
+        reactFlowInstance={reactFlowInstance}
+      />
       <RightSidebar />
     </div>
   )
 }
-
 
 export default DnDFlow

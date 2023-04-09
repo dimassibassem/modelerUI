@@ -10,6 +10,7 @@
     "build": "tsc && vite build",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx, src",
     "preview": "vite preview",
+    "format": "prettier --write .",
     "test-e2e:dev": "cypress open",
     "test-e2e": "cypress run --e2e --headless",
     "test-unit": "vitest --watch false",
@@ -73,10 +74,5 @@
     "prettier": "^2.8.7",
     "sonarqube-scanner": "^3.0.1",
     "typescript": "^5.0.3"
-  },
-  "prettier": {
-    "singleQuote": true,
-    "semi": false,
-    "trailingComma": "none"
   }
 }

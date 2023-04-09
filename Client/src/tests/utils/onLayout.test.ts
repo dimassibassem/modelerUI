@@ -38,7 +38,6 @@ const setEdges = (edgs: Edge[]) => {
 
 describe('onLayout', () => {
   it('should vertically align nodes', () => {
-
     onLayout(VerticalLayout.TopToBottom, nodes, edges, setNodes, setEdges)
 
     expect(nodes[0].position.y).toEqual(50)
@@ -48,11 +47,9 @@ describe('onLayout', () => {
 
     expect(nodes[0].position.y).toEqual(200)
     expect(nodes[1].position.y).toEqual(50)
-
   })
 
   it('should horizontally align nodes', () => {
-
     onLayout(HorizontalLayout.LeftToRight, nodes, edges, setNodes, setEdges)
 
     expect(nodes[0].position.x).toEqual(50)
@@ -65,7 +62,6 @@ describe('onLayout', () => {
   })
 
   it('should handle handles according to layout', () => {
-
     onLayout(HorizontalLayout.LeftToRight, nodes, edges, setNodes, setEdges)
 
     expect(nodes[0].targetPosition).toEqual(Position.Left)
@@ -93,9 +89,5 @@ describe('onLayout', () => {
     expect(nodes[0].sourcePosition).toEqual(Position.Top)
     expect(nodes[1].targetPosition).toEqual(Position.Bottom)
     expect(nodes[1].sourcePosition).toEqual(Position.Top)
-
-
   })
 })
-
-

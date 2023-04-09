@@ -14,13 +14,13 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands';
+import './commands'
 
-const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/;
+const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/
 
 // eslint-disable-next-line consistent-return
 Cypress.on('uncaught:exception', (err) => {
   if (resizeObserverLoopErrRe.test(err.message)) {
-    return false;
+    return false
   }
-});
+})

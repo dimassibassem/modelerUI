@@ -1,6 +1,10 @@
 import { useEffect } from 'react'
 
-function useShowToolbar(isHover: boolean, dragging: boolean, setShowToolbar: (show: boolean) => void) {
+function useShowToolbar(
+  isHover: boolean,
+  dragging: boolean,
+  setShowToolbar: (show: boolean) => void
+) {
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (isHover && !dragging) {

@@ -4,12 +4,14 @@ import NodeTypes from '@/types/NodeTypes'
 import processDefinitionChecker from '@/utils/processDefinitionChecker'
 import Process from '@/types/Process'
 
-
-let process: Process =
-  { steps: [], name: '', description: '', hook: { name: '', channel: '', isAsync: false } }
+let process: Process = {
+  steps: [],
+  name: '',
+  description: '',
+  hook: { name: '', channel: '', isAsync: false }
+}
 const setProcess = (proc: Process) => {
   process = proc
-
 }
 describe('processDefinitionChecker', () => {
   it('should set the process according to its valid steps', () => {
@@ -40,11 +42,11 @@ describe('processDefinitionChecker', () => {
     expect(process).toEqual({
       ...process,
       steps: [
-        [{ id: 'start_0', type: 'start' }, { id: 'end_1', type: 'end' }]
+        [
+          { id: 'start_0', type: 'start' },
+          { id: 'end_1', type: 'end' }
+        ]
       ]
-
     })
   })
 })
-
-

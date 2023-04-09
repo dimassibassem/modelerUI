@@ -6,7 +6,10 @@ const dagreGraph = new dagre.graphlib.Graph()
 
 dagreGraph.setDefaultEdgeLabel(() => ({}))
 
-function handleHandles(direction: HorizontalLayout | VerticalLayout, node: Node) {
+function handleHandles(
+  direction: HorizontalLayout | VerticalLayout,
+  node: Node
+) {
   switch (direction) {
     case HorizontalLayout.RightToLeft:
       node.targetPosition = Position.Right
@@ -29,16 +32,25 @@ function handleHandles(direction: HorizontalLayout | VerticalLayout, node: Node)
   }
 }
 
-const onLayout = (direction: HorizontalLayout | VerticalLayout, nodes: Node[], edges: Edge[], setNodes: (arg0: Node[]) => void,
-                  setEdges: (arg0: Edge[]) => void
+const onLayout = (
+  direction: HorizontalLayout | VerticalLayout,
+  nodes: Node[],
+  edges: Edge[],
+  setNodes: (arg0: Node[]) => void,
+  setEdges: (arg0: Edge[]) => void
 ) => {
-
   dagreGraph.setGraph({ rankdir: direction })
 
   nodes.forEach((node) => {
     dagreGraph.setNode(node.id, {
-      width: typeof node.style?.width === 'number' && (node.style?.width ?? 0) + 20 || 100,
-      height: typeof node.style?.height === 'number' && (node.style?.height ?? 0) + 20 || 100
+      width:
+        (typeof node.style?.width === 'number' &&
+          (node.style?.width ?? 0) + 20) ||
+        100,
+      height:
+        (typeof node.style?.height === 'number' &&
+          (node.style?.height ?? 0) + 20) ||
+        100
     })
   })
 
@@ -58,7 +70,8 @@ const onLayout = (direction: HorizontalLayout | VerticalLayout, nodes: Node[], e
       y: nodeWithPosition.y
     }
 
-    setEdges(edges.map((edge) => {
+    setEdges(
+      edges.map((edge) => {
         if (edge.source === node.id) {
           edge.sourceHandle = node.sourcePosition
         }
@@ -66,8 +79,8 @@ const onLayout = (direction: HorizontalLayout | VerticalLayout, nodes: Node[], e
           edge.targetHandle = node.targetPosition
         }
         return edge
-      }
-    ))
+      })
+    )
 
     return node
   })

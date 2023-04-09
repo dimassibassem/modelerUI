@@ -4,16 +4,20 @@ import connectableWith from '@/utils/connectableWith'
 import attributeSwitcher from '@/utils/attributeSwitcher'
 import NodeTypes from '@/types/NodeTypes'
 
-function useOnDropNode(reactFlowWrapper: RefObject<HTMLInputElement>,
-                       reactFlowInstance: ReactFlowInstance | null,
-                       setNodes: (arg0: Node[]) => void,
-                       setId: (arg0: string) => string,
-                       nodes: Node[]) {
+function useOnDropNode(
+  reactFlowWrapper: RefObject<HTMLInputElement>,
+  reactFlowInstance: ReactFlowInstance | null,
+  setNodes: (arg0: Node[]) => void,
+  setId: (arg0: string) => string,
+  nodes: Node[]
+) {
   return useCallback(
     (event: DragEvent) => {
       event.preventDefault()
       const reactFlowBounds = reactFlowWrapper.current?.getBoundingClientRect()
-      const type = event.dataTransfer.getData('application/reactflow') as NodeTypes
+      const type = event.dataTransfer.getData(
+        'application/reactflow'
+      ) as NodeTypes
 
       // check if the dropped element is valid
       if (typeof type === 'undefined' || !type) {

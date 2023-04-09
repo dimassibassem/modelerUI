@@ -9,24 +9,45 @@ import pasteFromClipboard from './pasteFromClipboard'
 import ContextMenuItems from '@/types/ContextMenuItems'
 import cutSelected from './cutSelected'
 
-export const handleItemClick = async ({
-                                        id,
-                                        props
-                                      }: ItemParams) => {
+export const handleItemClick = async ({ id, props }: ItemParams) => {
   switch (id as ContextMenuItems) {
     case ContextMenuItems.Copy: {
-      await copySelected(props.reactFlowInstance, props.lastNodeId, props.setLastNodeId, props.copy)
+      await copySelected(
+        props.reactFlowInstance,
+        props.lastNodeId,
+        props.setLastNodeId,
+        props.copy
+      )
       break
     }
     case ContextMenuItems.Paste: {
-      await pasteFromClipboard(props.reactFlowInstance, props.setNodes, props.setEdges, props.lastNodeId, props.setLastNodeId, props.setNotificationData, props.setOpenNotification)
+      await pasteFromClipboard(
+        props.reactFlowInstance,
+        props.setNodes,
+        props.setEdges,
+        props.lastNodeId,
+        props.setLastNodeId,
+        props.setNotificationData,
+        props.setOpenNotification
+      )
       break
     }
     case ContextMenuItems.Cut:
-      await cutSelected(props.reactFlowInstance, props.setNodes, props.setEdges, props.lastNodeId, props.setLastNodeId, props.copy)
+      await cutSelected(
+        props.reactFlowInstance,
+        props.setNodes,
+        props.setEdges,
+        props.lastNodeId,
+        props.setLastNodeId,
+        props.copy
+      )
       break
     case ContextMenuItems.CopyAsImage: {
-      await copyAsImage(props.reactFlowInstance, props.setOpenNotification, props.setNotificationData)
+      await copyAsImage(
+        props.reactFlowInstance,
+        props.setOpenNotification,
+        props.setNotificationData
+      )
       break
     }
     case ContextMenuItems.SelectNodes: {
@@ -46,20 +67,23 @@ export const handleItemClick = async ({
   }
 }
 
-export const handleContextMenu = (event: MouseEvent,
-                                  props: {
-                                    reactFlowInstance: ReactFlowInstance | null,
-                                    setNodes: (nodes: Node[]) => void,
-                                    setEdges: (edges: Edge[]) => void,
-                                    show: (params: {
-                                      event: MouseEvent, props: { [key: string]: unknown }
-                                    }) => void,
-                                    copy: (text: string) => Promise<boolean>,
-                                    setOpenNotification: (open: boolean) => void,
-                                    lastNodeIdNumber: number,
-                                    setLastNodeIdNumber: (id: number) => void,
-                                    setNotificationData: (data: { success: boolean, message: string }) => void
-                                  }) => {
+export const handleContextMenu = (
+  event: MouseEvent,
+  props: {
+    reactFlowInstance: ReactFlowInstance | null
+    setNodes: (nodes: Node[]) => void
+    setEdges: (edges: Edge[]) => void
+    show: (params: {
+      event: MouseEvent
+      props: { [key: string]: unknown }
+    }) => void
+    copy: (text: string) => Promise<boolean>
+    setOpenNotification: (open: boolean) => void
+    lastNodeIdNumber: number
+    setLastNodeIdNumber: (id: number) => void
+    setNotificationData: (data: { success: boolean; message: string }) => void
+  }
+) => {
   props.show({
     event,
     props: {

@@ -14,13 +14,11 @@ const selector = (state: RFState) => ({
 const RightSidebar = () => {
   const { selectedNode, selectedEdge } = useFlowStore(selector, shallow)
   return (
-    <aside
-      className='hidden w-96 bg-white p-8 border-l border-gray-200 overflow-y-auto lg:block overscroll-auto hover:overscroll-contain h-[90vh] max-w-[30%] scrollbar scrollbar-transparent scrollbar-track-transparent sticky'>
+    <aside className="hidden w-96 bg-white p-8 border-l border-gray-200 overflow-y-auto lg:block overscroll-auto hover:overscroll-contain h-[90vh] max-w-[30%] scrollbar scrollbar-transparent scrollbar-track-transparent sticky">
       {selectedEdge && <SelectedEdgeProps />}
       {selectedNode && <SelectedNodeProps />}
       {!selectedNode && !selectedEdge && <SidebarProps />}
     </aside>
   )
-
 }
 export default RightSidebar

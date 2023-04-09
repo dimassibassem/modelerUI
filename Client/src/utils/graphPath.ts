@@ -1,6 +1,6 @@
 import { Edge, Node } from 'reactflow'
 
-type Graph = Record<string, string[]>;
+type Graph = Record<string, string[]>
 
 function createGraph(nodes: Node[], edges: Edge[]): Graph {
   const graph: Graph = {}
@@ -61,6 +61,5 @@ function findAllPaths(
 
   return result
 }
-
 
 export { createGraph, findAllPaths }

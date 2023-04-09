@@ -13,7 +13,15 @@ function useCustomNodeProps(type: NodeTypes, w: number, h: number) {
   const filter = CssFilterConverter.hexToFilter(nodeColor(type)).color
 
   return {
-    width, height, setHeight, setWidth, hoverRef, isHover, showToolbar, setShowToolbar, filter
+    width,
+    height,
+    setHeight,
+    setWidth,
+    hoverRef,
+    isHover,
+    showToolbar,
+    setShowToolbar,
+    filter
   }
 }
 

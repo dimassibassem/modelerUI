@@ -18,11 +18,7 @@
     "sourceType": "module"
     // Allows for the use of imports
   },
-  "plugins": [
-    "react",
-    "prettier",
-    "cypress"
-  ],
+  "plugins": ["react", "prettier", "cypress"],
   "rules": {
     "cypress/no-assigning-return-values": "error",
     "cypress/no-unnecessary-waiting": "off",
@@ -46,10 +42,7 @@
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".tsx",
-          ".ts"
-        ]
+        "extensions": [".tsx", ".ts"]
       }
     ],
     "react/function-component-definition": [
@@ -63,9 +56,7 @@
     "global-require": 0,
     "react/jsx-props-no-spreading": "off",
     "no-undef": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "warn"
-    ],
+    "@typescript-eslint/no-unused-vars": ["warn"],
     "import/extensions": "off",
     "import/no-unresolved": "off",
     "no-unused-vars": "off",

@@ -3,14 +3,19 @@ import { MarkerType } from 'reactflow'
 import { FC } from 'react'
 import classNames from '@/utils/classNames'
 
-
 const markerTypes = [MarkerType.Arrow, MarkerType.ArrowClosed]
-const EdgeMarkerTypeRadio : FC<{ edgeMarkerType: MarkerType, setEdgeMarkerType: (markerType: MarkerType) => void }>
-  = ({ edgeMarkerType, setEdgeMarkerType }) => (
-  <RadioGroup value={edgeMarkerType} onChange={(edgMT) => {
-    setEdgeMarkerType(edgMT)
-  }} className='mt-2 py-3'>
-    <div className='grid grid-cols-2 gap-3 '>
+const EdgeMarkerTypeRadio: FC<{
+  edgeMarkerType: MarkerType
+  setEdgeMarkerType: (markerType: MarkerType) => void
+}> = ({ edgeMarkerType, setEdgeMarkerType }) => (
+  <RadioGroup
+    value={edgeMarkerType}
+    onChange={(edgMT) => {
+      setEdgeMarkerType(edgMT)
+    }}
+    className="mt-2 py-3"
+  >
+    <div className="grid grid-cols-2 gap-3 ">
       {markerTypes.map((mt) => (
         <RadioGroup.Option
           key={mt}
@@ -25,7 +30,7 @@ const EdgeMarkerTypeRadio : FC<{ edgeMarkerType: MarkerType, setEdgeMarkerType: 
             )
           }
         >
-          <RadioGroup.Label as='span'>{mt}</RadioGroup.Label>
+          <RadioGroup.Label as="span">{mt}</RadioGroup.Label>
         </RadioGroup.Option>
       ))}
     </div>

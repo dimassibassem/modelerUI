@@ -3,13 +3,14 @@ import { Node } from 'reactflow'
 import Process from '@/types/Process'
 import { RFState } from '@/types/RFState'
 
-function handleStepsChange(e: React.ChangeEvent<HTMLInputElement>,
-                           key: string,
-                           step: Process['steps'][number][number],
-                           stepsArrayIndex: number,
-                           stepArrayIndex: number,
-                           process: RFState['process'],
-                           setProcess: RFState['setProcess']
+function handleStepsChange(
+  e: React.ChangeEvent<HTMLInputElement>,
+  key: string,
+  step: Process['steps'][number][number],
+  stepsArrayIndex: number,
+  stepArrayIndex: number,
+  process: RFState['process'],
+  setProcess: RFState['setProcess']
 ) {
   setProcess({
     ...process,
@@ -33,12 +34,15 @@ function handleStepsChange(e: React.ChangeEvent<HTMLInputElement>,
   })
 }
 
-const handleNodesAttributesChange = (e: React.ChangeEvent<HTMLInputElement>,
-                                     key: string,
-                                     step: Process['steps'][number][number],
-                                     setNodes: RFState['setNodes'],
-                                     nodes: RFState['nodes']) => {
-  setNodes(nodes.map((node: Node) => {
+const handleNodesAttributesChange = (
+  e: React.ChangeEvent<HTMLInputElement>,
+  key: string,
+  step: Process['steps'][number][number],
+  setNodes: RFState['setNodes'],
+  nodes: RFState['nodes']
+) => {
+  setNodes(
+    nodes.map((node: Node) => {
       if (node.id === step.id) {
         return {
           ...node,
@@ -52,9 +56,8 @@ const handleNodesAttributesChange = (e: React.ChangeEvent<HTMLInputElement>,
         }
       }
       return node
-    }
-  ))
+    })
+  )
 }
-
 
 export { handleStepsChange, handleNodesAttributesChange }

@@ -27,4 +27,3 @@ describe('attributeSwitcher', () => {
     expect(attributeSwitcher('unknown' as NodeTypes)).toEqual({})
   })
 })
-

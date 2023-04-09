@@ -7,7 +7,9 @@ import {
   NodeChange,
   addEdge,
   applyNodeChanges,
-  applyEdgeChanges, MarkerType, updateEdge
+  applyEdgeChanges,
+  MarkerType,
+  updateEdge
 } from 'reactflow'
 import { temporal, TemporalState } from 'zundo'
 import { devtools } from 'zustand/middleware'
@@ -30,35 +32,50 @@ const initialProcess: Process = {
   }
 }
 
-
 // this is our useFlowStore hook that we can use in our components to get parts of the store and call actions
-const useFlowStore = create(temporal<RFState>
-  // @ts-ignore
-  (devtools((set, get) => ({
+const useFlowStore = create(
+  temporal<RFState>(
+    // @ts-ignore
+    devtools(
+      (set, get) => ({
         process: initialProcess,
         nodes: initialNodes,
         edges: initialEdges,
         selectedNode: null,
         selectedEdge: null,
         setProcess: (process: Process) => set({ process }, false, 'setProcess'),
-        setSelectedNode: (node: Node | null) => set({ selectedNode: node }, false, 'setSelectedNode'),
-        setSelectedEdge: (edge: Edge | null) => set({ selectedEdge: edge }, false, 'setSelectedEdge'),
+        setSelectedNode: (node: Node | null) =>
+          set({ selectedNode: node }, false, 'setSelectedNode'),
+        setSelectedEdge: (edge: Edge | null) =>
+          set({ selectedEdge: edge }, false, 'setSelectedEdge'),
         setNodes: (nodes: Node[]) => set({ nodes }, false, 'setNodes'),
         setEdges: (edges: Edge[]) => set({ edges }, false, 'setEdges'),
         onNodesChange: (changes: NodeChange[]) => {
-          set({
-            nodes: applyNodeChanges(changes, get().nodes)
-          }, false, 'onNodesChange')
+          set(
+            {
+              nodes: applyNodeChanges(changes, get().nodes)
+            },
+            false,
+            'onNodesChange'
+          )
         },
         onEdgesChange: (changes: EdgeChange[]) => {
-          set({
-            edges: applyEdgeChanges(changes, get().edges)
-          }, false, 'onEdgesChange')
+          set(
+            {
+              edges: applyEdgeChanges(changes, get().edges)
+            },
+            false,
+            'onEdgesChange'
+          )
         },
         onEdgeUpdate: (oldEdge: Edge, newConnection: Connection) => {
-          set({
-            edges: updateEdge(oldEdge, newConnection, get().edges)
-          }, false, 'onEdgeUpdate')
+          set(
+            {
+              edges: updateEdge(oldEdge, newConnection, get().edges)
+            },
+            false,
+            'onEdgeUpdate'
+          )
         },
 
         onConnect: (connection: Connection) => {
@@ -68,15 +85,20 @@ const useFlowStore = create(temporal<RFState>
             markerEnd: { type: MarkerType.Arrow }
           }
 
-          set({
-            edges: addEdge(newEdge, get().edges)
-          }, false, 'onConnect')
+          set(
+            {
+              edges: addEdge(newEdge, get().edges)
+            },
+            false,
+            'onConnect'
+          )
         }
-      })
-      , {
+      }),
+      {
         name: 'FlowStore',
         enabled: true
-      }),
+      }
+    ),
     {
       // @ts-ignore
       partialize: (state) => {
@@ -84,7 +106,6 @@ const useFlowStore = create(temporal<RFState>
         return { nodes, edges, process }
       },
       equality: (a, b) =>
-
         equal(
           {
             nodes: a.nodes,
@@ -97,19 +118,28 @@ const useFlowStore = create(temporal<RFState>
         ) &&
         equal(
           {
-            process: a.process.name + a.process.description + a.process.hook.channel + a.process.hook.isAsync
-          }, {
-            process: b.process.name + b.process.description + b.process.hook.channel + b.process.hook.isAsync
-          })
+            process:
+              a.process.name +
+              a.process.description +
+              a.process.hook.channel +
+              a.process.hook.isAsync
+          },
+          {
+            process:
+              b.process.name +
+              b.process.description +
+              b.process.hook.channel +
+              b.process.hook.isAsync
+          }
+        )
     }
   )
 )
 
-const useTemporalStore = <T, >(
+const useTemporalStore = <T>(
   selector: (state: TemporalState<RFState>) => T,
   equality?: (a: T, b: T) => boolean
   // @ts-ignore
 ) => useStore(useFlowStore.temporal, selector, equality)
-
 
 export { useFlowStore, useTemporalStore }

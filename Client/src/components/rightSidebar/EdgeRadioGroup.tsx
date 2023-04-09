@@ -3,14 +3,18 @@ import { FC } from 'react'
 import classNames from '@/utils/classNames'
 
 const edgeProps = ['straight', 'smoothstep', 'step', 'default']
-const EdgeRadioGroup: FC<{ edgeType: string, setEdgeType: (edgeType: string) => void }> = ({
-                                                                                             edgeType,
-                                                                                             setEdgeType
-                                                                                           }) => (
-  <RadioGroup value={edgeType} onChange={(type) => {
-    setEdgeType(type)
-  }} className='mt-2 py-3'>
-    <div className='grid grid-cols-4 gap-3 '>
+const EdgeRadioGroup: FC<{
+  edgeType: string
+  setEdgeType: (edgeType: string) => void
+}> = ({ edgeType, setEdgeType }) => (
+  <RadioGroup
+    value={edgeType}
+    onChange={(type) => {
+      setEdgeType(type)
+    }}
+    className="mt-2 py-3"
+  >
+    <div className="grid grid-cols-4 gap-3 ">
       {edgeProps.map((edgeProp) => (
         <RadioGroup.Option
           key={edgeProp}
@@ -25,7 +29,7 @@ const EdgeRadioGroup: FC<{ edgeType: string, setEdgeType: (edgeType: string) => 
             )
           }
         >
-          <RadioGroup.Label as='span'>{edgeProp}</RadioGroup.Label>
+          <RadioGroup.Label as="span">{edgeProp}</RadioGroup.Label>
         </RadioGroup.Option>
       ))}
     </div>

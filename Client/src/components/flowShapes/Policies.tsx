@@ -24,34 +24,43 @@ const Policies: FC<NodeProps> = ({ id, type, data, dragging, selected }) => {
   useShowToolbar(isHover, dragging, setShowToolbar)
   useHandleNodeSize(id, setWidth, setHeight)
   return (
-    <div ref={hoverRef} className='min-h-[40px] w-full min-w-[50px] h-full'>
+    <div ref={hoverRef} className="min-h-[40px] w-full min-w-[50px] h-full">
       <NodeToolbar isVisible={showToolbar} position={Position.Top}>
-        <div className='flex flex-col bg-gray-200'>
-          <h1 className='rounded-2xl text-gray-700 text-sm font-bold p-2'
-          >help ???</h1>
+        <div className="flex flex-col bg-gray-200">
+          <h1 className="rounded-2xl text-gray-700 text-sm font-bold p-2">
+            help ???
+          </h1>
         </div>
       </NodeToolbar>
-      <NodeResizer keepAspectRatio color='#ff0071' isVisible={selected} minWidth={50} minHeight={50}
-                   onResizeStart={() => pause()}
-                   onResize={
-                     (event, props) => {
-                       setWidth(props.width)
-                       setHeight(props.height)
-                     }
-                   }
-                   onResizeEnd={() => resume()}
+      <NodeResizer
+        keepAspectRatio
+        color="#ff0071"
+        isVisible={selected}
+        minWidth={50}
+        minHeight={50}
+        onResizeStart={() => pause()}
+        onResize={(event, props) => {
+          setWidth(props.width)
+          setHeight(props.height)
+        }}
+        onResizeEnd={() => resume()}
       />
       <div>
-        <img src={policies} style={{
-          width, height, filter: filter || 'none'
-        }} alt='policies' />
-        <div className='absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>{data.text}</div>
+        <img
+          src={policies}
+          style={{
+            width,
+            height,
+            filter: filter || 'none'
+          }}
+          alt="policies"
+        />
+        <div className="absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4">
+          {data.text}
+        </div>
       </div>
 
-      <Handles
-        width={width}
-        handles={data.handles}
-      />
+      <Handles width={width} handles={data.handles} />
     </div>
   )
 }

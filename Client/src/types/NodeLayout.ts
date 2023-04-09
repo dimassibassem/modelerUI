@@ -1,11 +1,10 @@
 enum VerticalLayout {
   TopToBottom = 'TB',
-  BottomToTop = 'BT',
+  BottomToTop = 'BT'
 }
 enum HorizontalLayout {
   LeftToRight = 'LR',
-  RightToLeft = 'RL',
+  RightToLeft = 'RL'
 }
 
-export { VerticalLayout, HorizontalLayout}
-
+export { VerticalLayout, HorizontalLayout }

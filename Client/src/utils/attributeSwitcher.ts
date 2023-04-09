@@ -19,7 +19,7 @@ const attributeSwitcher = (type: NodeTypes) => {
         enricher: '',
         channel: ''
       }
-      case NodeTypes.Execution:
+    case NodeTypes.Execution:
       return {
         name: '',
         channel: ''
