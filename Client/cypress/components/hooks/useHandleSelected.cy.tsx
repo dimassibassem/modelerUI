@@ -1,103 +1,155 @@
-import ReactFlow, { Edge, Node } from 'reactflow'
-import useHandleSelected from '@/hooks/useHandleSelected'
+import ReactFlow, { Edge, Node } from "reactflow";
+import useHandleSelected from "@/hooks/useHandleSelected";
 
 const Flowchart = ({
-  nodes,
-  edges,
-  setSelectedNode,
-  setSelectedEdge
-}: {
+                     nodes,
+                     edges,
+                     setSelected
+                   }: {
   nodes: Node[]
   edges: Edge[]
-  setSelectedNode: (node: Node | null) => void
-  setSelectedEdge: (edge: Edge | null) => void
+  setSelected: (selected: Node | Edge | null) => void
 }) => {
-  useHandleSelected(nodes, edges, setSelectedNode, setSelectedEdge)
-  return <ReactFlow className="h-full grow" nodes={nodes} edges={edges} />
-}
+  useHandleSelected(nodes, edges, setSelected);
+  return <ReactFlow className="h-full grow" nodes={nodes} edges={edges} />;
+};
 
-describe('useHandleSelected', () => {
-  it('should update selected node and edge', () => {
+describe("useHandleSelected", () => {
+  it("should update selected node", () => {
     const nodes = [
       {
-        id: 'node1',
+        id: "node1",
         selected: false,
         dragging: false,
         data: {},
         position: { x: 10, y: 20 }
       },
       {
-        id: 'node2',
+        id: "node2",
         selected: true,
         dragging: false,
         data: {},
         position: { x: 20, y: 80 }
       },
       {
-        id: 'node3',
+        id: "node3",
         selected: false,
         dragging: false,
         data: {},
         position: { x: 30, y: 120 }
       }
-    ]
+    ];
     const edges = [
-      { id: 'edge1', selected: false, source: 'node1', target: 'node2' },
-      { id: 'edge2', selected: true, source: 'node2', target: 'node3' }
-    ]
-    const setSelectedNode = cy.stub().as('setSelectedNode')
-    const setSelectedEdge = cy.stub().as('setSelectedEdge')
+      { id: "edge1", selected: false, source: "node1", target: "node2" },
+      { id: "edge2", selected: true, source: "node2", target: "node3" }
+    ];
+    const setSelected = cy.stub().as("setSelected");
     cy.mount(
-      <Flowchart
-        nodes={nodes}
-        edges={edges}
-        setSelectedEdge={setSelectedEdge}
-        setSelectedNode={setSelectedNode}
-      />
-    )
-    cy.get('@setSelectedNode').should('have.been.calledWith', nodes[1])
-    cy.get('@setSelectedEdge').should('have.been.calledWith', edges[1])
-  })
+      <Flowchart nodes={nodes} edges={edges} setSelected={setSelected} />
+    );
+    cy.get("@setSelected").should("have.been.calledWith", nodes[1]);
+  });
 
-  it('should clear selected node and edge', () => {
+  it("should clear selected node", () => {
     const nodes = [
       {
-        id: 'node1',
+        id: "node1",
         selected: false,
         dragging: false,
         data: {},
         position: { x: 10, y: 20 }
       },
       {
-        id: 'node2',
+        id: "node2",
         selected: false,
         dragging: false,
         data: {},
         position: { x: 20, y: 80 }
       },
       {
-        id: 'node3',
+        id: "node3",
         selected: false,
         dragging: false,
         data: {},
         position: { x: 30, y: 120 }
       }
-    ]
+    ];
     const edges = [
-      { id: 'edge1', selected: false, source: 'node1', target: 'node2' },
-      { id: 'edge2', selected: false, source: 'node2', target: 'node3' }
-    ]
-    const setSelectedNode = cy.stub().as('setSelectedNode')
-    const setSelectedEdge = cy.stub().as('setSelectedEdge')
+      { id: "edge1", selected: false, source: "node1", target: "node2" },
+      { id: "edge2", selected: false, source: "node2", target: "node3" }
+    ];
+    const setSelected = cy.stub().as("setSelected");
     cy.mount(
-      <Flowchart
-        nodes={nodes}
-        edges={edges}
-        setSelectedEdge={setSelectedEdge}
-        setSelectedNode={setSelectedNode}
-      />
-    )
-    cy.get('@setSelectedNode').should('have.been.calledWith', null)
-    cy.get('@setSelectedEdge').should('have.been.calledWith', null)
-  })
-})
+      <Flowchart nodes={nodes} edges={edges} setSelected={setSelected} />
+    );
+    cy.get("@setSelected").should("have.been.calledWith", null);
+  });
+  it("should update selected Edge", () => {
+    const nodes = [
+      {
+        id: "node1",
+        selected: false,
+        dragging: false,
+        data: {},
+        position: { x: 10, y: 20 }
+      },
+      {
+        id: "node2",
+        selected: false,
+        dragging: false,
+        data: {},
+        position: { x: 20, y: 80 }
+      },
+      {
+        id: "node3",
+        selected: false,
+        dragging: false,
+        data: {},
+        position: { x: 30, y: 120 }
+      }
+    ];
+    const edges = [
+      { id: "edge1", selected: true, source: "node1", target: "node2" },
+      { id: "edge2", selected: false, source: "node2", target: "node3" }
+    ];
+    const setSelected = cy.stub().as("setSelected");
+    cy.mount(
+      <Flowchart nodes={nodes} edges={edges} setSelected={setSelected} />
+    );
+    cy.get("@setSelected").should("have.been.calledWith", edges[0]);
+  });
+  it("should clear selected Edge", () => {
+    const nodes = [
+      {
+        id: "node1",
+        selected: false,
+        dragging: false,
+        data: {},
+        position: { x: 10, y: 20 }
+      },
+      {
+        id: "node2",
+        selected: false,
+        dragging: false,
+        data: {},
+        position: { x: 20, y: 80 }
+      },
+      {
+        id: "node3",
+        selected: false,
+        dragging: false,
+        data: {},
+        position: { x: 30, y: 120 }
+      }
+    ];
+    const edges = [
+      { id: "edge1", selected: false, source: "node1", target: "node2" },
+      { id: "edge2", selected: false, source: "node2", target: "node3" }
+    ];
+    const setSelected = cy.stub().as("setSelected");
+    cy.mount(
+      <Flowchart nodes={nodes} edges={edges} setSelected={setSelected} />
+    );
+    cy.get("@setSelected").should("have.been.calledWith", null);
+  });
+});
