@@ -24,7 +24,10 @@ const copyAsImage = async (
       })
       canvas.remove()
     }
-    setNotificationData({ success: true, message: 'Image copied to clipboard' })
+    setNotificationData({
+      success: true,
+      message: 'Image copied to clipboard'
+    })
     setOpenNotification(true)
   }
 }

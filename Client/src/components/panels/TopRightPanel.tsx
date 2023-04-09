@@ -1,10 +1,10 @@
 import React from 'react'
 import { Panel, ReactFlowInstance } from 'reactflow'
 import axios from 'axios'
+import { shallow } from 'zustand/shallow'
 import imageFromHTML from '@/utils/imageFromHtml'
 import { useFlowStore, useTemporalStore } from '@/store'
 import { RFState } from '@/types/RFState'
-import { shallow } from 'zustand/shallow'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
