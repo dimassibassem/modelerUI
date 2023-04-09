@@ -8,6 +8,7 @@ import copySelected from './copySelected'
 import pasteFromClipboard from './pasteFromClipboard'
 import ContextMenuItems from '@/types/ContextMenuItems'
 import cutSelected from './cutSelected'
+import selectAll from '@/utils/selectAll'
 
 export const handleItemClick = async ({ id, props }: ItemParams) => {
   switch (id as ContextMenuItems) {
@@ -21,15 +22,7 @@ export const handleItemClick = async ({ id, props }: ItemParams) => {
       break
     }
     case ContextMenuItems.Paste: {
-      await pasteFromClipboard(
-        props.reactFlowInstance,
-        props.setNodes,
-        props.setEdges,
-        props.lastNodeId,
-        props.setLastNodeId,
-        props.setNotificationData,
-        props.setOpenNotification
-      )
+      await pasteFromClipboard(props)
       break
     }
     case ContextMenuItems.Cut:
@@ -59,8 +52,13 @@ export const handleItemClick = async ({ id, props }: ItemParams) => {
       break
     }
     case ContextMenuItems.SelectAll: {
-      selectNodes(props.reactFlowInstance)
-      selectEdges(props.reactFlowInstance)
+      selectAll(
+        props.reactFlowInstance,
+        props.setNodes,
+        props.setEdges,
+        props.pause,
+        props.resume
+      )
       break
     }
     default:
@@ -82,6 +80,8 @@ export const handleContextMenu = (
     lastNodeIdNumber: number
     setLastNodeIdNumber: (id: number) => void
     setNotificationData: (data: { success: boolean; message: string }) => void
+    resume: () => void
+    pause: () => void
   }
 ) => {
   props.show({
@@ -94,7 +94,9 @@ export const handleContextMenu = (
       setOpenNotification: props.setOpenNotification,
       lastNodeId: props.lastNodeIdNumber,
       setLastNodeId: props.setLastNodeIdNumber,
-      setNotificationData: props.setNotificationData
+      setNotificationData: props.setNotificationData,
+      resume: props.resume,
+      pause: props.pause
     }
   })
 }

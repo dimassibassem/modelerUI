@@ -2,13 +2,12 @@ import { useEventListener } from 'usehooks-ts'
 import { ReactFlowInstance } from 'reactflow'
 import { Dispatch, SetStateAction } from 'react'
 import { shallow } from 'zustand/shallow'
-import selectNodes from '@/utils/ContextMenu/selectNodes'
-import selectEdges from '@/utils/ContextMenu/selectEdges'
 import copySelected from '@/utils/ContextMenu/copySelected'
 import pasteFromClipboard from '@/utils/ContextMenu/pasteFromClipboard'
 import cutSelected from '@/utils/ContextMenu/cutSelected'
 import { RFState } from '@/types/RFState'
 import { useFlowStore, useTemporalStore } from '@/store'
+import selectAll from '@/utils/selectAll'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -18,14 +17,14 @@ const selector = (state: RFState) => ({
 })
 const useShortcuts = (
   reactFlowInstance: ReactFlowInstance | null,
-  lastNodeIdNumber: number,
-  setLastNodeIdNumber: Dispatch<SetStateAction<number>>,
+  lastNodeId: number,
+  setLastNodeId: Dispatch<SetStateAction<number>>,
   copy: (text: string) => Promise<boolean>,
   setNotificationData: (data: { success: boolean; message: string }) => void,
-  setOpen: (open: boolean) => void
+  setOpenNotification: (open: boolean) => void
 ) => {
   const { setNodes, setEdges } = useFlowStore(selector, shallow)
-  const { undo, redo } = useTemporalStore((state) => state)
+  const { undo, redo, pause, resume } = useTemporalStore((state) => state)
 
   useEventListener('keydown', async (e) => {
     switch (e.key) {
@@ -44,33 +43,29 @@ const useShortcuts = (
       case 'a':
         if (e.ctrlKey) {
           e.preventDefault()
-          selectNodes(reactFlowInstance)
-          selectEdges(reactFlowInstance)
+          selectAll(reactFlowInstance, setNodes, setEdges, pause, resume)
         }
         break
       case 'c':
         if (e.ctrlKey) {
           e.preventDefault()
-          await copySelected(
-            reactFlowInstance,
-            lastNodeIdNumber,
-            setLastNodeIdNumber,
-            copy
-          )
+          await copySelected(reactFlowInstance, lastNodeId, setLastNodeId, copy)
         }
         break
       case 'v':
         if (e.ctrlKey) {
           e.preventDefault()
-          await pasteFromClipboard(
+          await pasteFromClipboard({
             reactFlowInstance,
             setNodes,
             setEdges,
-            lastNodeIdNumber,
-            setLastNodeIdNumber,
+            lastNodeId,
+            setLastNodeId,
             setNotificationData,
-            setOpen
-          )
+            setOpenNotification,
+            pause,
+            resume
+          })
         }
         break
       case 'x':
@@ -80,8 +75,8 @@ const useShortcuts = (
             reactFlowInstance,
             setNodes,
             setEdges,
-            lastNodeIdNumber,
-            setLastNodeIdNumber,
+            lastNodeId,
+            setLastNodeId,
             copy
           )
         }

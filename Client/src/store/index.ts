@@ -41,13 +41,11 @@ const useFlowStore = create(
         process: initialProcess,
         nodes: initialNodes,
         edges: initialEdges,
-        selectedNode: null,
-        selectedEdge: null,
+        selected: null,
         setProcess: (process: Process) => set({ process }, false, 'setProcess'),
-        setSelectedNode: (node: Node | null) =>
-          set({ selectedNode: node }, false, 'setSelectedNode'),
-        setSelectedEdge: (edge: Edge | null) =>
-          set({ selectedEdge: edge }, false, 'setSelectedEdge'),
+        setSelected(selected: Node | Edge | null) {
+          set({ selected }, false, 'setSelected')
+        },
         setNodes: (nodes: Node[]) => set({ nodes }, false, 'setNodes'),
         setEdges: (edges: Edge[]) => set({ edges }, false, 'setEdges'),
         onNodesChange: (changes: NodeChange[]) => {

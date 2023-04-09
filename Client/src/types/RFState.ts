@@ -6,7 +6,6 @@ import {
   OnNodesChange,
   Connection
 } from 'reactflow'
-
 import Process from './Process'
 
 export interface RFState {
@@ -16,10 +15,10 @@ export interface RFState {
   setNodes: (nodes: Node[]) => void
   edges: Edge[]
   setEdges: (edges: Edge[]) => void
-  selectedNode: Node | null
-  setSelectedNode: (node: Node | null) => void
-  selectedEdge: Edge | null
-  setSelectedEdge: (edge: Edge | null) => void
+  selected: Node | Edge | null
+
+  setSelected(selected: Node | Edge | null): void
+
   onNodesChange: OnNodesChange
   onEdgesChange: OnEdgesChange
   onEdgeUpdate: (oldEdge: Edge, newConnection: Connection) => void

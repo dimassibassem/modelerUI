@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Switch } from '@headlessui/react'
-import { EdgeMarker, MarkerType } from 'reactflow'
+import { Edge, EdgeMarker, MarkerType } from 'reactflow'
 import { shallow } from 'zustand/shallow'
 import EdgeRadioGroup from './EdgeRadioGroup'
 import classNames from '@/utils/classNames'
@@ -10,31 +10,31 @@ import { RFState } from '@/types/RFState'
 import { useFlowStore } from '@/store'
 
 const selector = (state: RFState) => ({
-  selectedEdge: state.selectedEdge,
+  selected: state.selected as Edge,
   edges: state.edges,
   setEdges: state.setEdges
 })
 
 const SelectedEdgeProps = () => {
-  const { selectedEdge, edges, setEdges } = useFlowStore(selector, shallow)
-  const [type, setType] = useState(selectedEdge?.type || 'default')
-  const [animated, setAnimated] = useState(selectedEdge?.animated || false)
+  const { selected, edges, setEdges } = useFlowStore(selector, shallow)
+  const [type, setType] = useState(selected?.type || 'default')
+  const [animated, setAnimated] = useState(selected?.animated || false)
   const [edgeMarkerType, setEdgeMarkerType] = useState(
-    (selectedEdge?.markerEnd as EdgeMarker).type || MarkerType.Arrow
+    (selected?.markerEnd as EdgeMarker).type || MarkerType.Arrow
   )
   const [strokeWidth, setStrokeWidth] = useState(
-    Number(selectedEdge?.style?.strokeWidth) || 1
+    Number(selected?.style?.strokeWidth) || 1
   )
-  const [label, setLabel] = useState(selectedEdge?.label || '')
+  const [label, setLabel] = useState(selected?.label || '')
   const [labelBg, setLabelBg] = useState(
-    selectedEdge?.labelBgStyle?.fill || '#ffffff'
+    selected?.labelBgStyle?.fill || '#ffffff'
   )
 
   useEffect(() => {
-    if (selectedEdge) {
+    if (selected) {
       setEdges(
         edges.map((edge) =>
-          edge.id === selectedEdge.id
+          edge.id === selected.id
             ? {
                 ...edge,
                 type,
@@ -59,15 +59,15 @@ const SelectedEdgeProps = () => {
   }, [animated, edgeMarkerType, label, labelBg, setEdges, strokeWidth, type])
 
   useEffect(() => {
-    setType(selectedEdge?.type || 'default')
-    setAnimated(selectedEdge?.animated || false)
+    setType(selected?.type || 'default')
+    setAnimated(selected?.animated || false)
     setEdgeMarkerType(
-      (selectedEdge?.markerEnd as EdgeMarker).type || MarkerType.Arrow
+      (selected?.markerEnd as EdgeMarker).type || MarkerType.Arrow
     )
-    setStrokeWidth(Number(selectedEdge?.style?.strokeWidth) || 1)
-    setLabel(selectedEdge?.label || '')
-    setLabelBg(selectedEdge?.labelBgStyle?.fill || '#ffffff')
-  }, [selectedEdge])
+    setStrokeWidth(Number(selected?.style?.strokeWidth) || 1)
+    setLabel(selected?.label || '')
+    setLabelBg(selected?.labelBgStyle?.fill || '#ffffff')
+  }, [selected])
 
   return (
     <div>

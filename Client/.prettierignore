@@ -1,3 +1,4 @@
 dist
 .scannerwork
 node_modules
+pnpm-lock.yaml

@@ -74,7 +74,7 @@ const useOnNodesDelete = (chainRecovery: boolean) => {
         )
       }
     },
-    [nodes, edges, chainRecovery]
+    [chainRecovery, setEdges, edges, nodes]
   )
 }
 

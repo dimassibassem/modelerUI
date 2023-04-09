@@ -46,8 +46,7 @@ const selector = (state: RFState) => ({
   onConnect: state.onConnect,
   setNodes: state.setNodes,
   setEdges: state.setEdges,
-  setSelectedNode: state.setSelectedNode,
-  setSelectedEdge: state.setSelectedEdge,
+  setSelected: state.setSelected,
   onEdgeUpdate: state.onEdgeUpdate
 })
 
@@ -61,8 +60,7 @@ const DnDFlow = () => {
     onNodesChange,
     onEdgesChange,
     onConnect,
-    setSelectedNode,
-    setSelectedEdge,
+    setSelected,
     onEdgeUpdate
   } = useFlowStore(selector, shallow)
 
@@ -94,7 +92,7 @@ const DnDFlow = () => {
     setId,
     nodes
   )
-  useHandleSelected(nodes, edges, setSelectedNode, setSelectedEdge)
+  useHandleSelected(nodes, edges, setSelected)
   useRemoveWatermark()
   useShortcuts(
     reactFlowInstance,
@@ -107,7 +105,6 @@ const DnDFlow = () => {
   const { show } = useContextMenu({ id: MENU_ID })
   useProcessDefinitionChecker()
   const onNodeDelete = useOnNodesDelete(chainRecovery)
-
   return (
     <div className="flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0">
       <Notification
@@ -133,7 +130,9 @@ const DnDFlow = () => {
               setOpenNotification,
               lastNodeIdNumber,
               setLastNodeIdNumber,
-              setNotificationData
+              setNotificationData,
+              resume,
+              pause
             })
           }
           className="grow h-full"
@@ -147,9 +146,9 @@ const DnDFlow = () => {
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
             onNodeDragStart={pause}
-            onDrag={pause}
-            onNodesDelete={onNodeDelete}
+            onNodeDrag={pause}
             onNodeDragStop={resume}
+            onNodesDelete={onNodeDelete}
             connectionMode={ConnectionMode.Loose}
             onInit={setReactFlowInstance}
             onEdgeUpdate={onEdgeUpdate}

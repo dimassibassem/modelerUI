@@ -1,30 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
+import { Node } from 'reactflow'
 import { useFlowStore, useTemporalStore } from '@/store'
 import { RFState } from '@/types/RFState'
 import HandleCheckBoxes from './HandleCheckBoxes'
 import Attributes from './Attributes'
 
 const selector = (state: RFState) => ({
-  selectedNode: state.selectedNode,
+  selected: state.selected as Node,
   setNodes: state.setNodes,
   nodes: state.nodes,
   edges: state.edges
 })
 
 const SelectedNodeProps = () => {
-  const { selectedNode, setNodes, nodes, edges } = useFlowStore(
-    selector,
-    shallow
-  )
-  const [nodeText, setNodeText] = useState(selectedNode?.data.text || '')
+  const { selected, setNodes, nodes, edges } = useFlowStore(selector, shallow)
+
+  const [nodeText, setNodeText] = useState(selected?.data.text || '')
   const { pause, resume } = useTemporalStore((state) => state)
   useEffect(() => {
-    if (selectedNode && !selectedNode.dragging && !selectedNode.resizing) {
+    if (selected && !selected.dragging && !selected.resizing) {
       pause()
       setNodes(
         nodes.map((node) =>
-          node.id === selectedNode.id
+          node.id === selected.id
             ? {
                 ...node,
                 data: {
@@ -40,12 +39,12 @@ const SelectedNodeProps = () => {
   }, [nodeText])
 
   useEffect(() => {
-    if (selectedNode && !selectedNode.dragging && !selectedNode.resizing) {
-      setNodeText(selectedNode?.data.text || '')
+    if (selected && !selected.dragging && !selected.resizing) {
+      setNodeText(selected?.data.text || '')
     }
-  }, [nodes, selectedNode])
+  }, [nodes, selected])
 
-  const attributesKeys = Object.keys(selectedNode?.data.attributes)
+  const attributesKeys = Object.keys(selected?.data.attributes)
   return (
     <div>
       <label
@@ -67,7 +66,7 @@ const SelectedNodeProps = () => {
       </div>
 
       <HandleCheckBoxes
-        selectedNode={selectedNode}
+        selectedNode={selected}
         setNodes={setNodes}
         nodes={nodes}
         edges={edges}
@@ -77,7 +76,7 @@ const SelectedNodeProps = () => {
         attributes={attributesKeys}
         setNodes={setNodes}
         nodes={nodes}
-        selectedNode={selectedNode}
+        selectedNode={selected}
       />
     </div>
   )

@@ -11,15 +11,27 @@ function isJson(str: string) {
 }
 
 let padding = 0
-const pasteFromClipboard = async (
-  reactFlowInstance: ReactFlowInstance | null,
-  setNodes: (nodes: Node[]) => void,
-  setEdges: (edges: Edge[]) => void,
-  lastNodeId: number,
-  setLastNodeId: (lastNodeId: number) => void,
-  setNotificationData: (data: { success: boolean; message: string }) => void,
+const pasteFromClipboard = async ({
+  reactFlowInstance,
+  setNodes,
+  setEdges,
+  lastNodeId,
+  setLastNodeId,
+  setNotificationData,
+  setOpenNotification,
+  pause,
+  resume
+}: {
+  reactFlowInstance: ReactFlowInstance | null
+  setNodes: (nodes: Node[]) => void
+  setEdges: (edges: Edge[]) => void
+  lastNodeId: number
+  setLastNodeId: (lastNodeId: number) => void
+  setNotificationData: (data: { success: boolean; message: string }) => void
   setOpenNotification: (open: boolean) => void
-) => {
+  pause: () => void
+  resume: () => void
+}) => {
   const json = await navigator.clipboard.readText()
   if (!isJson(json)) {
     setNotificationData({
@@ -82,6 +94,7 @@ const pasteFromClipboard = async (
       position: { x: node.position.x + padding, y: node.position.y + padding }
     }
   })
+
   const nodes = reactFlowInstance?.getNodes()
   const edges = reactFlowInstance?.getEdges()
 
@@ -92,9 +105,16 @@ const pasteFromClipboard = async (
   edges?.forEach((edge) => {
     edge.selected = false
   })
-
+  if (nodes) {
+    setNodes(nodes)
+  }
+  if (edges) {
+    setEdges(edges)
+  }
+  pause()
   setNodes([...(nodes ?? []), ...copiedNodesWithNewIds])
   setEdges([...(edges ?? []), ...copiedEdgesWithNewIds])
+  resume()
   setLastNodeId(lastNodeId + copiedNodesWithNewIds.length)
 }
 
