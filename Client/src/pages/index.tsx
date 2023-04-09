@@ -109,7 +109,7 @@ const DnDFlow = () => {
   const onNodeDelete = useOnNodesDelete(chainRecovery)
 
   return (
-    <div className="flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0">
+    <div className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
       <Notification
         open={openNotification}
         setOpen={setOpenNotification}
@@ -136,7 +136,7 @@ const DnDFlow = () => {
               setNotificationData
             })
           }
-          className="grow h-full"
+          className='grow h-full'
           ref={reactFlowWrapper}
         >
           <ReactFlow
@@ -147,6 +147,7 @@ const DnDFlow = () => {
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
             onNodeDragStart={pause}
+            onDrag={pause}
             onNodesDelete={onNodeDelete}
             onNodeDragStop={resume}
             connectionMode={ConnectionMode.Loose}
@@ -159,7 +160,7 @@ const DnDFlow = () => {
             fitView
           >
             <Background
-              color="#4f46e5"
+              color='#4f46e5'
               variant={BackgroundVariant.Dots}
               gap={10}
               size={1}
@@ -172,8 +173,6 @@ const DnDFlow = () => {
               pannable
             />
             <TopRightPanel
-              setNodes={setNodes}
-              setEdges={setEdges}
               reactFlowInstance={reactFlowInstance}
               setOpenLoadModal={setOpenLoadModal}
             />
