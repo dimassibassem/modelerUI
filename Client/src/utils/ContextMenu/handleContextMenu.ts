@@ -11,7 +11,6 @@ import cutSelected from './cutSelected'
 
 export const handleItemClick = async ({
                                         id,
-                                        event,
                                         props
                                       }: ItemParams) => {
   switch (id as ContextMenuItems) {
@@ -20,7 +19,7 @@ export const handleItemClick = async ({
       break
     }
     case ContextMenuItems.Paste: {
-      await pasteFromClipboard(props.reactFlowInstance, props.setNodes, props.setEdges, props.lastNodeId, props.setLastNodeId, props.setNotificationData, props.setOpenNotification, event)
+      await pasteFromClipboard(props.reactFlowInstance, props.setNodes, props.setEdges, props.lastNodeId, props.setLastNodeId, props.setNotificationData, props.setOpenNotification)
       break
     }
     case ContextMenuItems.Cut:
@@ -64,7 +63,6 @@ export const handleContextMenu = (event: MouseEvent,
   props.show({
     event,
     props: {
-      key: 'value',
       reactFlowInstance: props.reactFlowInstance,
       setNodes: props.setNodes,
       setEdges: props.setEdges,

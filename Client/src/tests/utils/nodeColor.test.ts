@@ -1,6 +1,6 @@
+import { describe, it, expect } from 'vitest'
 import nodeColor from '@/utils/nodeColor'
 import NodeTypes from '@/types/NodeTypes'
-import { describe, it, expect } from 'vitest'
 
 describe('nodeColor', () => {
   it('should return the correct color', () => {

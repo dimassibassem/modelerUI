@@ -63,7 +63,7 @@ const DnDFlow = () => {
     onEdgeUpdate,
   } = useFlowStore(selector, shallow)
 
-  const { undo, redo, pause, resume } = useTemporalStore(
+  const { pause, resume } = useTemporalStore(
     (state) => state
   )
   const reactFlowWrapper = useRef<HTMLInputElement>(null)
@@ -85,7 +85,7 @@ const DnDFlow = () => {
   const onDrop = useOnDropNode(reactFlowWrapper, reactFlowInstance, setNodes, setId, nodes)
   useHandleSelected(nodes, edges, setSelectedNode, setSelectedEdge)
   useRemoveWatermark()
-  useShortcuts(reactFlowInstance, lastNodeIdNumber, setLastNodeIdNumber, copy, undo, redo, setNotificationData, setOpenNotification)
+  useShortcuts(reactFlowInstance, lastNodeIdNumber, setLastNodeIdNumber, copy, setNotificationData, setOpenNotification)
   const { show } = useContextMenu({ id: MENU_ID })
   useProcessDefinitionChecker()
   const onNodeDelete = useOnNodesDelete(chainRecovery)

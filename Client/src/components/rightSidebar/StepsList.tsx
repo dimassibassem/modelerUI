@@ -4,7 +4,7 @@ import React, { useId, useState } from 'react'
 import { useFlowStore } from '@/store'
 import { RFState } from '@/types/RFState'
 import classNames from '@/utils/classNames'
-import handleStepsChange from '@/utils/handleStepChange'
+import { handleStepsChange, handleNodesAttributesChange } from '@/utils/handleStepChange'
 
 const selector = (state: RFState) => ({
   process: state.process,
@@ -75,13 +75,17 @@ const StepsList = () => {
                                           name={`${step.id}_${key}`}
                                           id={`${step.id}_${key}`}
                                           value={process.steps?.[stepsArrayIndex][stepArrayIndex].attributes?.[key]}
-                                          onChange={(e) => handleStepsChange(e, key, step, stepsArrayIndex, stepArrayIndex, process, setProcess, setNodes, nodes)}
+                                          onChange={(e) => {
+                                            handleStepsChange(e, key, step, stepsArrayIndex, stepArrayIndex, process, setProcess)
+                                            handleNodesAttributesChange(e, key, step, setNodes, nodes)
+                                          }}
                                         />
                                       </div>
                                     </div>
                                   </div>
                                 )}
-                            </> : <ChevronRightIcon className='h-5 w-5 text-gray-400 hover:cursor-pointer' aria-hidden='true'
+                            </> : <ChevronRightIcon className='h-5 w-5 text-gray-400 hover:cursor-pointer'
+                                                    aria-hidden='true'
                                                     onClick={() => toggleExpand(stepsArrayIndex, stepArrayIndex)} />
                             }
                           </div>

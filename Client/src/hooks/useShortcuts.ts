@@ -8,7 +8,7 @@ import copySelected from '@/utils/ContextMenu/copySelected'
 import pasteFromClipboard from '@/utils/ContextMenu/pasteFromClipboard'
 import cutSelected from '@/utils/ContextMenu/cutSelected'
 import { RFState } from '@/types/RFState'
-import { useFlowStore } from '@/store'
+import {useFlowStore, useTemporalStore} from '@/store'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -20,12 +20,13 @@ const useShortcuts = (reactFlowInstance: ReactFlowInstance | null,
                       lastNodeIdNumber: number,
                       setLastNodeIdNumber: Dispatch<SetStateAction<number>>,
                       copy: (text: string) => Promise<boolean>,
-                      undo: () => void,
-                      redo: () => void,
                       setNotificationData: (data: { success: boolean, message: string }) => void,
                       setOpen: (open: boolean) => void) => {
 
   const { setNodes, setEdges } =  useFlowStore(selector, shallow)
+  const { undo, redo} = useTemporalStore(
+      (state) => state
+  )
 
   useEventListener('keydown', async (e) => {
     switch (e.key) {

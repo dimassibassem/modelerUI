@@ -9,31 +9,35 @@ function handleStepsChange(e: React.ChangeEvent<HTMLInputElement>,
                            stepsArrayIndex: number,
                            stepArrayIndex: number,
                            process: RFState['process'],
-                           setProcess: RFState['setProcess'],
-                           setNodes: RFState['setNodes'],
-                           nodes: RFState['nodes']
+                           setProcess: RFState['setProcess']
 ) {
   setProcess({
-      ...process,
-      steps: process.steps.map((stepsArray, index) => {
-        if (index === stepsArrayIndex) {
-          return stepsArray.map((currStep, stepInd) => {
-            if (stepInd === stepArrayIndex) {
-              return {
-                ...currStep,
-                attributes: {
-                  ...currStep.attributes,
-                  [key]: e.target.value
-                }
+    ...process,
+    steps: process.steps.map((stepsArray, index) => {
+      if (index === stepsArrayIndex) {
+        return stepsArray.map((currStep, stepInd) => {
+          if (stepInd === stepArrayIndex) {
+            return {
+              ...currStep,
+              attributes: {
+                ...currStep.attributes,
+                [key]: e.target.value
               }
             }
-            return currStep
-          })
-        }
-        return stepsArray
-      })
-    }
-  )
+          }
+          return currStep
+        })
+      }
+      return stepsArray
+    })
+  })
+}
+
+const handleNodesAttributesChange = (e: React.ChangeEvent<HTMLInputElement>,
+                                     key: string,
+                                     step: Process['steps'][number][number],
+                                     setNodes: RFState['setNodes'],
+                                     nodes: RFState['nodes']) => {
   setNodes(nodes.map((node: Node) => {
       if (node.id === step.id) {
         return {
@@ -52,4 +56,5 @@ function handleStepsChange(e: React.ChangeEvent<HTMLInputElement>,
   ))
 }
 
-export default handleStepsChange
+
+export { handleStepsChange, handleNodesAttributesChange }
