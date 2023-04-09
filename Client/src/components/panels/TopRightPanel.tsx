@@ -1,5 +1,5 @@
 import React from 'react'
-import { Edge, Node, Panel, ReactFlowInstance } from 'reactflow'
+import { Panel, ReactFlowInstance } from 'reactflow'
 import axios from 'axios'
 import imageFromHTML from '@/utils/imageFromHtml'
 import { useFlowStore, useTemporalStore } from '@/store'
