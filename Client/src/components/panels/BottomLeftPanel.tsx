@@ -31,7 +31,6 @@ const BottomLeftPanel = ({
   const [horizontalLayout, setHorizontalLayout] = useState<HorizontalLayout>(
     HorizontalLayout.LeftToRight
   )
-  const [isFullscreen, setIsFullscreen] = useState(false)
   return (
     <Panel className="grid grid-cols-1 gap-2" position="bottom-left">
       <div className=" grid grid-cols-3 gap-2 justify-items-stretch">
@@ -115,12 +114,11 @@ const BottomLeftPanel = ({
           type="button"
           className="rounded bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
           onClick={async () => {
-            if (isFullscreen) {
+            if (window.screen.width === window.innerWidth && window.screen.height === window.innerHeight) {
               await document.exitFullscreen()
             } else {
               await document.documentElement.requestFullscreen()
             }
-            setIsFullscreen(!isFullscreen)
           }}
         >
           Full screen

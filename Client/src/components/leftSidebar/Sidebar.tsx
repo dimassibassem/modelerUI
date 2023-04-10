@@ -73,13 +73,13 @@ const Sidebar = () => {
               expanded
                 ? 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                 : 'bg-gray-100 text-gray-900',
-              'ml-3 text-gray-600 hover:text-gray-900 items-center p-2 text-sm font-medium rounded-md flex w-full max-w-[90%]'
+              'pl-3 ml-2 text-gray-600 hover:text-gray-900 items-center p-2 text-sm font-medium rounded-md flex w-full max-w-[90%]'
             )}
           >
             Shapes
           </button>
           {expanded && (
-            <>
+            <div className='px-2'>
               {shapes.map((item) => (
                 <div
                   onMouseOver={(event: MouseEvent<HTMLDivElement>) => {
@@ -114,7 +114,7 @@ const Sidebar = () => {
                   <span className="flex-1">{item}</span>
                 </div>
               ))}
-            </>
+            </div>
           )}
         </nav>
       </div>
