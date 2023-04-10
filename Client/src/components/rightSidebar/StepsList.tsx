@@ -73,6 +73,15 @@ const StepsList = () => {
             )}
           >
             Steps {stepsArrayIndex + 1}
+            <div className="ml-auto">
+              {isExpandedSteps(stepsArrayIndex) ? (
+                <ChevronRightIcon className="h-4 w-4 hover:cursor-pointer"
+                                  aria-hidden="true" />
+              ) : (
+                <ChevronUpIcon className="h-4 w-4 hover:cursor-pointer"
+                               aria-hidden="true" />
+              )}
+            </div>
           </button>
 
           {isExpandedSteps(stepsArrayIndex) &&
