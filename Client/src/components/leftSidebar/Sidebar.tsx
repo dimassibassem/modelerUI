@@ -57,8 +57,8 @@ const Sidebar = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
   useEffectOnce(() => {
     const img = new Image();
-    img.onload = () => setImageLoaded(true);
     img.src = logoBankerise;
+    img.onload = () => setImageLoaded(true);
   });
   return (
     <div className="min-h-0 flex-1 flex-col border-r border-gray-200 bg-white max-w-[20%] hidden lg:flex ">
