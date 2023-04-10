@@ -1,6 +1,6 @@
 import React from 'react'
 import { Node } from 'reactflow'
-import capitalize from "@/utils/capitalize";
+import capitalize from '@/utils/capitalize'
 
 const Attributes = ({
   attributes,

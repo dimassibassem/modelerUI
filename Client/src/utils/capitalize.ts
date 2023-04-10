@@ -1,8 +1,8 @@
 const capitalize = (str: string | undefined) => {
   if (str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+    return str.charAt(0).toUpperCase() + str.slice(1)
   }
-  return str;
-};
+  return str
+}
 
-export default capitalize;
+export default capitalize

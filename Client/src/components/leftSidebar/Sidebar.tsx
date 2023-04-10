@@ -79,7 +79,7 @@ const Sidebar = () => {
             Shapes
           </button>
           {expanded && (
-            <div className='px-2'>
+            <div className="px-2">
               {shapes.map((item) => (
                 <div
                   onMouseOver={(event: MouseEvent<HTMLDivElement>) => {

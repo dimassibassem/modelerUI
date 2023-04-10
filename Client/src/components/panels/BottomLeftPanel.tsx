@@ -114,7 +114,10 @@ const BottomLeftPanel = ({
           type="button"
           className="rounded bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
           onClick={async () => {
-            if (window.screen.width === window.innerWidth && window.screen.height === window.innerHeight) {
+            if (
+              window.screen.width === window.innerWidth &&
+              window.screen.height === window.innerHeight
+            ) {
               await document.exitFullscreen()
             } else {
               await document.documentElement.requestFullscreen()

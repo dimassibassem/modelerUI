@@ -5,7 +5,7 @@ import { useFlowStore, useTemporalStore } from '@/store'
 import { RFState } from '@/types/RFState'
 import HandleCheckBoxes from './HandleCheckBoxes'
 import Attributes from './Attributes'
-import capitalize from "@/utils/capitalize";
+import capitalize from '@/utils/capitalize'
 
 const selector = (state: RFState) => ({
   selected: state.selected as Node,
@@ -48,9 +48,7 @@ const SelectedNodeProps = () => {
   const attributesKeys = Object.keys(selected?.data.attributes)
   return (
     <div>
-      <div
-        className="flex justify-center text-md font-medium text-gray-900 sm:pt-1.5"
-      >
+      <div className="flex justify-center text-md font-medium text-gray-900 sm:pt-1.5">
         {capitalize(selected.type)}
       </div>
 
