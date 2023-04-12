@@ -1,7 +1,7 @@
 import { NodeProps, NodeToolbar, Position, NodeResizer } from 'reactflow'
 import React, { FC, memo } from 'react'
 import useShowToolbar from '@/hooks/useShowToolbar'
-import Handles from '@/components/Handles'
+import Handles from './Handles'
 import useCustomNodeProps from '@/hooks/useCustomNodeProps'
 import NodeTypes from '@/types/NodeTypes'
 import end from '@/assets/end.png'

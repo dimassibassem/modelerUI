@@ -11,7 +11,7 @@ const selector = (state: RFState) => ({
   process: state.process,
   setProcess: state.setProcess
 })
-const SidebarProps = () => {
+const ProcessProps = () => {
   const { process, setProcess } = useFlowStore(selector, shallow)
   return (
     <>
@@ -148,4 +148,4 @@ const SidebarProps = () => {
   )
 }
 
-export default SidebarProps
+export default ProcessProps

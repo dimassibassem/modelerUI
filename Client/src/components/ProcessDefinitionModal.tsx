@@ -9,7 +9,7 @@ const selector = (state: RFState) => ({
   process: state.process
 })
 
-const ProcessDefinition = ({
+const ProcessDefinitionModal = ({
   open,
   setOpen
 }: {
@@ -119,4 +119,4 @@ const ProcessDefinition = ({
     </Transition.Root>
   )
 }
-export default ProcessDefinition
+export default ProcessDefinitionModal

@@ -4,7 +4,7 @@ import { shallow } from "zustand/shallow";
 import { MarkerType, Position, ReactFlowInstance } from "reactflow";
 import { RFState } from "@/types/RFState";
 import { useFlowStore } from "@/store";
-import joyrideSteps from "@/components/JoyrideSupport";
+import joyrideSteps from "./JoyrideSupport";
 
 interface State {
   run: boolean;

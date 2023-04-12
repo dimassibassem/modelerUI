@@ -11,7 +11,7 @@ import ReactFlow, {
 import { shallow } from "zustand/shallow";
 import { useCopyToClipboard } from "usehooks-ts";
 import { useContextMenu } from "react-contexify";
-import Sidebar from "@/components/leftSidebar/Sidebar";
+import LeftSidebar from "@/components/leftSidebar/LeftSidebar";
 import useOnDropNode from "@/hooks/useOnDropNode";
 import useOnDragNode from "@/hooks/useOnDragNode";
 import useHandleSelected from "@/hooks/useHandleSelected";
@@ -22,7 +22,7 @@ import LoadModal from "@/components/LoadModal";
 import TopRightPanel from "@/components/panels/TopRightPanel";
 import nodeColor from "@/utils/nodeColor";
 import nodeTypes from "@/utils/nodeTypes";
-import ProcessDefinition from "@/components/ProcessDefinition";
+import ProcessDefinitionModal from "@/components/ProcessDefinitionModal";
 import isValidConnection from "@/utils/isValidConnection";
 import useRemoveWatermark from "@/hooks/useRemoveWatermark";
 import BottomLeftPanel from "@/components/panels/BottomLeftPanel";
@@ -37,7 +37,7 @@ import "reactflow/dist/style.css";
 import "react-contexify/ReactContexify.css";
 import useOnNodesDelete from "@/hooks/useOnNodeDelete";
 import useProcessDefinitionChecker from "@/hooks/useProcessDefinitionChecker";
-import Joyride from "@/components/Joyride";
+import Joyride from "@/components/joyride/Joyride";
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -117,11 +117,11 @@ const DnDFlow = () => {
         data={notificationData}
       />
       <ContextMenu MENU_ID={MENU_ID} />
-      <ProcessDefinition
+      <ProcessDefinitionModal
         open={processDefOpenModal}
         setOpen={setProcessDefOpenModal}
       />
-      <Sidebar />
+      <LeftSidebar />
       <ReactFlowProvider>
         <div
           id='reactflow-wrapper'

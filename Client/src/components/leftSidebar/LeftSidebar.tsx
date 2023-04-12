@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { isEdge } from "react-device-detect";
 import { useEffectOnce } from "usehooks-ts";
 import logoBankerise from "@/assets/logo-bankerise.png";
-import iconSwitcher from "@/components/leftSidebar/iconSwitcher";
+import IconSwitcher from "./IconSwitcher";
 import NodeTypes from "@/types/NodeTypes";
 import classNames from "@/utils/classNames";
 
@@ -50,7 +50,7 @@ const handlePreviewDragImage = (
 };
 
 
-const Sidebar = () => {
+const LeftSidebar = () => {
   const [expanded, setExpanded] = useState(true);
   const toggleExpanded = () => setExpanded(!expanded);
   const [previewImage, setPreviewImage] = useState<string>("");
@@ -119,7 +119,7 @@ const Sidebar = () => {
                     className="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6"
                     aria-hidden="true"
                   >
-                    {iconSwitcher(item)}
+                    {IconSwitcher(item)}
                   </div>
                   <span className="flex-1">{item}</span>
                 </div>
@@ -153,4 +153,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default LeftSidebar;

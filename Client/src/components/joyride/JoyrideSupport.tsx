@@ -2,7 +2,7 @@ import React from "react";
 import { Step } from "react-joyride";
 import { MagnifyingGlassMinusIcon, MagnifyingGlassPlusIcon } from "@heroicons/react/24/outline";
 import { Icon } from "@iconify/react";
-import iconSwitcher from "@/components/leftSidebar/iconSwitcher";
+import IconSwitcher from "@/components/leftSidebar/IconSwitcher";
 import NodeTypes from "@/types/NodeTypes";
 
 
@@ -127,7 +127,7 @@ const joyrideSteps: Step[] = [
               <li key={shape} className="col-span-1 flex rounded-md border shadow-md">
                 <div
                   className="flex flex-shrink-0 items-center justify-center p-2">
-                  {iconSwitcher(shape)}
+                  {IconSwitcher(shape)}
                 </div>
                 <div
                   className="flex flex-1 items-center justify-between">
