@@ -61,7 +61,7 @@ const Sidebar = () => {
     img.onload = () => setImageLoaded(true);
   });
   return (
-    <div className="min-h-0 flex-1 flex-col border-r border-gray-200 bg-white max-w-[20%] hidden lg:flex ">
+    <div id='left-sidebar' className="min-h-0 flex-1 flex-col border-r border-gray-200 bg-white max-w-[20%] hidden lg:flex ">
       <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4  ">
         <div className="flex flex-shrink-0 items-center px-4">
           {imageLoaded ? <img
@@ -89,7 +89,7 @@ const Sidebar = () => {
             Shapes
           </button>
           {expanded && (
-            <div className="px-2">
+            <div id='shapes' className="px-2">
               {shapes.map((item) => (
                 <div
                   onMouseOver={(event: MouseEvent<HTMLDivElement>) => {

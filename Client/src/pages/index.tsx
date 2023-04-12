@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef } from "react";
 import ReactFlow, {
   ReactFlowProvider,
   Background,
@@ -7,36 +7,37 @@ import ReactFlow, {
   BackgroundVariant,
   ConnectionMode,
   ReactFlowInstance
-} from 'reactflow'
-import { shallow } from 'zustand/shallow'
-import { useCopyToClipboard } from 'usehooks-ts'
-import { useContextMenu } from 'react-contexify'
-import Sidebar from '@/components/leftSidebar/Sidebar'
-import useOnDropNode from '@/hooks/useOnDropNode'
-import useOnDragNode from '@/hooks/useOnDragNode'
-import useHandleSelected from '@/hooks/useHandleSelected'
-import { useFlowStore, useTemporalStore } from '@/store'
-import { RFState } from '@/types/RFState'
-import RightSidebar from '@/components/rightSidebar/RightSidebar'
-import LoadModal from '@/components/LoadModal'
-import TopRightPanel from '@/components/panels/TopRightPanel'
-import nodeColor from '@/utils/nodeColor'
-import nodeTypes from '@/utils/nodeTypes'
-import ProcessDefinition from '@/components/ProcessDefinition'
-import isValidConnection from '@/utils/isValidConnection'
-import useRemoveWatermark from '@/hooks/useRemoveWatermark'
-import BottomLeftPanel from '@/components/panels/BottomLeftPanel'
-import TopLeftPanel from '@/components/panels/TopLeftPanel'
-import NodeTypes from '@/types/NodeTypes'
-import { handleContextMenu } from '@/utils/ContextMenu/handleContextMenu'
-import ContextMenu from '@/components/ContextMenu'
-import Notification from '@/components/Notification'
-import useShortcuts from '@/hooks/useShortcuts'
-import styles from '@/validation.module.css'
-import 'reactflow/dist/style.css'
-import 'react-contexify/ReactContexify.css'
-import useOnNodesDelete from '@/hooks/useOnNodeDelete'
-import useProcessDefinitionChecker from '@/hooks/useProcessDefinitionChecker'
+} from "reactflow";
+import { shallow } from "zustand/shallow";
+import { useCopyToClipboard } from "usehooks-ts";
+import { useContextMenu } from "react-contexify";
+import Sidebar from "@/components/leftSidebar/Sidebar";
+import useOnDropNode from "@/hooks/useOnDropNode";
+import useOnDragNode from "@/hooks/useOnDragNode";
+import useHandleSelected from "@/hooks/useHandleSelected";
+import { useFlowStore, useTemporalStore } from "@/store";
+import { RFState } from "@/types/RFState";
+import RightSidebar from "@/components/rightSidebar/RightSidebar";
+import LoadModal from "@/components/LoadModal";
+import TopRightPanel from "@/components/panels/TopRightPanel";
+import nodeColor from "@/utils/nodeColor";
+import nodeTypes from "@/utils/nodeTypes";
+import ProcessDefinition from "@/components/ProcessDefinition";
+import isValidConnection from "@/utils/isValidConnection";
+import useRemoveWatermark from "@/hooks/useRemoveWatermark";
+import BottomLeftPanel from "@/components/panels/BottomLeftPanel";
+import TopLeftPanel from "@/components/panels/TopLeftPanel";
+import NodeTypes from "@/types/NodeTypes";
+import { handleContextMenu } from "@/utils/ContextMenu/handleContextMenu";
+import ContextMenu from "@/components/ContextMenu";
+import Notification from "@/components/Notification";
+import useShortcuts from "@/hooks/useShortcuts";
+import styles from "@/validation.module.css";
+import "reactflow/dist/style.css";
+import "react-contexify/ReactContexify.css";
+import useOnNodesDelete from "@/hooks/useOnNodeDelete";
+import useProcessDefinitionChecker from "@/hooks/useProcessDefinitionChecker";
+import Joyride from "@/components/Joyride";
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -48,9 +49,9 @@ const selector = (state: RFState) => ({
   setEdges: state.setEdges,
   setSelected: state.setSelected,
   onEdgeUpdate: state.onEdgeUpdate
-})
+});
 
-const MENU_ID = 'Context_Menu'
+const MENU_ID = "Context_Menu";
 const DnDFlow = () => {
   const {
     nodes,
@@ -62,29 +63,29 @@ const DnDFlow = () => {
     onConnect,
     setSelected,
     onEdgeUpdate
-  } = useFlowStore(selector, shallow)
+  } = useFlowStore(selector, shallow);
 
-  const { pause, resume } = useTemporalStore((state) => state)
-  const reactFlowWrapper = useRef<HTMLInputElement>(null)
-  const [openLoadModal, setOpenLoadModal] = useState(false)
+  const { pause, resume } = useTemporalStore((state) => state);
+  const reactFlowWrapper = useRef<HTMLInputElement>(null);
+  const [openLoadModal, setOpenLoadModal] = useState(false);
   const [reactFlowInstance, setReactFlowInstance] =
-    useState<ReactFlowInstance | null>(null)
-  const [processDefOpenModal, setProcessDefOpenModal] = useState(true)
-  const [lastNodeIdNumber, setLastNodeIdNumber] = useState(0)
-  const [, copy] = useCopyToClipboard()
-  const [openNotification, setOpenNotification] = useState(false)
+    useState<ReactFlowInstance | null>(null);
+  const [processDefOpenModal, setProcessDefOpenModal] = useState(true);
+  const [lastNodeIdNumber, setLastNodeIdNumber] = useState(0);
+  const [, copy] = useCopyToClipboard();
+  const [openNotification, setOpenNotification] = useState(false);
   const [notificationData, setNotificationData] = useState({
     success: false,
-    message: ''
-  })
-  const [chainRecovery, setChainRecovery] = useState<boolean>(false)
+    message: ""
+  });
+  const [chainRecovery, setChainRecovery] = useState<boolean>(false);
 
   const setId = (type: string) => {
-    setLastNodeIdNumber(lastNodeIdNumber + 1)
-    return `${type}_${lastNodeIdNumber}`
-  }
+    setLastNodeIdNumber(lastNodeIdNumber + 1);
+    return `${type}_${lastNodeIdNumber}`;
+  };
 
-  const onDragOver = useOnDragNode()
+  const onDragOver = useOnDragNode();
   const onDrop = useOnDropNode(
     reactFlowWrapper,
     reactFlowInstance,
@@ -93,9 +94,9 @@ const DnDFlow = () => {
     nodes,
     setOpenNotification,
     setNotificationData
-  )
-  useHandleSelected(nodes, edges, setSelected)
-  useRemoveWatermark()
+  );
+  useHandleSelected(nodes, edges, setSelected);
+  useRemoveWatermark();
   useShortcuts(
     reactFlowInstance,
     lastNodeIdNumber,
@@ -103,12 +104,13 @@ const DnDFlow = () => {
     copy,
     setNotificationData,
     setOpenNotification
-  )
-  const { show } = useContextMenu({ id: MENU_ID })
-  useProcessDefinitionChecker()
-  const onNodeDelete = useOnNodesDelete(chainRecovery)
+  );
+  const { show } = useContextMenu({ id: MENU_ID });
+  useProcessDefinitionChecker();
+  const onNodeDelete = useOnNodesDelete(chainRecovery);
   return (
     <div className="flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0">
+      <Joyride setOpenModal={setProcessDefOpenModal} reactFlowInstance={reactFlowInstance} />
       <Notification
         open={openNotification}
         setOpen={setOpenNotification}
@@ -122,6 +124,7 @@ const DnDFlow = () => {
       <Sidebar />
       <ReactFlowProvider>
         <div
+          id='reactflow-wrapper'
           onContextMenu={(event) =>
             handleContextMenu(event, {
               reactFlowInstance,
@@ -167,7 +170,7 @@ const DnDFlow = () => {
               size={1}
             />
             <MiniMap
-              style={{ background: '#ccc' }}
+              style={{ background: "#ccc" }}
               nodeColor={(node: Node) => nodeColor(node.type as NodeTypes)}
               nodeStrokeWidth={3}
               zoomable
@@ -197,7 +200,7 @@ const DnDFlow = () => {
       />
       <RightSidebar />
     </div>
-  )
-}
+  );
+};
 
-export default DnDFlow
+export default DnDFlow;
