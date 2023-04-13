@@ -98,24 +98,12 @@ export default ({
             data: {
               label: "start_0",
               text: "",
-              handles: [
-                {
-                  position: "top",
-                  enable: true
-                },
-                {
-                  position: "bottom",
-                  enable: true
-                },
-                {
-                  position: "left",
-                  enable: true
-                },
-                {
-                  position: "right",
-                  enable: true
-                }
-              ],
+              handles: {
+                "top": true,
+                "bottom": true,
+                "left": true,
+                "right": true
+              },
               attributes: {},
               connectableWith: [
                 "end",
@@ -146,24 +134,12 @@ export default ({
             data: {
               label: "end_1",
               text: "",
-              handles: [
-                {
-                  position: "top",
-                  enable: true
-                },
-                {
-                  position: "bottom",
-                  enable: true
-                },
-                {
-                  position: "left",
-                  enable: true
-                },
-                {
-                  position: "right",
-                  enable: true
-                }
-              ],
+              handles: {
+                "top": true,
+                "bottom": true,
+                "left": true,
+                "right": true
+              },
               attributes: {},
               connectableWith: []
             },
@@ -188,24 +164,12 @@ export default ({
             data: {
               label: "policies_2",
               text: "",
-              handles: [
-                {
-                  position: "top",
-                  enable: true
-                },
-                {
-                  position: "bottom",
-                  enable: true
-                },
-                {
-                  position: "left",
-                  enable: true
-                },
-                {
-                  position: "right",
-                  enable: true
-                }
-              ],
+              handles: {
+                "top": true,
+                "bottom": true,
+                "left": true,
+                "right": true
+              },
               attributes: {
                 name: "",
                 channel: ""
