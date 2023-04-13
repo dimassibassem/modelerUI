@@ -7,6 +7,7 @@ import {
 import { Icon } from '@iconify/react'
 import IconSwitcher from '@/components/leftSidebar/IconSwitcher'
 import NodeTypes from '@/types/NodeTypes'
+import capitalize from "@/utils/capitalize";
 
 const shapes = [
   NodeTypes.Start,
@@ -118,7 +119,7 @@ const joyrideSteps: Step[] = [
   },
   {
     content: (
-      <p>Here you can define a title and description for your process</p>
+      <p>Here you can define the Name and Description for your process</p>
     ),
     placement: 'right',
     target: '#process-modal',
@@ -126,11 +127,11 @@ const joyrideSteps: Step[] = [
   },
   {
     content: (
-      <p>it contains all the elements you can use to build your process</p>
+      <p>It contains all the elements you can use to build your process</p>
     ),
     placement: 'right',
     target: '#left-sidebar',
-    title: <p className="text-indigo-600">Sidebar</p>
+    title: <p className="text-indigo-600">Left Sidebar</p>
   },
   {
     content: (
@@ -143,12 +144,12 @@ const joyrideSteps: Step[] = [
                 key={shape}
                 className="col-span-1 flex rounded-md border shadow-md"
               >
-                <div className="flex flex-shrink-0 items-center justify-center p-2">
+                <div className="flex flex-shrink-0 items-center p-2">
                   {IconSwitcher(shape)}
                 </div>
-                <div className="flex flex-1 items-center justify-between">
+                <div className="flex flex-1 ">
                   <div className=" p-2 text-sm">
-                    {shape} lorem ipsum dolor sit amet consectetur adipisicing
+                    <p className="font-semibold inline-block">{capitalize(shape)}</p>: lorem ipsum dolor sit amet consectetur adipisicing
                     elit. Quisquam, quod.
                   </div>
                 </div>
@@ -253,6 +254,17 @@ const joyrideSteps: Step[] = [
       </p>
     ),
     placement: 'top',
+    styles: {
+      spotlight: {
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+      },
+      spotlightLegacy: {
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+      },
+      overlay: {
+        backgroundColor: 'rgba(0, 0, 0, 0.6)'
+      }
+    },
     target: 'div.react-flow__node.react-flow__node-policies.nopan',
     title: <p className="text-indigo-600">Node Properties</p>
   },
@@ -269,8 +281,19 @@ const joyrideSteps: Step[] = [
         them in the right sidebar
       </p>
     ),
-    placement: 'left',
+    placement: 'top',
     target: 'g > g:nth-child(1)',
+    styles: {
+      spotlight: {
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+      },
+      spotlightLegacy: {
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+      },
+      overlay: {
+        backgroundColor: 'rgba(0, 0, 0, 0.6)'
+      }
+    },
     title: <p className="text-indigo-600">Edge Properties</p>
   },
   {
