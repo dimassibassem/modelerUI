@@ -1,8 +1,8 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import dotenv from "dotenv";
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import dotenv from 'dotenv'
 
-dotenv.config();
+dotenv.config()
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,21 +11,21 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          react: ["react", "react-dom", "react-router-dom"],
-          reactFlow: ["reactflow"]
+          react: ['react', 'react-dom', 'react-router-dom'],
+          reactFlow: ['reactflow']
         }
       }
     }
   },
   define: {
-    "process.env": {
+    'process.env': {
       API_URL: JSON.stringify(process.env.API_URL)
     },
-    global: "window"
+    global: 'window'
   },
   resolve: {
     alias: {
-      "@": `${__dirname}/src`
+      '@': `${__dirname}/src`
     }
   }
-});
+})
