@@ -6,6 +6,7 @@ import logoBankerise from '@/assets/logo-bankerise.png'
 import IconSwitcher from './IconSwitcher'
 import NodeTypes from '@/types/NodeTypes'
 import classNames from '@/utils/classNames'
+import useLocalStorage from '@/store/localStorage'
 
 const shapes = [
   NodeTypes.Start,
@@ -54,6 +55,7 @@ const LeftSidebar = () => {
   const toggleExpanded = () => setExpanded(!expanded)
   const [previewImage, setPreviewImage] = useState<string>('')
   const [imageLoaded, setImageLoaded] = useState(false)
+  const setRun = useLocalStorage((store) => store.setRun)
   useEffectOnce(() => {
     const img = new Image()
     img.src = logoBankerise
@@ -152,6 +154,13 @@ const LeftSidebar = () => {
           </div>
         </Link>
       </div>
+      <button
+        type="button"
+        onClick={() => setRun(true)}
+        className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded"
+      >
+        Tutorial
+      </button>
     </div>
   )
 }

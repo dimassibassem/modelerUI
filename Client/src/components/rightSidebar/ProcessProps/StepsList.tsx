@@ -1,4 +1,8 @@
-import { ChevronRightIcon, ChevronUpIcon } from '@heroicons/react/20/solid'
+import {
+  ChevronRightIcon,
+  ChevronUpIcon,
+  ListBulletIcon
+} from '@heroicons/react/20/solid'
 import { shallow } from 'zustand/shallow'
 import React, { useId, useState } from 'react'
 import { useFlowStore } from '@/store'
@@ -77,12 +81,12 @@ const StepsList = () => {
             Steps {stepsArrayIndex + 1}
             <div className="ml-auto">
               {isExpandedSteps(stepsArrayIndex) ? (
-                <ChevronRightIcon
+                <ChevronUpIcon
                   className="h-4 w-4 hover:cursor-pointer"
                   aria-hidden="true"
                 />
               ) : (
-                <ChevronUpIcon
+                <ListBulletIcon
                   className="h-4 w-4 hover:cursor-pointer"
                   aria-hidden="true"
                 />
@@ -118,7 +122,7 @@ const StepsList = () => {
                             >
                               <button
                                 type="button"
-                                className="rounded-full bg-indigo-600 p-1 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                className="rounded-full mt-1 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 onClick={() =>
                                   toggleExpandAttr(
                                     stepsArrayIndex,
@@ -127,7 +131,7 @@ const StepsList = () => {
                                 }
                               >
                                 <ChevronUpIcon
-                                  className="h-4 w-4 hover:cursor-pointer"
+                                  className="h-5 w-5 text-indigo-700 hover:text-indigo-800 hover:cursor-pointer"
                                   aria-hidden="true"
                                 />
                               </button>
@@ -141,7 +145,7 @@ const StepsList = () => {
                             >
                               <button
                                 type="button"
-                                className="rounded-full bg-indigo-600 p-1 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                className="rounded-full mt-1 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 onClick={() =>
                                   toggleExpandAttr(
                                     stepsArrayIndex,
@@ -150,7 +154,7 @@ const StepsList = () => {
                                 }
                               >
                                 <ChevronRightIcon
-                                  className="h-4 w-4 hover:cursor-pointer"
+                                  className="h-5 w-5 text-indigo-700 hover:text-indigo-800 hover:cursor-pointer"
                                   aria-hidden="true"
                                 />
                               </button>

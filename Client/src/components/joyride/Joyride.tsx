@@ -5,9 +5,9 @@ import { MarkerType, Position, ReactFlowInstance } from 'reactflow'
 import { RFState } from '@/types/RFState'
 import { useFlowStore } from '@/store'
 import joyrideSteps from './JoyrideSupport'
+import useLocalStorage from '@/store/localStorage'
 
 interface State {
-  run: boolean
   steps: Step[]
 }
 
@@ -28,17 +28,17 @@ export default ({
 }) => {
   const { setNodes, setEdges, setSelected, nodes, edges, setProcess } =
     useFlowStore(selector, shallow)
-  const [{ run, steps }, setState] = useState<State>({
-    run: false,
+  const run = useLocalStorage((store) => store.run)
+  const setRun = useLocalStorage((store) => store.setRun)
+  const [tutorial, setTutorial] = useState<State>({
     steps: joyrideSteps
   })
 
   useEffect(() => {
-    setState((state) => ({
-      ...state,
-      run: true
-    }))
-  }, [setState])
+    setTutorial({
+      steps: joyrideSteps
+    })
+  }, [setTutorial])
 
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { status, index } = data
@@ -289,11 +289,11 @@ export default ({
       })
       setNodes([])
       setEdges([])
+      setRun(false)
       setOpenModal(true)
-      setState((state) => ({
-        ...state,
-        run: false
-      }))
+      setTutorial({
+        steps: tutorial.steps
+      })
     }
   }
 
@@ -308,7 +308,7 @@ export default ({
       scrollToFirstStep
       showProgress
       showSkipButton
-      steps={steps}
+      steps={tutorial.steps}
       styles={{
         buttonNext: {
           backgroundColor: '#4f46e5'
