@@ -1,5 +1,6 @@
 import React from 'react'
 import { Edge, Node } from 'reactflow'
+import capitalize from "@/utils/capitalize";
 
 const HandleCheckBoxes = ({
   selectedNode,
@@ -14,7 +15,6 @@ const HandleCheckBoxes = ({
 }) => {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target
-
     const isHandleAlreadyConnected = edges.some(
       (edge) =>
         (edge.source === selectedNode?.id && edge.sourceHandle === name) ||
@@ -29,15 +29,10 @@ const HandleCheckBoxes = ({
                 ...node,
                 data: {
                   ...node.data,
-                  handles: node.data.handles.map(
-                    (handle: { position: string; enable: boolean }) =>
-                      handle.position === name
-                        ? {
-                            ...handle,
-                            enable: checked
-                          }
-                        : handle
-                  )
+                  handles: {
+                    ...node.data.handles,
+                    [name]: checked
+                  }
                 }
               }
             : node
@@ -47,7 +42,6 @@ const HandleCheckBoxes = ({
       alert('Handle already connected')
     }
   }
-
   return (
     <div>
       <div className="mt-3">
@@ -56,30 +50,27 @@ const HandleCheckBoxes = ({
         </label>
       </div>
       <div className="flex gap-3">
-        {selectedNode?.data.handles.map((handle: { position: string }) => (
-          <div key={handle.position} className="relative flex items-start">
+        {
+          selectedNode?.data.handles &&
+          Object.keys(selectedNode.data.handles).map((pos) => (
+          <div key={pos} className="relative flex items-start">
             <div className="flex h-6 items-center">
               <input
-                id={handle.position}
-                aria-describedby={`handle-${handle.position}`}
-                name={handle.position}
+                id={pos}
+                aria-describedby={`handle-${pos}`}
+                name={pos}
                 type="checkbox"
                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                 onChange={onChangeHandler}
-                checked={
-                  selectedNode?.data.handles.find(
-                    (h: { position: string }) => h.position === handle.position
-                  )?.enable
-                }
+                checked={selectedNode?.data.handles[pos]}
               />
             </div>
             <div className="ml-3 text-sm leading-6">
               <label
-                htmlFor={handle.position}
+                htmlFor={pos}
                 className="font-medium text-gray-900"
               >
-                {handle.position.charAt(0).toUpperCase() +
-                  handle.position.slice(1)}
+                {capitalize(pos)}
               </label>
             </div>
           </div>
