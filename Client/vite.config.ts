@@ -11,7 +11,7 @@ export default defineConfig({
     'process.env': {
       API_URL: JSON.stringify(process.env.API_URL)
     },
-     global: 'window'
+    global: 'window'
   },
   resolve: {
     alias: {

@@ -2,7 +2,7 @@ import React from 'react'
 import { Panel, ReactFlowInstance } from 'reactflow'
 import axios from 'axios'
 import { shallow } from 'zustand/shallow'
-import { Icon } from "@iconify/react";
+import { Icon } from '@iconify/react'
 import imageFromHTML from '@/utils/imageFromHtml'
 import { useFlowStore, useTemporalStore } from '@/store'
 import { RFState } from '@/types/RFState'
@@ -23,7 +23,11 @@ const TopRightPanel = ({
   const { setNodes, setEdges, nodes, edges } = useFlowStore(selector, shallow)
   const { pause, resume } = useTemporalStore((state) => state)
   return (
-    <Panel id='top-right' position="top-right" className="grid grid-cols-3 gap-2">
+    <Panel
+      id="top-right"
+      position="top-right"
+      className="grid grid-cols-3 gap-2"
+    >
       <button
         type="button"
         aria-label="Clear"
@@ -37,7 +41,7 @@ const TopRightPanel = ({
           resume()
         }}
       >
-        <Icon className='w-5 h-5' icon="ic:outline-clear" />
+        <Icon className="w-5 h-5" icon="ic:outline-clear" />
       </button>
       <button
         type="button"
@@ -55,7 +59,10 @@ const TopRightPanel = ({
           }
         }}
       >
-        <Icon className='w-5 h-5' icon="material-symbols:save-outline-rounded" />
+        <Icon
+          className="w-5 h-5"
+          icon="material-symbols:save-outline-rounded"
+        />
       </button>
       <button
         type="button"
@@ -63,7 +70,7 @@ const TopRightPanel = ({
         className="rounded flex justify-center bg-gray-100 py-1 px-2 text-sm font-semibold text-gray-600 shadow-sm hover:bg-gray-200"
         onClick={() => setOpenLoadModal(true)}
       >
-        <Icon className='w-5 h-5' icon="uil:import" />
+        <Icon className="w-5 h-5" icon="uil:import" />
       </button>
     </Panel>
   )
