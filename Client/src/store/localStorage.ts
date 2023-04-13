@@ -14,11 +14,11 @@ const useLocalStorage = create<LocalStorageState>()(
         setRun: (run: boolean) => set({ run })
       }),
       {
-        name: 'local-storage'
+        name: 'tutorial'
       }
     ),
     {
-      name: 'tutorial',
+      name: 'localStorage',
       enabled: true
     }
   )
