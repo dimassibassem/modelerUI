@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import isValidConnection from '@/utils/isValidConnection'
-import connectableWith from '@/utils/connectableWith'
+import isValidConnection from '@/utils/Node/isValidConnection'
+import connectableWith from '@/utils/Node/connectableWith'
 import NodeTypes from '@/types/NodeTypes'
 
 describe('isValidConnection', () => {

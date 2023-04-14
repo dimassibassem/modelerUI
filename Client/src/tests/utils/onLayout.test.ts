@@ -1,7 +1,7 @@
 import { Edge, Node, Position } from 'reactflow'
 import { describe, expect, it } from 'vitest'
 import uniqid from 'uniqid'
-import onLayout from '@/utils/onLayout'
+import onLayout from '@/utils/Flow/onLayout'
 import { HorizontalLayout, VerticalLayout } from '@/types/NodeLayout'
 import NodeTypes from '@/types/NodeTypes'
 

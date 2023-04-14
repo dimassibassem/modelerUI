@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import connectableWith from '@/utils/connectableWith'
+import connectableWith from '@/utils/Node/connectableWith'
 import NodeTypes from '@/types/NodeTypes'
 
 describe('connectableWith', () => {

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { Node } from 'reactflow'
+import { useTranslation } from 'react-i18next'
 import { useFlowStore, useTemporalStore } from '@/store'
 import { RFState } from '@/types/RFState'
-import HandleCheckBoxes from './HandleCheckBoxes'
-import Attributes from './Attributes'
+import HandleCheckBoxes from '@/components/RightSidebar/NodeProps/HandleCheckBoxes'
+import Attributes from '@/components/RightSidebar/NodeProps/Attributes'
 import capitalize from '@/utils/capitalize'
 
 const selector = (state: RFState) => ({
@@ -16,7 +17,7 @@ const selector = (state: RFState) => ({
 
 const SelectedNodeProps = () => {
   const { selected, setNodes, nodes, edges } = useFlowStore(selector, shallow)
-
+  const { t } = useTranslation()
   const [nodeText, setNodeText] = useState(selected?.data.text || '')
   const { pause, resume } = useTemporalStore((state) => state)
   useEffect(() => {
@@ -49,14 +50,14 @@ const SelectedNodeProps = () => {
   return (
     <div>
       <div className="flex justify-center text-md font-medium text-gray-900 sm:pt-1.5">
-        {capitalize(selected.type)}
+        {selected.type ? capitalize(t(selected.type)) : null}
       </div>
 
       <label
         htmlFor="node-text"
         className="ml-3 text-sm font-medium text-gray-900"
       >
-        Label
+        {t('Label')}
       </label>
       <div>
         <input
@@ -64,7 +65,7 @@ const SelectedNodeProps = () => {
           name="node-text"
           id="node-text"
           className="block p-1 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-          placeholder="Add a text"
+          placeholder={t('Add a text') as string}
           value={nodeText}
           onChange={(e) => setNodeText(e.target.value)}
         />

@@ -1,10 +1,11 @@
 import React from 'react'
 import { RadioGroup, Switch } from '@headlessui/react'
 import { shallow } from 'zustand/shallow'
+import { useTranslation } from 'react-i18next'
 import classNames from '@/utils/classNames'
 import { useFlowStore } from '@/store'
 import { RFState } from '@/types/RFState'
-import StepsList from './StepsList'
+import StepsList from '@/components/RightSidebar/ProcessProps/StepsList'
 
 const Channels = ['MOB', 'WEB']
 const selector = (state: RFState) => ({
@@ -13,6 +14,7 @@ const selector = (state: RFState) => ({
 })
 const ProcessProps = () => {
   const { process, setProcess } = useFlowStore(selector, shallow)
+  const { t } = useTranslation()
   return (
     <>
       <div
@@ -42,7 +44,7 @@ const ProcessProps = () => {
           htmlFor="hook"
           className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
         >
-          Hook
+          {t('Hook')}
         </label>
         <div className="mt-2 sm:col-span-2 sm:mt-0">
           <input
@@ -69,7 +71,7 @@ const ProcessProps = () => {
           htmlFor="channel"
           className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
         >
-          Channel
+          {t('channel')}
         </label>
         <div className="mt-2 sm:col-span-2 sm:mt-0">
           <RadioGroup
@@ -112,7 +114,7 @@ const ProcessProps = () => {
           htmlFor="isAsynchronous"
           className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
         >
-          isAsync
+          {t('isAsync')}
         </label>
         <div className="mt-2 sm:col-span-2 ">
           <Switch

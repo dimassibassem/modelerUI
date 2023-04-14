@@ -3,7 +3,7 @@ import { Panel, ReactFlowInstance } from 'reactflow'
 import axios from 'axios'
 import { shallow } from 'zustand/shallow'
 import { Icon } from '@iconify/react'
-import imageFromHTML from '@/utils/imageFromHtml'
+import imageFromHTML from '@/utils/Flow/imageFromHtml'
 import { useFlowStore, useTemporalStore } from '@/store'
 import { RFState } from '@/types/RFState'
 
@@ -11,7 +11,9 @@ const selector = (state: RFState) => ({
   nodes: state.nodes,
   edges: state.edges,
   setNodes: state.setNodes,
-  setEdges: state.setEdges
+  setEdges: state.setEdges,
+  process: state.process,
+  setProcess: state.setProcess
 })
 const TopRightPanel = ({
   reactFlowInstance,
@@ -20,7 +22,14 @@ const TopRightPanel = ({
   reactFlowInstance: ReactFlowInstance | null
   setOpenLoadModal: (open: boolean) => void
 }) => {
-  const { setNodes, setEdges, nodes, edges } = useFlowStore(selector, shallow)
+  const {
+    setNodes,
+    setEdges,
+    nodes,
+    edges,
+    setProcess,
+    process: pros
+  } = useFlowStore(selector, shallow)
   const { pause, resume } = useTemporalStore((state) => state)
   return (
     <Panel
@@ -35,6 +44,10 @@ const TopRightPanel = ({
         onClick={() => {
           setNodes(nodes)
           setEdges(edges)
+          setProcess({
+            ...pros,
+            steps: []
+          })
           pause()
           setEdges([])
           setNodes([])

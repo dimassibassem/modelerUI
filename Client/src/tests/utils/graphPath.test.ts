@@ -1,7 +1,7 @@
 import { Edge, Node } from 'reactflow'
 import { describe, it, expect } from 'vitest'
 import uniqid from 'uniqid'
-import { createGraph, findAllPaths } from '@/utils/graphPath'
+import { createGraph, findAllPaths } from '@/utils/Flow/graphPath'
 import NodeTypes from '@/types/NodeTypes'
 
 const nodes: Node[] = [

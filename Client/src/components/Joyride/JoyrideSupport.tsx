@@ -5,9 +5,9 @@ import {
   MagnifyingGlassPlusIcon
 } from '@heroicons/react/24/outline'
 import { Icon } from '@iconify/react'
-import IconSwitcher from '@/components/leftSidebar/IconSwitcher'
+import IconSwitcher from '@/components/LeftSidebar/IconSwitcher'
 import NodeTypes from '@/types/NodeTypes'
-import capitalize from "@/utils/capitalize";
+import capitalize from '@/utils/capitalize'
 
 const shapes = [
   NodeTypes.Start,
@@ -149,8 +149,11 @@ const joyrideSteps: Step[] = [
                 </div>
                 <div className="flex flex-1 ">
                   <div className=" p-2 text-sm">
-                    <p className="font-semibold inline-block">{capitalize(shape)}</p>: lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Quisquam, quod.
+                    <p className="font-semibold inline-block">
+                      {capitalize(shape)}
+                    </p>
+                    : lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quisquam, quod.
                   </div>
                 </div>
               </li>
@@ -256,10 +259,10 @@ const joyrideSteps: Step[] = [
     placement: 'top',
     styles: {
       spotlight: {
-        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        backgroundColor: 'rgba(255, 255, 255, 0.5)'
       },
       spotlightLegacy: {
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)'
       },
       overlay: {
         backgroundColor: 'rgba(0, 0, 0, 0.6)'
@@ -285,10 +288,10 @@ const joyrideSteps: Step[] = [
     target: 'g > g:nth-child(1)',
     styles: {
       spotlight: {
-        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        backgroundColor: 'rgba(255, 255, 255, 0.5)'
       },
       spotlightLegacy: {
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)'
       },
       overlay: {
         backgroundColor: 'rgba(0, 0, 0, 0.6)'

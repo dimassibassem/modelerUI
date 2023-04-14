@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import ReactFlow, {
   ReactFlowProvider,
   Background,
@@ -11,33 +11,35 @@ import ReactFlow, {
 import { shallow } from 'zustand/shallow'
 import { useCopyToClipboard } from 'usehooks-ts'
 import { useContextMenu } from 'react-contexify'
-import LeftSidebar from '@/components/leftSidebar/LeftSidebar'
+import { useTranslation } from 'react-i18next'
+import LeftSidebar from '@/components/LeftSidebar/LeftSidebar'
 import useOnDropNode from '@/hooks/useOnDropNode'
 import useOnDragNode from '@/hooks/useOnDragNode'
 import useHandleSelected from '@/hooks/useHandleSelected'
 import { useFlowStore, useTemporalStore } from '@/store'
 import { RFState } from '@/types/RFState'
-import RightSidebar from '@/components/rightSidebar/RightSidebar'
-import LoadModal from '@/components/LoadModal'
-import TopRightPanel from '@/components/panels/TopRightPanel'
-import nodeColor from '@/utils/nodeColor'
-import nodeTypes from '@/utils/nodeTypes'
-import ProcessDefinitionModal from '@/components/ProcessDefinitionModal'
-import isValidConnection from '@/utils/isValidConnection'
+import RightSidebar from '@/components/RightSidebar/RightSidebar'
+import LoadModal from '@/components/Modals/LoadModal'
+import TopRightPanel from '@/components/Panels/TopRightPanel'
+import nodeColor from '@/utils/Node/nodeColor'
+import nodeTypes from '@/utils/Node/nodeTypes'
+import ProcessDefinitionModal from '@/components/Modals/ProcessDefinitionModal'
+import isValidConnection from '@/utils/Node/isValidConnection'
 import useRemoveWatermark from '@/hooks/useRemoveWatermark'
-import BottomLeftPanel from '@/components/panels/BottomLeftPanel'
-import TopLeftPanel from '@/components/panels/TopLeftPanel'
+import BottomLeftPanel from '@/components/Panels/BottomLeftPanel'
+import TopLeftPanel from '@/components/Panels/TopLeftPanel'
 import NodeTypes from '@/types/NodeTypes'
 import { handleContextMenu } from '@/utils/ContextMenu/handleContextMenu'
 import ContextMenu from '@/components/ContextMenu'
-import Notification from '@/components/Notification'
+import Notification from '@/components/Modals/Notification'
 import useShortcuts from '@/hooks/useShortcuts'
 import styles from '@/validation.module.css'
 import 'reactflow/dist/style.css'
 import 'react-contexify/ReactContexify.css'
 import useOnNodesDelete from '@/hooks/useOnNodeDelete'
 import useProcessDefinitionChecker from '@/hooks/useProcessDefinitionChecker'
-import Joyride from '@/components/joyride/Joyride'
+import Joyride from '@/components/Joyride/Joyride'
+import useLocalStorage from '@/store/localStorage'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -64,7 +66,7 @@ const DnDFlow = () => {
     setSelected,
     onEdgeUpdate
   } = useFlowStore(selector, shallow)
-
+  const lang = useLocalStorage((store) => store.lang)
   const { pause, resume } = useTemporalStore((state) => state)
   const reactFlowWrapper = useRef<HTMLInputElement>(null)
   const [openLoadModal, setOpenLoadModal] = useState(false)
@@ -108,6 +110,10 @@ const DnDFlow = () => {
   const { show } = useContextMenu({ id: MENU_ID })
   useProcessDefinitionChecker()
   const onNodeDelete = useOnNodesDelete(chainRecovery)
+  const { i18n } = useTranslation()
+  useEffect(() => {
+    i18n.changeLanguage(lang)
+  }, [lang])
   return (
     <div className="flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0">
       <Joyride

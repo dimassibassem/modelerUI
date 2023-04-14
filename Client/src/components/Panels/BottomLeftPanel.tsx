@@ -5,7 +5,7 @@ import {
   MagnifyingGlassPlusIcon
 } from '@heroicons/react/24/outline'
 import { Icon } from '@iconify/react'
-import onLayout from '@/utils/onLayout'
+import onLayout from '@/utils/Flow/onLayout'
 import { VerticalLayout, HorizontalLayout } from '@/types/NodeLayout'
 
 const BottomLeftPanel = ({

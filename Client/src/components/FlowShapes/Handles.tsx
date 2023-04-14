@@ -1,24 +1,25 @@
-import { Handle, Position } from "reactflow";
+import { Handle, Position } from 'reactflow'
 
 const Handles = ({
-                   width,
-                   handles
-                 }: {
+  width,
+  handles
+}: {
   width: number
   handles: Record<string, boolean>
 }) => (
   <>
     {Object.keys(handles).map((pos) =>
-      handles[pos] ? <Handle
+      handles[pos] ? (
+        <Handle
           key={pos}
           style={{ width: width / 10, height: width / 10 }}
           type="source"
           position={pos as Position}
           id={pos}
         />
-        : null
+      ) : null
     )}
   </>
-);
+)
 
-export default Handles;
+export default Handles

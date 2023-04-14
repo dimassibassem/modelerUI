@@ -8,7 +8,7 @@ import copySelected from './copySelected'
 import pasteFromClipboard from './pasteFromClipboard'
 import ContextMenuItems from '@/types/ContextMenuItems'
 import cutSelected from './cutSelected'
-import selectAll from '@/utils/selectAll'
+import selectAll from '@/utils/Flow/selectAll'
 
 export const handleItemClick = async ({ id, props }: ItemParams) => {
   switch (id as ContextMenuItems) {

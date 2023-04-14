@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Transition } from '@headlessui/react'
 import { shallow } from 'zustand/shallow'
+import { useTranslation } from 'react-i18next'
 import { RFState } from '@/types/RFState'
 import { useFlowStore } from '@/store'
 
@@ -19,7 +20,7 @@ const ProcessDefinitionModal = ({
   const { setProcess, process } = useFlowStore(selector, shallow)
   const [name, setName] = useState<string>('')
   const [description, setDescription] = useState<string>('')
-
+  const { t } = useTranslation()
   return (
     <Transition.Root show={open}>
       <div className="relative z-10">
@@ -50,7 +51,7 @@ const ProcessDefinitionModal = ({
               >
                 <div className="mt-3 text-center sm:mt-3 sm:pb-3">
                   <h3 className="mb-3 text-base font-semibold leading-6 text-gray-900">
-                    Process Definition
+                    {t('Process Definition')}
                   </h3>
                   <div className="space-y-6 sm:space-y-5">
                     <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
@@ -58,7 +59,7 @@ const ProcessDefinitionModal = ({
                         htmlFor="name"
                         className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
                       >
-                        Name
+                        {t('name')}
                       </label>
                       <div className="mt-2 sm:col-span-2 sm:mt-0">
                         <input
@@ -111,7 +112,7 @@ const ProcessDefinitionModal = ({
                       }
                     }}
                   >
-                    Start creating your process
+                    {t('Start creating your process')}
                   </button>
                 </div>
               </div>

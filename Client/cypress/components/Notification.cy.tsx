@@ -1,4 +1,4 @@
-import Notification from '@/components/Notification'
+import Notification from '@/components/Modals/Notification'
 
 describe('<Notification />', () => {
   it('renders', () => {

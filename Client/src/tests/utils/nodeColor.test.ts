@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import nodeColor from '@/utils/nodeColor'
+import nodeColor from '@/utils/Node/nodeColor'
 import NodeTypes from '@/types/NodeTypes'
 
 describe('nodeColor', () => {

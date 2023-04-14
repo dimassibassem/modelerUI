@@ -1,7 +1,7 @@
 import { Edge, Node } from 'reactflow'
 import { describe, it, expect } from 'vitest'
 import NodeTypes from '@/types/NodeTypes'
-import processDefinitionChecker from '@/utils/processDefinitionChecker'
+import processDefinitionChecker from '@/utils/Process/processDefinitionChecker'
 import Process from '@/types/Process'
 
 let process: Process = {

@@ -1,4 +1,4 @@
-import ProcessDefinitionModal from '@/components/ProcessDefinitionModal'
+import ProcessDefinitionModal from '@/components/Modals/ProcessDefinitionModal'
 
 describe('<ProcessDefinition />', () => {
   it('renders', () => {

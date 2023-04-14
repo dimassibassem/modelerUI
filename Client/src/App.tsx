@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import NotFound from '@/pages/404'
 import Loading from '@/components/Loading'
+import '@/translation/i18'
 
 const DnDFlow = lazy(() => import('@/pages/index'))
 

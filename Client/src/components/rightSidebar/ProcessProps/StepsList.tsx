@@ -5,13 +5,14 @@ import {
 } from '@heroicons/react/20/solid'
 import { shallow } from 'zustand/shallow'
 import React, { useId, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useFlowStore } from '@/store'
 import { RFState } from '@/types/RFState'
 import classNames from '@/utils/classNames'
 import {
   handleStepsChange,
   handleNodesAttributesChange
-} from '@/utils/handleStepChange'
+} from '@/utils/Process/handleStepChange'
 import capitalize from '@/utils/capitalize'
 
 const selector = (state: RFState) => ({
@@ -26,6 +27,7 @@ const StepsList = () => {
     selector,
     shallow
   )
+  const { t } = useTranslation()
   const [expandedAttr, setExpandedAttr] = useState<number[][]>([])
   const [expandedSteps, setExpandedSteps] = useState<number[]>([])
   const id = useId()
@@ -78,7 +80,7 @@ const StepsList = () => {
               'pl-3 text-gray-600 hover:text-gray-900 items-center p-2 my-4 text-sm font-medium rounded-md flex w-full'
             )}
           >
-            Steps {stepsArrayIndex + 1}
+            {t('Steps')} {stepsArrayIndex + 1}
             <div className="ml-auto">
               {isExpandedSteps(stepsArrayIndex) ? (
                 <ChevronUpIcon
@@ -107,7 +109,7 @@ const StepsList = () => {
                         <div className="min-w-0 flex-1 sm:flex items-center sm:justify-between">
                           <div className="flex text-sm">
                             <p className=" font-medium text-indigo-600">
-                              {capitalize(step.type)}
+                              {capitalize(t(step.type))}
                             </p>
                           </div>
                         </div>
@@ -174,7 +176,7 @@ const StepsList = () => {
                                         htmlFor={`${step.id}_${key}`}
                                         className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
                                       >
-                                        {capitalize(key)}
+                                        {t(key)}
                                       </label>
                                       <div className="mt-2 sm:col-span-2 sm:mt-0">
                                         <input

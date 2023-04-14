@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import attributeSwitcher from '@/utils/attributeSwitcher'
+import attributeSwitcher from '@/utils/Node/attributeSwitcher'
 import NodeTypes from '@/types/NodeTypes'
 
 describe('attributeSwitcher', () => {

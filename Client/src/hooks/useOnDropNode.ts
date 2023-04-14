@@ -1,8 +1,8 @@
-import { DragEvent, RefObject, useCallback } from "react";
-import { XYPosition, Node, ReactFlowInstance, Position } from "reactflow";
-import connectableWith from "@/utils/connectableWith";
-import attributeSwitcher from "@/utils/attributeSwitcher";
-import NodeTypes from "@/types/NodeTypes";
+import { DragEvent, RefObject, useCallback } from 'react'
+import { XYPosition, Node, ReactFlowInstance, Position } from 'reactflow'
+import connectableWith from '@/utils/Node/connectableWith'
+import attributeSwitcher from '@/utils/Node/attributeSwitcher'
+import NodeTypes from '@/types/NodeTypes'
 
 function useOnDropNode(
   reactFlowWrapper: RefObject<HTMLInputElement>,
@@ -15,15 +15,15 @@ function useOnDropNode(
 ) {
   return useCallback(
     (event: DragEvent) => {
-      event.preventDefault();
-      const reactFlowBounds = reactFlowWrapper.current?.getBoundingClientRect();
+      event.preventDefault()
+      const reactFlowBounds = reactFlowWrapper.current?.getBoundingClientRect()
       const type = event.dataTransfer.getData(
-        "application/reactflow"
-      ) as NodeTypes;
+        'application/reactflow'
+      ) as NodeTypes
 
       // check if the dropped element is valid
-      if (typeof type === "undefined" || !type) {
-        return;
+      if (typeof type === 'undefined' || !type) {
+        return
       }
       // check if already exists a start node
       if (
@@ -32,10 +32,10 @@ function useOnDropNode(
       ) {
         setNotificationData({
           success: false,
-          message: "There can only be one start node"
-        });
-        setOpenNotification(true);
-        return;
+          message: 'There can only be one start node'
+        })
+        setOpenNotification(true)
+        return
       }
 
       // check if already exists an end node
@@ -45,43 +45,45 @@ function useOnDropNode(
       ) {
         setNotificationData({
           success: false,
-          message: "There can only be one end node"
-        });
-        setOpenNotification(true);
-        return;
+          message: 'There can only be one end node'
+        })
+        setOpenNotification(true)
+        return
       }
 
-      let position: XYPosition = { x: 0, y: 0 };
+      let position: XYPosition = { x: 0, y: 0 }
       if (reactFlowBounds && reactFlowInstance) {
         position = reactFlowInstance.project({
           x: event.clientX - reactFlowBounds.left,
           y: event.clientY - reactFlowBounds.top
-        });
+        })
       }
-      const typeNId = setId(type);
+      const typeNId = setId(type)
       const newNode: Node = {
         id: typeNId,
         type,
         position,
         data: {
           label: `${typeNId}`,
-          text: "",
-          handles:
-            Object.keys(Position).reduce((acc: Record<string, boolean>, key) => {
-              acc[key.toLowerCase() as keyof typeof Position] = true;
-              return acc;
-            }, {}),
+          text: '',
+          handles: Object.keys(Position).reduce(
+            (acc: Record<string, boolean>, key) => {
+              acc[key.toLowerCase() as keyof typeof Position] = true
+              return acc
+            },
+            {}
+          ),
           attributes: attributeSwitcher(type),
           connectableWith: connectableWith(type)
         },
         width: 50,
         height: 50
-      };
+      }
 
-      setNodes(nodes.concat(newNode));
+      setNodes(nodes.concat(newNode))
     },
     [setId, nodes, reactFlowInstance, reactFlowWrapper, setNodes]
-  );
+  )
 }
 
-export default useOnDropNode;
+export default useOnDropNode

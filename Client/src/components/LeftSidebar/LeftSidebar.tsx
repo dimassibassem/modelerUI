@@ -2,11 +2,13 @@ import React, { useState, DragEvent, MouseEvent, FocusEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { isEdge } from 'react-device-detect'
 import { useEffectOnce } from 'usehooks-ts'
+import { useTranslation } from 'react-i18next'
 import logoBankerise from '@/assets/logo-bankerise.png'
 import IconSwitcher from './IconSwitcher'
 import NodeTypes from '@/types/NodeTypes'
 import classNames from '@/utils/classNames'
 import useLocalStorage from '@/store/localStorage'
+import LangSelect from '@/components/LeftSidebar/LangSelect'
 
 const shapes = [
   NodeTypes.Start,
@@ -49,7 +51,6 @@ const handlePreviewDragImage = (
     setPreviewImage(img.src)
   }
 }
-
 const LeftSidebar = () => {
   const [expanded, setExpanded] = useState(true)
   const toggleExpanded = () => setExpanded(!expanded)
@@ -61,6 +62,7 @@ const LeftSidebar = () => {
     img.src = logoBankerise
     img.onload = () => setImageLoaded(true)
   })
+  const { t } = useTranslation()
   return (
     <div
       id="left-sidebar"
@@ -91,7 +93,7 @@ const LeftSidebar = () => {
               'pl-3 ml-2 text-gray-600 hover:text-gray-900 items-center p-2 text-sm font-medium rounded-md flex w-full max-w-[90%]'
             )}
           >
-            Shapes
+            {t('Shapes')}
           </button>
           {expanded && (
             <div id="shapes" className="px-2">
@@ -126,13 +128,14 @@ const LeftSidebar = () => {
                   >
                     {IconSwitcher(item)}
                   </div>
-                  <span className="flex-1">{item}</span>
+                  <span className="flex-1">{t(item)}</span>
                 </div>
               ))}
             </div>
           )}
         </nav>
       </div>
+      <LangSelect />
       <div className="flex flex-shrink-0 border-t border-gray-200 p-4">
         <Link to="/profile" className="group block w-full flex-shrink-0">
           <div className="flex items-center">
@@ -148,7 +151,7 @@ const LeftSidebar = () => {
                 Tom Cook
               </p>
               <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
-                View profile
+                {t('View profile')}
               </p>
             </div>
           </div>
@@ -159,7 +162,7 @@ const LeftSidebar = () => {
         onClick={() => setRun(true)}
         className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded"
       >
-        Tutorial
+        {t('Tutorial')}
       </button>
     </div>
   )

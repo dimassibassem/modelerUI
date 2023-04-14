@@ -7,7 +7,7 @@ import pasteFromClipboard from '@/utils/ContextMenu/pasteFromClipboard'
 import cutSelected from '@/utils/ContextMenu/cutSelected'
 import { RFState } from '@/types/RFState'
 import { useFlowStore, useTemporalStore } from '@/store'
-import selectAll from '@/utils/selectAll'
+import selectAll from '@/utils/Flow/selectAll'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,

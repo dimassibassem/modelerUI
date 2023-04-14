@@ -3,9 +3,9 @@ import React from 'react'
 import { Edge } from 'reactflow'
 import { RFState } from '@/types/RFState'
 import { useFlowStore } from '@/store'
-import SelectedEdgeProps from './EdgeProps/SelectedEdgeProps'
-import SelectedNodeProps from './NodeProps/SelectedNodeProps'
-import ProcessProps from './ProcessProps/ProcessProps'
+import SelectedEdgeProps from '@/components/RightSidebar/EdgeProps/SelectedEdgeProps'
+import SelectedNodeProps from '@/components/RightSidebar/NodeProps/SelectedNodeProps'
+import ProcessProps from '@/components/RightSidebar/ProcessProps/ProcessProps'
 
 const selector = (state: RFState) => ({
   selected: state.selected as Edge

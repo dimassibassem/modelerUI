@@ -1,6 +1,6 @@
 import React from 'react'
 import { Edge, Node } from 'reactflow'
-import capitalize from "@/utils/capitalize";
+import { useTranslation } from 'react-i18next'
 
 const HandleCheckBoxes = ({
   selectedNode,
@@ -13,6 +13,7 @@ const HandleCheckBoxes = ({
   edges: Edge[]
   setNodes: (nds: Node[]) => void
 }) => {
+  const { t } = useTranslation()
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target
     const isHandleAlreadyConnected = edges.some(
@@ -46,35 +47,31 @@ const HandleCheckBoxes = ({
     <div>
       <div className="mt-3">
         <label className="ml-3 text-sm font-medium text-gray-900">
-          Handles
+          {t('Handles')}
         </label>
       </div>
       <div className="flex gap-3">
-        {
-          selectedNode?.data.handles &&
+        {selectedNode?.data.handles &&
           Object.keys(selectedNode.data.handles).map((pos) => (
-          <div key={pos} className="relative flex items-start">
-            <div className="flex h-6 items-center">
-              <input
-                id={pos}
-                aria-describedby={`handle-${pos}`}
-                name={pos}
-                type="checkbox"
-                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                onChange={onChangeHandler}
-                checked={selectedNode?.data.handles[pos]}
-              />
+            <div key={pos} className="relative flex items-start">
+              <div className="flex h-6 items-center">
+                <input
+                  id={pos}
+                  aria-describedby={`handle-${pos}`}
+                  name={pos}
+                  type="checkbox"
+                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                  onChange={onChangeHandler}
+                  checked={selectedNode?.data.handles[pos]}
+                />
+              </div>
+              <div className="ml-3 text-sm leading-6">
+                <label htmlFor={pos} className="font-medium text-gray-900">
+                  {t(pos)}
+                </label>
+              </div>
             </div>
-            <div className="ml-3 text-sm leading-6">
-              <label
-                htmlFor={pos}
-                className="font-medium text-gray-900"
-              >
-                {capitalize(pos)}
-              </label>
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   )

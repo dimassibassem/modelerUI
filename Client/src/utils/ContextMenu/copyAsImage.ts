@@ -1,5 +1,5 @@
 import { ReactFlowInstance } from 'reactflow'
-import imageFromHTML from '../imageFromHtml'
+import imageFromHTML from '@/utils/Flow/imageFromHtml'
 
 const copyAsImage = async (
   reactFlowInstance: ReactFlowInstance | null,
