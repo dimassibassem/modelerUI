@@ -12,7 +12,8 @@ export default defineConfig({
       output: {
         manualChunks: {
           react: ['react', 'react-dom', 'react-router-dom'],
-          reactFlow: ['reactflow']
+          reactFlow: ['reactflow'],
+          translations: ['react-i18next', 'i18next']
         }
       }
     }
