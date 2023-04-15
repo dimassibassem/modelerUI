@@ -1,0 +1,102 @@
+const fr = {
+  English: 'Anglais',
+  French: 'Français',
+  Tutorial: 'Tutoriel',
+  TutorialContent: 'Ceci est un tutoriel',
+  ViewProfile: 'Voir le profil',
+  Shapes: 'Formes',
+  start: 'début',
+  end: 'fin',
+  policies: 'politiques',
+  execution: 'exécution',
+  provisioners: 'provisioners',
+  rule: 'règle',
+  Handles: 'Poignées',
+  top: 'Haut',
+  bottom: 'Bas',
+  left: 'Gauche',
+  right: 'Droite',
+  Label: 'Étiquette',
+  name: 'Nom',
+  channel: 'Canal',
+  challenge: 'Défi',
+  enricher: 'Enrichisseur',
+  Hook: 'Crochet',
+  isAsync: 'Async',
+  Steps: 'Étapes',
+  ProcessDefinition: 'Définition du processus',
+  StartCreating: 'Commencez à créer votre processus',
+  Loading: 'Chargement',
+  Copy: 'Copier',
+  Cut: 'Couper',
+  Paste: 'Coller',
+  Close: 'Fermer',
+  'Clipboard is empty or contains invalid data':
+    'Le presse-papiers est vide ou contient des données invalides',
+  'There can only be one start node':
+    "Il ne peut y avoir qu'un seul nœud de départ",
+  'There can only be one end node': "Il ne peut y avoir qu'un seul nœud de fin",
+  'Image copied to clipboard': 'Image copiée dans le presse-papiers',
+  Undo: 'défaire',
+  Redo: 'Rétablir',
+  Clear: 'Effacer',
+  Save: 'Sauvegarder',
+  Import: 'Importer',
+  Tour: 'Voyons faire un petit tour',
+  Welcome: 'Bienvenue dans le Modeler',
+  ProcessName:
+    'Ici, vous pouvez définir le nom et la description de votre processus',
+  Elements:
+    'Il contient tous les éléments que vous pouvez utiliser pour construire votre processus',
+  'Left Sidebar': 'Barre latérale gauche',
+  DraggableElements:
+    'Ici, vous pouvez trouver toutes les formes que vous pouvez faire glisser dans le flux',
+  DropLocation:
+    'Ici, vous pouvez déposer les formes que vous souhaitez utiliser dans votre processus',
+  'Undo/Redo':
+    'Les actions Défaire / Rétablir sont disponibles dans le coin supérieur gauche',
+  Minimap: 'Minicarte',
+  MinimapContent: 'Ici, vous pouvez trouver une minicarte de votre processus',
+  CommandsContent:
+    'Ici, vous pouvez trouver les commandes pour interagir avec le flux',
+  Commands: 'Commandes',
+  TopRightCommandsContent:
+    "Ici, vous pouvez trouver d'autres commandes pour interagir avec le flux",
+  ExampleContent: "Voici un exemple d'un processus terminé de début à fin",
+  Example: 'Exemple',
+  NodeClick:
+    'En cliquant sur le nœud, vous pouvez voir les propriétés du nœud et les modifier dans la barre latérale droite',
+  NodeProperties: 'Propriétés du nœud',
+  NodePropertiesContent:
+    'Ici, vous pouvez trouver les propriétés du nœud que vous avez sélectionné',
+  EdgeClick:
+    "En cliquant sur l'arête, vous pouvez voir les propriétés de l'arête et les modifier dans la barre latérale droite",
+  EdgeProperties: "Propriétés de l'arête",
+  EdgePropertiesContent:
+    "Ici, vous pouvez trouver les propriétés de l'arête que vous avez sélectionnée",
+  ProcessProperties: 'Propriétés du processus',
+  ProcessPropertiesContent:
+    "Si ni un nœud ni une arête n'est sélectionné, vous pouvez trouver les propriétés du processus ici et les modifier dans la barre latérale droite",
+  Back: 'Retour',
+  Last: 'Dernier',
+  Next: 'Suivant',
+  Skip: 'Passer',
+  'Add a text': 'Ajouter un texte',
+  'Add a Name': 'Ajouter un nom',
+  'Add a Channel': 'Ajouter un canal',
+  'Add a Challenge': 'Ajouter un défi',
+  'Add a Enricher': 'Ajouter un enrichisseur',
+  'Vertical layout': 'Mise en page verticale',
+  'Horizontal layout': 'Mise en page horizontale',
+  'Fit Screen': "Ajuster à l'écran",
+  'Zoom In': 'Zoom avant',
+  'Zoom Out': 'Zoom arrière',
+  'Chain Recovery': 'Récupération de chaîne',
+  'Full screen': 'Plein écran',
+  'Copy as image': 'Copier comme image',
+  'Select nodes': 'Sélectionner les nœuds',
+  'Select edges': 'Sélectionner les arêtes',
+  'Select all': 'Sélectionner tout'
+}
+
+export default fr

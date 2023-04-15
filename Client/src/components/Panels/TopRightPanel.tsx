@@ -42,6 +42,7 @@ const TopRightPanel = ({
         aria-label="Clear"
         className="rounded flex justify-center bg-red-50 py-1 px-2 text-sm font-semibold text-red-700 shadow-sm hover:bg-red-100"
         onClick={() => {
+          // todo: not working properly
           setNodes(nodes)
           setEdges(edges)
           setProcess({

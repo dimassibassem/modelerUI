@@ -51,7 +51,7 @@ const ProcessDefinitionModal = ({
               >
                 <div className="mt-3 text-center sm:mt-3 sm:pb-3">
                   <h3 className="mb-3 text-base font-semibold leading-6 text-gray-900">
-                    {t('Process Definition')}
+                    {t('ProcessDefinition')}
                   </h3>
                   <div className="space-y-6 sm:space-y-5">
                     <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
@@ -112,7 +112,7 @@ const ProcessDefinitionModal = ({
                       }
                     }}
                   >
-                    {t('Start creating your process')}
+                    {t('StartCreating')}
                   </button>
                 </div>
               </div>

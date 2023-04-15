@@ -5,6 +5,7 @@ import {
   ExclamationTriangleIcon
 } from '@heroicons/react/24/outline'
 import { XMarkIcon } from '@heroicons/react/20/solid'
+import { useTranslation } from 'react-i18next'
 
 const Notification = ({
   open,
@@ -27,7 +28,7 @@ const Notification = ({
     }
     return () => {}
   }, [open, setOpen])
-
+  const { t } = useTranslation()
   return (
     <>
       {/* Global notification live region, render this permanently at the end of the document */}
@@ -60,7 +61,7 @@ const Notification = ({
                       </div>
                       <div className="ml-3 w-0 flex-1 pt-0.5">
                         <p className="text-sm font-medium text-gray-900">
-                          {data.message}
+                          {t(data.message)}
                         </p>
                         {/* <p className='mt-1 text-sm text-gray-500'>Anyone with a link can now view this file.</p> */}
                       </div>
@@ -75,7 +76,7 @@ const Notification = ({
                       </div>
                       <div className="ml-3 w-0 flex-1 pt-0.5">
                         <p className="text-sm font-medium text-gray-900">
-                          {data.message}
+                          {t(data.message)}
                         </p>
                         {/* <p className='mt-1 text-sm text-gray-500'>Anyone with a link can now view this file.</p> */}
                       </div>
@@ -89,7 +90,7 @@ const Notification = ({
                         setOpen(false)
                       }}
                     >
-                      <span className="sr-only">Close</span>
+                      <span className="sr-only">{t('Close')}</span>
                       <XMarkIcon className="h-5 w-5" aria-hidden="true" />
                     </button>
                   </div>

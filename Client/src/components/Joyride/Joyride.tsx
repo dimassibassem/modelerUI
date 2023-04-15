@@ -29,19 +29,19 @@ export default ({
 }) => {
   const { setNodes, setEdges, setSelected, nodes, edges, setProcess } =
     useFlowStore(selector, shallow)
+  const { t } = useTranslation()
   const run = useLocalStorage((store) => store.run)
   const setRun = useLocalStorage((store) => store.setRun)
   const [tutorial, setTutorial] = useState<State>({
-    steps: joyrideSteps
+    steps: joyrideSteps(t)
   })
 
   const { clear } = useTemporalStore((state) => state)
   useEffect(() => {
     setTutorial({
-      steps: joyrideSteps
+      steps: joyrideSteps(t)
     })
-  }, [setTutorial])
-  const { t } = useTranslation()
+  }, [setTutorial, t])
 
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { status, index } = data
@@ -57,7 +57,7 @@ export default ({
           setOpenModal(false)
           setProcess({
             name: t('Tutorial'),
-            description: t('This is a tutorial'),
+            description: t('TutorialContent'),
             steps: [],
             hook: {
               name: '',
@@ -288,6 +288,12 @@ export default ({
       scrollToFirstStep
       showProgress
       showSkipButton
+      locale={{
+        back: t('Back'),
+        last: t('Last'),
+        next: t('Next'),
+        skip: t('Skip')
+      }}
       steps={tutorial.steps}
       styles={{
         buttonNext: {

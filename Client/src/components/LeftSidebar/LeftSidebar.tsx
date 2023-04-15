@@ -151,7 +151,7 @@ const LeftSidebar = () => {
                 Tom Cook
               </p>
               <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
-                {t('View profile')}
+                {t('ViewProfile')}
               </p>
             </div>
           </div>

@@ -5,6 +5,7 @@ import {
   MagnifyingGlassPlusIcon
 } from '@heroicons/react/24/outline'
 import { Icon } from '@iconify/react'
+import { useTranslation } from 'react-i18next'
 import IconSwitcher from '@/components/LeftSidebar/IconSwitcher'
 import NodeTypes from '@/types/NodeTypes'
 import capitalize from '@/utils/capitalize'
@@ -92,51 +93,49 @@ const topRightCommands = [
   }
 ]
 
-const ListWithIcons = ({ array }: { array: ListWithProps[] }) => (
-  <ul className="mt-3 grid grid-cols-1 gap-1 gap-y-2">
-    {array.map((item) => (
-      <li
-        key={item.name}
-        className="col-span-1 flex rounded-md border shadow-md"
-      >
-        <div className="flex flex-shrink-0 items-center justify-center p-2">
-          {item.icon}
-        </div>
-        <div className="flex flex-1 items-center justify-between">
-          <div className=" p-2 text-sm">{item.name}</div>
-        </div>
-      </li>
-    ))}
-  </ul>
-)
-
-const joyrideSteps: Step[] = [
+const ListWithIcons = ({ array }: { array: ListWithProps[] }) => {
+  const { t } = useTranslation()
+  return (
+    <ul className="mt-3 grid grid-cols-1 gap-1 gap-y-2">
+      {array.map((item) => (
+        <li
+          key={item.name}
+          className="col-span-1 flex rounded-md border shadow-md"
+        >
+          <div className="flex flex-shrink-0 items-center justify-center p-2">
+            {item.icon}
+          </div>
+          <div className="flex flex-1 items-center justify-between">
+            <div className=" p-2 text-sm">{t(item.name)}</div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  )
+}
+const joyrideSteps = (t = (text: string) => text): Step[] => [
   {
-    content: <p>Let's take a quick tour</p>,
+    content: <p>{t('Tour')}</p>,
     placement: 'center',
     target: 'body',
-    title: <p className="text-indigo-600"> Welcome to the Modeler</p>
+    title: <p className="text-indigo-600">{t('Welcome')}</p>
   },
   {
-    content: (
-      <p>Here you can define the Name and Description for your process</p>
-    ),
+    content: <p>{t('ProcessName')}</p>,
     placement: 'right',
     target: '#process-modal',
-    title: <p className="text-indigo-600">Process Definition</p>
+    title: <p className="text-indigo-600">{t('ProcessDefinition')}</p>
   },
   {
-    content: (
-      <p>It contains all the elements you can use to build your process</p>
-    ),
+    content: <p>{t('Elements')}</p>,
     placement: 'right',
     target: '#left-sidebar',
-    title: <p className="text-indigo-600">Left Sidebar</p>
+    title: <p className="text-indigo-600">{t('Left Sidebar')}</p>
   },
   {
     content: (
       <div>
-        <p>Here you can find all the shapes you can drag to the flow</p>
+        <p>{t('DraggableElements')}</p>
         <div>
           <ul className="mt-3 grid grid-cols-1 gap-1 gap-y-2">
             {shapes.map((shape) => (
@@ -150,7 +149,7 @@ const joyrideSteps: Step[] = [
                 <div className="flex flex-1 ">
                   <div className=" p-2 text-sm">
                     <p className="font-semibold inline-block">
-                      {capitalize(shape)}
+                      {capitalize(t(shape))}
                     </p>
                     : lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Quisquam, quod.
@@ -169,12 +168,10 @@ const joyrideSteps: Step[] = [
     },
     placement: 'right',
     target: '#shapes',
-    title: <p className="text-indigo-600">Shapes</p>
+    title: <p className="text-indigo-600">{t('Shapes')}</p>
   },
   {
-    content: (
-      <p>Here you can drop the shapes you want to use in your process</p>
-    ),
+    content: <p>{t('DropLocation')}</p>,
     placement: 'top',
     target: '#reactflow-wrapper',
     styles: {
@@ -190,7 +187,7 @@ const joyrideSteps: Step[] = [
   {
     content: (
       <div>
-        <p>Undo / Redo actions are available in the top left corner</p>
+        <p>{t('Undo/Redo')}</p>
         <div>
           <ListWithIcons array={undoRedoList} />
         </div>
@@ -198,18 +195,18 @@ const joyrideSteps: Step[] = [
     ),
     placement: 'left',
     target: '#top-left',
-    title: <p className="text-indigo-600">Undo / Redo</p>
+    title: <p className="text-indigo-600">{`${t('Undo')} / ${t('Redo')}`}</p>
   },
   {
-    content: <p>Here you can find a minimap of your process</p>,
+    content: <p>{t('MinimapContent')}</p>,
     placement: 'bottom',
     target: 'div.react-flow__panel.react-flow__minimap.bottom.right',
-    title: <p className="text-indigo-600">Minimap</p>
+    title: <p className="text-indigo-600">{t('Minimap')}</p>
   },
   {
     content: (
       <div>
-        <p>Here you can find the commands to interact with the flow</p>
+        <p>{t('CommandsContent')}</p>
         <ListWithIcons array={bottomLeftCommands} />
       </div>
     ),
@@ -220,21 +217,21 @@ const joyrideSteps: Step[] = [
     },
     placement: 'bottom',
     target: '#bottom-left',
-    title: 'Commands'
+    title: <p className="text-indigo-600">{t('Commands')}</p>
   },
   {
     content: (
       <div>
-        <p>Here you can find other commands</p>
+        <p>{t('TopRightCommandsContent')}</p>
         <ListWithIcons array={topRightCommands} />
       </div>
     ),
     placement: 'top',
     target: '#top-right',
-    title: <p className="text-indigo-600">Commands</p>
+    title: <p className="text-indigo-600">{t('Commands')}</p>
   },
   {
-    content: <p>This is an example of a completed process from start to end</p>,
+    content: <p>{t('ExampleContent')}</p>,
     spotlightPadding: 20,
     styles: {
       spotlight: {
@@ -247,15 +244,10 @@ const joyrideSteps: Step[] = [
     },
     placement: 'top',
     target: 'div.react-flow__node.react-flow__node-start.nopan',
-    title: <p className="text-indigo-600">Example</p>
+    title: <p className="text-indigo-600">{t('Example')}</p>
   },
   {
-    content: (
-      <p>
-        By clicking on the node you can see the properties of the node and edit
-        them in the right sidebar
-      </p>
-    ),
+    content: <p>{t('NodeClick')}</p>,
     placement: 'top',
     styles: {
       spotlight: {
@@ -269,21 +261,16 @@ const joyrideSteps: Step[] = [
       }
     },
     target: 'div.react-flow__node.react-flow__node-policies.nopan',
-    title: <p className="text-indigo-600">Node Properties</p>
+    title: <p className="text-indigo-600">{t('NodeProperties')}</p>
   },
   {
-    content: <p>Here you can find the properties of the node you selected</p>,
+    content: <p>{t('NodePropertiesContent')}</p>,
     placement: 'left',
     target: '#right-sidebar',
-    title: <p className="text-indigo-600">Node Properties</p>
+    title: <p className="text-indigo-600">{t('NodeProperties')}</p>
   },
   {
-    content: (
-      <p>
-        By clicking on the Edge you can see the properties of the Edge and edit
-        them in the right sidebar
-      </p>
-    ),
+    content: <p>{t('EdgeClick')}</p>,
     placement: 'top',
     target: 'g > g:nth-child(1)',
     styles: {
@@ -297,24 +284,19 @@ const joyrideSteps: Step[] = [
         backgroundColor: 'rgba(0, 0, 0, 0.6)'
       }
     },
-    title: <p className="text-indigo-600">Edge Properties</p>
+    title: <p className="text-indigo-600">{t('EdgeProperties')}</p>
   },
   {
-    content: <p>Here you can find the properties of the Edge you selected</p>,
+    content: <p>{t('EdgePropertiesContent')}</p>,
     placement: 'left',
     target: '#right-sidebar',
-    title: <p className="text-indigo-600">Edge Properties</p>
+    title: <p className="text-indigo-600">{t('EdgeProperties')}</p>
   },
   {
-    content: (
-      <p>
-        If neither a node or an edge is selected, you can find the properties of
-        the process here and edit them in the right sidebar
-      </p>
-    ),
+    content: <p>{t('ProcessPropertiesContent')}</p>,
     placement: 'left',
     target: '#right-sidebar',
-    title: <p className="text-indigo-600">Process Properties</p>
+    title: <p className="text-indigo-600">{t('ProcessProperties')}</p>
   }
 ]
 
