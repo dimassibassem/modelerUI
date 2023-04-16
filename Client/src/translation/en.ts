@@ -93,7 +93,7 @@ const en = {
   'Image copied to clipboard': 'Image copied to clipboard',
   'Vertical layout': 'Vertical layout',
   'Horizontal layout': 'Horizontal layout',
-  'Fit Screen': 'Fit Screen',
+  'Fit View': 'Fit View',
   'Zoom In': 'Zoom In',
   'Zoom Out': 'Zoom Out',
   'Chain Recovery': 'Chain Recovery',

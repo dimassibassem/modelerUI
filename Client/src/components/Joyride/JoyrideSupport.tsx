@@ -56,7 +56,7 @@ const bottomLeftCommands = [
     )
   },
   {
-    name: 'Fit Screen',
+    name: 'Fit View',
     icon: <Icon className="w-5 h-5" icon="material-symbols:fit-screen" />
   },
   {

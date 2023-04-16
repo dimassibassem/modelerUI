@@ -1,6 +1,8 @@
 import React from 'react'
 import { Panel } from 'reactflow'
 import { Icon } from '@iconify/react'
+import { Tooltip } from 'react-tooltip'
+import { useTranslation } from 'react-i18next'
 import classNames from '@/utils/classNames'
 import { useTemporalStore } from '@/store'
 
@@ -8,11 +10,29 @@ const TopLeftPanel = () => {
   const { undo, redo, futureStates, pastStates } = useTemporalStore(
     (state) => state
   )
+  const { t } = useTranslation()
 
   return (
     <Panel id="top-left" className="grid grid-cols-1 gap-2" position="top-left">
+      <Tooltip
+        id="UndoAndRedo"
+        delayShow={600}
+        style={{
+          backgroundColor: '#e0e7ff',
+          color: '#4f46e5',
+          borderRadius: '0.375rem',
+          padding: '0.5rem',
+          fontSize: '1rem',
+          lineHeight: '1.5rem',
+          fontWeight: 500
+        }}
+      />
       <div className="grid grid-cols-2 items-stretch gap-2">
-        <div className="group flex relative">
+        <div
+          className="group flex relative"
+          data-tooltip-id="UndoAndRedo"
+          data-tooltip-content={t('Undo') as string}
+        >
           <button
             aria-label="Undo"
             className={classNames(
@@ -29,14 +49,12 @@ const TopLeftPanel = () => {
           >
             <Icon className="w-5 h-5" icon="material-symbols:undo" />
           </button>
-          <span
-            className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2
-    -translate-x-1/2 translate-y-full opacity-0 m-4 mx-auto"
-          >
-            Undo
-          </span>
         </div>
-        <div className="group flex relative">
+        <div
+          className="group flex relative"
+          data-tooltip-id="UndoAndRedo"
+          data-tooltip-content={t('Redo') as string}
+        >
           <button
             aria-label="Redo"
             className={classNames(
@@ -53,12 +71,6 @@ const TopLeftPanel = () => {
           >
             <Icon className="w-5 h-5" icon="material-symbols:undo" hFlip />
           </button>
-          <span
-            className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2
-    -translate-x-1/2 translate-y-full opacity-0 m-4 mx-auto"
-          >
-            Redo
-          </span>
         </div>
       </div>
     </Panel>

@@ -101,7 +101,7 @@ const fr = {
   'Image copied to clipboard': 'Image copiée dans le presse-papiers',
   'Vertical layout': 'Mise en page verticale',
   'Horizontal layout': 'Mise en page horizontale',
-  'Fit Screen': "Ajuster à l'écran",
+  'Fit View': 'Ajuster la vue',
   'Zoom In': 'Zoom avant',
   'Zoom Out': 'Zoom arrière',
   'Chain Recovery': 'Récupération de chaîne',

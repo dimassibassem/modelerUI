@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import NotFound from '@/pages/404'
 import Loading from '@/components/Loading'
 import '@/translation/i18'
+import 'react-tooltip/dist/react-tooltip.css'
 
 const DnDFlow = lazy(() => import('@/pages/index'))
 

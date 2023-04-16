@@ -5,6 +5,8 @@ import {
   MagnifyingGlassPlusIcon
 } from '@heroicons/react/24/outline'
 import { Icon } from '@iconify/react'
+import { Tooltip } from 'react-tooltip'
+import { useTranslation } from 'react-i18next'
 import onLayout from '@/utils/Flow/onLayout'
 import { VerticalLayout, HorizontalLayout } from '@/types/NodeLayout'
 
@@ -32,16 +34,32 @@ const BottomLeftPanel = ({
     HorizontalLayout.LeftToRight
   )
   const [isFullScreen, setIsFullScreen] = useState(false)
+  const { t } = useTranslation()
   return (
     <Panel
       id="bottom-left"
       className="grid grid-cols-1 gap-2"
       position="bottom-left"
     >
+      <Tooltip
+        id="BottomLeftCommands"
+        delayShow={600}
+        style={{
+          backgroundColor: '#e0e7ff',
+          color: '#4f46e5',
+          borderRadius: '0.375rem',
+          padding: '0.5rem',
+          fontSize: '1rem',
+          lineHeight: '1.5rem',
+          fontWeight: 500
+        }}
+      />
       <div className=" grid grid-cols-3 gap-2 justify-items-stretch">
         <button
           className="rounded flex justify-center bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
           type="button"
+          data-tooltip-id="BottomLeftCommands"
+          data-tooltip-content={t('Vertical layout') as string}
           aria-label="Vertical layout"
           onClick={() => {
             onLayout(verticalLayout, nodes, edges, setNodes, setEdges)
@@ -60,6 +78,8 @@ const BottomLeftPanel = ({
         <button
           className="rounded flex justify-center bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
           type="button"
+          data-tooltip-id="BottomLeftCommands"
+          data-tooltip-content={t('Horizontal layout') as string}
           aria-label="Horizontal layout"
           onClick={() => {
             onLayout(horizontalLayout, nodes, edges, setNodes, setEdges)
@@ -77,6 +97,8 @@ const BottomLeftPanel = ({
         </button>
         <button
           type="button"
+          data-tooltip-id="BottomLeftCommands"
+          data-tooltip-content={t('Fit View') as string}
           aria-label="Fit View"
           className="rounded flex justify-center bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
           onClick={() => {
@@ -90,6 +112,8 @@ const BottomLeftPanel = ({
       <div className="grid grid-cols-4 gap-2 justify-items-stretch">
         <button
           id="chainRecovery"
+          data-tooltip-id="BottomLeftCommands"
+          data-tooltip-content={t('Chain Recovery') as string}
           aria-label="Chain Recovery"
           type="button"
           className="flex justify-center rounded bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
@@ -105,6 +129,8 @@ const BottomLeftPanel = ({
         </button>
         <button
           type="button"
+          data-tooltip-id="BottomLeftCommands"
+          data-tooltip-content={t('Zoom In') as string}
           aria-label="Zoom in"
           className="flex justify-center rounded bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
           onClick={() => {
@@ -116,6 +142,8 @@ const BottomLeftPanel = ({
         </button>
         <button
           type="button"
+          data-tooltip-id="BottomLeftCommands"
+          data-tooltip-content={t('Zoom Out') as string}
           aria-label="Zoom out"
           className="flex justify-center rounded bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
           onClick={() => {
@@ -128,6 +156,8 @@ const BottomLeftPanel = ({
 
         <button
           type="button"
+          data-tooltip-id="BottomLeftCommands"
+          data-tooltip-content={t('Full screen') as string}
           aria-label="Full screen"
           className="rounded flex justify-center just bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
           onClick={async () => {
