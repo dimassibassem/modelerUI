@@ -15,7 +15,7 @@ const useHandleNodeSize = (
   return useEffect(() => {
     setWidth(nodes.find((node) => node.id === id)?.width || 50)
     setHeight(nodes.find((node) => node.id === id)?.height || 50)
-  }, [nodes])
+  }, [id, nodes, setHeight, setWidth])
 }
 
 export default useHandleNodeSize

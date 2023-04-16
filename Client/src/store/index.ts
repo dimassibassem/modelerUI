@@ -1,20 +1,8 @@
 import { create, useStore } from 'zustand'
-import {
-  Connection,
-  Edge,
-  EdgeChange,
-  Node,
-  NodeChange,
-  addEdge,
-  applyNodeChanges,
-  applyEdgeChanges,
-  MarkerType,
-  updateEdge
-} from 'reactflow'
+import { Edge, Node } from 'reactflow'
 import { temporal, TemporalState } from 'zundo'
 import { devtools } from 'zustand/middleware'
 import equal from 'deep-equal'
-import uniqid from 'uniqid'
 import { RFState } from '@/types/RFState'
 import Process from '@/types/Process'
 
@@ -37,7 +25,7 @@ const useFlowStore = create(
   temporal<RFState>(
     // @ts-ignore
     devtools(
-      (set, get) => ({
+      (set) => ({
         process: initialProcess,
         nodes: initialNodes,
         edges: initialEdges,
@@ -47,50 +35,7 @@ const useFlowStore = create(
           set({ selected }, false, 'setSelected')
         },
         setNodes: (nodes: Node[]) => set({ nodes }, false, 'setNodes'),
-        setEdges: (edges: Edge[]) => set({ edges }, false, 'setEdges'),
-        onNodesChange: (changes: NodeChange[]) => {
-          set(
-            {
-              nodes: applyNodeChanges(changes, get().nodes)
-            },
-            false,
-            'onNodesChange'
-          )
-        },
-        onEdgesChange: (changes: EdgeChange[]) => {
-          set(
-            {
-              edges: applyEdgeChanges(changes, get().edges)
-            },
-            false,
-            'onEdgesChange'
-          )
-        },
-        onEdgeUpdate: (oldEdge: Edge, newConnection: Connection) => {
-          set(
-            {
-              edges: updateEdge(oldEdge, newConnection, get().edges)
-            },
-            false,
-            'onEdgeUpdate'
-          )
-        },
-
-        onConnect: (connection: Connection) => {
-          const newEdge = {
-            ...connection,
-            id: uniqid(),
-            markerEnd: { type: MarkerType.Arrow }
-          }
-
-          set(
-            {
-              edges: addEdge(newEdge, get().edges)
-            },
-            false,
-            'onConnect'
-          )
-        }
+        setEdges: (edges: Edge[]) => set({ edges }, false, 'setEdges')
       }),
       {
         name: 'FlowStore',
@@ -107,15 +52,7 @@ const useFlowStore = create(
         equal(
           {
             nodes: a.nodes,
-            edges: a.edges
-          },
-          {
-            nodes: b.nodes,
-            edges: b.edges
-          }
-        ) &&
-        equal(
-          {
+            edges: a.edges,
             process:
               a.process.name +
               a.process.description +
@@ -123,6 +60,8 @@ const useFlowStore = create(
               a.process.hook.isAsync
           },
           {
+            nodes: b.nodes,
+            edges: b.edges,
             process:
               b.process.name +
               b.process.description +

@@ -23,7 +23,7 @@ const useShortcuts = (
   setNotificationData: (data: { success: boolean; message: string }) => void,
   setOpenNotification: (open: boolean) => void
 ) => {
-  const { setNodes, setEdges } = useFlowStore(selector, shallow)
+  const { nodes, edges, setNodes, setEdges } = useFlowStore(selector, shallow)
   const { undo, redo, pause, resume } = useTemporalStore((state) => state)
 
   useEventListener('keydown', async (e) => {
@@ -56,7 +56,8 @@ const useShortcuts = (
         if (e.ctrlKey) {
           e.preventDefault()
           await pasteFromClipboard({
-            reactFlowInstance,
+            nodes,
+            edges,
             setNodes,
             setEdges,
             lastNodeId,

@@ -1,4 +1,4 @@
-import { Edge, Node, ReactFlowInstance } from 'reactflow'
+import { Edge, Node } from 'reactflow'
 import uniqid from 'uniqid'
 
 function isJson(str: string) {
@@ -12,7 +12,8 @@ function isJson(str: string) {
 
 let padding = 0
 const pasteFromClipboard = async ({
-  reactFlowInstance,
+  nodes,
+  edges,
   setNodes,
   setEdges,
   lastNodeId,
@@ -22,7 +23,8 @@ const pasteFromClipboard = async ({
   pause,
   resume
 }: {
-  reactFlowInstance: ReactFlowInstance | null
+  nodes: Node[]
+  edges: Edge[]
   setNodes: (nodes: Node[]) => void
   setEdges: (edges: Edge[]) => void
   lastNodeId: number
@@ -94,9 +96,6 @@ const pasteFromClipboard = async ({
       position: { x: node.position.x + padding, y: node.position.y + padding }
     }
   })
-
-  const nodes = reactFlowInstance?.getNodes()
-  const edges = reactFlowInstance?.getEdges()
 
   // deselect everything before pasting
   nodes?.forEach((node) => {
