@@ -13,7 +13,20 @@ export default defineConfig({
         manualChunks: {
           react: ['react', 'react-dom', 'react-router-dom'],
           reactFlow: ['reactflow'],
-          translations: ['react-i18next', 'i18next']
+          translations: ['react-i18next', 'i18next'],
+          styling: [
+            '@headlessui/react',
+            '@heroicons/react',
+            '@iconify/react',
+            '@tailwindcss/forms',
+            '@tailwindcss/aspect-ratio',
+            'css-filter-converter',
+            'react-tooltip',
+            'react-tooltip/dist/react-tooltip.css',
+            'reactflow/dist/style.css',
+            'react-contexify',
+            'react-contexify/ReactContexify.css'
+          ]
         }
       }
     }
