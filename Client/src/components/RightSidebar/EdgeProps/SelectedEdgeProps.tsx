@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Switch } from '@headlessui/react'
 import { Edge, EdgeMarker, MarkerType } from 'reactflow'
 import { shallow } from 'zustand/shallow'
+import { useTranslation } from 'react-i18next'
 import EdgeRadioGroup from '@/components/RightSidebar/EdgeProps/EdgeRadioGroup'
 import classNames from '@/utils/classNames'
 import EdgeMarkerTypeRadio from '@/components/RightSidebar/EdgeProps/EdgeMarkerTypeRadio'
@@ -68,7 +69,7 @@ const SelectedEdgeProps = () => {
     setLabel(selected?.label || '')
     setLabelBg(selected?.labelBgStyle?.fill || '#ffffff')
   }, [selected])
-
+  const { t } = useTranslation()
   return (
     <div>
       <EdgeRadioGroup edgeType={type} setEdgeType={setType} />
@@ -94,7 +95,7 @@ const SelectedEdgeProps = () => {
           htmlFor="animated"
           className="ml-3 text-sm font-medium text-gray-900"
         >
-          Animated
+          {t('Animated')}
         </label>
       </div>
       <EdgeMarkerTypeRadio
@@ -106,14 +107,14 @@ const SelectedEdgeProps = () => {
         setStrokeWidth={setStrokeWidth}
       />
       <label htmlFor="label" className="ml-3 text-sm font-medium text-gray-900">
-        Label
+        {t('Label')}
       </label>
       <div className="grid grid-cols-4 gap-4">
         <input
           type="text"
           id="label"
           className="block p-1 w-full col-span-3 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-          placeholder="Add a Label"
+          placeholder={t('Add a Label') as string}
           value={label ? String(label) : ''}
           onChange={(e) => setLabel(e.target.value)}
         />

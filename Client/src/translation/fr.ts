@@ -31,13 +31,7 @@ const fr = {
   Cut: 'Couper',
   Paste: 'Coller',
   Close: 'Fermer',
-  'Clipboard is empty or contains invalid data':
-    'Le presse-papiers est vide ou contient des données invalides',
-  'There can only be one start node':
-    "Il ne peut y avoir qu'un seul nœud de départ",
-  'There can only be one end node': "Il ne peut y avoir qu'un seul nœud de fin",
-  'Image copied to clipboard': 'Image copiée dans le presse-papiers',
-  Undo: 'défaire',
+  Undo: 'Défaire',
   Redo: 'Rétablir',
   Clear: 'Effacer',
   Save: 'Sauvegarder',
@@ -81,11 +75,30 @@ const fr = {
   Last: 'Dernier',
   Next: 'Suivant',
   Skip: 'Passer',
+  StartContent: 'Ceci est le début du processus',
+  EndContent: 'Ceci est la fin du processus',
+  PoliciesContent:
+    'Dans ce nœud, vous pouvez définir les politiques du processus',
+  ExecutionContent:
+    'Dans ce nœud, vous pouvez définir l’exécution du processus',
+  ProvisionersContent:
+    'Dans ce nœud, vous pouvez définir les provisioners du processus',
+  RuleContent: 'Dans ce nœud, vous pouvez définir les règles du processus',
+  default: 'par défaut',
+  Animated: 'Animé',
+  Stroke: 'Trait',
   'Add a text': 'Ajouter un texte',
   'Add a Name': 'Ajouter un nom',
   'Add a Channel': 'Ajouter un canal',
   'Add a Challenge': 'Ajouter un défi',
   'Add a Enricher': 'Ajouter un enrichisseur',
+  'Add a Label': 'Ajouter une étiquette',
+  'Clipboard is empty or contains invalid data':
+    'Le presse-papiers est vide ou contient des données invalides',
+  'There can only be one start node':
+    "Il ne peut y avoir qu'un seul nœud de départ",
+  'There can only be one end node': "Il ne peut y avoir qu'un seul nœud de fin",
+  'Image copied to clipboard': 'Image copiée dans le presse-papiers',
   'Vertical layout': 'Mise en page verticale',
   'Horizontal layout': 'Mise en page horizontale',
   'Fit Screen': "Ajuster à l'écran",

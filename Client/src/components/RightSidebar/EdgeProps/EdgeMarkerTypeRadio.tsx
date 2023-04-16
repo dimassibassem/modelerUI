@@ -1,6 +1,7 @@
 import { RadioGroup } from '@headlessui/react'
 import { MarkerType } from 'reactflow'
 import { FC } from 'react'
+import { Icon } from '@iconify/react'
 import classNames from '@/utils/classNames'
 
 const markerTypes = [MarkerType.Arrow, MarkerType.ArrowClosed]
@@ -26,11 +27,23 @@ const EdgeMarkerTypeRadio: FC<{
               checked
                 ? 'bg-indigo-600 text-white hover:bg-indigo-500'
                 : 'ring-1 ring-inset ring-gray-300 bg-white text-gray-900 hover:bg-gray-50',
-              'flex items-center justify-center rounded-md py-3 px-3 text-sm font-semibold uppercase sm:flex-1 cursor-pointer focus:outline-none'
+              'flex items-center justify-center rounded-md py-2 px-2 text-sm font-semibold uppercase sm:flex-1 cursor-pointer focus:outline-none'
             )
           }
         >
-          <RadioGroup.Label as="span">{mt}</RadioGroup.Label>
+          <RadioGroup.Label as="span">
+            {mt === MarkerType.Arrow ? (
+              <Icon
+                className="w-6 h-6"
+                icon="material-symbols:arrow-right-alt"
+              />
+            ) : (
+              <Icon
+                className="w-6 h-6"
+                icon="material-symbols:line-end-arrow-rounded"
+              />
+            )}
+          </RadioGroup.Label>
         </RadioGroup.Option>
       ))}
     </div>
