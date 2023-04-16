@@ -82,7 +82,15 @@ function useOnDropNode(
 
       setNodes(nodes.concat(newNode))
     },
-    [reactFlowWrapper, nodes, reactFlowInstance, setId, setNodes, setNotificationData, setOpenNotification]
+    [
+      reactFlowWrapper,
+      nodes,
+      reactFlowInstance,
+      setId,
+      setNodes,
+      setNotificationData,
+      setOpenNotification
+    ]
   )
 }
 
