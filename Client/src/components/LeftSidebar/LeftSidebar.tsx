@@ -9,6 +9,7 @@ import NodeTypes from '@/types/NodeTypes'
 import classNames from '@/utils/classNames'
 import useLocalStorage from '@/store/localStorage'
 import LangSelect from '@/components/LeftSidebar/LangSelect'
+import capitalize from '@/utils/capitalize'
 
 const shapes = [
   NodeTypes.Start,
@@ -126,9 +127,9 @@ const LeftSidebar = () => {
                     className="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6"
                     aria-hidden="true"
                   >
-                    {IconSwitcher(item)}
+                    <IconSwitcher node={item} />
                   </div>
-                  <span className="flex-1">{t(item)}</span>
+                  <span className="flex-1">{capitalize(t(item))}</span>
                 </div>
               ))}
             </div>

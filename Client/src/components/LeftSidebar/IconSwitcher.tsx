@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react'
 import NodeTypes from '@/types/NodeTypes'
 
-const IconSwitcher = (node: NodeTypes) => {
+const IconSwitcher = ({ node }: { node: NodeTypes }) => {
   switch (node) {
     case NodeTypes.Start:
       return <Icon icon="mdi:asterisk-circle-outline" height={24} width={24} />
@@ -22,7 +22,7 @@ const IconSwitcher = (node: NodeTypes) => {
         <Icon icon="material-symbols:square-outline" height={24} width={24} />
       )
     default:
-      return <div />
+      return null
   }
 }
 

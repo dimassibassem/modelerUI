@@ -6,9 +6,10 @@ import {
 } from '@heroicons/react/24/outline'
 import { Icon } from '@iconify/react'
 import { useTranslation } from 'react-i18next'
-import IconSwitcher from '@/components/LeftSidebar/IconSwitcher'
 import NodeTypes from '@/types/NodeTypes'
 import capitalize from '@/utils/capitalize'
+import IconSwitcher from '@/components/LeftSidebar/IconSwitcher'
+import DefinitionSwitcher from '@/components/Joyride/DefinitionSwitcher'
 
 const shapes = [
   NodeTypes.Start,
@@ -137,38 +138,45 @@ const joyrideSteps = (t = (text: string) => text): Step[] => [
       <div>
         <p>{t('DraggableElements')}</p>
         <div>
-          <ul className="mt-3 grid grid-cols-1 gap-1 gap-y-2">
-            {shapes.map((shape) => (
-              <li
-                key={shape}
-                className="col-span-1 flex rounded-md border shadow-md"
-              >
-                <div className="flex flex-shrink-0 items-center p-2">
-                  {IconSwitcher(shape)}
-                </div>
-                <div className="flex flex-1 ">
-                  <div className=" p-2 text-sm">
-                    <p className="font-semibold inline-block">
-                      {capitalize(t(shape))}
-                    </p>
-                    : lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quisquam, quod.
+          <div>
+            <ul className="mt-3 grid grid-cols-1 gap-2 ">
+              {shapes.map((shape) => (
+                <li
+                  key={shape}
+                  className="col-span-1 flex rounded-md shadow-md"
+                >
+                  <div className="flex-shrink-0 flex items-center justify-center">
+                    <IconSwitcher node={shape} />
                   </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+                  <div className=" flex border-gray-200 ">
+                    <div className=" px-4 py-2 text-sm ">
+                      <p className="font-medium text-gray-900 ">
+                        {capitalize(t(shape))}
+                        <DefinitionSwitcher type={shape} />
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     ),
     styles: {
+      tooltipTitle: {
+        textAlign: 'center'
+      },
+      tooltipContainer: {
+        textAlign: 'left'
+      },
       options: {
         width: 400
       }
     },
     placement: 'right',
     target: '#shapes',
-    title: <p className="text-indigo-600">{t('Shapes')}</p>
+    title: <p className="text-indigo-600 ">{t('Shapes')}</p>
   },
   {
     content: <p>{t('DropLocation')}</p>,
