@@ -1,11 +1,4 @@
-import {
-  Edge,
-  Node,
-  OnConnect,
-  OnEdgesChange,
-  OnNodesChange,
-  Connection
-} from 'reactflow'
+import { Edge, Node } from 'reactflow'
 import Process from './Process'
 
 export interface RFState {
@@ -16,11 +9,5 @@ export interface RFState {
   edges: Edge[]
   setEdges: (edges: Edge[]) => void
   selected: Node | Edge | null
-
   setSelected(selected: Node | Edge | null): void
-
-  onNodesChange: OnNodesChange
-  onEdgesChange: OnEdgesChange
-  onEdgeUpdate: (oldEdge: Edge, newConnection: Connection) => void
-  onConnect: OnConnect
 }
