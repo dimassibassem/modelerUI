@@ -1,10 +1,13 @@
 enum VerticalLayout {
-  TopToBottom = 'TB',
-  BottomToTop = 'BT'
-}
-enum HorizontalLayout {
-  LeftToRight = 'LR',
-  RightToLeft = 'RL'
+  TopToBottom = "TB",
+  BottomToTop = "BT"
 }
 
-export { VerticalLayout, HorizontalLayout }
+enum HorizontalLayout {
+  LeftToRight = "LR",
+  RightToLeft = "RL"
+}
+
+export type Direction = HorizontalLayout | VerticalLayout;
+
+export { VerticalLayout, HorizontalLayout };
