@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import isValidConnection from '@/utils/Node/isValidConnection'
 import connectableWith from '@/utils/Node/connectableWith'
-import NodeTypes from '@/types/NodeTypes'
+import NodeType from '@/types/NodeType'
 
 describe('isValidConnection', () => {
   it('should return true if the connection is valid', () => {
@@ -11,7 +11,7 @@ describe('isValidConnection', () => {
         type: 'start',
         position: { x: 0, y: 0 },
         data: {
-          connectableWith: connectableWith(NodeTypes.Start)
+          connectableWith: connectableWith(NodeType.Start)
         }
       },
       {
@@ -19,7 +19,7 @@ describe('isValidConnection', () => {
         type: 'end',
         position: { x: 200, y: 200 },
         data: {
-          connectableWith: connectableWith(NodeTypes.End)
+          connectableWith: connectableWith(NodeType.End)
         }
       }
     ]

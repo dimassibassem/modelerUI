@@ -28,7 +28,7 @@ import isValidConnection from '@/utils/Node/isValidConnection'
 import useRemoveWatermark from '@/hooks/useRemoveWatermark'
 import BottomLeftPanel from '@/components/Panels/BottomLeftPanel'
 import TopLeftPanel from '@/components/Panels/TopLeftPanel'
-import NodeTypes from '@/types/NodeTypes'
+import NodeType from '@/types/NodeType'
 import { handleContextMenu } from '@/utils/ContextMenu/handleContextMenu'
 import ContextMenu from '@/components/ContextMenu'
 import Notification from '@/components/Modals/Notification'
@@ -178,7 +178,7 @@ const DnDFlow = () => {
             />
             <MiniMap
               style={{ background: '#ccc' }}
-              nodeColor={(node: Node) => nodeColor(node.type as NodeTypes)}
+              nodeColor={(node: Node) => nodeColor(node.type as NodeType)}
               nodeStrokeWidth={3}
               zoomable
               pannable

@@ -1,22 +1,22 @@
 import { useTranslation } from 'react-i18next'
-import NodeTypes from '@/types/NodeTypes'
+import NodeType from '@/types/NodeType'
 
-const DefinitionSwitcher = ({ type }: { type: NodeTypes }) => {
+const DefinitionSwitcher = ({ type }: { type: NodeType }) => {
   const { t } = useTranslation()
   switch (type) {
-    case NodeTypes.Start:
+    case NodeType.Start:
       return <span className="text-gray-500 pl-2">{t('StartContent')}</span>
-    case NodeTypes.End:
+    case NodeType.End:
       return <span className="text-gray-500 pl-2">{t('EndContent')}</span>
-    case NodeTypes.Policies:
+    case NodeType.Policies:
       return <span className="text-gray-500 pl-2">{t('PoliciesContent')}</span>
-    case NodeTypes.Execution:
+    case NodeType.Execution:
       return <span className="text-gray-500 pl-2">{t('ExecutionContent')}</span>
-    case NodeTypes.Provisioners:
+    case NodeType.Provisioners:
       return (
         <span className="text-gray-500 pl-2">{t('ProvisionersContent')}</span>
       )
-    case NodeTypes.Rule:
+    case NodeType.Rule:
       return <span className="text-gray-500 pl-2">{t('RuleContent')}</span>
     default:
       return null

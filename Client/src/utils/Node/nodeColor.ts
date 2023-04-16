@@ -1,18 +1,18 @@
-import NodeTypes from '@/types/NodeTypes'
+import NodeType from '@/types/NodeType'
 
-const nodeColor = (type: NodeTypes) => {
+const nodeColor = (type: NodeType) => {
   switch (type) {
-    case NodeTypes.Start:
+    case NodeType.Start:
       return '#b2c711'
-    case NodeTypes.End:
+    case NodeType.End:
       return '#6865A5'
-    case NodeTypes.Execution:
+    case NodeType.Execution:
       return '#ff05f1'
-    case NodeTypes.Policies:
+    case NodeType.Policies:
       return '#86c20b'
-    case NodeTypes.Provisioners:
+    case NodeType.Provisioners:
       return '#00ffff'
-    case NodeTypes.Rule:
+    case NodeType.Rule:
       return '#cdff54'
     default:
       return '#ff0072'

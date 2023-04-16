@@ -1,25 +1,25 @@
-import NodeTypes from '@/types/NodeTypes'
+import NodeType from '@/types/NodeType'
 
-const attributeSwitcher = (type: NodeTypes) => {
+const attributeSwitcher = (type: NodeType) => {
   switch (type) {
-    case NodeTypes.Policies:
+    case NodeType.Policies:
       return {
         name: '',
         channel: ''
       }
-    case NodeTypes.Provisioners:
+    case NodeType.Provisioners:
       return {
         name: '',
         challenge: '',
         channel: ''
       }
-    case NodeTypes.Rule:
+    case NodeType.Rule:
       return {
         name: '',
         enricher: '',
         channel: ''
       }
-    case NodeTypes.Execution:
+    case NodeType.Execution:
       return {
         name: '',
         channel: ''

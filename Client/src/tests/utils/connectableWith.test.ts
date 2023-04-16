@@ -1,41 +1,41 @@
 import { describe, it, expect } from 'vitest'
 import connectableWith from '@/utils/Node/connectableWith'
-import NodeTypes from '@/types/NodeTypes'
+import NodeType from '@/types/NodeType'
 
 describe('connectableWith', () => {
   it('should return an array of NodeTypes', () => {
-    expect(connectableWith(NodeTypes.Start)).toEqual([
-      NodeTypes.End,
-      NodeTypes.Policies,
-      NodeTypes.Execution,
-      NodeTypes.Provisioners,
-      NodeTypes.Rule
+    expect(connectableWith(NodeType.Start)).toEqual([
+      NodeType.End,
+      NodeType.Policies,
+      NodeType.Execution,
+      NodeType.Provisioners,
+      NodeType.Rule
     ])
-    expect(connectableWith(NodeTypes.End)).toEqual([])
-    expect(connectableWith(NodeTypes.Policies)).toEqual([
-      NodeTypes.End,
-      NodeTypes.Policies,
-      NodeTypes.Execution,
-      NodeTypes.Rule
+    expect(connectableWith(NodeType.End)).toEqual([])
+    expect(connectableWith(NodeType.Policies)).toEqual([
+      NodeType.End,
+      NodeType.Policies,
+      NodeType.Execution,
+      NodeType.Rule
     ])
-    expect(connectableWith(NodeTypes.Provisioners)).toEqual([
-      NodeTypes.End,
-      NodeTypes.Policies,
-      NodeTypes.Execution,
-      NodeTypes.Provisioners,
-      NodeTypes.Rule
+    expect(connectableWith(NodeType.Provisioners)).toEqual([
+      NodeType.End,
+      NodeType.Policies,
+      NodeType.Execution,
+      NodeType.Provisioners,
+      NodeType.Rule
     ])
-    expect(connectableWith(NodeTypes.Rule)).toEqual([
-      NodeTypes.End,
-      NodeTypes.Execution,
-      NodeTypes.Provisioners,
-      NodeTypes.Rule
+    expect(connectableWith(NodeType.Rule)).toEqual([
+      NodeType.End,
+      NodeType.Execution,
+      NodeType.Provisioners,
+      NodeType.Rule
     ])
-    expect(connectableWith(NodeTypes.Execution)).toEqual([
-      NodeTypes.End,
-      NodeTypes.Policies,
-      NodeTypes.Provisioners,
-      NodeTypes.Rule
+    expect(connectableWith(NodeType.Execution)).toEqual([
+      NodeType.End,
+      NodeType.Policies,
+      NodeType.Provisioners,
+      NodeType.Rule
     ])
   })
 })

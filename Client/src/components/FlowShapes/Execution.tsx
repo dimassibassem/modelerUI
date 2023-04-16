@@ -4,7 +4,7 @@ import useShowToolbar from '@/hooks/useShowToolbar'
 import execution from '@/assets/Hexagon.png'
 import Handles from './Handles'
 import useCustomNodeProps from '@/hooks/useCustomNodeProps'
-import NodeTypes from '@/types/NodeTypes'
+import NodeType from '@/types/NodeType'
 import { useTemporalStore } from '@/store'
 import useHandleNodeSize from '@/hooks/useHandleNodeSize'
 
@@ -20,7 +20,7 @@ const Execution: FC<NodeProps> = ({ id, type, data, dragging, selected }) => {
     showToolbar,
     setShowToolbar,
     filter
-  } = useCustomNodeProps(type as NodeTypes, 50, 50)
+  } = useCustomNodeProps(type as NodeType, 50, 50)
 
   useHandleNodeSize(id, setWidth, setHeight)
   useShowToolbar(isHover, dragging, setShowToolbar)

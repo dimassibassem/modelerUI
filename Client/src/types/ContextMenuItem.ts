@@ -1,4 +1,4 @@
-enum ContextMenuItems {
+enum ContextMenuItem {
   Copy = 'copy',
   Cut = 'cut',
   Paste = 'paste',
@@ -8,4 +8,4 @@ enum ContextMenuItems {
   CopyAsImage = 'copyAsImage'
 }
 
-export default ContextMenuItems
+export default ContextMenuItem

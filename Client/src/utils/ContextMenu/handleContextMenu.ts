@@ -6,13 +6,13 @@ import selectNodes from './selectNodes'
 import selectEdges from './selectEdges'
 import copySelected from './copySelected'
 import pasteFromClipboard from './pasteFromClipboard'
-import ContextMenuItems from '@/types/ContextMenuItems'
+import ContextMenuItem from '@/types/ContextMenuItem'
 import cutSelected from './cutSelected'
 import selectAll from '@/utils/Flow/selectAll'
 
 export const handleItemClick = async ({ id, props }: ItemParams) => {
-  switch (id as ContextMenuItems) {
-    case ContextMenuItems.Copy: {
+  switch (id as ContextMenuItem) {
+    case ContextMenuItem.Copy: {
       await copySelected(
         props.reactFlowInstance,
         props.lastNodeId,
@@ -21,11 +21,11 @@ export const handleItemClick = async ({ id, props }: ItemParams) => {
       )
       break
     }
-    case ContextMenuItems.Paste: {
+    case ContextMenuItem.Paste: {
       await pasteFromClipboard(props)
       break
     }
-    case ContextMenuItems.Cut:
+    case ContextMenuItem.Cut:
       await cutSelected(
         props.reactFlowInstance,
         props.setNodes,
@@ -35,7 +35,7 @@ export const handleItemClick = async ({ id, props }: ItemParams) => {
         props.copy
       )
       break
-    case ContextMenuItems.CopyAsImage: {
+    case ContextMenuItem.CopyAsImage: {
       await copyAsImage(
         props.reactFlowInstance,
         props.setOpenNotification,
@@ -43,15 +43,15 @@ export const handleItemClick = async ({ id, props }: ItemParams) => {
       )
       break
     }
-    case ContextMenuItems.SelectNodes: {
+    case ContextMenuItem.SelectNodes: {
       selectNodes(props.reactFlowInstance)
       break
     }
-    case ContextMenuItems.SelectEdges: {
+    case ContextMenuItem.SelectEdges: {
       selectEdges(props.reactFlowInstance)
       break
     }
-    case ContextMenuItems.SelectAll: {
+    case ContextMenuItem.SelectAll: {
       selectAll(
         props.reactFlowInstance,
         props.setNodes,

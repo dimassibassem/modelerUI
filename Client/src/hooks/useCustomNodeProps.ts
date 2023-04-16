@@ -2,9 +2,9 @@ import { useRef, useState } from 'react'
 import { useHover } from 'usehooks-ts'
 import CssFilterConverter from 'css-filter-converter'
 import nodeColor from '@/utils/Node/nodeColor'
-import NodeTypes from '@/types/NodeTypes'
+import NodeType from '@/types/NodeType'
 
-function useCustomNodeProps(type: NodeTypes, w: number, h: number) {
+function useCustomNodeProps(type: NodeType, w: number, h: number) {
   const [width, setWidth] = useState(w)
   const [height, setHeight] = useState(h)
   const hoverRef = useRef(null)

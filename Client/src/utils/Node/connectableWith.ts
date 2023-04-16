@@ -1,52 +1,52 @@
-import NodeTypes from '@/types/NodeTypes'
+import NodeType from '@/types/NodeType'
 
-const connectableWith = (type: NodeTypes): NodeTypes[] => {
+const connectableWith = (type: NodeType): NodeType[] => {
   switch (type) {
-    case NodeTypes.Start:
+    case NodeType.Start:
       return [
-        NodeTypes.End,
-        NodeTypes.Policies,
-        NodeTypes.Execution,
-        NodeTypes.Provisioners,
-        NodeTypes.Rule
+        NodeType.End,
+        NodeType.Policies,
+        NodeType.Execution,
+        NodeType.Provisioners,
+        NodeType.Rule
       ]
-    case NodeTypes.End:
+    case NodeType.End:
       return []
-    case NodeTypes.Policies:
+    case NodeType.Policies:
       return [
-        NodeTypes.End,
-        NodeTypes.Policies,
-        NodeTypes.Execution,
-        NodeTypes.Rule
+        NodeType.End,
+        NodeType.Policies,
+        NodeType.Execution,
+        NodeType.Rule
       ]
-    case NodeTypes.Provisioners:
+    case NodeType.Provisioners:
       return [
-        NodeTypes.End,
-        NodeTypes.Policies,
-        NodeTypes.Execution,
-        NodeTypes.Provisioners,
-        NodeTypes.Rule
+        NodeType.End,
+        NodeType.Policies,
+        NodeType.Execution,
+        NodeType.Provisioners,
+        NodeType.Rule
       ]
-    case NodeTypes.Rule:
+    case NodeType.Rule:
       return [
-        NodeTypes.End,
-        NodeTypes.Execution,
-        NodeTypes.Provisioners,
-        NodeTypes.Rule
+        NodeType.End,
+        NodeType.Execution,
+        NodeType.Provisioners,
+        NodeType.Rule
       ]
-    case NodeTypes.Execution:
+    case NodeType.Execution:
       return [
-        NodeTypes.End,
-        NodeTypes.Policies,
-        NodeTypes.Provisioners,
-        NodeTypes.Rule
+        NodeType.End,
+        NodeType.Policies,
+        NodeType.Provisioners,
+        NodeType.Rule
       ]
     default:
       return [
-        NodeTypes.End,
-        NodeTypes.Policies,
-        NodeTypes.Execution,
-        NodeTypes.Provisioners
+        NodeType.End,
+        NodeType.Policies,
+        NodeType.Execution,
+        NodeType.Provisioners
       ]
   }
 }

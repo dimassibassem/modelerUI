@@ -1,6 +1,6 @@
 import { Edge, Node } from 'reactflow'
 import { describe, it, expect } from 'vitest'
-import NodeTypes from '@/types/NodeTypes'
+import NodeType from '@/types/NodeType'
 import processDefinitionChecker from '@/utils/Process/processDefinitionChecker'
 import Process from '@/types/Process'
 
@@ -18,13 +18,13 @@ describe('processDefinitionChecker', () => {
     const nodes: Node[] = [
       {
         id: 'start_0',
-        type: NodeTypes.Start,
+        type: NodeType.Start,
         data: {},
         position: { x: 0, y: 0 }
       },
       {
         id: 'end_1',
-        type: NodeTypes.End,
+        type: NodeType.End,
         data: {},
         position: { x: 200, y: 200 }
       }

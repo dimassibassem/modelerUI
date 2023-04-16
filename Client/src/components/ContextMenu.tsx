@@ -4,7 +4,7 @@ import { Node } from 'reactflow'
 import { shallow } from 'zustand/shallow'
 import { useTranslation } from 'react-i18next'
 import { handleItemClick } from '@/utils/ContextMenu/handleContextMenu'
-import ContextMenuItems from '@/types/ContextMenuItems'
+import ContextMenuItem from '@/types/ContextMenuItem'
 import { RFState } from '@/types/RFState'
 import { useFlowStore } from '@/store'
 
@@ -19,33 +19,33 @@ const ContextMenu = ({ MENU_ID }: { MENU_ID: string }) => {
   return (
     <Menu id={MENU_ID}>
       <Item
-        id={ContextMenuItems.Copy}
+        id={ContextMenuItem.Copy}
         disabled={handleDisable(nodes?.filter((node: Node) => node.selected))}
         onClick={handleItemClick}
       >
         {t('Copy')}
       </Item>
       <Item
-        id={ContextMenuItems.Cut}
+        id={ContextMenuItem.Cut}
         disabled={handleDisable(nodes?.filter((node: Node) => node.selected))}
         onClick={handleItemClick}
       >
         {t('Cut')}
       </Item>
-      <Item id={ContextMenuItems.Paste} onClick={handleItemClick}>
+      <Item id={ContextMenuItem.Paste} onClick={handleItemClick}>
         {t('Paste')}
       </Item>
-      <Item id={ContextMenuItems.CopyAsImage} onClick={handleItemClick}>
+      <Item id={ContextMenuItem.CopyAsImage} onClick={handleItemClick}>
         {t('Copy as image')}
       </Item>
       <Separator />
-      <Item id={ContextMenuItems.SelectNodes} onClick={handleItemClick}>
+      <Item id={ContextMenuItem.SelectNodes} onClick={handleItemClick}>
         {t('Select nodes')}
       </Item>
-      <Item id={ContextMenuItems.SelectEdges} onClick={handleItemClick}>
+      <Item id={ContextMenuItem.SelectEdges} onClick={handleItemClick}>
         {t('Select edges')}
       </Item>
-      <Item id={ContextMenuItems.SelectAll} onClick={handleItemClick}>
+      <Item id={ContextMenuItem.SelectAll} onClick={handleItemClick}>
         {t('Select all')}
       </Item>
       <Separator />

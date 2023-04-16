@@ -1,4 +1,4 @@
-enum NodeTypes {
+enum NodeType {
   Start = 'start',
   End = 'end',
   Policies = 'policies',
@@ -7,4 +7,4 @@ enum NodeTypes {
   Execution = 'execution'
 }
 
-export default NodeTypes
+export default NodeType

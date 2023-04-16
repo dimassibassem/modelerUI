@@ -1,4 +1,4 @@
-type Steps = {
+type Step = {
   id: string
   type: string
   attributes?: {
@@ -11,7 +11,7 @@ type Steps = {
 }
 
 type Process = {
-  steps: Steps[][]
+  steps: Step[][]
   name: string
   description: string
   hook: {

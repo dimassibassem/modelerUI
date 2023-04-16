@@ -5,24 +5,24 @@ import { useEffectOnce } from 'usehooks-ts'
 import { useTranslation } from 'react-i18next'
 import logoBankerise from '@/assets/logo-bankerise.png'
 import IconSwitcher from './IconSwitcher'
-import NodeTypes from '@/types/NodeTypes'
+import NodeType from '@/types/NodeType'
 import classNames from '@/utils/classNames'
 import useLocalStorage from '@/store/localStorage'
 import LangSelect from '@/components/LeftSidebar/LangSelect'
 import capitalize from '@/utils/capitalize'
 
 const shapes = [
-  NodeTypes.Start,
-  NodeTypes.End,
-  NodeTypes.Policies,
-  NodeTypes.Execution,
-  NodeTypes.Provisioners,
-  NodeTypes.Rule
+  NodeType.Start,
+  NodeType.End,
+  NodeType.Policies,
+  NodeType.Execution,
+  NodeType.Provisioners,
+  NodeType.Rule
 ]
 
 const onDragStart = (
   event: DragEvent<HTMLDivElement>,
-  nodeType: NodeTypes,
+  nodeType: NodeType,
   previewImage: string
 ) => {
   const img = new Image()

@@ -3,19 +3,19 @@ import { describe, expect, it } from 'vitest'
 import uniqid from 'uniqid'
 import onLayout from '@/utils/Flow/onLayout'
 import { HorizontalLayout, VerticalLayout } from '@/types/NodeLayout'
-import NodeTypes from '@/types/NodeTypes'
+import NodeType from '@/types/NodeType'
 
 let nodes: Node[] = [
   {
     id: 'start_0',
-    type: NodeTypes.Start,
+    type: NodeType.Start,
     targetPosition: Position.Top,
     data: {},
     position: { x: 0, y: 0 }
   },
   {
     id: 'end_1',
-    type: NodeTypes.End,
+    type: NodeType.End,
     sourcePosition: Position.Bottom,
     data: {},
     position: { x: 200, y: 200 }

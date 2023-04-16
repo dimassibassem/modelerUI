@@ -4,7 +4,7 @@ import useShowToolbar from '@/hooks/useShowToolbar'
 import start from '@/assets/start.png'
 import Handles from './Handles'
 import useCustomNodeProps from '@/hooks/useCustomNodeProps'
-import NodeTypes from '@/types/NodeTypes'
+import NodeType from '@/types/NodeType'
 import useHandleNodeSize from '@/hooks/useHandleNodeSize'
 import { useTemporalStore } from '@/store'
 
@@ -20,7 +20,7 @@ const Start: FC<NodeProps> = ({ id, type, data, dragging, selected }) => {
     showToolbar,
     setShowToolbar,
     filter
-  } = useCustomNodeProps(type as NodeTypes, 50, 50)
+  } = useCustomNodeProps(type as NodeType, 50, 50)
   useShowToolbar(isHover, dragging, setShowToolbar)
   useHandleNodeSize(id, setWidth, setHeight)
   return (

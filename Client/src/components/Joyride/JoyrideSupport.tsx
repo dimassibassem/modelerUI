@@ -6,18 +6,18 @@ import {
 } from '@heroicons/react/24/outline'
 import { Icon } from '@iconify/react'
 import { useTranslation } from 'react-i18next'
-import NodeTypes from '@/types/NodeTypes'
+import NodeType from '@/types/NodeType'
 import capitalize from '@/utils/capitalize'
 import IconSwitcher from '@/components/LeftSidebar/IconSwitcher'
 import DefinitionSwitcher from '@/components/Joyride/DefinitionSwitcher'
 
 const shapes = [
-  NodeTypes.Start,
-  NodeTypes.End,
-  NodeTypes.Policies,
-  NodeTypes.Execution,
-  NodeTypes.Provisioners,
-  NodeTypes.Rule
+  NodeType.Start,
+  NodeType.End,
+  NodeType.Policies,
+  NodeType.Execution,
+  NodeType.Provisioners,
+  NodeType.Rule
 ]
 
 type ListWithProps = {
