@@ -1,4 +1,4 @@
-import NodeType from "@/types/NodeType";
+import NodeType from '@/types/NodeType'
 
 const shapes = [
   NodeType.Start,
@@ -9,4 +9,4 @@ const shapes = [
   NodeType.Rule
 ]
 
-export default shapes;
+export default shapes

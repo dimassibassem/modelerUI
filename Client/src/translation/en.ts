@@ -1,3 +1,5 @@
+import React from 'react'
+
 const en = {
   English: 'English',
   French: 'French',
@@ -80,6 +82,19 @@ const en = {
   default: 'default',
   Animated: 'Animated',
   Stroke: 'Stroke',
+  ClearContent: 'Clear the flow',
+  SaveContent: 'Save the current flow',
+  ImportContent: 'Import a flow',
+  VerticalLayoutContent: 'Lay out the flow vertically',
+  HorizontalLayoutContent: 'Lay out the flow horizontally',
+  FitViewContent: 'Fit the flow in the view',
+  ChainRecoveryContent:
+    'Choose to recover the edge or not when deleting a node',
+  ZoomInContent: 'Zoom in the flow',
+  ZoomOutContent: 'Zoom out the flow',
+  FullScreenContent: 'Put the flow in full screen',
+  UndoContent: 'Undo the last action',
+  RedoContent: 'Redo the last action',
   'Add a text': 'Add a text',
   'Add a Name': 'Add a Name',
   'Add a Channel': 'Add a Channel',

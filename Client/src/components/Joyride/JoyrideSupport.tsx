@@ -2,13 +2,25 @@ import React from 'react'
 import { Step } from 'react-joyride'
 import IconSwitcher from '@/components/LeftSidebar/IconSwitcher'
 import NodeDefinition from '@/components/Joyride/NodeDefinition'
-import shapes from "@/constants/shapes";
-import { bottomLeftCommands, topRightCommands, undoRedoList } from "@/constants/commands";
-import Content from "@/components/Joyride/Content";
-import { UndoRedoDefinition, UndoRedoIcons } from "@/components/Joyride/UndoRedo";
-import { BottomLeftCommandsDefinition, BottomLeftCommandsIcons } from "@/components/Joyride/BottomLeftCommands";
-import { TopRightCommandsDefinition, TopRightCommandsIcons } from "@/components/Joyride/TopRightCommands";
-
+import shapes from '@/constants/shapes'
+import {
+  bottomLeftCommands,
+  topRightCommands,
+  undoRedoList
+} from '@/constants/commands'
+import Content from '@/components/Joyride/Content'
+import {
+  UndoRedoDefinition,
+  UndoRedoIcons
+} from '@/components/Joyride/UndoRedo'
+import {
+  BottomLeftCommandsDefinition,
+  BottomLeftCommandsIcons
+} from '@/components/Joyride/BottomLeftCommands'
+import {
+  TopRightCommandsDefinition,
+  TopRightCommandsIcons
+} from '@/components/Joyride/TopRightCommands'
 
 const joyrideSteps = (t = (text: string) => text): Step[] => [
   {
@@ -36,7 +48,11 @@ const joyrideSteps = (t = (text: string) => text): Step[] => [
         <div>
           <div>
             {/* @ts-ignore */}
-            <Content list={shapes} Icon={IconSwitcher} Definition={NodeDefinition} />
+            <Content
+              list={shapes}
+              Icon={IconSwitcher}
+              Definition={NodeDefinition}
+            />
           </div>
         </div>
       </div>
@@ -75,7 +91,11 @@ const joyrideSteps = (t = (text: string) => text): Step[] => [
       <div>
         <p>{t('Undo/Redo')}</p>
         <div>
-          <Content list={undoRedoList} Definition={UndoRedoDefinition} Icon={UndoRedoIcons} />
+          <Content
+            list={undoRedoList}
+            Definition={UndoRedoDefinition}
+            Icon={UndoRedoIcons}
+          />
         </div>
       </div>
     ),
@@ -85,7 +105,7 @@ const joyrideSteps = (t = (text: string) => text): Step[] => [
       },
       tooltipContainer: {
         textAlign: 'left'
-      },
+      }
     },
     placement: 'left',
     target: '#top-left',
@@ -101,7 +121,11 @@ const joyrideSteps = (t = (text: string) => text): Step[] => [
     content: (
       <div>
         <p>{t('CommandsContent')}</p>
-        <Content list={bottomLeftCommands} Definition={BottomLeftCommandsDefinition} Icon={BottomLeftCommandsIcons} />
+        <Content
+          list={bottomLeftCommands}
+          Definition={BottomLeftCommandsDefinition}
+          Icon={BottomLeftCommandsIcons}
+        />
       </div>
     ),
     styles: {
@@ -123,7 +147,11 @@ const joyrideSteps = (t = (text: string) => text): Step[] => [
     content: (
       <div>
         <p>{t('TopRightCommandsContent')}</p>
-        <Content list={topRightCommands} Definition={TopRightCommandsDefinition} Icon={TopRightCommandsIcons} />
+        <Content
+          list={topRightCommands}
+          Definition={TopRightCommandsDefinition}
+          Icon={TopRightCommandsIcons}
+        />
       </div>
     ),
     placement: 'top',
@@ -133,7 +161,7 @@ const joyrideSteps = (t = (text: string) => text): Step[] => [
       },
       tooltipContainer: {
         textAlign: 'left'
-      },
+      }
     },
     target: '#top-right',
     title: <p className="text-indigo-600">{t('Commands')}</p>

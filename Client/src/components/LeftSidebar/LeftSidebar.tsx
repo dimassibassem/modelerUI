@@ -10,7 +10,7 @@ import classNames from '@/utils/classNames'
 import useLocalStorage from '@/store/localStorage'
 import LangSelect from '@/components/LeftSidebar/LangSelect'
 import capitalize from '@/utils/capitalize'
-import shapes from "@/constants/shapes";
+import shapes from '@/constants/shapes'
 
 const onDragStart = (
   event: DragEvent<HTMLDivElement>,
