@@ -47,11 +47,10 @@ const joyrideSteps = (t = (text: string) => text): Step[] => [
         <p>{t('DraggableElements')}</p>
         <div>
           <div>
-            {/* @ts-ignore */}
             <Content
               list={shapes}
-              Icon={IconSwitcher}
-              Definition={NodeDefinition}
+              Icon={IconSwitcher as React.FC<{ type: string }>}
+              Definition={NodeDefinition as React.FC<{ type: string }>}
             />
           </div>
         </div>
