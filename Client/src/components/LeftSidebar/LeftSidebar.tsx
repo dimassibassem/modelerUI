@@ -10,15 +10,7 @@ import classNames from '@/utils/classNames'
 import useLocalStorage from '@/store/localStorage'
 import LangSelect from '@/components/LeftSidebar/LangSelect'
 import capitalize from '@/utils/capitalize'
-
-const shapes = [
-  NodeType.Start,
-  NodeType.End,
-  NodeType.Policies,
-  NodeType.Execution,
-  NodeType.Provisioners,
-  NodeType.Rule
-]
+import shapes from "@/constants/shapes";
 
 const onDragStart = (
   event: DragEvent<HTMLDivElement>,
@@ -127,7 +119,7 @@ const LeftSidebar = () => {
                     className="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6"
                     aria-hidden="true"
                   >
-                    <IconSwitcher node={item} />
+                    <IconSwitcher type={item} />
                   </div>
                   <span className="flex-1">{capitalize(t(item))}</span>
                 </div>

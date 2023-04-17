@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import NodeType from '@/types/NodeType'
 
-const DefinitionSwitcher = ({ type }: { type: NodeType }) => {
+const NodeDefinition = ({ type }: { type: NodeType }) => {
   const { t } = useTranslation()
   switch (type) {
     case NodeType.Start:
@@ -23,4 +23,4 @@ const DefinitionSwitcher = ({ type }: { type: NodeType }) => {
   }
 }
 
-export default DefinitionSwitcher
+export default NodeDefinition
