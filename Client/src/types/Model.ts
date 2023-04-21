@@ -2,7 +2,7 @@ import { Edge, Node } from 'reactflow'
 import Process from '@/types/Process'
 
 export type Model = {
-  id: number,
+  id: number
   fileName: string
   createdAt: string
   updatedAt: string

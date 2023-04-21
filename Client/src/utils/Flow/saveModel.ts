@@ -6,11 +6,9 @@ import Process from '@/types/Process'
 async function saveModel(
   reactFlowInstance: ReactFlowInstance | null,
   process: Process,
-  setNotificationData: (data: {
-    success: boolean,
-    message: string
-  }) => void,
-  setOpenNotification: (open: boolean) => void) {
+  setNotificationData: (data: { success: boolean; message: string }) => void,
+  setOpenNotification: (open: boolean) => void
+) {
   const res = await imageFromHTML(reactFlowInstance)
   if (res) {
     const blob = await fetch(res.dataURI).then((r) => r.blob())
@@ -20,11 +18,15 @@ async function saveModel(
     result.append('instance', JSON.stringify(res.instance))
     result.append('process', JSON.stringify(process))
     try {
-      await axios.post(import.meta.env.VITE_API_ENDPOINT + '/api/add-model', result, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+      await axios.post(
+        import.meta.env.VITE_API_ENDPOINT + '/api/add-model',
+        result,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
         }
-      })
+      )
       setNotificationData({
         success: true,
         message: 'Model saved successfully'
@@ -35,6 +37,5 @@ async function saveModel(
     }
   }
 }
-
 
 export default saveModel

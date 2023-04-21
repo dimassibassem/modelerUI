@@ -1,22 +1,22 @@
-import * as Chance from "chance";
+import * as Chance from 'chance'
 
-const chance = new Chance();
+const chance = new Chance()
 
 const initWithAllNodes = () => {
-  cy.get(
-    "#process-modal"
-  ).should("be.visible");
-  cy.get("#name").type(chance.name());
-  cy.get("#description").type(chance.sentence({ words: 5 }));
-  cy.get("#process-modal > div > button").click();
+  cy.get('#process-modal').should('be.visible')
+  cy.get('#name').type(chance.name())
+  cy.get('#description').type(chance.sentence({ words: 5 }))
+  cy.get('#process-modal > div > button').click()
 
-  let padding = 0;
-  cy.get("#left-sidebar > div.flex.flex-1.flex-col.overflow-y-auto.pt-5.pb-4 > nav > div")
+  let padding = 0
+  cy.get(
+    '#left-sidebar > div.flex.flex-1.flex-col.overflow-y-auto.pt-5.pb-4 > nav > div'
+  )
     .children()
     .each((el, i) => {
-        padding += 100;
-        cy.dragAndDrop(el, padding);
-    });
-};
+      padding += 100
+      cy.dragAndDrop(el, padding)
+    })
+}
 
-export default initWithAllNodes;
+export default initWithAllNodes

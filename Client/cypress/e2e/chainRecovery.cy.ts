@@ -1,10 +1,10 @@
 import initWithAllNodes from '../support/initWithAllNodes'
-import skipTutorial from "../support/skipTutorial";
+import skipTutorial from '../support/skipTutorial'
 
 describe('Handle Chain recovery', () => {
   beforeEach(() => {
     cy.visit('/')
-    skipTutorial();
+    skipTutorial()
   })
 
   it('Should not reconnect the chain after a node is deleted', () => {

@@ -105,7 +105,7 @@ const DnDFlow = () => {
   useProcessDefinitionChecker()
   useHandleLangChange()
   return (
-    <div className='flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0'>
+    <div className="flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0">
       <Joyride
         setOpenModal={setProcessDefOpenModal}
         reactFlowInstance={reactFlowInstance}
@@ -123,7 +123,7 @@ const DnDFlow = () => {
       <LeftSidebar />
       <ReactFlowProvider>
         <div
-          id='reactflow-wrapper'
+          id="reactflow-wrapper"
           onContextMenu={(event) =>
             handleContextMenu(event, {
               reactFlowInstance,
@@ -139,7 +139,7 @@ const DnDFlow = () => {
               pause
             })
           }
-          className='grow h-full'
+          className="grow h-full"
           ref={reactFlowWrapper}
         >
           <ReactFlow
@@ -163,7 +163,7 @@ const DnDFlow = () => {
             fitView
           >
             <Background
-              color='#4f46e5'
+              color="#4f46e5"
               variant={BackgroundVariant.Dots}
               gap={10}
               size={1}
@@ -179,7 +179,8 @@ const DnDFlow = () => {
               reactFlowInstance={reactFlowInstance}
               setOpenLoadModal={setOpenLoadModal}
               setNotificationData={setNotificationData}
-              setOpenNotification={setOpenNotification} />
+              setOpenNotification={setOpenNotification}
+            />
             <BottomLeftPanel
               reactFlowInstance={reactFlowInstance}
               edges={edges}

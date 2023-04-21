@@ -18,27 +18,30 @@ const selector = (state: RFState) => ({
 })
 
 const TopRightPanel = ({
-                         reactFlowInstance,
-                         setOpenLoadModal,
-                         setNotificationData,
-                         setOpenNotification
-                       }: {
+  reactFlowInstance,
+  setOpenLoadModal,
+  setNotificationData,
+  setOpenNotification
+}: {
   reactFlowInstance: ReactFlowInstance | null
-  setOpenLoadModal: (open: boolean) => void,
-  setNotificationData: (data: { success: boolean, message: string }) => void,
+  setOpenLoadModal: (open: boolean) => void
+  setNotificationData: (data: { success: boolean; message: string }) => void
   setOpenNotification: (open: boolean) => void
 }) => {
-  const { setNodes, setEdges, nodes, edges, process } = useFlowStore(selector, shallow)
+  const { setNodes, setEdges, nodes, edges, process } = useFlowStore(
+    selector,
+    shallow
+  )
   const { pause, resume } = useTemporalStore((state) => state)
   const { t } = useTranslation()
   return (
     <Panel
-      id='top-right'
-      position='top-right'
-      className='grid grid-cols-3 gap-2'
+      id="top-right"
+      position="top-right"
+      className="grid grid-cols-3 gap-2"
     >
       <Tooltip
-        id='TopRightCommands'
+        id="TopRightCommands"
         delayShow={600}
         style={{
           backgroundColor: '#e0e7ff',
@@ -51,11 +54,11 @@ const TopRightPanel = ({
         }}
       />
       <button
-        type='button'
-        data-tooltip-id='TopRightCommands'
+        type="button"
+        data-tooltip-id="TopRightCommands"
         data-tooltip-content={t('Clear') as string}
-        aria-label='Clear'
-        className='rounded flex justify-center bg-red-50 py-1 px-2 text-sm font-semibold text-red-700 shadow-sm hover:bg-red-100'
+        aria-label="Clear"
+        className="rounded flex justify-center bg-red-50 py-1 px-2 text-sm font-semibold text-red-700 shadow-sm hover:bg-red-100"
         onClick={() => {
           setNodes(nodes)
           setEdges(edges)
@@ -65,32 +68,39 @@ const TopRightPanel = ({
           resume()
         }}
       >
-        <Icon className='w-5 h-5' icon='ic:outline-clear' />
+        <Icon className="w-5 h-5" icon="ic:outline-clear" />
       </button>
       <button
-        type='button'
-        data-tooltip-id='TopRightCommands'
+        type="button"
+        data-tooltip-id="TopRightCommands"
         data-tooltip-content={t('Save') as string}
-        aria-label='Save'
-        className='rounded bg-green-50 py-1 px-2 text-sm font-semibold text-green-700 shadow-sm hover:bg-green-100'
-        onClick={() => saveModel(reactFlowInstance, process, setNotificationData, setOpenNotification)}
+        aria-label="Save"
+        className="rounded bg-green-50 py-1 px-2 text-sm font-semibold text-green-700 shadow-sm hover:bg-green-100"
+        onClick={() =>
+          saveModel(
+            reactFlowInstance,
+            process,
+            setNotificationData,
+            setOpenNotification
+          )
+        }
       >
         <Icon
-          className='w-5 h-5'
-          icon='material-symbols:save-outline-rounded'
+          className="w-5 h-5"
+          icon="material-symbols:save-outline-rounded"
         />
       </button>
       <button
-        type='button'
-        data-tooltip-id='TopRightCommands'
+        type="button"
+        data-tooltip-id="TopRightCommands"
         data-tooltip-content={t('Import') as string}
-        aria-label='Import'
-        className='rounded flex justify-center bg-gray-100 py-1 px-2 text-sm font-semibold text-gray-600 shadow-sm hover:bg-gray-200'
+        aria-label="Import"
+        className="rounded flex justify-center bg-gray-100 py-1 px-2 text-sm font-semibold text-gray-600 shadow-sm hover:bg-gray-200"
         onClick={() => {
           setOpenLoadModal(true)
         }}
       >
-        <Icon className='w-5 h-5' icon='uil:import' />
+        <Icon className="w-5 h-5" icon="uil:import" />
       </button>
     </Panel>
   )
