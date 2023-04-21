@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { addEdge, Connection, MarkerType } from "reactflow";
+import { addEdge, Connection, MarkerType } from 'reactflow'
 import { shallow } from 'zustand/shallow'
 import uniqid from 'uniqid'
 import { RFState } from '@/types/RFState'
@@ -18,8 +18,8 @@ const useOnConnect = () => {
         ...connection,
         id: uniqid(),
         markerEnd: { type: MarkerType.ArrowClosed },
-        style:{
-          strokeWidth: 2,
+        style: {
+          strokeWidth: 2
         }
       }
       setEdges(addEdge(newEdge, edges))

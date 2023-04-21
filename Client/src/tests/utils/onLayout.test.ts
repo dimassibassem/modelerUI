@@ -1,93 +1,107 @@
-import { Edge, Node, Position } from 'reactflow'
-import { describe, expect, it } from 'vitest'
-import uniqid from 'uniqid'
-import onLayout from '@/utils/Flow/onLayout'
-import { HorizontalLayout, VerticalLayout } from '@/types/NodeLayout'
-import NodeType from '@/types/NodeType'
+import { Edge, Node, Position } from "reactflow";
+import { describe, expect, it } from "vitest";
+import uniqid from "uniqid";
+import onLayout from "@/utils/Flow/onLayout";
+import { HorizontalLayout, VerticalLayout } from "@/types/NodeLayout";
+import NodeType from "@/types/NodeType";
 
 let nodes: Node[] = [
   {
-    id: 'start_0',
+    id: "start_0",
     type: NodeType.Start,
     targetPosition: Position.Top,
-    data: {},
+    data: {
+      handles: {
+        top: true,
+        right: true,
+        bottom: true,
+        left: true
+      }
+    },
     position: { x: 0, y: 0 }
   },
   {
-    id: 'end_1',
+    id: "end_1",
     type: NodeType.End,
     sourcePosition: Position.Bottom,
-    data: {},
+    data: {
+      handles: {
+        top: true,
+        right: true,
+        bottom: true,
+        left: true
+      }
+    },
     position: { x: 200, y: 200 }
   }
-]
+];
 let edges: Edge[] = [
   {
     id: uniqid(),
-    source: 'start_0',
-    target: 'end_1'
+    source: "start_0",
+    target: "end_1"
   }
-]
+];
 const setNodes = (nds: Node[]) => {
-  nodes = nds
-}
+  nodes = nds;
+};
 
 const setEdges = (edgs: Edge[]) => {
-  edges = edgs
-}
+  edges = edgs;
+};
 
-describe('onLayout', () => {
-  it('should vertically align nodes', () => {
-    onLayout(VerticalLayout.TopToBottom, nodes, edges, setNodes, setEdges)
+describe("onLayout", () => {
+  it("should vertically align nodes", () => {
+    onLayout(VerticalLayout.TopToBottom, nodes, edges, setNodes, setEdges);
 
-    expect(nodes[0].position.y).toEqual(50)
-    expect(nodes[1].position.y).toEqual(200)
+    expect(nodes[0].position.y).toEqual(50);
+    expect(nodes[1].position.y).toEqual(200);
 
-    onLayout(VerticalLayout.BottomToTop, nodes, edges, setNodes, setEdges)
+    onLayout(VerticalLayout.BottomToTop, nodes, edges, setNodes, setEdges);
 
-    expect(nodes[0].position.y).toEqual(200)
-    expect(nodes[1].position.y).toEqual(50)
-  })
+    expect(nodes[0].position.y).toEqual(200);
+    expect(nodes[1].position.y).toEqual(50);
+  });
 
-  it('should horizontally align nodes', () => {
-    onLayout(HorizontalLayout.LeftToRight, nodes, edges, setNodes, setEdges)
+  it("should horizontally align nodes", () => {
+    onLayout(HorizontalLayout.LeftToRight, nodes, edges, setNodes, setEdges);
 
-    expect(nodes[0].position.x).toEqual(50)
-    expect(nodes[1].position.x).toEqual(200)
+    expect(nodes[0].position.x).toEqual(50);
+    expect(nodes[1].position.x).toEqual(200);
 
-    onLayout(HorizontalLayout.RightToLeft, nodes, edges, setNodes, setEdges)
+    onLayout(HorizontalLayout.RightToLeft, nodes, edges, setNodes, setEdges);
 
-    expect(nodes[0].position.x).toEqual(200)
-    expect(nodes[1].position.x).toEqual(50)
-  })
+    expect(nodes[0].position.x).toEqual(200);
+    expect(nodes[1].position.x).toEqual(50);
+  });
 
-  it('should handle handles according to layout', () => {
-    onLayout(HorizontalLayout.LeftToRight, nodes, edges, setNodes, setEdges)
+  it("should handle handles according to layout", () => {
+    onLayout(HorizontalLayout.LeftToRight, nodes, edges, setNodes, setEdges);
 
-    expect(nodes[0].targetPosition).toEqual(Position.Left)
-    expect(nodes[0].sourcePosition).toEqual(Position.Right)
-    expect(nodes[1].targetPosition).toEqual(Position.Left)
-    expect(nodes[1].sourcePosition).toEqual(Position.Right)
+    expect(nodes[0].targetPosition).toEqual(Position.Left);
+    expect(nodes[0].sourcePosition).toEqual(Position.Right);
+    expect(nodes[1].targetPosition).toEqual(Position.Left);
+    expect(nodes[1].sourcePosition).toEqual(Position.Right);
 
-    onLayout(HorizontalLayout.RightToLeft, nodes, edges, setNodes, setEdges)
+    onLayout(HorizontalLayout.RightToLeft, nodes, edges, setNodes, setEdges);
 
-    expect(nodes[0].targetPosition).toEqual(Position.Right)
-    expect(nodes[0].sourcePosition).toEqual(Position.Left)
-    expect(nodes[1].targetPosition).toEqual(Position.Right)
-    expect(nodes[1].sourcePosition).toEqual(Position.Left)
+    expect(nodes[0].targetPosition).toEqual(Position.Right);
+    expect(nodes[0].sourcePosition).toEqual(Position.Left);
+    expect(nodes[1].targetPosition).toEqual(Position.Right);
+    expect(nodes[1].sourcePosition).toEqual(Position.Left);
 
-    onLayout(VerticalLayout.TopToBottom, nodes, edges, setNodes, setEdges)
+    onLayout(VerticalLayout.TopToBottom, nodes, edges, setNodes, setEdges);
 
-    expect(nodes[0].targetPosition).toEqual(Position.Top)
-    expect(nodes[0].sourcePosition).toEqual(Position.Bottom)
-    expect(nodes[1].targetPosition).toEqual(Position.Top)
-    expect(nodes[1].sourcePosition).toEqual(Position.Bottom)
+    expect(nodes[0].targetPosition).toEqual(Position.Top);
+    expect(nodes[0].sourcePosition).toEqual(Position.Bottom);
+    expect(nodes[1].targetPosition).toEqual(Position.Top);
+    expect(nodes[1].sourcePosition).toEqual(Position.Bottom);
 
-    onLayout(VerticalLayout.BottomToTop, nodes, edges, setNodes, setEdges)
+    onLayout(VerticalLayout.BottomToTop, nodes, edges, setNodes, setEdges);
 
-    expect(nodes[0].targetPosition).toEqual(Position.Bottom)
-    expect(nodes[0].sourcePosition).toEqual(Position.Top)
-    expect(nodes[1].targetPosition).toEqual(Position.Bottom)
-    expect(nodes[1].sourcePosition).toEqual(Position.Top)
-  })
-})
+    expect(nodes[0].targetPosition).toEqual(Position.Bottom);
+    expect(nodes[0].sourcePosition).toEqual(Position.Top);
+    expect(nodes[1].targetPosition).toEqual(Position.Bottom);
+    expect(nodes[1].sourcePosition).toEqual(Position.Top);
+  });
+});

@@ -1,8 +1,10 @@
 import initWithAllNodes from '../support/initWithAllNodes'
+import skipTutorial from "../support/skipTutorial";
 
 describe('Handle Chain recovery', () => {
   beforeEach(() => {
     cy.visit('/')
+    skipTutorial();
   })
 
   it('Should not reconnect the chain after a node is deleted', () => {
@@ -100,11 +102,11 @@ describe('Handle Chain recovery', () => {
 
     // Node to delete
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div:nth-child(1) > img'
+      '#reactflow-wrapper > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div:nth-child(9) > img'
     ).click()
 
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selected.selectable > div > div:nth-child(9) > img'
+      '#reactflow-wrapper > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selected.selectable > div > div:nth-child(9) > img'
     ).realPress('Backspace')
 
     // assert that edge not exist
