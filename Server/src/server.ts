@@ -16,7 +16,6 @@ const upload = multer()
 app.post('/api/add-model', upload.single('flow'), async (req: Request, res: Response) => {
   const { instance, process } = req.body
   const file = req.file.buffer
-  console.log(JSON.parse(process))
   await save(file, instance, process)
   res.send('Model Saved!')
 })
