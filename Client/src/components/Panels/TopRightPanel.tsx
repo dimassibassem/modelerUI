@@ -1,13 +1,12 @@
 import React from 'react'
 import { Panel, ReactFlowInstance } from 'reactflow'
-import axios from 'axios'
 import { shallow } from 'zustand/shallow'
 import { Icon } from '@iconify/react'
 import { Tooltip } from 'react-tooltip'
 import { useTranslation } from 'react-i18next'
-import imageFromHTML from '@/utils/Flow/imageFromHtml'
 import { useFlowStore, useTemporalStore } from '@/store'
 import { RFState } from '@/types/RFState'
+import saveModel from '@/utils/Flow/saveModel'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -17,14 +16,19 @@ const selector = (state: RFState) => ({
   process: state.process,
   setProcess: state.setProcess
 })
+
 const TopRightPanel = ({
                          reactFlowInstance,
-                         setOpenLoadModal
+                         setOpenLoadModal,
+                         setNotificationData,
+                         setOpenNotification
                        }: {
   reactFlowInstance: ReactFlowInstance | null
-  setOpenLoadModal: (open: boolean) => void
+  setOpenLoadModal: (open: boolean) => void,
+  setNotificationData: (data: { success: boolean, message: string }) => void,
+  setOpenNotification: (open: boolean) => void
 }) => {
-  const { setNodes, setEdges, nodes, edges,process } = useFlowStore(selector, shallow)
+  const { setNodes, setEdges, nodes, edges, process } = useFlowStore(selector, shallow)
   const { pause, resume } = useTemporalStore((state) => state)
   const { t } = useTranslation()
   return (
@@ -69,26 +73,7 @@ const TopRightPanel = ({
         data-tooltip-content={t('Save') as string}
         aria-label='Save'
         className='rounded bg-green-50 py-1 px-2 text-sm font-semibold text-green-700 shadow-sm hover:bg-green-100'
-        onClick={async () => {
-          const res = await imageFromHTML(reactFlowInstance)
-          if (res) { // convert dataURI to image file
-            const blob = await fetch(res.dataURI).then((r) => r.blob())
-            const file = new File([blob], 'flow.png', { type: 'image/png' })
-            const result = new FormData()
-            result.append('flow', file)
-            result.append('instance', JSON.stringify(res.instance))
-            result.append('process', JSON.stringify(process))
-            try {
-              await axios.post(import.meta.env.VITE_API_ENDPOINT + '/api/add-model', result, {
-                headers: {
-                  'Content-Type': 'multipart/form-data'
-                }
-              })
-            } catch (e) {
-              console.log(e)
-            }
-          }
-        }}
+        onClick={() => saveModel(reactFlowInstance, process, setNotificationData, setOpenNotification)}
       >
         <Icon
           className='w-5 h-5'
