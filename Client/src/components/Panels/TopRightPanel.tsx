@@ -18,23 +18,23 @@ const selector = (state: RFState) => ({
   setProcess: state.setProcess
 })
 const TopRightPanel = ({
-  reactFlowInstance,
-  setOpenLoadModal
-}: {
+                         reactFlowInstance,
+                         setOpenLoadModal
+                       }: {
   reactFlowInstance: ReactFlowInstance | null
   setOpenLoadModal: (open: boolean) => void
 }) => {
-  const { setNodes, setEdges, nodes, edges } = useFlowStore(selector, shallow)
+  const { setNodes, setEdges, nodes, edges,process } = useFlowStore(selector, shallow)
   const { pause, resume } = useTemporalStore((state) => state)
   const { t } = useTranslation()
   return (
     <Panel
-      id="top-right"
-      position="top-right"
-      className="grid grid-cols-3 gap-2"
+      id='top-right'
+      position='top-right'
+      className='grid grid-cols-3 gap-2'
     >
       <Tooltip
-        id="TopRightCommands"
+        id='TopRightCommands'
         delayShow={600}
         style={{
           backgroundColor: '#e0e7ff',
@@ -47,11 +47,11 @@ const TopRightPanel = ({
         }}
       />
       <button
-        type="button"
-        data-tooltip-id="TopRightCommands"
+        type='button'
+        data-tooltip-id='TopRightCommands'
         data-tooltip-content={t('Clear') as string}
-        aria-label="Clear"
-        className="rounded flex justify-center bg-red-50 py-1 px-2 text-sm font-semibold text-red-700 shadow-sm hover:bg-red-100"
+        aria-label='Clear'
+        className='rounded flex justify-center bg-red-50 py-1 px-2 text-sm font-semibold text-red-700 shadow-sm hover:bg-red-100'
         onClick={() => {
           setNodes(nodes)
           setEdges(edges)
@@ -61,40 +61,51 @@ const TopRightPanel = ({
           resume()
         }}
       >
-        <Icon className="w-5 h-5" icon="ic:outline-clear" />
+        <Icon className='w-5 h-5' icon='ic:outline-clear' />
       </button>
       <button
-        type="button"
-        data-tooltip-id="TopRightCommands"
+        type='button'
+        data-tooltip-id='TopRightCommands'
         data-tooltip-content={t('Save') as string}
-        aria-label="Save"
-        className="rounded bg-green-50 py-1 px-2 text-sm font-semibold text-green-700 shadow-sm hover:bg-green-100"
+        aria-label='Save'
+        className='rounded bg-green-50 py-1 px-2 text-sm font-semibold text-green-700 shadow-sm hover:bg-green-100'
         onClick={async () => {
-          const result = await imageFromHTML(reactFlowInstance)
-          try {
-            await axios.post(
-              `${process.env.API_ENDPOINT}/api/add-model`,
-              result
-            )
-          } catch (e) {
-            console.error(e)
+          const res = await imageFromHTML(reactFlowInstance)
+          if (res) { // convert dataURI to image file
+            const blob = await fetch(res.dataURI).then((r) => r.blob())
+            const file = new File([blob], 'flow.png', { type: 'image/png' })
+            const result = new FormData()
+            result.append('flow', file)
+            result.append('instance', JSON.stringify(res.instance))
+            result.append('process', JSON.stringify(process))
+            try {
+              await axios.post(import.meta.env.VITE_API_ENDPOINT + '/api/add-model', result, {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+              })
+            } catch (e) {
+              console.log(e)
+            }
           }
         }}
       >
         <Icon
-          className="w-5 h-5"
-          icon="material-symbols:save-outline-rounded"
+          className='w-5 h-5'
+          icon='material-symbols:save-outline-rounded'
         />
       </button>
       <button
-        type="button"
-        data-tooltip-id="TopRightCommands"
+        type='button'
+        data-tooltip-id='TopRightCommands'
         data-tooltip-content={t('Import') as string}
-        aria-label="Import"
-        className="rounded flex justify-center bg-gray-100 py-1 px-2 text-sm font-semibold text-gray-600 shadow-sm hover:bg-gray-200"
-        onClick={() => setOpenLoadModal(true)}
+        aria-label='Import'
+        className='rounded flex justify-center bg-gray-100 py-1 px-2 text-sm font-semibold text-gray-600 shadow-sm hover:bg-gray-200'
+        onClick={() => {
+          setOpenLoadModal(true)
+        }}
       >
-        <Icon className="w-5 h-5" icon="uil:import" />
+        <Icon className='w-5 h-5' icon='uil:import' />
       </button>
     </Panel>
   )

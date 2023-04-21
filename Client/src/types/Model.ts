@@ -1,9 +1,11 @@
 import { Edge, Node } from 'reactflow'
+import Process from '@/types/Process'
 
 export type Model = {
-  id: number
+  id: number,
   fileName: string
-  dataURI: string
+  createdAt: string
+  updatedAt: string
   instance: {
     nodes: Node[]
     edges: Edge[]
@@ -13,4 +15,5 @@ export type Model = {
       zoom: number
     }
   }
+  process: Process
 }
