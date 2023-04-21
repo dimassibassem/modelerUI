@@ -4,7 +4,7 @@ import bodyParser from 'body-parser'
 import multer from 'multer'
 import * as fs from 'fs'
 import { prisma } from './prisma'
-
+import * as process from 'process'
 
 const app: Application = express()
 const port: number = 3001
@@ -24,7 +24,7 @@ app.get('/api/get-models', async (req: Request, res: Response) => {
   const models = await prisma.model.findMany()
   models.forEach(model => {
     model.instance = JSON.parse(model.instance)
-    model.fileName = `http://localhost:3001/${model.fileName}`
+    model.fileName = `${process.env.SERVER_ENDPOINT}/${model.fileName}`
     model.process = JSON.parse(model.process)
   })
   res.send(models)
