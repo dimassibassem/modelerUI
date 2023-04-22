@@ -5,6 +5,7 @@ import { Tooltip } from 'react-tooltip'
 import { useTranslation } from 'react-i18next'
 import classNames from '@/utils/classNames'
 import { useTemporalStore } from '@/store'
+import tooltipStyle from '@/style/tooltip'
 
 const TopLeftPanel = () => {
   const { undo, redo, futureStates, pastStates } = useTemporalStore(
@@ -14,24 +15,12 @@ const TopLeftPanel = () => {
 
   return (
     <Panel id="top-left" className="grid grid-cols-1 gap-2" position="top-left">
-      <Tooltip
-        id="UndoAndRedo"
-        delayShow={600}
-        style={{
-          backgroundColor: '#e0e7ff',
-          color: '#4f46e5',
-          borderRadius: '0.375rem',
-          padding: '0.5rem',
-          fontSize: '1rem',
-          lineHeight: '1.5rem',
-          fontWeight: 500
-        }}
-      />
+      <Tooltip id="UndoAndRedo" delayShow={600} style={tooltipStyle} />
       <div className="grid grid-cols-2 items-stretch gap-2">
         <div
           className="group flex relative"
           data-tooltip-id="UndoAndRedo"
-          data-tooltip-content={t('Undo') as string}
+          data-tooltip-content={t<string>('Undo')}
         >
           <button
             aria-label="Undo"
@@ -53,7 +42,7 @@ const TopLeftPanel = () => {
         <div
           className="group flex relative"
           data-tooltip-id="UndoAndRedo"
-          data-tooltip-content={t('Redo') as string}
+          data-tooltip-content={t<string>('Redo')}
         >
           <button
             aria-label="Redo"

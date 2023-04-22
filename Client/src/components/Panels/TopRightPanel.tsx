@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { useFlowStore, useTemporalStore } from '@/store'
 import { RFState } from '@/types/RFState'
 import saveModel from '@/utils/Flow/saveModel'
+import tooltipStyle from '@/style/tooltip'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -40,23 +41,11 @@ const TopRightPanel = ({
       position="top-right"
       className="grid grid-cols-3 gap-2"
     >
-      <Tooltip
-        id="TopRightCommands"
-        delayShow={600}
-        style={{
-          backgroundColor: '#e0e7ff',
-          color: '#4f46e5',
-          borderRadius: '0.375rem',
-          padding: '0.5rem',
-          fontSize: '1rem',
-          lineHeight: '1.5rem',
-          fontWeight: 500
-        }}
-      />
+      <Tooltip id="TopRightCommands" delayShow={600} style={tooltipStyle} />
       <button
         type="button"
         data-tooltip-id="TopRightCommands"
-        data-tooltip-content={t('Clear') as string}
+        data-tooltip-content={t<string>('Clear')}
         aria-label="Clear"
         className="rounded flex justify-center bg-red-50 py-1 px-2 text-sm font-semibold text-red-700 shadow-sm hover:bg-red-100"
         onClick={() => {
@@ -73,7 +62,7 @@ const TopRightPanel = ({
       <button
         type="button"
         data-tooltip-id="TopRightCommands"
-        data-tooltip-content={t('Save') as string}
+        data-tooltip-content={t<string>('Save')}
         aria-label="Save"
         className="rounded bg-green-50 py-1 px-2 text-sm font-semibold text-green-700 shadow-sm hover:bg-green-100"
         onClick={() =>
@@ -93,7 +82,7 @@ const TopRightPanel = ({
       <button
         type="button"
         data-tooltip-id="TopRightCommands"
-        data-tooltip-content={t('Import') as string}
+        data-tooltip-content={t<string>('Import')}
         aria-label="Import"
         className="rounded flex justify-center bg-gray-100 py-1 px-2 text-sm font-semibold text-gray-600 shadow-sm hover:bg-gray-200"
         onClick={() => {
