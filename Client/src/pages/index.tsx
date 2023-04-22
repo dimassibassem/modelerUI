@@ -31,7 +31,7 @@ import { handleContextMenu } from '@/utils/ContextMenu/handleContextMenu'
 import ContextMenu from '@/components/ContextMenu'
 import Notification from '@/components/Modals/Notification'
 import useShortcuts from '@/hooks/useShortcuts'
-import styles from '@/validation.module.css'
+import styles from '@/style/validation.module.css'
 import useOnNodesDelete from '@/hooks/useOnNodeDelete'
 import useProcessDefinitionChecker from '@/hooks/useProcessDefinitionChecker'
 import Joyride from '@/components/Joyride/Joyride'
@@ -173,6 +173,7 @@ const DnDFlow = () => {
               nodeColor={(node: Node) => nodeColor(node.type as NodeType)}
               nodeStrokeWidth={3}
               zoomable
+              className="border border-indigo-400 rounded-md shadow-2xl shadow-indigo-100"
               pannable
             />
             <TopRightPanel
