@@ -3,7 +3,7 @@ import { Transition } from '@headlessui/react'
 import { shallow } from 'zustand/shallow'
 import { useTranslation } from 'react-i18next'
 import { RFState } from '@/types/RFState'
-import { useFlowStore } from '@/store'
+import { useFlowStore, useTemporalStore } from '@/store'
 
 const selector = (state: RFState) => ({
   setProcess: state.setProcess,
@@ -20,6 +20,7 @@ const ProcessDefinitionModal = ({
   const { setProcess, process } = useFlowStore(selector, shallow)
   const [name, setName] = useState<string>('')
   const [description, setDescription] = useState<string>('')
+  const { pause, resume } = useTemporalStore((state) => state)
   const { t } = useTranslation()
   return (
     <Transition.Root show={open}>
@@ -66,9 +67,7 @@ const ProcessDefinitionModal = ({
                           type="text"
                           name="name"
                           id="name"
-                          onChange={(e) => {
-                            setName(e.target.value)
-                          }}
+                          onChange={(e) => setName(e.target.value)}
                           className="block w-full max-w-lg rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                         />
                       </div>
@@ -86,9 +85,7 @@ const ProcessDefinitionModal = ({
                           type="text"
                           name="description"
                           id="description"
-                          onChange={(e) => {
-                            setDescription(e.target.value)
-                          }}
+                          onChange={(e) => setDescription(e.target.value)}
                           className="block w-full max-w-lg rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                         />
                       </div>
@@ -101,12 +98,14 @@ const ProcessDefinitionModal = ({
                     className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm"
                     onClick={() => {
                       if (name !== '' && description !== '') {
+                        pause()
                         setProcess({
                           ...process,
                           name,
                           description
                         })
                         setOpen(false)
+                        resume()
                       } else {
                         alert('Please fill all the fields')
                       }
