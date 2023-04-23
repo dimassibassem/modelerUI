@@ -6,7 +6,6 @@ This project is part of the [Bankerise](https://www.bankerise.com/) project.
 
 I am developing this project as part of my internship at [PROXYM-IT](https://www.proxym-group.com/), it aims to provide a simple and intuitive interface that helps ensure customer operations are secure and compliant with regulatory requirements.
 
-
 ### Requirements
 
 - [Node.js](https://nodejs.org/en/) >= 14.17.0
@@ -14,7 +13,7 @@ I am developing this project as part of my internship at [PROXYM-IT](https://www
 
 ### Technologies used
 
--[React](https://reactjs.org/) 
+-[React](https://reactjs.org/)
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"  height="20" />
 
 -[TypeScript](https://www.typescriptlang.org/)
@@ -55,7 +54,7 @@ I am developing this project as part of my internship at [PROXYM-IT](https://www
 
 **SONARQUBE_URL:** The URL of the SonarQube server to use for the application. This is used to analyze the code.
 
-**SONARQUBE_TOKEN:** The token of the SonarQube server to use for the application. This is used to analyze the code.  
+**SONARQUBE_TOKEN:** The token of the SonarQube server to use for the application. This is used to analyze the code.
 
 **SONARQUBE_PROJECT_KEY:** The project key of the SonarQube server to use for the application. This is used to analyze the code.
 
@@ -65,4 +64,3 @@ The Modeler UI is an important feature for bankerise and its agents,
 as it will help ensure that our client operations are secure and compliant with regulations by using modern web technologies and a simple, intuitive interface.
 
 We believe that we can create an effective solution that meets the needs of my internship company and its customers.
-
