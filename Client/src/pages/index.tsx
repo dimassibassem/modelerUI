@@ -100,7 +100,10 @@ const DnDFlow = () => {
   const onNodesChange = useOnNodesChange()
   const onEdgesChange = useOnEdgesChange()
   const onEdgeUpdate = useOnEdgeUpdate()
-  const isValidConnection = useIsValidConnection()
+  const isValidConnection = useIsValidConnection(
+    setOpenNotification,
+    setNotificationData
+  )
   useRemoveWatermark()
   useProcessDefinitionChecker()
   useHandleLangChange()
