@@ -9,7 +9,7 @@ import { Model } from '@/types/Model'
 
 const loadModels = async () => {
   const { data } = await axios.get(
-    import.meta.env.VITE_API_ENDPOINT + '/api/get-models'
+    `${import.meta.env.VITE_API_ENDPOINT}/api/get-models`
   )
   return data
 }

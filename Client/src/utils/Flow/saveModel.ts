@@ -1,6 +1,6 @@
 import { ReactFlowInstance } from 'reactflow'
-import imageFromHTML from '@/utils/Flow/imageFromHtml'
 import axios from 'axios'
+import imageFromHTML from '@/utils/Flow/imageFromHtml'
 import Process from '@/types/Process'
 
 async function saveModel(
@@ -19,7 +19,7 @@ async function saveModel(
     result.append('process', JSON.stringify(process))
     try {
       await axios.post(
-        import.meta.env.VITE_API_ENDPOINT + '/api/add-model',
+        `${import.meta.env.VITE_API_ENDPOINT}/api/add-model`,
         result,
         {
           headers: {
