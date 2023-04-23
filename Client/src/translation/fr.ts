@@ -100,6 +100,7 @@ const fr = {
   FullScreenContent: 'Mettre le flux en plein écran',
   UndoContent: 'Défaire la dernière action',
   RedoContent: 'Rétablir la dernière action',
+  'Cannot create a connection from {{source}} to {{target}}': `Impossible de créer une connexion de nœud {{source}} à nœud {{target}}`,
   'Add a text': 'Ajouter un texte',
   'Add a Name': 'Ajouter un nom',
   'Add a Channel': 'Ajouter un canal',
