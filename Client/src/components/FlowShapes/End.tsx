@@ -35,7 +35,7 @@ const End: FC<NodeProps> = ({ id, type, data, dragging, selected }) => {
       </NodeToolbar>
       <NodeResizer
         keepAspectRatio
-        color="#ff0071"
+        color="#4f46e5"
         isVisible={selected}
         minWidth={50}
         minHeight={50}

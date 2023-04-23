@@ -16,7 +16,7 @@ const EdgeStrokeSize: FC<{
         className="transparent h-1.5 w-full cursor-pointer appearance-none rounded-lg border-transparent bg-neutral-200"
         id="size"
         min="1"
-        max="6"
+        max="4"
         value={strokeWidth}
         onChange={(e) => {
           setStrokeWidth(Number(e.target.value))

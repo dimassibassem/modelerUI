@@ -17,7 +17,11 @@ const useOnConnect = () => {
       const newEdge = {
         ...connection,
         id: uniqid(),
-        markerEnd: { type: MarkerType.ArrowClosed },
+        markerEnd: {
+          type: MarkerType.ArrowClosed,
+          width: 10,
+          height: 10
+        },
         style: {
           strokeWidth: 2
         }

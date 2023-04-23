@@ -16,6 +16,13 @@ const selector = (state: RFState) => ({
   setEdges: state.setEdges
 })
 
+function handleSize(strokeWidth: number, edgeMarkerType: MarkerType) {
+  if (strokeWidth === 1) {
+    return strokeWidth * 16
+  }
+  return edgeMarkerType === MarkerType.Arrow ? strokeWidth * 8 : strokeWidth * 5
+}
+
 const SelectedEdgeProps = () => {
   const { selected, edges, setEdges } = useFlowStore(selector, shallow)
   const [type, setType] = useState(selected?.type || 'default')
@@ -46,8 +53,8 @@ const SelectedEdgeProps = () => {
                 },
                 markerEnd: {
                   type: edgeMarkerType,
-                  width: strokeWidth * 8,
-                  height: strokeWidth * 8
+                  width: handleSize(strokeWidth, edgeMarkerType),
+                  height: handleSize(strokeWidth, edgeMarkerType)
                 },
                 style: {
                   strokeWidth
