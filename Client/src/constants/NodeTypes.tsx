@@ -5,7 +5,7 @@ import Rule from '@/components/FlowShapes/Rule'
 import Start from '@/components/FlowShapes/Start'
 import End from '@/components/FlowShapes/End'
 
-const nodeTypes = {
+const NodeTypes = {
   start: Start,
   end: End,
   policies: Policies,
@@ -14,4 +14,4 @@ const nodeTypes = {
   rule: Rule
 }
 
-export default nodeTypes
+export default NodeTypes
