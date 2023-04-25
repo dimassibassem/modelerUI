@@ -16,7 +16,7 @@ const RightSidebar = () => {
   return (
     <aside
       id="right-sidebar"
-      className="hidden w-96 p-8 overflow-y-auto border-l border-gray-200 lg:block h-[90vh] max-w-[30%] "
+      className="hidden w-96 bg-white p-8 overflow-y-auto border-l border-gray-200 lg:block h-[90vh] max-w-[30%] "
     >
       {selected && selected.source && <SelectedEdgeProps />}
       {selected && !selected.source && <SelectedNodeProps />}
