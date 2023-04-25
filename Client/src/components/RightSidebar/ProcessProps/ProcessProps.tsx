@@ -21,9 +21,7 @@ const ProcessProps = () => {
         className="flex flex-nowrap justify-center text-md font-medium leading-6 text-gray-900 sm:pt-1.5 items-center truncate outline-none focus:outline-none"
         contentEditable
         suppressContentEditableWarning
-        onBlur={(e) => {
-          setProcess({ ...process, name: e.target.innerText })
-        }}
+        onBlur={(e) => setProcess({ ...process, name: e.target.innerText })}
       >
         {process.name}
       </div>
@@ -32,9 +30,9 @@ const ProcessProps = () => {
         className="flex flex-nowrap justify-center text-sm font-small leading-6 text-gray-600 sm:pt-1.5 items-center truncate outline-none focus:outline-none"
         contentEditable
         suppressContentEditableWarning
-        onBlur={(e) => {
+        onBlur={(e) =>
           setProcess({ ...process, description: e.target.innerText })
-        }}
+        }
       >
         {process.description}
       </div>

@@ -18,9 +18,7 @@ const EdgeStrokeSize: FC<{
         min="1"
         max="4"
         value={strokeWidth}
-        onChange={(e) => {
-          setStrokeWidth(Number(e.target.value))
-        }}
+        onChange={(e) => setStrokeWidth(Number(e.target.value))}
       />
     </div>
   )

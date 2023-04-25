@@ -4,11 +4,35 @@ import { shallow } from 'zustand/shallow'
 import { useTranslation } from 'react-i18next'
 import { RFState } from '@/types/RFState'
 import { useFlowStore, useTemporalStore } from '@/store'
+import Process from '@/types/Process'
 
 const selector = (state: RFState) => ({
   setProcess: state.setProcess,
   process: state.process
 })
+
+function handleSubmit(
+  name: string,
+  description: string,
+  setOpen: (arg0: boolean) => void,
+  setProcess: (arg0: Process) => void,
+  process: Process,
+  pause: () => void,
+  resume: () => void
+) {
+  if (name !== '' && description !== '') {
+    pause()
+    setProcess({
+      ...process,
+      name,
+      description
+    })
+    setOpen(false)
+    resume()
+  } else {
+    alert('Please fill all the fields')
+  }
+}
 
 const ProcessDefinitionModal = ({
   open,
@@ -97,18 +121,15 @@ const ProcessDefinitionModal = ({
                     type="submit"
                     className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm"
                     onClick={() => {
-                      if (name !== '' && description !== '') {
-                        pause()
-                        setProcess({
-                          ...process,
-                          name,
-                          description
-                        })
-                        setOpen(false)
-                        resume()
-                      } else {
-                        alert('Please fill all the fields')
-                      }
+                      handleSubmit(
+                        name,
+                        description,
+                        setOpen,
+                        setProcess,
+                        process,
+                        pause,
+                        resume
+                      )
                     }}
                   >
                     {t('StartCreating')}

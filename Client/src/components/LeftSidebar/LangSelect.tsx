@@ -4,15 +4,12 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { useTranslation } from 'react-i18next'
 import classNames from '@/utils/classNames'
 import useLocalStorage from '@/store/localStorage'
+import languages from '@/constants/Languages'
 
 const LangSelect = () => {
   const lang = useLocalStorage((store) => store.lang)
   const setLang = useLocalStorage((store) => store.setLang)
   const { t } = useTranslation()
-  const languages = [
-    { id: 1, name: t('English'), code: 'en' },
-    { id: 2, name: t('French'), code: 'fr' }
-  ]
   return (
     <Listbox
       value={lang}
@@ -61,7 +58,7 @@ const LangSelect = () => {
                           'block truncate'
                         )}
                       >
-                        {language.name}
+                        {t(language.name)}
                       </span>
 
                       {language.code === lang ? (

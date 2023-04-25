@@ -3,6 +3,31 @@ import { Node } from 'reactflow'
 import { useTranslation } from 'react-i18next'
 import capitalize from '@/utils/capitalize'
 
+function handleAttributes(
+  e: React.ChangeEvent<HTMLInputElement>,
+  attribute: string,
+  selectedNode: Node | null,
+  nodes: Node[],
+  setNodes: (arg0: Node[]) => void
+) {
+  setNodes(
+    nodes.map((node) =>
+      node.id === selectedNode?.id
+        ? {
+            ...node,
+            data: {
+              ...node.data,
+              attributes: {
+                ...node.data.attributes,
+                [attribute]: e.target.value
+              }
+            }
+          }
+        : node
+    )
+  )
+}
+
 const Attributes = ({
   attributes,
   setNodes,
@@ -33,24 +58,9 @@ const Attributes = ({
               className="block p-1 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
               placeholder={t<string>(`Add a ${capitalize(attribute)}`)}
               value={selectedNode?.data.attributes[attribute]}
-              onChange={(e) => {
-                setNodes(
-                  nodes.map((node) =>
-                    node.id === selectedNode?.id
-                      ? {
-                          ...node,
-                          data: {
-                            ...node.data,
-                            attributes: {
-                              ...node.data.attributes,
-                              [attribute]: e.target.value
-                            }
-                          }
-                        }
-                      : node
-                  )
-                )
-              }}
+              onChange={(e) =>
+                handleAttributes(e, attribute, selectedNode, nodes, setNodes)
+              }
             />
           </div>
         </div>

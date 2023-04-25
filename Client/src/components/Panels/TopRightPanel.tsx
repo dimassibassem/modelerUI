@@ -85,9 +85,7 @@ const TopRightPanel = ({
         data-tooltip-content={t<string>('Import')}
         aria-label="Import"
         className="rounded flex justify-center bg-gray-100 py-1 px-2 text-sm font-semibold text-gray-600 shadow-sm hover:bg-gray-200"
-        onClick={() => {
-          setOpenLoadModal(true)
-        }}
+        onClick={() => setOpenLoadModal(true)}
       >
         <Icon className="w-5 h-5" icon="uil:import" />
       </button>
