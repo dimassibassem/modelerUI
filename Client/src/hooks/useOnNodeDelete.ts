@@ -8,7 +8,7 @@ import {
   Node
 } from 'reactflow'
 import { shallow } from 'zustand/shallow'
-import uniqid from 'uniqid'
+import { v4 as uuid } from 'uuid'
 import { RFState } from '@/types/RFState'
 import { useFlowStore } from '@/store'
 
@@ -58,7 +58,7 @@ const useOnNodesDelete = (chainRecovery: boolean) => {
                 ...accum,
                 ...targetsWithConnectedHandle.map(
                   ({ targetHandle, id: targetId }) => ({
-                    id: uniqid(),
+                    id: uuid(),
                     source: sourceId,
                     sourceHandle,
                     target: targetId,

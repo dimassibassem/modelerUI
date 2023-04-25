@@ -1,5 +1,5 @@
 import { Edge, Node } from 'reactflow'
-import uniqid from 'uniqid'
+import { v4 as uuid } from 'uuid'
 
 function isJson(str: string) {
   try {
@@ -75,7 +75,7 @@ const pasteFromClipboard = async ({
       ...edge,
       source: newSource,
       target: newTarget,
-      id: uniqid()
+      id: uuid()
     }
   })
   const copiedNodesWithNewIds = data.nodes.map((node: Node) => {

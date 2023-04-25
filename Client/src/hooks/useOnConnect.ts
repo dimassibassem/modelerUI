@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { addEdge, Connection, MarkerType } from 'reactflow'
 import { shallow } from 'zustand/shallow'
-import uniqid from 'uniqid'
+import { v4 as uuid } from 'uuid'
 import { RFState } from '@/types/RFState'
 import { useFlowStore } from '@/store'
 
@@ -16,7 +16,7 @@ const useOnConnect = () => {
     (connection: Connection) => {
       const newEdge = {
         ...connection,
-        id: uniqid(),
+        id: uuid(),
         markerEnd: {
           type: MarkerType.ArrowClosed,
           width: 10,
