@@ -78,9 +78,9 @@ const SelectedEdgeProps = () => {
   }, [selected])
   const { t } = useTranslation()
   return (
-    <div>
+    <>
       <EdgeRadioGroup edgeType={type} setEdgeType={setType} />
-      <div>
+      <div className="pb-3">
         <Switch
           name="animated"
           checked={animated}
@@ -132,7 +132,7 @@ const SelectedEdgeProps = () => {
           onChange={(e) => setLabelBg(e.target.value)}
         />
       </div>
-    </div>
+    </>
   )
 }
 
