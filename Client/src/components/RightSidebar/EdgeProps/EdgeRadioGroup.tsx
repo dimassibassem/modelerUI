@@ -1,21 +1,9 @@
 import { RadioGroup } from '@headlessui/react'
 import { FC } from 'react'
-import { Icon } from '@iconify/react'
 import { useTranslation } from 'react-i18next'
 import classNames from '@/utils/classNames'
+import EdgeTypes from '@/constants/EdgeTypes'
 
-const edgeTypes = [
-  {
-    name: 'straight',
-    icon: <Icon className="w-5 h-5" icon="ic:round-horizontal-rule" />
-  },
-  {
-    name: 'smoothstep',
-    icon: <Icon className="w-5 h-5" icon="ph:wave-sine-light" />
-  },
-  { name: 'step', icon: <Icon className="w-5 h-5" icon="ph:wave-square" /> },
-  { name: 'default', icon: 'default' }
-]
 const EdgeRadioGroup: FC<{
   edgeType: string
   setEdgeType: (edgeType: string) => void
@@ -34,7 +22,7 @@ const EdgeRadioGroup: FC<{
         className="mt-2 py-3"
       >
         <div className="grid grid-cols-4 gap-3 ">
-          {edgeTypes.map((edgeProp) => (
+          {EdgeTypes.map((edgeProp) => (
             <RadioGroup.Option
               key={edgeProp.name}
               value={edgeProp.name}
