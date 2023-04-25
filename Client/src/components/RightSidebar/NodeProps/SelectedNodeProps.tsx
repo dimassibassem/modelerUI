@@ -48,7 +48,7 @@ const SelectedNodeProps = () => {
 
   const attributesKeys = Object.keys(selected?.data.attributes)
   return (
-    <div>
+    <>
       <div className="flex justify-center text-md font-medium text-gray-900 sm:pt-1.5">
         {selected.type ? capitalize(t(selected.type)) : null}
       </div>
@@ -84,7 +84,7 @@ const SelectedNodeProps = () => {
         nodes={nodes}
         selectedNode={selected}
       />
-    </div>
+    </>
   )
 }
 

@@ -61,33 +61,33 @@ const LeftSidebar = () => {
       id="left-sidebar"
       className="min-h-0 flex-1 flex-col border-r border-gray-200 bg-white max-w-[20%] hidden lg:flex "
     >
-      <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4  ">
-        <div className="flex flex-shrink-0 items-center px-4">
-          {imageLoaded ? (
-            <img
-              className="h-16 w-auto"
-              src={logoBankerise}
-              height="50"
-              width="50"
-              alt="Bankerise"
-            />
-          ) : (
-            <img src="https://via.placeholder.com/150" alt="thumbnail" />
-          )}
-        </div>
-        <nav className="mt-5 flex-1" aria-label="Sidebar">
-          <button
-            type="button"
-            onClick={toggleExpanded}
-            className={classNames(
-              expanded
-                ? 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                : 'bg-gray-100 text-gray-900',
-              'pl-3 ml-2 text-gray-600 hover:text-gray-900 items-center p-2 text-sm font-medium rounded-md flex w-full max-w-[90%]'
-            )}
-          >
-            {t('Shapes')}
-          </button>
+      <div className="flex flex-shrink-0 items-center pb-5 px-4">
+        {imageLoaded ? (
+          <img
+            className="h-16 w-auto"
+            src={logoBankerise}
+            height="50"
+            width="50"
+            alt="Bankerise"
+          />
+        ) : (
+          <img src="https://via.placeholder.com/150" alt="thumbnail" />
+        )}
+      </div>
+      <button
+        type="button"
+        onClick={toggleExpanded}
+        className={classNames(
+          expanded
+            ? 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+            : 'bg-gray-100 text-gray-900',
+          'pl-3 ml-2 text-gray-600 p-2 hover:text-gray-900 items-center text-sm font-medium rounded-md flex w-full max-w-[90%]'
+        )}
+      >
+        {t('Shapes')}
+      </button>
+      <div className="flex flex-1 flex-col overflow-y-auto">
+        <nav className="flex-1" aria-label="Sidebar">
           {expanded && (
             <div id="shapes" className="px-2">
               {shapes.map((item) => (
