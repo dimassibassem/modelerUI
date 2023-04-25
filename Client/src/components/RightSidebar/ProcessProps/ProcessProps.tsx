@@ -6,8 +6,8 @@ import classNames from '@/utils/classNames'
 import { useFlowStore } from '@/store'
 import { RFState } from '@/types/RFState'
 import StepsList from '@/components/RightSidebar/ProcessProps/StepsList'
+import channels from '@/constants/channels'
 
-const Channels = ['MOB', 'WEB']
 const selector = (state: RFState) => ({
   process: state.process,
   setProcess: state.setProcess
@@ -85,7 +85,7 @@ const ProcessProps = () => {
             }}
           >
             <div className="grid grid-cols-2 gap-3 ">
-              {Channels.map((canal) => (
+              {channels.map((canal) => (
                 <RadioGroup.Option
                   key={canal}
                   value={canal}
