@@ -100,6 +100,7 @@ const fr = {
   FullScreenContent: 'Mettre le flux en plein écran',
   UndoContent: 'Défaire la dernière action',
   RedoContent: 'Rétablir la dernière action',
+  Focus: 'Centrer',
   'Edge Marker': 'Marqueur de bord',
   'Edge Type': 'Type de bord',
   'Cannot create a connection from {{source}} to {{target}}': `Impossible de créer une connexion de nœud {{source}} à nœud {{target}}`,

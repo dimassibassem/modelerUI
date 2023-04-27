@@ -93,6 +93,7 @@ const en = {
   FullScreenContent: 'Put the flow in full screen',
   UndoContent: 'Undo the last action',
   RedoContent: 'Redo the last action',
+  Focus: 'Focus',
   'Edge Marker': 'Edge Marker',
   'Edge Type': 'Edge Type',
   'Cannot create a connection from {{source}} to {{target}}':
