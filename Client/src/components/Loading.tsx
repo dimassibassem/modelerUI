@@ -1,8 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import useHandleLangChange from '@/hooks/useHandleLanguageChange'
 
 const Loading = () => {
   const { t } = useTranslation()
+  useHandleLangChange()
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <img

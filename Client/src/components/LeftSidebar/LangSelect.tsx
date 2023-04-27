@@ -4,7 +4,7 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { useTranslation } from 'react-i18next'
 import classNames from '@/utils/classNames'
 import useLocalStorage from '@/store/localStorage'
-import languages from '@/constants/Languages'
+import languages from '@/constants/languages'
 
 const LangSelect = () => {
   const lang = useLocalStorage((store) => store.lang)
