@@ -1,12 +1,6 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
-
-interface LocalStorageState {
-  lang: string
-  setLang: (lang: string) => void
-  run: boolean
-  setRun: (run: boolean) => void
-}
+import LocalStorageState from '@/types/LocalStorageState'
 
 const useLocalStorage = create<LocalStorageState>()(
   devtools(
