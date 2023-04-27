@@ -1,10 +1,9 @@
 import { Edge, Node, ReactFlowInstance } from 'reactflow'
-import { Dispatch, SetStateAction } from 'react'
 
 const copySelected = async (
   reactFlowInstance: ReactFlowInstance | null,
   lastNodeId: number,
-  setLastNodeId: Dispatch<SetStateAction<number>>,
+  setLastNodeId: (lastNodeId: number) => void,
   copy: (text: string) => Promise<boolean>
 ) => {
   const nodes = reactFlowInstance?.getNodes()

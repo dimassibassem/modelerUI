@@ -5,10 +5,17 @@ import { useTranslation } from 'react-i18next'
 import { RFState } from '@/types/RFState'
 import { useFlowStore, useTemporalStore } from '@/store'
 import Process from '@/types/Process'
+import State from '@/types/State'
+import useStore from '@/store/stateStore'
 
 const selector = (state: RFState) => ({
   setProcess: state.setProcess,
   process: state.process
+})
+
+const selector2 = (state: State) => ({
+  setProcessDefOpenModal: state.setProcessDefOpenModal,
+  processDefOpenModal: state.processDefOpenModal
 })
 
 function handleSubmit(
@@ -34,20 +41,18 @@ function handleSubmit(
   }
 }
 
-const ProcessDefinitionModal = ({
-  open,
-  setOpen
-}: {
-  open: boolean
-  setOpen: (arg0: boolean) => void
-}) => {
+const ProcessDefinitionModal = () => {
   const { setProcess, process } = useFlowStore(selector, shallow)
+  const { setProcessDefOpenModal, processDefOpenModal } = useStore(
+    selector2,
+    shallow
+  )
   const [name, setName] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const { pause, resume } = useTemporalStore((state) => state)
   const { t } = useTranslation()
   return (
-    <Transition.Root show={open}>
+    <Transition.Root show={processDefOpenModal}>
       <div className="relative z-10">
         <Transition.Child
           enter="ease-out duration-300"
@@ -124,7 +129,7 @@ const ProcessDefinitionModal = ({
                       handleSubmit(
                         name,
                         description,
-                        setOpen,
+                        setProcessDefOpenModal,
                         setProcess,
                         process,
                         pause,

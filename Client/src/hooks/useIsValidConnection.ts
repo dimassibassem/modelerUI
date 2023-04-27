@@ -1,24 +1,25 @@
 import { Connection } from 'reactflow'
 import { shallow } from 'zustand/shallow'
-import { Dispatch, SetStateAction } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RFState } from '@/types/RFState'
 import { useFlowStore } from '@/store'
 import capitalize from '@/utils/capitalize'
+import State from '@/types/State'
+import useStore from '@/store/stateStore'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes
 })
-const useIsValidConnection = (
-  setOpenNotification: Dispatch<SetStateAction<boolean>>,
-  setNotificationData: Dispatch<
-    SetStateAction<{
-      success: boolean
-      message: string
-    }>
-  >
-) => {
+const selector2 = (state: State) => ({
+  setOpenNotification: state.setOpenNotification,
+  setNotificationData: state.setNotificationData
+})
+const useIsValidConnection = () => {
   const { nodes } = useFlowStore(selector, shallow)
+  const { setOpenNotification, setNotificationData } = useStore(
+    selector2,
+    shallow
+  )
   const { t } = useTranslation()
   return (connection: Connection): boolean => {
     const { target, source } = connection

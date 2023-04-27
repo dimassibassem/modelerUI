@@ -7,17 +7,23 @@ import { handleItemClick } from '@/utils/ContextMenu/handleContextMenu'
 import ContextMenuItem from '@/types/ContextMenuItem'
 import { RFState } from '@/types/RFState'
 import { useFlowStore } from '@/store'
+import State from '@/types/State'
+import useStore from '@/store/stateStore'
 
 const handleDisable = (selectedNodes: Node[] | undefined) =>
   !(selectedNodes && selectedNodes.length > 0)
 const selector = (state: RFState) => ({
   nodes: state.nodes
 })
-const ContextMenu = ({ MENU_ID }: { MENU_ID: string }) => {
+const selector2 = (state: State) => ({
+  menuID: state.menuID
+})
+const ContextMenu = () => {
   const { t } = useTranslation()
   const { nodes } = useFlowStore(selector, shallow)
+  const { menuID } = useStore(selector2, shallow)
   return (
-    <Menu id={MENU_ID}>
+    <Menu id={menuID}>
       <Item
         id={ContextMenuItem.Copy}
         disabled={handleDisable(nodes?.filter((node: Node) => node.selected))}

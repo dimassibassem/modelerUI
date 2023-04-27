@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Edge, Node, Panel, ReactFlowInstance } from 'reactflow'
+import { Panel } from 'reactflow'
 import {
   MagnifyingGlassMinusIcon,
   MagnifyingGlassPlusIcon
@@ -7,27 +7,34 @@ import {
 import { Icon } from '@iconify/react'
 import { Tooltip } from 'react-tooltip'
 import { useTranslation } from 'react-i18next'
+import { shallow } from 'zustand/shallow'
 import onLayout from '@/utils/Flow/onLayout'
 import { VerticalLayout, HorizontalLayout } from '@/types/NodeLayout'
 import tooltipStyle from '@/style/tooltip'
+import { RFState } from '@/types/RFState'
+import State from '@/types/State'
+import { useFlowStore } from '@/store'
+import useStore from '@/store/stateStore'
 
-const BottomLeftPanel = ({
-  reactFlowInstance,
-  nodes,
-  edges,
-  chainRecovery,
-  setChainRecovery,
-  setNodes,
-  setEdges
-}: {
-  reactFlowInstance: ReactFlowInstance | null
-  nodes: Node[]
-  edges: Edge[]
-  chainRecovery: boolean
-  setChainRecovery: (chainRecovery: boolean) => void
-  setNodes: (nds: Node[]) => void
-  setEdges: (eds: Edge[]) => void
-}) => {
+const selector = (state: RFState) => ({
+  nodes: state.nodes,
+  edges: state.edges,
+  setNodes: state.setNodes,
+  setEdges: state.setEdges,
+  setProcess: state.setProcess
+})
+const selector2 = (state: State) => ({
+  reactFlowInstance: state.reactFlowInstance,
+  chainRecovery: state.chainRecovery,
+  setChainRecovery: state.setChainRecovery
+})
+
+const BottomLeftPanel = () => {
+  const { setNodes, setEdges, nodes, edges } = useFlowStore(selector, shallow)
+  const { reactFlowInstance, chainRecovery, setChainRecovery } = useStore(
+    selector2,
+    shallow
+  )
   const [verticalLayout, setVerticalLayout] = useState<VerticalLayout>(
     VerticalLayout.TopToBottom
   )

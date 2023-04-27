@@ -16,8 +16,8 @@ const pasteFromClipboard = async ({
   edges,
   setNodes,
   setEdges,
-  lastNodeId,
-  setLastNodeId,
+  lastNodeIdNumber,
+  setLastNodeIdNumber,
   setNotificationData,
   setOpenNotification,
   pause,
@@ -27,8 +27,8 @@ const pasteFromClipboard = async ({
   edges: Edge[]
   setNodes: (nodes: Node[]) => void
   setEdges: (edges: Edge[]) => void
-  lastNodeId: number
-  setLastNodeId: (lastNodeId: number) => void
+  lastNodeIdNumber: number
+  setLastNodeIdNumber: (lastNodeIdNumber: number) => void
   setNotificationData: (data: { success: boolean; message: string }) => void
   setOpenNotification: (open: boolean) => void
   pause: () => void
@@ -51,7 +51,7 @@ const pasteFromClipboard = async ({
       10
     ) // Get the number of the ID after the separator
     const sourceIdSuffix = edge.source.substring(sourceSeparatorIndex) // Get the suffix of the ID after the separator
-    const newSourceIdSuffix = (sourceNumberId + lastNodeId)
+    const newSourceIdSuffix = (sourceNumberId + lastNodeIdNumber)
       .toString()
       .padStart(sourceIdSuffix.length, '0') // Append the incremented value to the suffix
     const newSource = `${edge.source.substring(
@@ -64,7 +64,7 @@ const pasteFromClipboard = async ({
       10
     ) // Get the number of the ID after the separator
     const targetIdSuffix = edge.target.substring(targetSeparatorIndex) // Get the suffix of the ID after the separator
-    const newTargetIdSuffix = (targetNumberId + lastNodeId)
+    const newTargetIdSuffix = (targetNumberId + lastNodeIdNumber)
       .toString()
       .padStart(targetIdSuffix.length, '0') // Append the incremented value to the suffix
     const newTarget = `${edge.target.substring(
@@ -85,7 +85,7 @@ const pasteFromClipboard = async ({
       10
     ) // Get the number of the ID after the separator
     const idSuffix = node.id.substring(separatorIndex) // Get the suffix of the ID after the separator
-    const newIdSuffix = (numberId + lastNodeId)
+    const newIdSuffix = (numberId + lastNodeIdNumber)
       .toString()
       .padStart(idSuffix.length, '0') // Append the incremented value to the suffix
     const newId = `${node.id.substring(0, separatorIndex)}${newIdSuffix}`
@@ -114,7 +114,7 @@ const pasteFromClipboard = async ({
   setNodes([...(nodes ?? []), ...copiedNodesWithNewIds])
   setEdges([...(edges ?? []), ...copiedEdgesWithNewIds])
   resume()
-  setLastNodeId(lastNodeId + copiedNodesWithNewIds.length)
+  setLastNodeIdNumber(lastNodeIdNumber + copiedNodesWithNewIds.length)
 }
 
 export default pasteFromClipboard

@@ -1,12 +1,11 @@
-import React, { useState, useRef } from 'react'
+import React, { useRef } from 'react'
 import ReactFlow, {
   ReactFlowProvider,
   Background,
   MiniMap,
   Node,
   BackgroundVariant,
-  ConnectionMode,
-  ReactFlowInstance
+  ConnectionMode
 } from 'reactflow'
 import { shallow } from 'zustand/shallow'
 import { useCopyToClipboard } from 'usehooks-ts'
@@ -41,6 +40,8 @@ import useOnConnect from '@/hooks/useOnConnect'
 import useOnEdgesChange from '@/hooks/useOnEdgesChange'
 import useOnEdgeUpdate from '@/hooks/useOnEdgeUpdate'
 import useIsValidConnection from '@/hooks/useIsValidConnection'
+import useStore from '@/store/stateStore'
+import State from '@/types/State'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -50,79 +51,56 @@ const selector = (state: RFState) => ({
   setSelected: state.setSelected
 })
 
-const MENU_ID = 'Context_Menu'
+const selector2 = (state: State) => ({
+  reactFlowInstance: state.reactFlowInstance,
+  setReactFlowInstance: state.setReactFlowInstance,
+  lastNodeIdNumber: state.lastNodeIdNumber,
+  setLastNodeIdNumber: state.setLastNodeIdNumber,
+  setOpenNotification: state.setOpenNotification,
+  setNotificationData: state.setNotificationData,
+  menuID: state.menuID
+})
+
 const DnDFlow = () => {
-  const { nodes, edges, setNodes, setEdges, setSelected } = useFlowStore(
-    selector,
-    shallow
-  )
+  const { nodes, edges, setNodes, setEdges } = useFlowStore(selector, shallow)
+  const {
+    reactFlowInstance,
+    setReactFlowInstance,
+    lastNodeIdNumber,
+    setLastNodeIdNumber,
+    setOpenNotification,
+    setNotificationData,
+    menuID
+  } = useStore(selector2, shallow)
   const { pause, resume } = useTemporalStore((state) => state)
   const reactFlowWrapper = useRef<HTMLInputElement>(null)
-  const [openLoadModal, setOpenLoadModal] = useState(false)
-  const [reactFlowInstance, setReactFlowInstance] =
-    useState<ReactFlowInstance | null>(null)
-  const [processDefOpenModal, setProcessDefOpenModal] = useState(true)
-  const [lastNodeIdNumber, setLastNodeIdNumber] = useState(0)
-  const [openNotification, setOpenNotification] = useState(false)
-  const [notificationData, setNotificationData] = useState({
-    success: false,
-    message: ''
-  })
-  const [chainRecovery, setChainRecovery] = useState<boolean>(false)
 
   const setId = (type: string) => {
     setLastNodeIdNumber(lastNodeIdNumber + 1)
     return `${type}_${lastNodeIdNumber}`
   }
   const [, copy] = useCopyToClipboard()
-  const onConnect = useOnConnect()
-  const onDragOver = useOnDragNode()
-  const onDrop = useOnDropNode(
-    reactFlowWrapper,
-    reactFlowInstance,
-    setNodes,
-    setId,
-    nodes,
-    setOpenNotification,
-    setNotificationData
-  )
-  useShortcuts(
-    reactFlowInstance,
-    lastNodeIdNumber,
-    setLastNodeIdNumber,
-    copy,
-    setNotificationData,
-    setOpenNotification
-  )
-  useHandleSelected(nodes, edges, setSelected)
-  const { show } = useContextMenu({ id: MENU_ID })
-  const onNodeDelete = useOnNodesDelete(chainRecovery)
+
+  useShortcuts(copy)
+  useHandleSelected()
+  const { show } = useContextMenu({ id: menuID })
+  const onNodeDelete = useOnNodesDelete()
   const onNodesChange = useOnNodesChange()
   const onEdgesChange = useOnEdgesChange()
   const onEdgeUpdate = useOnEdgeUpdate()
-  const isValidConnection = useIsValidConnection(
-    setOpenNotification,
-    setNotificationData
-  )
+  const isValidConnection = useIsValidConnection()
+  const onConnect = useOnConnect()
+  const onDragOver = useOnDragNode()
+  const onDrop = useOnDropNode(reactFlowWrapper, setId)
   useRemoveWatermark()
   useProcessDefinitionChecker()
   useHandleLangChange()
   return (
     <div className="flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0">
-      <Joyride
-        setOpenModal={setProcessDefOpenModal}
-        reactFlowInstance={reactFlowInstance}
-      />
-      <Notification
-        open={openNotification}
-        setOpen={setOpenNotification}
-        data={notificationData}
-      />
-      <ContextMenu MENU_ID={MENU_ID} />
-      <ProcessDefinitionModal
-        open={processDefOpenModal}
-        setOpen={setProcessDefOpenModal}
-      />
+      <Joyride />
+      <Notification />
+      <ContextMenu />
+      <ProcessDefinitionModal />
       <LeftSidebar />
       <ReactFlowProvider>
         <div
@@ -179,30 +157,13 @@ const DnDFlow = () => {
               className="border border-indigo-400 rounded-md shadow-2xl shadow-indigo-100"
               pannable
             />
-            <TopRightPanel
-              reactFlowInstance={reactFlowInstance}
-              setOpenLoadModal={setOpenLoadModal}
-              setNotificationData={setNotificationData}
-              setOpenNotification={setOpenNotification}
-            />
-            <BottomLeftPanel
-              reactFlowInstance={reactFlowInstance}
-              edges={edges}
-              nodes={nodes}
-              setNodes={setNodes}
-              setEdges={setEdges}
-              setChainRecovery={setChainRecovery}
-              chainRecovery={chainRecovery}
-            />
+            <TopRightPanel />
+            <BottomLeftPanel />
             <TopLeftPanel />
           </ReactFlow>
         </div>
       </ReactFlowProvider>
-      <LoadModal
-        open={openLoadModal}
-        setOpen={setOpenLoadModal}
-        reactFlowInstance={reactFlowInstance}
-      />
+      <LoadModal />
       <RightSidebar />
     </div>
   )

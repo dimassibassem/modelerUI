@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import Joyride, { CallBackProps, STATUS, Step } from 'react-joyride'
 import { shallow } from 'zustand/shallow'
-import { MarkerType, Position, ReactFlowInstance } from 'reactflow'
+import { MarkerType, Position } from 'reactflow'
 import { useTranslation } from 'react-i18next'
 import { RFState } from '@/types/RFState'
 import { useFlowStore, useTemporalStore } from '@/store'
 import joyrideSteps from './JoyrideSupport'
 import useLocalStorage from '@/store/localStorage'
+import State from '@/types/State'
+import useStore from '@/store/stateStore'
 
-interface State {
+interface Steps {
   steps: Step[]
 }
 
@@ -20,19 +22,21 @@ const selector = (state: RFState) => ({
   setSelected: state.setSelected,
   setProcess: state.setProcess
 })
-export default ({
-  setOpenModal,
-  reactFlowInstance
-}: {
-  setOpenModal: (open: boolean) => void
-  reactFlowInstance: ReactFlowInstance | null
-}) => {
+const selector2 = (state: State) => ({
+  setProcessDefOpenModal: state.setProcessDefOpenModal,
+  reactFlowInstance: state.reactFlowInstance
+})
+export default () => {
   const { setNodes, setEdges, setSelected, nodes, edges, setProcess } =
     useFlowStore(selector, shallow)
+  const { setProcessDefOpenModal, reactFlowInstance } = useStore(
+    selector2,
+    shallow
+  )
   const { t } = useTranslation()
   const run = useLocalStorage((store) => store.run)
   const setRun = useLocalStorage((store) => store.setRun)
-  const [tutorial, setTutorial] = useState<State>({
+  const [tutorial, setTutorial] = useState<Steps>({
     steps: joyrideSteps(t)
   })
 
@@ -50,11 +54,11 @@ export default ({
     switch (index) {
       case 0:
       case 1:
-        setOpenModal(true)
+        setProcessDefOpenModal(true)
         break
       case 2:
         {
-          setOpenModal(false)
+          setProcessDefOpenModal(false)
           setProcess({
             name: t('Tutorial'),
             description: t('TutorialContent'),
@@ -270,7 +274,7 @@ export default ({
       setEdges([])
       clear()
       setRun(false)
-      setOpenModal(true)
+      setProcessDefOpenModal(true)
       setTutorial({
         steps: tutorial.steps
       })

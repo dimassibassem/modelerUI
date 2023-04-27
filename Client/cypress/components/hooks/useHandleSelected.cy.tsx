@@ -1,16 +1,8 @@
 import ReactFlow, { Edge, Node } from 'reactflow'
 import useHandleSelected from '@/hooks/useHandleSelected'
 
-const Flowchart = ({
-  nodes,
-  edges,
-  setSelected
-}: {
-  nodes: Node[]
-  edges: Edge[]
-  setSelected: (selected: Node | Edge | null) => void
-}) => {
-  useHandleSelected(nodes, edges, setSelected)
+const Flowchart = ({ nodes, edges }: { nodes: Node[]; edges: Edge[] }) => {
+  useHandleSelected()
   return <ReactFlow className="h-full grow" nodes={nodes} edges={edges} />
 }
 
@@ -43,10 +35,8 @@ describe('useHandleSelected', () => {
       { id: 'edge1', selected: false, source: 'node1', target: 'node2' },
       { id: 'edge2', selected: true, source: 'node2', target: 'node3' }
     ]
-    const setSelected = cy.stub().as('setSelected')
-    cy.mount(
-      <Flowchart nodes={nodes} edges={edges} setSelected={setSelected} />
-    )
+
+    cy.mount(<Flowchart nodes={nodes} edges={edges} />)
     cy.get('@setSelected').should('have.been.calledWith', nodes[1])
   })
 
@@ -78,10 +68,7 @@ describe('useHandleSelected', () => {
       { id: 'edge1', selected: false, source: 'node1', target: 'node2' },
       { id: 'edge2', selected: false, source: 'node2', target: 'node3' }
     ]
-    const setSelected = cy.stub().as('setSelected')
-    cy.mount(
-      <Flowchart nodes={nodes} edges={edges} setSelected={setSelected} />
-    )
+    cy.mount(<Flowchart nodes={nodes} edges={edges} />)
     cy.get('@setSelected').should('have.been.calledWith', null)
   })
   it('should update selected Edge', () => {
@@ -112,10 +99,8 @@ describe('useHandleSelected', () => {
       { id: 'edge1', selected: true, source: 'node1', target: 'node2' },
       { id: 'edge2', selected: false, source: 'node2', target: 'node3' }
     ]
-    const setSelected = cy.stub().as('setSelected')
-    cy.mount(
-      <Flowchart nodes={nodes} edges={edges} setSelected={setSelected} />
-    )
+
+    cy.mount(<Flowchart nodes={nodes} edges={edges} />)
     cy.get('@setSelected').should('have.been.calledWith', edges[0])
   })
   it('should clear selected Edge', () => {
@@ -146,10 +131,7 @@ describe('useHandleSelected', () => {
       { id: 'edge1', selected: false, source: 'node1', target: 'node2' },
       { id: 'edge2', selected: false, source: 'node2', target: 'node3' }
     ]
-    const setSelected = cy.stub().as('setSelected')
-    cy.mount(
-      <Flowchart nodes={nodes} edges={edges} setSelected={setSelected} />
-    )
+    cy.mount(<Flowchart nodes={nodes} edges={edges} />)
     cy.get('@setSelected').should('have.been.calledWith', null)
   })
 })

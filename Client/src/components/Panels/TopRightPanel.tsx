@@ -1,5 +1,5 @@
 import React from 'react'
-import { Panel, ReactFlowInstance } from 'reactflow'
+import { Panel } from 'reactflow'
 import { shallow } from 'zustand/shallow'
 import { Icon } from '@iconify/react'
 import { Tooltip } from 'react-tooltip'
@@ -8,6 +8,8 @@ import { useFlowStore, useTemporalStore } from '@/store'
 import { RFState } from '@/types/RFState'
 import saveModel from '@/utils/Flow/saveModel'
 import tooltipStyle from '@/style/tooltip'
+import State from '@/types/State'
+import useStore from '@/store/stateStore'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -17,22 +19,24 @@ const selector = (state: RFState) => ({
   process: state.process,
   setProcess: state.setProcess
 })
+const selector2 = (state: State) => ({
+  reactFlowInstance: state.reactFlowInstance,
+  setOpenLoadModal: state.setOpenLoadModal,
+  setNotificationData: state.setNotificationData,
+  setOpenNotification: state.setOpenNotification
+})
 
-const TopRightPanel = ({
-  reactFlowInstance,
-  setOpenLoadModal,
-  setNotificationData,
-  setOpenNotification
-}: {
-  reactFlowInstance: ReactFlowInstance | null
-  setOpenLoadModal: (open: boolean) => void
-  setNotificationData: (data: { success: boolean; message: string }) => void
-  setOpenNotification: (open: boolean) => void
-}) => {
+const TopRightPanel = () => {
   const { setNodes, setEdges, nodes, edges, process } = useFlowStore(
     selector,
     shallow
   )
+  const {
+    reactFlowInstance,
+    setOpenLoadModal,
+    setNotificationData,
+    setOpenNotification
+  } = useStore(selector2, shallow)
   const { pause, resume } = useTemporalStore((state) => state)
   const { t } = useTranslation()
   return (

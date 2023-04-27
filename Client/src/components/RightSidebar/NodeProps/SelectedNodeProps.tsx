@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { Node } from 'reactflow'
+import { Node, ReactFlowInstance } from 'reactflow'
 import { useTranslation } from 'react-i18next'
 import { useFlowStore, useTemporalStore } from '@/store'
 import { RFState } from '@/types/RFState'
@@ -14,8 +14,22 @@ const selector = (state: RFState) => ({
   nodes: state.nodes,
   edges: state.edges
 })
-
-const SelectedNodeProps = () => {
+const focusNode = (
+  selected: Node,
+  reactFlowInstance: ReactFlowInstance | null
+) => {
+  if (selected.width && selected.height && reactFlowInstance) {
+    const x = selected.position.x + selected.width / 2
+    const y = selected.position.y + selected.height / 2
+    const zoom = 1.85
+    reactFlowInstance?.setCenter(x, y, { zoom, duration: 1000 })
+  }
+}
+const SelectedNodeProps = ({
+  reactFlowInstance
+}: {
+  reactFlowInstance: ReactFlowInstance | null
+}) => {
   const { selected, setNodes, nodes, edges } = useFlowStore(selector, shallow)
   const { t } = useTranslation()
   const [nodeText, setNodeText] = useState(selected?.data.text || '')
@@ -47,6 +61,7 @@ const SelectedNodeProps = () => {
   }, [nodes, selected])
 
   const attributesKeys = Object.keys(selected?.data.attributes)
+
   return (
     <>
       <div className="flex justify-center text-md font-medium text-gray-900 sm:pt-1.5">
@@ -84,6 +99,16 @@ const SelectedNodeProps = () => {
         nodes={nodes}
         selectedNode={selected}
       />
+
+      <div className="flex justify-center">
+        <button
+          type="button"
+          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          onClick={() => focusNode(selected, reactFlowInstance)}
+        >
+          {t('Focus')}
+        </button>
+      </div>
     </>
   )
 }

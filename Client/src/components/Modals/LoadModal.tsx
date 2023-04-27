@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react'
 import { Transition } from '@headlessui/react'
 import axios from 'axios'
 import { shallow } from 'zustand/shallow'
-import { ReactFlowInstance } from 'reactflow'
 import { useFlowStore } from '@/store'
 import { RFState } from '@/types/RFState'
 import { Model } from '@/types/Model'
+import State from '@/types/State'
+import useStore from '@/store/stateStore'
 
 const loadModels = async () => {
   const { data } = await axios.get(
@@ -20,22 +21,23 @@ const selector = (state: RFState) => ({
   setProcess: state.setProcess
 })
 
-const LoadModal = ({
-  open,
-  setOpen,
-  reactFlowInstance
-}: {
-  open: boolean
-  setOpen: (arg0: boolean) => void
-  reactFlowInstance: ReactFlowInstance | null
-}) => {
+const selector2 = (state: State) => ({
+  openLoadModal: state.openLoadModal,
+  setOpenLoadModal: state.setOpenLoadModal,
+  reactFlowInstance: state.reactFlowInstance
+})
+const LoadModal = () => {
   const { setNodes, setEdges, setProcess } = useFlowStore(selector, shallow)
+  const { openLoadModal, setOpenLoadModal, reactFlowInstance } = useStore(
+    selector2,
+    shallow
+  )
   const [models, setModels] = useState<Model[]>([])
   useEffect(() => {
-    if (open) loadModels().then((data) => setModels(data))
-  }, [open])
+    if (openLoadModal) loadModels().then((data) => setModels(data))
+  }, [openLoadModal])
   return (
-    <Transition.Root show={open}>
+    <Transition.Root show={openLoadModal}>
       <div className="relative z-10">
         <Transition.Child
           enter="ease-out duration-300"
@@ -84,7 +86,7 @@ const LoadModal = ({
                                 setProcess(model.process)
                                 reactFlowInstance?.fitView()
                                 reactFlowInstance?.zoomTo(1)
-                                setOpen(false)
+                                setOpenLoadModal(false)
                               }}
                             >
                               <img
@@ -104,7 +106,7 @@ const LoadModal = ({
                     type="button"
                     className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm"
                     onClick={() => {
-                      setOpen(false)
+                      setOpenLoadModal(false)
                     }}
                   >
                     Go back to the Modeler

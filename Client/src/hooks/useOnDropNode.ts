@@ -1,18 +1,33 @@
 import { DragEvent, RefObject, useCallback } from 'react'
-import { XYPosition, Node, ReactFlowInstance, Position } from 'reactflow'
+import { XYPosition, Node, Position } from 'reactflow'
+import { shallow } from 'zustand/shallow'
 import connectableWith from '@/utils/Node/connectableWith'
 import attributeSwitcher from '@/utils/Node/attributeSwitcher'
 import NodeType from '@/types/NodeType'
+import { RFState } from '@/types/RFState'
+import State from '@/types/State'
+import { useFlowStore } from '@/store'
+import useStore from '@/store/stateStore'
+
+const selector = (state: RFState) => ({
+  nodes: state.nodes,
+  setNodes: state.setNodes
+})
+
+const selector2 = (state: State) => ({
+  reactFlowInstance: state.reactFlowInstance,
+  setOpenNotification: state.setOpenNotification,
+  setNotificationData: state.setNotificationData
+})
 
 function useOnDropNode(
   reactFlowWrapper: RefObject<HTMLInputElement>,
-  reactFlowInstance: ReactFlowInstance | null,
-  setNodes: (arg0: Node[]) => void,
-  setId: (arg0: string) => string,
-  nodes: Node[],
-  setOpenNotification: (arg0: boolean) => void,
-  setNotificationData: (data: { success: boolean; message: string }) => void
+  setId: (arg0: string) => string
 ) {
+  const { nodes, setNodes } = useFlowStore(selector, shallow)
+
+  const { reactFlowInstance, setOpenNotification, setNotificationData } =
+    useStore(selector2, shallow)
   return useCallback(
     (event: DragEvent) => {
       event.preventDefault()
