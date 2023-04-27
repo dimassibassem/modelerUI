@@ -10,6 +10,7 @@ import saveModel from '@/utils/Flow/saveModel'
 import tooltipStyle from '@/style/tooltip'
 import State from '@/types/State'
 import useStore from '@/store/stateStore'
+import clearFlow from '@/utils/Flow/clearFlow'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -41,34 +42,27 @@ const TopRightPanel = () => {
   const { t } = useTranslation()
   return (
     <Panel
-      id="top-right"
-      position="top-right"
-      className="grid grid-cols-3 gap-2"
+      id='top-right'
+      position='top-right'
+      className='grid grid-cols-3 gap-2'
     >
-      <Tooltip id="TopRightCommands" delayShow={600} style={tooltipStyle} />
+      <Tooltip id='TopRightCommands' delayShow={600} style={tooltipStyle} />
       <button
-        type="button"
-        data-tooltip-id="TopRightCommands"
+        type='button'
+        data-tooltip-id='TopRightCommands'
         data-tooltip-content={t<string>('Clear')}
-        aria-label="Clear"
-        className="rounded flex justify-center bg-red-50 py-1 px-2 text-sm font-semibold text-red-700 shadow-sm hover:bg-red-100"
-        onClick={() => {
-          setNodes(nodes)
-          setEdges(edges)
-          pause()
-          setEdges([])
-          setNodes([])
-          resume()
-        }}
+        aria-label='Clear'
+        className='rounded flex justify-center bg-red-50 py-1 px-2 text-sm font-semibold text-red-700 shadow-sm hover:bg-red-100'
+        onClick={() => clearFlow(nodes, edges, setNodes, setEdges, pause, resume)}
       >
-        <Icon className="w-5 h-5" icon="ic:outline-clear" />
+        <Icon className='w-5 h-5' icon='ic:outline-clear' />
       </button>
       <button
-        type="button"
-        data-tooltip-id="TopRightCommands"
+        type='button'
+        data-tooltip-id='TopRightCommands'
         data-tooltip-content={t<string>('Save')}
-        aria-label="Save"
-        className="rounded bg-green-50 py-1 px-2 text-sm font-semibold text-green-700 shadow-sm hover:bg-green-100"
+        aria-label='Save'
+        className='rounded bg-green-50 py-1 px-2 text-sm font-semibold text-green-700 shadow-sm hover:bg-green-100'
         onClick={() =>
           saveModel(
             reactFlowInstance,
@@ -79,19 +73,19 @@ const TopRightPanel = () => {
         }
       >
         <Icon
-          className="w-5 h-5"
-          icon="material-symbols:save-outline-rounded"
+          className='w-5 h-5'
+          icon='material-symbols:save-outline-rounded'
         />
       </button>
       <button
-        type="button"
-        data-tooltip-id="TopRightCommands"
+        type='button'
+        data-tooltip-id='TopRightCommands'
         data-tooltip-content={t<string>('Import')}
-        aria-label="Import"
-        className="rounded flex justify-center bg-gray-100 py-1 px-2 text-sm font-semibold text-gray-600 shadow-sm hover:bg-gray-200"
+        aria-label='Import'
+        className='rounded flex justify-center bg-gray-100 py-1 px-2 text-sm font-semibold text-gray-600 shadow-sm hover:bg-gray-200'
         onClick={() => setOpenLoadModal(true)}
       >
-        <Icon className="w-5 h-5" icon="uil:import" />
+        <Icon className='w-5 h-5' icon='uil:import' />
       </button>
     </Panel>
   )

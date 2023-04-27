@@ -3,14 +3,13 @@ import selectNodes from '@/utils/ContextMenu/selectNodes'
 import selectEdges from '@/utils/ContextMenu/selectEdges'
 
 const selectAll = (
-  reactFlowInstance: ReactFlowInstance | null,
+  nodes: Node[],
+  edges: Edge[],
   setNodes: (nodes: Node[]) => void,
   setEdges: (edges: Edge[]) => void,
   pause: () => void,
   resume: () => void
 ) => {
-  const nodes = reactFlowInstance?.getNodes()
-  const edges = reactFlowInstance?.getEdges()
   if (nodes) {
     setNodes(nodes)
   }
@@ -18,8 +17,8 @@ const selectAll = (
     setEdges(edges)
   }
   pause()
-  selectNodes(reactFlowInstance)
-  selectEdges(reactFlowInstance)
+  selectNodes(nodes, setNodes)
+  selectEdges(edges, setEdges)
   resume()
 }
 

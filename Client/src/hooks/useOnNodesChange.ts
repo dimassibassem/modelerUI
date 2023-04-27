@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { applyNodeChanges, NodeChange } from 'reactflow'
 import { shallow } from 'zustand/shallow'
 import { RFState } from '@/types/RFState'
-import { useFlowStore } from '@/store'
+import { useFlowStore, useTemporalStore } from '@/store'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -11,9 +11,17 @@ const selector = (state: RFState) => ({
 
 const useOnNodesChange = () => {
   const { nodes, setNodes } = useFlowStore(selector, shallow)
+  const { pause, resume } = useTemporalStore((state) => state)
   return useCallback(
     (changes: NodeChange[]) => {
+      changes.map((change) => {
+          if (change.type === 'position') {
+            pause()
+          }
+        }
+      )
       setNodes(applyNodeChanges(changes, nodes))
+      resume()
     },
     [nodes, setNodes]
   )

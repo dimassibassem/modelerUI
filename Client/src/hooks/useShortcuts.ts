@@ -50,7 +50,7 @@ const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
       case 'a':
         if (e.ctrlKey) {
           e.preventDefault()
-          selectAll(reactFlowInstance, setNodes, setEdges, pause, resume)
+          selectAll(nodes,edges, setNodes, setEdges, pause, resume)
         }
         break
       case 'c':
@@ -85,7 +85,8 @@ const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
         if (e.ctrlKey) {
           e.preventDefault()
           await cutSelected(
-            reactFlowInstance,
+          nodes,
+          edges,
             setNodes,
             setEdges,
             lastNodeIdNumber,

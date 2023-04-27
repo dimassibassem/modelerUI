@@ -1,9 +1,10 @@
-import { ReactFlowInstance } from 'reactflow'
+import { Node } from 'reactflow'
 
-const selectNodes = (reactFlowInstance: ReactFlowInstance | null) => {
-  const nodes = reactFlowInstance?.getNodes()
+const selectNodes = (nodes: Node[],
+                     setNodes: (nodes: Node[]) => void
+) => {
   if (nodes) {
-    reactFlowInstance?.setNodes(
+    setNodes(
       nodes.map((node) => ({
         ...node,
         selected: true

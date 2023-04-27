@@ -27,7 +27,8 @@ export const handleItemClick = async ({ id, props }: ItemParams) => {
     }
     case ContextMenuItem.Cut:
       await cutSelected(
-        props.reactFlowInstance,
+        props.nodes,
+        props.edges,
         props.setNodes,
         props.setEdges,
         props.lastNodeId,
@@ -44,16 +45,17 @@ export const handleItemClick = async ({ id, props }: ItemParams) => {
       break
     }
     case ContextMenuItem.SelectNodes: {
-      selectNodes(props.reactFlowInstance)
+      selectNodes(props.nodes, props.setNodes)
       break
     }
     case ContextMenuItem.SelectEdges: {
-      selectEdges(props.reactFlowInstance)
+      selectEdges(props.edges, props.setEdges)
       break
     }
     case ContextMenuItem.SelectAll: {
       selectAll(
-        props.reactFlowInstance,
+        props.nodes,
+        props.edges,
         props.setNodes,
         props.setEdges,
         props.pause,

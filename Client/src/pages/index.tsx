@@ -130,9 +130,9 @@ const DnDFlow = () => {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
-            onNodeDragStart={pause}
-            onNodeDrag={pause}
-            onNodeDragStop={resume}
+            // onNodeDragStart={pause}
+            // onNodeDrag={pause}
+            // onNodeDragStop={resume}
             onNodesDelete={onNodeDelete}
             connectionMode={ConnectionMode.Loose}
             onInit={setReactFlowInstance}

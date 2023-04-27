@@ -1,9 +1,11 @@
-import { ReactFlowInstance } from 'reactflow'
+import { Edge } from 'reactflow'
 
-const selectEdges = (reactFlowInstance: ReactFlowInstance | null) => {
-  const edges = reactFlowInstance?.getEdges()
+const selectEdges = (
+  edges: Edge[],
+  setEdges: (edges: Edge[]) => void
+) => {
   if (edges) {
-    reactFlowInstance?.setEdges(
+    setEdges(
       edges.map((edge) => ({
         ...edge,
         selected: true

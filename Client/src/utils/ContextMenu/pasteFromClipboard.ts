@@ -78,7 +78,7 @@ const pasteFromClipboard = async ({
       id: uuid()
     }
   })
-  const copiedNodesWithNewIds = data.nodes.map((node: Node) => {
+  const copiedNodesWithNewIds:Node[] = data.nodes.map((node: Node) => {
     const separatorIndex = node.id.indexOf('_') + 1 // Get the index of the separator character
     const numberId = parseInt(
       node.id.substring(separatorIndex, node.id.length),
@@ -110,10 +110,10 @@ const pasteFromClipboard = async ({
   if (edges) {
     setEdges(edges)
   }
-  pause()
+  // pause()
   setNodes([...(nodes ?? []), ...copiedNodesWithNewIds])
   setEdges([...(edges ?? []), ...copiedEdgesWithNewIds])
-  resume()
+  // resume()
   setLastNodeIdNumber(lastNodeIdNumber + copiedNodesWithNewIds.length)
 }
 

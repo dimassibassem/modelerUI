@@ -1,15 +1,14 @@
-import { Edge, Node, ReactFlowInstance } from 'reactflow'
+import { Edge, Node } from 'reactflow'
 
 const cutSelected = async (
-  reactFlowInstance: ReactFlowInstance | null,
+  nodes: Node[],
+  edges: Edge[],
   setNodes: (nodes: Node[]) => void,
   setEdges: (edges: Edge[]) => void,
   lastNodeId: number,
   setLastNodeId: (lastNodeId: number) => void,
   copy: (text: string) => Promise<boolean>
 ) => {
-  const nodes = reactFlowInstance?.getNodes()
-  const edges = reactFlowInstance?.getEdges()
   const selectedNodes = nodes?.filter((node: Node) => node.selected)
   const selectedEdges = edges?.filter((edge: Edge) => edge.selected)
   if (selectedNodes) {
