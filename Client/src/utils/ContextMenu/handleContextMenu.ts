@@ -2,13 +2,10 @@ import { ItemParams } from 'react-contexify'
 import { MouseEvent } from 'react'
 import { Node, Edge, ReactFlowInstance } from 'reactflow'
 import copyAsImage from './copyAsImage'
-import selectNodes from './selectNodes'
-import selectEdges from './selectEdges'
 import copySelected from './copySelected'
 import pasteFromClipboard from './pasteFromClipboard'
 import ContextMenuItem from '@/types/ContextMenuItem'
 import cutSelected from './cutSelected'
-import selectAll from '@/utils/Flow/selectAll'
 
 export const handleItemClick = async ({ id, props }: ItemParams) => {
   switch (id as ContextMenuItem) {
@@ -45,22 +42,15 @@ export const handleItemClick = async ({ id, props }: ItemParams) => {
       break
     }
     case ContextMenuItem.SelectNodes: {
-      selectNodes(props.nodes, props.setNodes)
+      props.selectAllNodes()
       break
     }
     case ContextMenuItem.SelectEdges: {
-      selectEdges(props.edges, props.setEdges)
+      props.selectAllEdges()
       break
     }
     case ContextMenuItem.SelectAll: {
-      selectAll(
-        props.nodes,
-        props.edges,
-        props.setNodes,
-        props.setEdges,
-        props.pause,
-        props.resume
-      )
+      props.selectAll()
       break
     }
     default:
@@ -70,6 +60,9 @@ export const handleItemClick = async ({ id, props }: ItemParams) => {
 export const handleContextMenu = (
   event: MouseEvent,
   props: {
+    selectAllNodes: () => void
+    selectAllEdges: () => void
+    selectAll: () => void
     reactFlowInstance: ReactFlowInstance | null
     setNodes: (nodes: Node[]) => void
     setEdges: (edges: Edge[]) => void
@@ -89,6 +82,9 @@ export const handleContextMenu = (
   props.show({
     event,
     props: {
+      selectAllNodes: props.selectAllNodes,
+      selectAllEdges: props.selectAllEdges,
+      selectAll: props.selectAll,
       reactFlowInstance: props.reactFlowInstance,
       setNodes: props.setNodes,
       setEdges: props.setEdges,

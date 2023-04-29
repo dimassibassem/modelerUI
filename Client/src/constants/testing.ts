@@ -20,7 +20,6 @@ let nodes: Node[] = [
     position: { x: 400, y: 100 },
     selected: false
   }
-
 ]
 
 const setNodes = (nds: Node[]) => {
@@ -92,6 +91,3 @@ export {
   pause,
   resume
 }
-
-
-

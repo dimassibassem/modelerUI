@@ -1,7 +1,13 @@
 import { describe, it, expect, vi } from 'vitest'
 import cutSelected from '@/utils/ContextMenu/cutSelected'
-import { nodes, setNodes, edges, lastNodeIdNumber, setLastNodeIdNumber, setEdges } from '@/constants/testing'
-
+import {
+  nodes,
+  setNodes,
+  edges,
+  lastNodeIdNumber,
+  setLastNodeIdNumber,
+  setEdges
+} from '@/constants/testing'
 
 describe('cutSelected', () => {
   it('should cut all selected nodes and edges', async () => {

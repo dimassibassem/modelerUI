@@ -48,7 +48,10 @@ const selector = (state: RFState) => ({
   edges: state.edges,
   setNodes: state.setNodes,
   setEdges: state.setEdges,
-  setSelected: state.setSelected
+  setSelected: state.setSelected,
+  selectAllNodes: state.selectAllNodes,
+  selectAllEdges: state.selectAllEdges,
+  selectAll: state.selectAll
 })
 
 const selector2 = (state: State) => ({
@@ -62,7 +65,15 @@ const selector2 = (state: State) => ({
 })
 
 const DnDFlow = () => {
-  const { nodes, edges, setNodes, setEdges } = useFlowStore(selector, shallow)
+  const {
+    nodes,
+    edges,
+    setNodes,
+    setEdges,
+    selectAllNodes,
+    selectAllEdges,
+    selectAll
+  } = useFlowStore(selector, shallow)
   const {
     reactFlowInstance,
     setReactFlowInstance,
@@ -107,6 +118,9 @@ const DnDFlow = () => {
           id="reactflow-wrapper"
           onContextMenu={(event) =>
             handleContextMenu(event, {
+              selectAllNodes,
+              selectAllEdges,
+              selectAll,
               reactFlowInstance,
               setNodes,
               setEdges,

@@ -5,7 +5,7 @@ import {
   setNodes,
   edges,
   setEdges,
- lastNodeIdNumber,
+  lastNodeIdNumber,
   setLastNodeIdNumber,
   pause,
   resume
@@ -34,72 +34,68 @@ describe('pasteFromClipboard', () => {
   }
   copyToClipboard(JSON.stringify({ nodes, edges }))
   it('should paste all nodes and edges', async () => {
-      await pasteFromClipboard({
-        nodes,
-        edges,
-        setNodes,
-        setEdges,
-        lastNodeIdNumber,
-        setLastNodeIdNumber,
-        setNotificationData,
-        setOpenNotification,
-        pause,
-        resume
-      })
-      expect(lastNodeIdNumber).toBe(3)
-    }
-  )
+    await pasteFromClipboard({
+      nodes,
+      edges,
+      setNodes,
+      setEdges,
+      lastNodeIdNumber,
+      setLastNodeIdNumber,
+      setNotificationData,
+      setOpenNotification,
+      pause,
+      resume
+    })
+    expect(lastNodeIdNumber).toBe(3)
+  })
   it('expect no nodes to be selected', async () => {
-      await pasteFromClipboard({
-        nodes,
-        edges,
-        setNodes,
-        setEdges,
-        lastNodeIdNumber,
-        setLastNodeIdNumber,
-        setNotificationData,
-        setOpenNotification,
-        pause,
-        resume
-      })
-      expect(nodes.every((node: Node) => !node.selected)).toBe(false)
-    }
-  )
+    await pasteFromClipboard({
+      nodes,
+      edges,
+      setNodes,
+      setEdges,
+      lastNodeIdNumber,
+      setLastNodeIdNumber,
+      setNotificationData,
+      setOpenNotification,
+      pause,
+      resume
+    })
+    expect(nodes.every((node: Node) => !node.selected)).toBe(false)
+  })
   it('expect no edges to be selected', async () => {
-      await pasteFromClipboard({
-        nodes,
-        edges,
-        setNodes,
-        setEdges,
-        lastNodeIdNumber,
-        setLastNodeIdNumber,
-        setNotificationData,
-        setOpenNotification,
-        pause,
-        resume
-      })
-      expect(edges.every((edge) => !edge.selected)).toBe(false)
-    }
-  )
+    await pasteFromClipboard({
+      nodes,
+      edges,
+      setNodes,
+      setEdges,
+      lastNodeIdNumber,
+      setLastNodeIdNumber,
+      setNotificationData,
+      setOpenNotification,
+      pause,
+      resume
+    })
+    expect(edges.every((edge) => !edge.selected)).toBe(false)
+  })
 
   it('should throw an error if clipboard data is not valid', async () => {
-      await pasteFromClipboard({
-        nodes,
-        edges,
-        setNodes,
-        setEdges,
-        lastNodeIdNumber,
-        setLastNodeIdNumber,
-        setNotificationData,
-        setOpenNotification,
-        pause,
-        resume
-      })
-      expect(setOpenNotification).toBeCalledWith(true)
-      expect(setNotificationData).toBeCalledWith({
-        success: false,
-        message: 'Clipboard is empty or contains invalid data'
-      })
-    }
-  )
+    await pasteFromClipboard({
+      nodes,
+      edges,
+      setNodes,
+      setEdges,
+      lastNodeIdNumber,
+      setLastNodeIdNumber,
+      setNotificationData,
+      setOpenNotification,
+      pause,
+      resume
+    })
+    expect(setOpenNotification).toBeCalledWith(true)
+    expect(setNotificationData).toBeCalledWith({
+      success: false,
+      message: 'Clipboard is empty or contains invalid data'
+    })
+  })
 })

@@ -14,16 +14,15 @@ const useOnNodesChange = () => {
   const { pause, resume } = useTemporalStore((state) => state)
   return useCallback(
     (changes: NodeChange[]) => {
-      changes.map((change) => {
-          if (change.type === 'position') {
-            pause()
-          }
+      changes.forEach((change) => {
+        if (change.type === 'position' || change.type === 'remove') {
+          pause()
         }
-      )
+      })
       setNodes(applyNodeChanges(changes, nodes))
       resume()
     },
-    [nodes, setNodes]
+    [nodes, pause, resume, setNodes]
   )
 }
 

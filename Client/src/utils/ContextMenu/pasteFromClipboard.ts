@@ -11,29 +11,15 @@ function isJson(str: string) {
 }
 
 let padding = 0
-const pasteFromClipboard = async ({
-  nodes,
-  edges,
-  setNodes,
-  setEdges,
-  lastNodeIdNumber,
-  setLastNodeIdNumber,
-  setNotificationData,
-  setOpenNotification,
-  pause,
-  resume
-}: {
-  nodes: Node[]
-  edges: Edge[]
-  setNodes: (nodes: Node[]) => void
-  setEdges: (edges: Edge[]) => void
-  lastNodeIdNumber: number
-  setLastNodeIdNumber: (lastNodeIdNumber: number) => void
-  setNotificationData: (data: { success: boolean; message: string }) => void
+const pasteFromClipboard = async (
+  nodes: Node[],
+  edges: Edge[],
+  setNodesAndEdges: (nodes: Node[], edges: Edge[]) => void,
+  lastNodeIdNumber: number,
+  setLastNodeIdNumber: (lastNodeIdNumber: number) => void,
+  setNotificationData: (data: { success: boolean; message: string }) => void,
   setOpenNotification: (open: boolean) => void
-  pause: () => void
-  resume: () => void
-}) => {
+) => {
   const json = await navigator.clipboard.readText()
   if (!isJson(json)) {
     setNotificationData({
@@ -78,7 +64,7 @@ const pasteFromClipboard = async ({
       id: uuid()
     }
   })
-  const copiedNodesWithNewIds:Node[] = data.nodes.map((node: Node) => {
+  const copiedNodesWithNewIds: Node[] = data.nodes.map((node: Node) => {
     const separatorIndex = node.id.indexOf('_') + 1 // Get the index of the separator character
     const numberId = parseInt(
       node.id.substring(separatorIndex, node.id.length),
@@ -104,16 +90,10 @@ const pasteFromClipboard = async ({
   edges?.forEach((edge) => {
     edge.selected = false
   })
-  if (nodes) {
-    setNodes(nodes)
-  }
-  if (edges) {
-    setEdges(edges)
-  }
-  // pause()
-  setNodes([...(nodes ?? []), ...copiedNodesWithNewIds])
-  setEdges([...(edges ?? []), ...copiedEdgesWithNewIds])
-  // resume()
+  setNodesAndEdges(
+    [...(nodes ?? []), ...copiedNodesWithNewIds],
+    [...(edges ?? []), ...copiedEdgesWithNewIds]
+  )
   setLastNodeIdNumber(lastNodeIdNumber + copiedNodesWithNewIds.length)
 }
 

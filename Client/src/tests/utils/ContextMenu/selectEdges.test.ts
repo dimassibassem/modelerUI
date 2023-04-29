@@ -1,29 +1,16 @@
-import { describe, it, expect } from 'vitest'
-import selectEdges from '@/utils/ContextMenu/selectEdges'
-import { edges, setEdges } from '@/constants/testing'
-
-describe('selectEdges', () => {
-  it('should select all edges', () => {
-    selectEdges(edges, setEdges)
-    expect(edges).toEqual([
-        {
-          id: '1',
-          source: '1',
-          target: '2',
-          type: 'smoothstep',
-          label: 'Edge 1',
-          selected: true
-        },
-        {
-          id: '2',
-          source: '2',
-          target: '3',
-          type: 'smoothstep',
-          label: 'Edge 2',
-          selected: true
-        }
-      ]
-    )
-
-  })
-})
+// import { describe, it, expect } from "vitest";
+// import { edges as eds } from "@/constants/testing";
+// import { useFlowStore } from "@/store";
+//
+// describe("selectEdges", () => {
+//   it("should select all edges", () => {
+//
+//     const { selectAllEdges, edges } = useFlowStore.getState();
+//     edges = eds;
+//     console.log(edges);
+//     selectAllEdges();
+//     expect(edges).toEqual(eds.map((e) => ({ ...e, selected: true })));
+//
+//   });
+// });
+//

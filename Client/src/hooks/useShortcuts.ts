@@ -5,7 +5,6 @@ import pasteFromClipboard from '@/utils/ContextMenu/pasteFromClipboard'
 import cutSelected from '@/utils/ContextMenu/cutSelected'
 import { RFState } from '@/types/RFState'
 import { useFlowStore, useTemporalStore } from '@/store'
-import selectAll from '@/utils/Flow/selectAll'
 import State from '@/types/State'
 import useStore from '@/store/stateStore'
 
@@ -13,7 +12,9 @@ const selector = (state: RFState) => ({
   nodes: state.nodes,
   edges: state.edges,
   setNodes: state.setNodes,
-  setEdges: state.setEdges
+  setEdges: state.setEdges,
+  setNodesAndEdges: state.setNodesAndEdges,
+  selectAll: state.selectAll
 })
 const selector2 = (state: State) => ({
   reactFlowInstance: state.reactFlowInstance,
@@ -23,7 +24,8 @@ const selector2 = (state: State) => ({
   setOpenNotification: state.setOpenNotification
 })
 const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
-  const { nodes, edges, setNodes, setEdges } = useFlowStore(selector, shallow)
+  const { nodes, edges, setNodes, setEdges, selectAll, setNodesAndEdges } =
+    useFlowStore(selector, shallow)
   const { undo, redo, pause, resume } = useTemporalStore((state) => state)
   const {
     reactFlowInstance,
@@ -50,7 +52,7 @@ const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
       case 'a':
         if (e.ctrlKey) {
           e.preventDefault()
-          selectAll(nodes,edges, setNodes, setEdges, pause, resume)
+          selectAll()
         }
         break
       case 'c':
@@ -67,28 +69,24 @@ const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
       case 'v':
         if (e.ctrlKey) {
           e.preventDefault()
-          await pasteFromClipboard({
+          await pasteFromClipboard(
             nodes,
             edges,
-            setNodes,
-            setEdges,
+            setNodesAndEdges,
             lastNodeIdNumber,
             setLastNodeIdNumber,
             setNotificationData,
-            setOpenNotification,
-            pause,
-            resume
-          })
+            setOpenNotification
+          )
         }
         break
       case 'x':
         if (e.ctrlKey) {
           e.preventDefault()
           await cutSelected(
-          nodes,
-          edges,
-            setNodes,
-            setEdges,
+            nodes,
+            edges,
+            setNodesAndEdges,
             lastNodeIdNumber,
             setLastNodeIdNumber,
             copy

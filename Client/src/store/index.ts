@@ -25,11 +25,41 @@ const useFlowStore = create(
   temporal<RFState>(
     // @ts-ignore
     devtools(
-      (set) => ({
+      (set, get) => ({
         process: initialProcess,
         nodes: initialNodes,
         edges: initialEdges,
+        setNodesAndEdges: (nodes: Node[], edges: Edge[]) =>
+          set({ nodes, edges }, false, 'setNodesAndEdges'),
         selected: null,
+        selectAll: () => {
+          set(
+            {
+              nodes: get().nodes.map((node) => ({ ...node, selected: true })),
+              edges: get().edges.map((edge) => ({ ...edge, selected: true }))
+            },
+            false,
+            'selectAll'
+          )
+        },
+        selectAllNodes: () => {
+          set(
+            {
+              nodes: get().nodes.map((node) => ({ ...node, selected: true }))
+            },
+            false,
+            'selectAllNodes'
+          )
+        },
+        selectAllEdges: () => {
+          set(
+            {
+              edges: get().edges.map((edge) => ({ ...edge, selected: true }))
+            },
+            false,
+            'selectAllEdges'
+          )
+        },
         setProcess: (process: Process) => set({ process }, false, 'setProcess'),
         setSelected(selected: Node | Edge | null) {
           set({ selected }, false, 'setSelected')

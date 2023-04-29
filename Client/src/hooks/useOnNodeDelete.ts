@@ -10,7 +10,7 @@ import {
 import { shallow } from 'zustand/shallow'
 import { v4 as uuid } from 'uuid'
 import { RFState } from '@/types/RFState'
-import { useFlowStore } from '@/store'
+import { useFlowStore, useTemporalStore } from '@/store'
 import State from '@/types/State'
 import useStore from '@/store/stateStore'
 
@@ -25,8 +25,10 @@ const selector2 = (state: State) => ({
 const useOnNodesDelete = () => {
   const { nodes, edges, setEdges } = useFlowStore(selector, shallow)
   const { chainRecovery } = useStore(selector2, shallow)
+  const { pause, resume } = useTemporalStore((state) => state)
   return useCallback(
     (deleted: Node[]) => {
+      pause()
       if (chainRecovery) {
         setEdges(
           deleted.reduce((acc: Edge[], node: Node) => {
@@ -77,8 +79,9 @@ const useOnNodesDelete = () => {
           }, edges)
         )
       }
+      resume()
     },
-    [chainRecovery, setEdges, edges, nodes]
+    [pause, chainRecovery, resume, setEdges, edges, nodes]
   )
 }
 
