@@ -23,6 +23,8 @@ interface State extends ResetState {
   chainRecovery: boolean
   setChainRecovery: (chainRecovery: boolean) => void
   menuID: string
+  modelID: number | null
+  setModelID: (id: number) => void
 }
 
 export default State

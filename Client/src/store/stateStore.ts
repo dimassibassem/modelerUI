@@ -31,6 +31,8 @@ const useStore = create<State>()(
       chainRecovery: false,
       setChainRecovery: (chainRecovery: boolean) => set({ chainRecovery }),
       menuID: 'Context_Menu',
+      modelID: null,
+      setModelID: (id: number) => set({ modelID: id }),
       resetState: () =>
         set({
           openLoadModal: false,
