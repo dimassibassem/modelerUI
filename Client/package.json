@@ -11,11 +11,11 @@
     "lint": "eslint --ext .js,.jsx,.ts,.tsx, src",
     "preview": "vite preview",
     "format": "prettier --write .",
-    "test-e2e:dev": "cypress open",
-    "test-e2e": "cypress run --e2e --headless",
-    "test-unit": "vitest --watch false",
-    "test-unit:dev": "vitest",
-    "test": "npm run test-unit && npm run test-e2e",
+    "cypress:dev": "cypress open",
+    "cypress": "cypress run --e2e --headless",
+    "test-unit": "vitest --watch false ",
+    "test-unit:watch": "vitest",
+    "test": "npm run test-unit && npm run cypress",
     "sonar-scanner": "node sonar-scanner.js"
   },
   "dependencies": {
