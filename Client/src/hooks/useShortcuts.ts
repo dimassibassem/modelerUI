@@ -11,8 +11,6 @@ import useStore from '@/store/stateStore'
 const selector = (state: RFState) => ({
   nodes: state.nodes,
   edges: state.edges,
-  setNodes: state.setNodes,
-  setEdges: state.setEdges,
   setNodesAndEdges: state.setNodesAndEdges,
   selectAll: state.selectAll
 })
@@ -24,9 +22,11 @@ const selector2 = (state: State) => ({
   setOpenNotification: state.setOpenNotification
 })
 const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
-  const { nodes, edges, setNodes, setEdges, selectAll, setNodesAndEdges } =
-    useFlowStore(selector, shallow)
-  const { undo, redo, pause, resume } = useTemporalStore((state) => state)
+  const { nodes, edges, selectAll, setNodesAndEdges } = useFlowStore(
+    selector,
+    shallow
+  )
+  const { undo, redo } = useTemporalStore((state) => state)
   const {
     reactFlowInstance,
     lastNodeIdNumber,

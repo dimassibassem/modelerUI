@@ -19,15 +19,22 @@ export const handleItemClick = async ({ id, props }: ItemParams) => {
       break
     }
     case ContextMenuItem.Paste: {
-      await pasteFromClipboard(props)
+      await pasteFromClipboard(
+        props.nodes,
+        props.edges,
+        props.setNodesAndEdges,
+        props.lastNodeIdNumber,
+        props.setLastNodeIdNumber,
+        props.setOpenNotification,
+        props.setNotificationData
+      )
       break
     }
     case ContextMenuItem.Cut:
       await cutSelected(
         props.nodes,
         props.edges,
-        props.setNodes,
-        props.setEdges,
+        props.setNodesAndEdges,
         props.lastNodeId,
         props.setLastNodeId,
         props.copy
