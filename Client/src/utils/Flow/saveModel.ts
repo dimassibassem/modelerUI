@@ -7,6 +7,8 @@ async function saveModel(
   reactFlowInstance: ReactFlowInstance | null,
   process: Process,
   setNotificationData: (data: { success: boolean; message: string }) => void,
+  modelID: number | null,
+  setModelID: (id: number) => void,
   setOpenNotification: (open: boolean) => void
 ) {
   const res = await imageFromHTML(reactFlowInstance)
@@ -18,20 +20,38 @@ async function saveModel(
     result.append('instance', JSON.stringify(res.instance))
     result.append('process', JSON.stringify(process))
     try {
-      await axios.post(
-        `${import.meta.env.VITE_API_ENDPOINT}/api/add-model`,
-        result,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data'
+      if (!modelID) {
+        const response = await axios.post(
+          `${import.meta.env.VITE_API_ENDPOINT}/api/add-model`,
+          result,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
           }
-        }
-      )
-      setNotificationData({
-        success: true,
-        message: 'Model saved successfully'
-      })
-      setOpenNotification(true)
+        )
+        setModelID(response.data.id)
+        setNotificationData({
+          success: true,
+          message: 'Model saved successfully'
+        })
+        setOpenNotification(true)
+      } else {
+        await axios.put(
+          `${import.meta.env.VITE_API_ENDPOINT}/api/update-model/${modelID}`,
+          result,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          }
+        )
+        setNotificationData({
+          success: true,
+          message: 'Model updated successfully'
+        })
+        setOpenNotification(true)
+      }
     } catch (e) {
       console.log(e)
     }

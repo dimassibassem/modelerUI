@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import ReactFlow, {
   ReactFlowProvider,
   Background,
@@ -42,6 +42,7 @@ import useOnEdgeUpdate from '@/hooks/useOnEdgeUpdate'
 import useIsValidConnection from '@/hooks/useIsValidConnection'
 import useStore from '@/store/stateStore'
 import State from '@/types/State'
+import useLoadModel from '@/hooks/useLoadModel'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -51,7 +52,8 @@ const selector = (state: RFState) => ({
   setSelected: state.setSelected,
   selectAllNodes: state.selectAllNodes,
   selectAllEdges: state.selectAllEdges,
-  selectAll: state.selectAll
+  selectAll: state.selectAll,
+  process: state.process
 })
 
 const selector2 = (state: State) => ({
@@ -72,7 +74,8 @@ const DnDFlow = () => {
     setEdges,
     selectAllNodes,
     selectAllEdges,
-    selectAll
+    selectAll,
+    process
   } = useFlowStore(selector, shallow)
   const {
     reactFlowInstance,
@@ -91,9 +94,6 @@ const DnDFlow = () => {
     return `${type}_${lastNodeIdNumber}`
   }
   const [, copy] = useCopyToClipboard()
-
-  useShortcuts(copy)
-  useHandleSelected()
   const { show } = useContextMenu({ id: menuID })
   const onNodeDelete = useOnNodesDelete()
   const onNodesChange = useOnNodesChange()
@@ -103,15 +103,19 @@ const DnDFlow = () => {
   const onConnect = useOnConnect()
   const onDragOver = useOnDragNode()
   const onDrop = useOnDropNode(reactFlowWrapper, setId)
+  const [loaded, setLoaded] = useState(false)
+  useLoadModel(setLoaded)
+  useShortcuts(copy)
+  useHandleSelected()
   useRemoveWatermark()
   useProcessDefinitionChecker()
   useHandleLangChange()
   return (
-    <div className="flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0">
+    <div className="flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0 overflow-hidden">
       <Joyride />
       <Notification />
       <ContextMenu />
-      <ProcessDefinitionModal />
+      {loaded && !process.name && <ProcessDefinitionModal />}
       <LeftSidebar />
       <ReactFlowProvider>
         <div
@@ -144,9 +148,6 @@ const DnDFlow = () => {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
-            // onNodeDragStart={pause}
-            // onNodeDrag={pause}
-            // onNodeDragStop={resume}
             onNodesDelete={onNodeDelete}
             connectionMode={ConnectionMode.Loose}
             onInit={setReactFlowInstance}
