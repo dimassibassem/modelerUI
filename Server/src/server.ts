@@ -16,8 +16,33 @@ const upload = multer()
 app.post('/api/add-model', upload.single('flow'), async (req: Request, res: Response) => {
   const { instance, process } = req.body
   const file = req.file.buffer
-  await save(file, instance, process)
-  res.send('Model Saved!')
+  const model = await save(file, instance, process)
+  res.send({ id: model.id })
+})
+
+async function update(file: any, instance: any, process: any, number: number) {
+  const model = await prisma.model.update({
+    where: {
+      id: number
+    },
+    data: {
+      instance,
+      process
+    }
+  })
+  if (model) {
+    await fs.promises.writeFile(`uploaded_images/${model.fileName}`, file)
+  }
+  return model
+
+}
+
+app.put('/api/update-model/:id', upload.single('flow'), async (req: Request, res: Response) => {
+  const { id } = req.params
+  const { instance, process } = req.body
+  const file = req.file.buffer
+  const model = await update(file, instance, process, Number(id))
+  res.send({ id: model.id })
 })
 
 app.get('/api/get-models', async (req: Request, res: Response) => {
@@ -28,6 +53,24 @@ app.get('/api/get-models', async (req: Request, res: Response) => {
     model.process = JSON.parse(model.process)
   })
   res.send(models)
+})
+
+app.get('/api/get-model/:id', async (req: Request, res: Response) => {
+  const { id } = req.params
+  const model = await prisma.model.findUnique({
+    where: {
+      id: Number(id)
+    }
+  })
+  if (model) {
+    const response = {
+      instance: JSON.parse(model.instance),
+      process: JSON.parse(model.process)
+    }
+    res.send(response)
+  } else {
+    res.status(404).send('Model not found')
+  }
 })
 
 async function save(file, instance, process) {
@@ -42,7 +85,7 @@ async function save(file, instance, process) {
         console.log(err)
       }
     })
-    await prisma.model.create({
+    return await prisma.model.create({
       data: {
         fileName,
         instance,
