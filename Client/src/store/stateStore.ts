@@ -30,11 +30,25 @@ const useStore = create<State>()(
       }) => set({ notificationData }),
       chainRecovery: false,
       setChainRecovery: (chainRecovery: boolean) => set({ chainRecovery }),
-      menuID: 'Context_Menu'
+      menuID: 'Context_Menu',
+      resetState: () =>
+        set({
+          openLoadModal: false,
+          reactFlowInstance: null,
+          processDefOpenModal: true,
+          lastNodeIdNumber: 0,
+          openNotification: false,
+          notificationData: {
+            success: false,
+            message: ''
+          },
+          chainRecovery: false,
+          menuID: 'Context_Menu'
+        })
     }),
     {
       name: 'stateStore',
-      enabled: true
+      enabled: import.meta.env.VITE_REDUX_DEVTOOLS_ENABLED === 'true'
     }
   )
 )

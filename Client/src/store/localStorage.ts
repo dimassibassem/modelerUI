@@ -17,7 +17,7 @@ const useLocalStorage = create<LocalStorageState>()(
     ),
     {
       name: 'localStorage',
-      enabled: true
+      enabled: import.meta.env.VITE_REDUX_DEVTOOLS_ENABLED === 'true'
     }
   )
 )

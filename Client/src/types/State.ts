@@ -1,6 +1,7 @@
 import { ReactFlowInstance } from 'reactflow'
+import ResetState from '@/types/ResetState'
 
-type State = {
+interface State extends ResetState {
   openLoadModal: boolean
   setOpenLoadModal: (openLoadModal: boolean) => void
   reactFlowInstance: ReactFlowInstance | null
