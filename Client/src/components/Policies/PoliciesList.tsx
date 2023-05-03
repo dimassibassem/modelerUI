@@ -1,13 +1,13 @@
-import React from 'react'
-import moment from 'moment'
-import { Model } from '@/types/Model'
-import CreateNew from '@/components/Policies/CreateNew'
+import React from "react";
+import moment from "moment";
+import { Model } from "@/types/Model";
+import CreateNew from "@/components/Policies/CreateNew";
 
 const PoliciesList = ({
-  setSelectedModel,
-  setOpenDetails,
-  models
-}: {
+                        setSelectedModel,
+                        setOpenDetails,
+                        models
+                      }: {
   setSelectedModel: (model: Model) => void
   setOpenDetails: (open: boolean) => void
   models: Model[]
@@ -34,14 +34,10 @@ const PoliciesList = ({
           {models?.map((model) => (
             <div key={model.id}>
               <h3 className="sr-only">
-                <time
-                  dateTime={moment(model.updatedAt).format(
-                    'DD/MM/YYYY HH:mm:ss'
-                  )}
-                >
-                  {moment(model.updatedAt).format('MMMM DD, YYYY')}/
+                <span>
+                  {moment(model.updatedAt).format("MMMM DD, YYYY")}/
                   {moment(model.updatedAt).fromNow()}
-                </time>
+                </span>
               </h3>
               <div className="ml-4 flex-shrink-0 sm:order-first sm:m-0 sm:mr-6">
                 <div className="mt-6 flow-root px-4 sm:mt-10 sm:px-0 ">
@@ -60,18 +56,14 @@ const PoliciesList = ({
                             </div>
                             <p className="mt-1 font-medium text-gray-900 sm:ml-6 sm:mt-0 pr-5">
                               <span className="text-sm text-gray-500 sm:block">
-                                <time
-                                  dateTime={moment(model.updatedAt).format(
-                                    'DD/MM/YYYY HH:mm:ss'
-                                  )}
-                                >
+                                <span>
                                   {moment(model.updatedAt).format(
-                                    'MMMM DD, YYYY'
+                                    "MMMM DD, YYYY"
                                   )}
                                   <span className="hidden sm:inline">
                                     - {moment(model.updatedAt).fromNow()}
                                   </span>
-                                </time>
+                                </span>
                               </span>
                             </p>
                           </div>
@@ -80,8 +72,8 @@ const PoliciesList = ({
                             <button
                               type="button"
                               onClick={() => {
-                                setSelectedModel(model)
-                                setOpenDetails(true)
+                                setSelectedModel(model);
+                                setOpenDetails(true);
                               }}
                               className="text-indigo-600 hover:text-indigo-500"
                             >
@@ -115,6 +107,6 @@ const PoliciesList = ({
       </section>
     </div>
   </main>
-)
+);
 
-export default PoliciesList
+export default PoliciesList;
