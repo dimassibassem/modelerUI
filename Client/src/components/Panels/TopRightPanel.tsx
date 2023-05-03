@@ -21,7 +21,9 @@ const selector2 = (state: State) => ({
   reactFlowInstance: state.reactFlowInstance,
   setOpenLoadModal: state.setOpenLoadModal,
   setNotificationData: state.setNotificationData,
-  setOpenNotification: state.setOpenNotification
+  setOpenNotification: state.setOpenNotification,
+  modelID: state.modelID,
+  setModelID: state.setModelID
 })
 
 const TopRightPanel = () => {
@@ -30,7 +32,9 @@ const TopRightPanel = () => {
     reactFlowInstance,
     setOpenLoadModal,
     setNotificationData,
-    setOpenNotification
+    setOpenNotification,
+    modelID,
+    setModelID
   } = useStore(selector2, shallow)
   const { t } = useTranslation()
   return (
@@ -61,6 +65,8 @@ const TopRightPanel = () => {
             reactFlowInstance,
             process,
             setNotificationData,
+            modelID,
+            setModelID,
             setOpenNotification
           )
         }
