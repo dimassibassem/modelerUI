@@ -19,11 +19,15 @@ const initialProcess: Process = {
     isAsync: false
   }
 }
+type TState = {
+  process: Process
+  nodes: Node[]
+  edges: Edge[]
+}
 
 // this is our useFlowStore hook that we can use in our components to get parts of the store and call actions
-const useFlowStore = create(
-  temporal<RFState>(
-    // @ts-ignore
+const useFlowStore = create<RFState>()(
+  temporal(
     devtools(
       (set, get) => ({
         process: initialProcess,
@@ -65,15 +69,26 @@ const useFlowStore = create(
           set({ selected }, false, 'setSelected')
         },
         setNodes: (nodes: Node[]) => set({ nodes }, false, 'setNodes'),
-        setEdges: (edges: Edge[]) => set({ edges }, false, 'setEdges')
+        setEdges: (edges: Edge[]) => set({ edges }, false, 'setEdges'),
+        resetState: () => {
+          set(
+            {
+              process: initialProcess,
+              nodes: initialNodes,
+              edges: initialEdges,
+              selected: null
+            },
+            false,
+            'resetState'
+          )
+        }
       }),
       {
         name: 'FlowStore',
-        enabled: true
+        enabled: import.meta.env.VITE_REDUX_DEVTOOLS_ENABLED === 'true'
       }
     ),
     {
-      // @ts-ignore
       partialize: (state) => {
         const { nodes, edges, process } = state
         return { nodes, edges, process }
@@ -104,9 +119,8 @@ const useFlowStore = create(
 )
 
 const useTemporalStore = <T>(
-  selector: (state: TemporalState<RFState>) => T,
+  selector: (state: TemporalState<TState>) => T,
   equality?: (a: T, b: T) => boolean
-  // @ts-ignore
 ) => useStore(useFlowStore.temporal, selector, equality)
 
 export { useFlowStore, useTemporalStore }
