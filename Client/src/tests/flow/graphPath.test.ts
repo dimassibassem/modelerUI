@@ -1,47 +1,8 @@
-import { Edge, Node } from 'reactflow'
+import { Edge } from 'reactflow'
 import { describe, it, expect } from 'vitest'
 import { v4 as uuid } from 'uuid'
 import { createGraph, findAllPaths } from '@/utils/Flow/graphPath'
-import NodeType from '@/types/NodeType'
-
-const nodes: Node[] = [
-  {
-    id: 'start_0',
-    type: NodeType.Start,
-    data: { name: 'Start' },
-    position: { x: 10, y: 10 }
-  },
-  {
-    id: 'end_1',
-    type: NodeType.End,
-    data: { name: 'End' },
-    position: { x: 20, y: 20 }
-  },
-  {
-    id: 'policies_2',
-    type: NodeType.Policies,
-    data: { name: 'Policies' },
-    position: { x: 30, y: 30 }
-  },
-  {
-    id: 'provisioners_3',
-    type: NodeType.Provisioners,
-    data: { name: 'Provisioners' },
-    position: { x: 40, y: 40 }
-  },
-  {
-    id: 'execution_4',
-    type: NodeType.Execution,
-    data: { name: 'Execution' },
-    position: { x: 50, y: 50 }
-  },
-  {
-    id: 'rule_5',
-    type: NodeType.Rule,
-    data: { name: 'Rule' },
-    position: { x: 60, y: 60 }
-  }
-]
+import { nodes } from '@/tests/fixtures/allNodes'
 
 describe('createGraph', () => {
   it('should return a graph', () => {
