@@ -71,7 +71,9 @@ const LeftSidebar = () => {
             alt="Bankerise"
           />
         ) : (
-          <img src="https://via.placeholder.com/150" alt="thumbnail" />
+          <div className="h-16 w-auto">
+            <div className="animate-pulse bg-gray-200 h-16 w-16 rounded-full" />
+          </div>
         )}
       </div>
       <button
