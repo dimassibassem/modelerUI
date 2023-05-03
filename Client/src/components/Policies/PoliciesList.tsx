@@ -31,7 +31,7 @@ const PoliciesList = ({
         <CreateNew />
 
         <div className="space-y-16 sm:space-y-24">
-          {models.map((model) => (
+          {models?.map((model) => (
             <div key={model.id}>
               <h3 className="sr-only">
                 <time
