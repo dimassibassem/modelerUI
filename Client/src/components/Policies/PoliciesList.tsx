@@ -1,7 +1,7 @@
 import React from 'react'
 import { Model } from '@/types/Model'
 import CreateNew from '@/components/Policies/CreateNew'
-import dayjs from 'dayjs/esm'
+import dayjs from 'dayjs'
 
 const PoliciesList = ({
   setSelectedModel,
@@ -12,9 +12,6 @@ const PoliciesList = ({
   setOpenDetails: (open: boolean) => void
   models: Model[]
 }) => {
-
-  console.log(models)
-  console.log(typeof models)
   return (
     <main className="pb-14 pt-16 sm:px-6 sm:pb-20 sm:pt-20 lg:px-8">
       <div className="mx-auto max-w-4xl">
