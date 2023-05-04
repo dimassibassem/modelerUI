@@ -33,13 +33,7 @@ const PoliciesList = ({
 
           <div className="space-y-16 sm:space-y-24">
             {models?.map((model) => (
-              <div key={model?.id}>
-                <h3 className="sr-only">
-                  <span>
-                    {dayjs(model?.updatedAt).format('DD MMMM YYYY')}/
-                    {dayjs(model?.updatedAt).fromNow()}
-                  </span>
-                </h3>
+              <div key={model.id}>
                 <div className="ml-4 flex-shrink-0 sm:order-first sm:m-0 sm:mr-6">
                   <div className="mt-6 flow-root px-4 sm:mt-10 sm:px-0 ">
                     <div className="-my-6 divide-y divide-gray-200 sm:-my-10 ">
@@ -49,21 +43,21 @@ const PoliciesList = ({
                             <div className="sm:flex ">
                               <div>
                                 <h4 className="font-medium text-gray-900">
-                                  {model?.process.name}
+                                  {model.process.name}
                                 </h4>
                                 <p className="mt-2 hidden text-sm text-gray-500 sm:block">
-                                  {model?.process.description}
+                                  {model.process.description}
                                 </p>
                               </div>
                               <p className="mt-1 font-medium text-gray-900 sm:ml-6 sm:mt-0 pr-5">
                                 <span className="text-sm text-gray-500 sm:block">
                                   <span>
-                                    {dayjs(model?.updatedAt).format(
+                                    {dayjs(model.updatedAt).format(
                                       'DD MMMM YYYY'
                                     )}
                                     <span className="hidden sm:inline">
                                       {' -- ' +
-                                        dayjs(model?.updatedAt).fromNow()}
+                                        dayjs(model.updatedAt).fromNow()}
                                     </span>
                                   </span>
                                 </span>
@@ -94,8 +88,8 @@ const PoliciesList = ({
                         </div>
                         <div className="ml-4 flex-shrink-0 sm:order-first sm:m-0 sm:mr-6 ">
                           <img
-                            src={model?.fileName}
-                            alt={model?.process.name}
+                            src={model.fileName}
+                            alt={model.process.name}
                             className="col-start-2 shadow col-end-3 h-20 w-20 rounded-lg object-cover object-center sm:col-start-1 sm:row-span-2 sm:row-start-1 sm:h-40 sm:w-40 lg:h-40 lg:w-40"
                           />
                         </div>
