@@ -24,7 +24,9 @@ const Policies = () => {
   dayjs.extend(relativeTime)
   useEffect(() => {
     loadModels().then((data) => {
-      setModels(data)
+      if (data) {
+        setModels(data)
+      }
     })
   }, [])
   useHandleLangChange()
