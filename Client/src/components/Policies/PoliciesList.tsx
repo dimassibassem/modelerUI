@@ -6,13 +6,13 @@ import dayjs from 'dayjs'
 const PoliciesList = ({
   setSelectedModel,
   setOpenDetails,
-  cards
+  models
 }: {
   setSelectedModel: (model: Model) => void
   setOpenDetails: (open: boolean) => void
-  cards: Model[]
+  models: Model[]
 }) => {
-  console.log(cards)
+  console.log(models)
   return (
     <main className="pb-14 pt-16 sm:px-6 sm:pb-20 sm:pt-20 lg:px-8">
       <div className="mx-auto max-w-4xl">
@@ -33,8 +33,8 @@ const PoliciesList = ({
           <CreateNew />
 
           <div className="space-y-16 sm:space-y-24">
-            {cards.map((card) => (
-              <div key={card.id}>
+            {models.map((model) => (
+              <div key={model.id}>
                 <div className="ml-4 flex-shrink-0 sm:order-first sm:m-0 sm:mr-6">
                   <div className="mt-6 flow-root px-4 sm:mt-10 sm:px-0 ">
                     <div className="-my-6 divide-y divide-gray-200 sm:-my-10 ">
@@ -44,21 +44,20 @@ const PoliciesList = ({
                             <div className="sm:flex ">
                               <div>
                                 <h4 className="font-medium text-gray-900">
-                                  {card.process.name}
+                                  {model.process.name}
                                 </h4>
                                 <p className="mt-2 hidden text-sm text-gray-500 sm:block">
-                                  {card.process.description}
+                                  {model.process.description}
                                 </p>
                               </div>
                               <p className="mt-1 font-medium text-gray-900 sm:ml-6 sm:mt-0 pr-5">
                                 <span className="text-sm text-gray-500 sm:block">
                                   <span>
-                                    {dayjs(card.updatedAt).format(
+                                    {dayjs(model.updatedAt).format(
                                       'DD MMMM YYYY'
                                     )}
                                     <span className="hidden sm:inline">
-                                      {' -- ' +
-                                        dayjs(card.updatedAt).fromNow()}
+                                      {' -- ' + dayjs(model.updatedAt).fromNow()}
                                     </span>
                                   </span>
                                 </span>
@@ -69,7 +68,7 @@ const PoliciesList = ({
                               <button
                                 type="button"
                                 onClick={() => {
-                                  setSelectedModel(card)
+                                  setSelectedModel(model)
                                   setOpenDetails(true)
                                 }}
                                 className="text-indigo-600 hover:text-indigo-500"
@@ -89,8 +88,8 @@ const PoliciesList = ({
                         </div>
                         <div className="ml-4 flex-shrink-0 sm:order-first sm:m-0 sm:mr-6 ">
                           <img
-                            src={card.fileName}
-                            alt={card.process.name}
+                            src={model.fileName}
+                            alt={model.process.name}
                             className="col-start-2 shadow col-end-3 h-20 w-20 rounded-lg object-cover object-center sm:col-start-1 sm:row-span-2 sm:row-start-1 sm:h-40 sm:w-40 lg:h-40 lg:w-40"
                           />
                         </div>

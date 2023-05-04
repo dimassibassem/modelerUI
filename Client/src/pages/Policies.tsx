@@ -23,20 +23,16 @@ const Policies = () => {
 
   dayjs.extend(relativeTime)
   useEffect(() => {
-    loadModels().then((data) => {
-      if (data) {
-        setModels(data)
-      }
-    })
+    loadModels().then((data) => setModels(data))
   }, [])
   useHandleLangChange()
   return (
-    <div className="bg-white">
+    <div className='bg-white'>
       <Header />
       <PoliciesList
         setSelectedModel={setSelectedModel}
         setOpenDetails={setOpenDetails}
-        cards={models}
+        models={models}
       />
       <Details
         open={openDetails}

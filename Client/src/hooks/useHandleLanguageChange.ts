@@ -7,7 +7,9 @@ const useHandleLangChange = () => {
   const { i18n } = useTranslation()
   const lang = useLocalStorage((store) => store.lang)
   return useEffect(() => {
-    i18n.changeLanguage(lang)
+    i18n.changeLanguage(lang).catch((err) => {
+      console.error(err)
+    })
     dayjs.locale(lang)
   }, [i18n, lang])
 }
