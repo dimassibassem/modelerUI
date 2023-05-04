@@ -8,6 +8,7 @@ dotenv.config()
 export default defineConfig({
   plugins: [react()],
   build: {
+    minify: false,
     rollupOptions: {
       output: {
         manualChunks: {
