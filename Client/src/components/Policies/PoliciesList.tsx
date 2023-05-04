@@ -12,6 +12,8 @@ const PoliciesList = ({
   setOpenDetails: (open: boolean) => void
   models: Model[]
 }) => {
+  console.log(models)
+  console.log(typeof models)
   return (
     <main className="pb-14 pt-16 sm:px-6 sm:pb-20 sm:pt-20 lg:px-8">
       <div className="mx-auto max-w-4xl">
@@ -32,7 +34,7 @@ const PoliciesList = ({
           <CreateNew />
 
           <div className="space-y-16 sm:space-y-24">
-            {models?.map((model) => (
+            {models.map((model) => (
               <div key={model.id}>
                 <div className="ml-4 flex-shrink-0 sm:order-first sm:m-0 sm:mr-6">
                   <div className="mt-6 flow-root px-4 sm:mt-10 sm:px-0 ">
