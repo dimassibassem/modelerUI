@@ -1,4 +1,5 @@
 import { Edge, Node } from 'reactflow'
+import NodeType from '@/types/NodeType'
 
 type Graph = Record<string, string[]>
 
@@ -12,9 +13,9 @@ function createGraph(nodes: Node[], edges: Edge[]): Graph {
 
   // Add edges to the graph
   for (const edge of edges) {
+    if (edge.source === NodeType.Start || edge.target === NodeType.End) continue
     graph[edge.source].push(edge.target)
   }
-
   return graph
 }
 
