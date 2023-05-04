@@ -12,7 +12,6 @@ const PoliciesList = ({
   setOpenDetails: (open: boolean) => void
   models: Model[]
 }) => {
-  console.log(models)
   return (
     <main className="pb-14 pt-16 sm:px-6 sm:pb-20 sm:pt-20 lg:px-8">
       <div className="mx-auto max-w-4xl">
