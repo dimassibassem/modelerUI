@@ -1,10 +1,10 @@
 import { Fragment, useId } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 import { Model } from '@/types/Model'
 import capitalize from '@/utils/capitalize'
+import dayjs from 'dayjs'
 
 const Details = ({
   open,
@@ -90,16 +90,16 @@ const Details = ({
                           <div className="flex justify-between py-3 text-sm font-medium">
                             <dt className="text-gray-500">Created</dt>
                             <dd className="text-gray-900">
-                              {moment(model?.createdAt).format(
-                                'MMMM Do YYYY, h:mm:ss a'
+                              {dayjs(model?.createdAt).format(
+                                'DD MMMM YYYY, h:mm:ss a'
                               )}
                             </dd>
                           </div>
                           <div className="flex justify-between py-3 text-sm font-medium">
                             <dt className="text-gray-500">Last modified</dt>
                             <dd className="text-gray-900">
-                              {moment(model?.updatedAt).format(
-                                'MMMM Do YYYY, h:mm:ss a'
+                              {dayjs(model?.updatedAt).format(
+                                'DD MMMM YYYY, h:mm:ss a'
                               )}
                             </dd>
                           </div>
@@ -155,7 +155,7 @@ const Details = ({
                                             className="flex justify-between py-3 text-sm font-medium"
                                           >
                                             <dt className="text-gray-500">
-                                              {key}
+                                              {capitalize(key)}
                                             </dt>
                                             <dd className="text-gray-900">
                                               {stage.attributes?.[key]}

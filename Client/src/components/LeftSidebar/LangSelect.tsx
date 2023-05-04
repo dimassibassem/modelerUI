@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from '@/utils/classNames'
 import useLocalStorage from '@/store/localStorage'
 import languages from '@/constants/languages'
+import { Icon } from '@iconify/react'
 
 const LangSelect = () => {
   const lang = useLocalStorage((store) => store.lang)
@@ -20,8 +21,18 @@ const LangSelect = () => {
       {({ open }) => (
         <div className="relative mt-2">
           <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
-            <span className="block truncate">
-              {lang === 'en' ? t('English') : t('French')}
+            <span className="flex flex-wrap gap-x-2 ">
+              {lang === 'en' ? (
+                <>
+                  <Icon icon="flagpack:gb-ukm" />
+                  <div>{t('English')}</div>
+                </>
+              ) : (
+                <>
+                  <Icon icon="flagpack:fr" />
+                  <div>{t('French')}</div>
+                </>
+              )}
             </span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronUpDownIcon
@@ -58,7 +69,12 @@ const LangSelect = () => {
                           'block truncate'
                         )}
                       >
-                        {t(language.name)}
+                        <div className="flex flex-wrap gap-x-2 ">
+                          <div>
+                            <Icon icon={language.icon} />
+                          </div>
+                          <div>{t(language.name)}</div>
+                        </div>
                       </span>
 
                       {language.code === lang ? (
