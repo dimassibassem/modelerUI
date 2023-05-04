@@ -36,7 +36,7 @@ const Policies = () => {
       <PoliciesList
         setSelectedModel={setSelectedModel}
         setOpenDetails={setOpenDetails}
-        models={models}
+        cards={models}
       />
       <Details
         open={openDetails}
