@@ -66,7 +66,7 @@ const StepsList = () => {
     expandedSteps.some((item) => item === stepsArrayIndex)
   return (
     <>
-      {process.steps.map((steps, stepsArrayIndex) => (
+      {process.steps.map((step, stepsArrayIndex) => (
         <div key={`${id + stepsArrayIndex}`}>
           <button
             type="button"
@@ -99,21 +99,21 @@ const StepsList = () => {
           {isExpandedSteps(stepsArrayIndex) && (
             <div className="mt-2 overflow-hidden bg-white shadow sm:rounded-md">
               <ul className="divide-y divide-gray-200">
-                {steps.map((step, stepArrayIndex) => (
+                {step.map((stage, stepArrayIndex) => (
                   <li
                     className="relative"
-                    key={`${id + stepsArrayIndex}${step.id}`}
+                    key={`${id + stepsArrayIndex}${stage.id}`}
                   >
                     <div>
                       <div className="flex px-4 py-4 sm:px-6">
                         <div className="min-w-0 flex-1 sm:flex items-center sm:justify-between">
                           <div className="flex text-sm">
                             <p className=" font-medium text-indigo-600">
-                              {capitalize(t(step.type))}
+                              {capitalize(t(stage.type))}
                             </p>
                           </div>
                         </div>
-                        {step.attributes ? (
+                        {stage.attributes ? (
                           <>
                             <div
                               className={classNames(
@@ -164,16 +164,16 @@ const StepsList = () => {
                           </>
                         ) : null}
                       </div>
-                      {step.attributes ? (
+                      {stage.attributes ? (
                         <div className="px-4 ml-5">
                           <div>
                             {isExpandedAttr(stepsArrayIndex, stepArrayIndex) ? (
                               <>
-                                {Object.keys(step.attributes).map((key) => (
-                                  <div key={`${step.id}_${key}`}>
+                                {Object.keys(stage.attributes).map((key) => (
+                                  <div key={`${stage.id}_${key}`}>
                                     <div>
                                       <label
-                                        htmlFor={`${step.id}_${key}`}
+                                        htmlFor={`${stage.id}_${key}`}
                                         className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
                                       >
                                         {t(key)}
@@ -182,8 +182,8 @@ const StepsList = () => {
                                         <input
                                           className="block w-full max-w-lg rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                                           type="text"
-                                          name={`${step.id}_${key}`}
-                                          id={`${step.id}_${key}`}
+                                          name={`${stage.id}_${key}`}
+                                          id={`${stage.id}_${key}`}
                                           value={
                                             process.steps?.[stepsArrayIndex][
                                               stepArrayIndex
@@ -193,7 +193,7 @@ const StepsList = () => {
                                             handleStepsChange(
                                               e,
                                               key,
-                                              step,
+                                              stage,
                                               stepsArrayIndex,
                                               stepArrayIndex,
                                               process,
@@ -202,7 +202,7 @@ const StepsList = () => {
                                             handleNodesAttributesChange(
                                               e,
                                               key,
-                                              step,
+                                              stage,
                                               setNodes,
                                               nodes
                                             )
