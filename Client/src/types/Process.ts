@@ -1,7 +1,7 @@
-type Step = {
+type Stage = {
   id: string
   type: string
-  attributes?: {
+  attributes: {
     [key: string]: string | undefined // add index signature
     name?: string
     channel?: string
@@ -10,8 +10,10 @@ type Step = {
   }
 }
 
+type Step = Stage[]
+
 type Process = {
-  steps: Step[][]
+  steps: Step[]
   name: string
   description: string
   hook: {

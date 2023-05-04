@@ -1,6 +1,6 @@
 import React from 'react'
-import { Icon } from '@iconify/react'
 import logoBankerise from '@/assets/logo-bankerise.png'
+import LangSelect from '@/components/LeftSidebar/LangSelect'
 
 const Header = () => (
   <header className="relative bg-white">
@@ -18,12 +18,10 @@ const Header = () => (
               alt="Bankerise"
             />
           </div>
-
           <div className="ml-auto flex items-center">
             <div className="lg:ml-8 lg:flex">
               <span className="flex items-center text-gray-700 hover:text-gray-800">
-                <Icon icon="flagpack:gb-ukm" />
-                <span className="ml-3 block text-sm font-medium">English</span>
+                <LangSelect />
               </span>
             </div>
           </div>
