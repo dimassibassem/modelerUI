@@ -12,6 +12,7 @@ const PoliciesList = ({
   setOpenDetails: (open: boolean) => void
   models: Model[]
 }) => {
+
   console.log(models)
   console.log(typeof models)
   return (
