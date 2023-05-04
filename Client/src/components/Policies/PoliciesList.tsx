@@ -1,7 +1,7 @@
 import React from 'react'
 import { Model } from '@/types/Model'
 import CreateNew from '@/components/Policies/CreateNew'
-import dayjs from 'dayjs/esm'
+import dayjs from 'dayjs'
 
 const PoliciesList = ({
   setSelectedModel,
