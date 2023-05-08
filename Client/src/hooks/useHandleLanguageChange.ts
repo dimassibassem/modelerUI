@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import useLocalStorage from '@/store/localStorage'
 import dayjs from 'dayjs'
+import useLocalStorage from '@/store/localStorage'
 
 const useHandleLangChange = () => {
   const { i18n } = useTranslation()
