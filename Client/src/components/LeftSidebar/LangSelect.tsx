@@ -2,10 +2,10 @@ import React, { Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { useTranslation } from 'react-i18next'
+import { Icon } from '@iconify/react'
 import classNames from '@/utils/classNames'
 import useLocalStorage from '@/store/localStorage'
 import languages from '@/constants/languages'
-import { Icon } from '@iconify/react'
 
 const LangSelect = () => {
   const lang = useLocalStorage((store) => store.lang)

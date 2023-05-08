@@ -13,8 +13,8 @@ function createGraph(nodes: Node[], edges: Edge[]): Graph {
 
   // Add edges to the graph
   for (const edge of edges) {
-    if (edge.source === NodeType.Start || edge.target === NodeType.End) continue
-    graph[edge.source].push(edge.target)
+    if (!(edge.source === NodeType.Start || edge.target === NodeType.End))
+      graph[edge.source].push(edge.target);
   }
   return graph
 }

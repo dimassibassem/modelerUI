@@ -4,16 +4,12 @@ import { Icon } from '@iconify/react'
 
 const TopRightCommandsDefinition = ({ type }: { type: string }) => {
   const { t } = useTranslation()
-  switch (type) {
-    case 'Clear':
-      return <span className="text-gray-500 pl-2">{t('ClearContent')}</span>
-    case 'Save':
-      return <span className="text-gray-500 pl-2">{t('SaveContent')}</span>
-    case 'Import':
-      return <span className="text-gray-500 pl-2">{t('ImportContent')}</span>
-    default:
-      return null
-  }
+  if (type === 'Clear')
+    return <span className="text-gray-500 pl-2">{t('ClearContent')}</span>
+  if (type === 'Save')
+    return <span className="text-gray-500 pl-2">{t('SaveContent')}</span>
+
+  return null
 }
 
 const TopRightCommandsIcons = ({ type }: { type: string }) => {

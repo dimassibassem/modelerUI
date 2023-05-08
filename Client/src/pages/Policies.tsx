@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import dayjs from 'dayjs'
 import { Strategy } from '@/types/Strategy'
 import Details from '@/components/Policies/Details'
 import Header from '@/components/Policies/Header'
 import PoliciesList from '@/components/Policies/PoliciesList'
 import Footer from '@/components/Policies/Footer'
-import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/fr'
 import useHandleLangChange from '@/hooks/useHandleLanguageChange'
-import dayjs from 'dayjs'
 
 const loadModels = async () => {
   const { data } = await axios.get(
@@ -27,7 +27,7 @@ const Policies = () => {
   }, [])
   useHandleLangChange()
   return (
-    <div className='bg-white'>
+    <div className="bg-white">
       <Header />
       <PoliciesList
         setSelectedModel={setSelectedModel}
@@ -37,7 +37,7 @@ const Policies = () => {
       <Details
         open={openDetails}
         setOpen={setOpenDetails}
-        model={selectedModel}
+        strategy={selectedModel}
       />
       <Footer />
     </div>

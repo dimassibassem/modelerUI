@@ -10,6 +10,6 @@ const bottomLeftCommands = [
   'Full Screen'
 ]
 
-const topRightCommands = ['Clear', 'Save', 'Import']
+const topRightCommands = ['Clear', 'Save']
 
 export { undoRedoList, bottomLeftCommands, topRightCommands }

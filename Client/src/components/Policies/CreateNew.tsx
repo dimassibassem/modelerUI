@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 import { shallow } from 'zustand/shallow'
+import { Icon } from '@iconify/react'
 import State from '@/types/State'
 import useStore from '@/store/stateStore'
 import { RFState } from '@/types/RFState'
 import { useFlowStore } from '@/store'
-import { Icon } from '@iconify/react'
 
 const selector = (state: State) => ({
   resetState: state.resetState
@@ -28,7 +28,12 @@ const CreateNew = () => {
         navigate('/modeler')
       }}
     >
-      <Icon  className="mx-auto h-16 w-16 text-gray-400" width={100} height={100} icon="fluent:desktop-flow-20-regular" />
+      <Icon
+        className="mx-auto h-16 w-16 text-gray-400"
+        width={100}
+        height={100}
+        icon="fluent:desktop-flow-20-regular"
+      />
       <span className="mt-2 block text-sm font-semibold text-gray-900">
         Create a new Strategy
       </span>

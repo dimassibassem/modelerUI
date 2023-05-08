@@ -1,7 +1,7 @@
 import React from 'react'
+import dayjs from 'dayjs'
 import { Strategy } from '@/types/Strategy'
 import CreateNew from '@/components/Policies/CreateNew'
-import dayjs from 'dayjs'
 
 const PoliciesList = ({
   setSelectedModel,
@@ -11,8 +11,7 @@ const PoliciesList = ({
   setSelectedModel: (model: Strategy) => void
   setOpenDetails: (open: boolean) => void
   strategies: Strategy[]
-}) => {
-  return (
+}) => (
     <main className="pb-14 pt-16 sm:px-6 sm:pb-20 sm:pt-20 lg:px-8">
       <div className="mx-auto max-w-4xl">
         <div className="px-4 sm:px-0">
@@ -55,7 +54,8 @@ const PoliciesList = ({
                                       'DD MMMM YYYY'
                                     )}
                                     <span className="hidden sm:inline">
-                                      {' -- ' + dayjs(strategy.updatedAt).fromNow()}
+                                      {` -- ${ 
+                                        dayjs(strategy.updatedAt).fromNow()}`}
                                     </span>
                                   </span>
                                 </span>
@@ -102,6 +102,5 @@ const PoliciesList = ({
       </div>
     </main>
   )
-}
 
 export default PoliciesList

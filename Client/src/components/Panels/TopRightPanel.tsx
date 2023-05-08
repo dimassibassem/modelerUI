@@ -19,7 +19,6 @@ const selector = (state: RFState) => ({
 })
 const selector2 = (state: State) => ({
   reactFlowInstance: state.reactFlowInstance,
-  setOpenLoadModal: state.setOpenLoadModal,
   setNotificationData: state.setNotificationData,
   setOpenNotification: state.setOpenNotification,
   modelID: state.modelID,
@@ -30,7 +29,6 @@ const TopRightPanel = () => {
   const { setNodesAndEdges, process } = useFlowStore(selector, shallow)
   const {
     reactFlowInstance,
-    setOpenLoadModal,
     setNotificationData,
     setOpenNotification,
     modelID,
