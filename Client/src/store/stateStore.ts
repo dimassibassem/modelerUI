@@ -6,8 +6,6 @@ import State from '@/types/State'
 const useStore = create<State>()(
   devtools(
     (set) => ({
-      openLoadModal: false,
-      setOpenLoadModal: (openLoadModal: boolean) => set({ openLoadModal }),
       reactFlowInstance: null,
       setReactFlowInstance: (reactFlowInstance: ReactFlowInstance | null) =>
         set({ reactFlowInstance }, false, 'setReactFlowInstance'),
@@ -35,7 +33,6 @@ const useStore = create<State>()(
       setModelID: (id: number) => set({ modelID: id }),
       resetState: () =>
         set({
-          openLoadModal: false,
           reactFlowInstance: null,
           processDefOpenModal: true,
           lastNodeIdNumber: 0,
