@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Model } from '@/types/Model'
+import { Strategy } from '@/types/Strategy'
 import Details from '@/components/Policies/Details'
 import Header from '@/components/Policies/Header'
 import PoliciesList from '@/components/Policies/PoliciesList'
@@ -18,8 +18,8 @@ const loadModels = async () => {
 }
 const Policies = () => {
   const [openDetails, setOpenDetails] = useState(false)
-  const [selectedModel, setSelectedModel] = useState<Model | null>(null)
-  const [models, setModels] = useState<Model[]>([])
+  const [selectedModel, setSelectedModel] = useState<Strategy | null>(null)
+  const [models, setModels] = useState<Strategy[]>([])
 
   dayjs.extend(relativeTime)
   useEffect(() => {
@@ -32,7 +32,7 @@ const Policies = () => {
       <PoliciesList
         setSelectedModel={setSelectedModel}
         setOpenDetails={setOpenDetails}
-        models={models}
+        strategies={models}
       />
       <Details
         open={openDetails}

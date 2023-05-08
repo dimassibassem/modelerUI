@@ -41,7 +41,7 @@ const TopRightPanel = () => {
     <Panel
       id="top-right"
       position="top-right"
-      className="grid grid-cols-3 gap-2"
+      className="grid grid-cols-2 gap-2"
     >
       <Tooltip id="TopRightCommands" delayShow={600} style={tooltipStyle} />
       <button
@@ -75,16 +75,6 @@ const TopRightPanel = () => {
           className="w-5 h-5"
           icon="material-symbols:save-outline-rounded"
         />
-      </button>
-      <button
-        type="button"
-        data-tooltip-id="TopRightCommands"
-        data-tooltip-content={t<string>('Import')}
-        aria-label="Import"
-        className="rounded flex justify-center bg-gray-100 py-1 px-2 text-sm font-semibold text-gray-600 shadow-sm hover:bg-gray-200"
-        onClick={() => setOpenLoadModal(true)}
-      >
-        <Icon className="w-5 h-5" icon="uil:import" />
       </button>
     </Panel>
   )

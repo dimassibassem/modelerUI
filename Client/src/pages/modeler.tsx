@@ -17,7 +17,6 @@ import useHandleSelected from '@/hooks/useHandleSelected'
 import { useFlowStore, useTemporalStore } from '@/store'
 import { RFState } from '@/types/RFState'
 import RightSidebar from '@/components/RightSidebar/RightSidebar'
-import LoadModal from '@/components/Modals/LoadModal'
 import TopRightPanel from '@/components/Panels/TopRightPanel'
 import nodeColor from '@/utils/Node/nodeColor'
 import NodeTypes from '@/components/FlowShapes/NodeTypes'
@@ -110,6 +109,7 @@ const DnDFlow = () => {
   useRemoveWatermark()
   useProcessDefinitionChecker()
   useHandleLangChange()
+  console.log(loaded)
   return (
     <div className="flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0 overflow-hidden">
       <Joyride />
@@ -178,7 +178,6 @@ const DnDFlow = () => {
           </ReactFlow>
         </div>
       </ReactFlowProvider>
-      <LoadModal />
       <RightSidebar />
     </div>
   )
