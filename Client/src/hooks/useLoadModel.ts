@@ -25,7 +25,7 @@ const selector2 = (state: State) => ({
 const useLoadModel = (setLoaded: (loaded: boolean) => void) => {
   const { id } = useParams<{ id: string }>()
   const { setProcess, setNodes, setEdges } = useFlowStore(selector, shallow)
-  const { setModelID,setLastNodeIdNumber } = useStore(selector2, shallow)
+  const { setModelID, setLastNodeIdNumber } = useStore(selector2, shallow)
   const navigate = useNavigate()
   return useEffect(() => {
     if (id) {
@@ -43,7 +43,7 @@ const useLoadModel = (setLoaded: (loaded: boolean) => void) => {
         })
     }
     setLoaded(true)
-  }, [id, navigate, setEdges, setLoaded, setModelID, setNodes, setProcess])
+  }, [id, navigate, setEdges, setLastNodeIdNumber, setLoaded, setModelID, setNodes, setProcess])
 }
 
 export default useLoadModel

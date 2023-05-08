@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Joyride, { CallBackProps, STATUS, Step } from 'react-joyride'
 import { shallow } from 'zustand/shallow'
-import { MarkerType, Position } from 'reactflow'
+import { Edge, Node } from 'reactflow'
 import { useTranslation } from 'react-i18next'
 import { RFState } from '@/types/RFState'
 import { useFlowStore, useTemporalStore } from '@/store'
@@ -9,6 +9,13 @@ import joyrideSteps from './JoyrideSupport'
 import useLocalStorage from '@/store/localStorage'
 import State from '@/types/State'
 import useStore from '@/store/stateStore'
+import {
+  emptyProcess,
+  joyrideEdges,
+  joyrideNodes,
+  joyrideProcess
+} from '@/constants/joyrideFlow'
+import Process from '@/types/Process'
 
 interface Steps {
   steps: Step[]
@@ -17,6 +24,7 @@ interface Steps {
 const selector = (state: RFState) => ({
   setNodes: state.setNodes,
   setEdges: state.setEdges,
+  process: state.process,
   nodes: state.nodes,
   edges: state.edges,
   setSelected: state.setSelected,
@@ -27,8 +35,15 @@ const selector2 = (state: State) => ({
   reactFlowInstance: state.reactFlowInstance
 })
 export default () => {
-  const { setNodes, setEdges, setSelected, nodes, edges, setProcess } =
-    useFlowStore(selector, shallow)
+  const {
+    setNodes,
+    setEdges,
+    setSelected,
+    nodes,
+    edges,
+    setProcess,
+    process,
+  } = useFlowStore(selector, shallow)
   const { setProcessDefOpenModal, reactFlowInstance } = useStore(
     selector2,
     shallow
@@ -39,8 +54,12 @@ export default () => {
   const [tutorial, setTutorial] = useState<Steps>({
     steps: joyrideSteps(t)
   })
-
+  const [realNodes, setRealNodes] = useState<Node[]>([])
+  const [realEdges, setRealEdges] = useState<Edge[]>([])
+  const [realProcess, setRealProcess] = useState<Process>(emptyProcess)
+  const [isFirstTime, setIsFirstTime] = useState(true)
   const { clear } = useTemporalStore((state) => state)
+
   useEffect(() => {
     setTutorial({
       steps: joyrideSteps(t)
@@ -49,185 +68,48 @@ export default () => {
 
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { status, index } = data
-    const finishedStatuses: string[] = [STATUS.FINISHED, STATUS.SKIPPED]
+    const finishedStatuses: string[] = [
+      STATUS.FINISHED,
+      STATUS.SKIPPED,
+      STATUS.PAUSED
+    ]
+
+    if (isFirstTime) {
+      setRealNodes(nodes)
+      setRealEdges(edges)
+      setRealProcess(process)
+      setIsFirstTime(false)
+      setProcess(emptyProcess)
+    }
+
     // eslint-disable-next-line default-case
     switch (index) {
       case 0:
       case 1:
-        setProcessDefOpenModal(true)
+        {
+          setProcessDefOpenModal(true)
+        }
         break
       case 2:
         {
           setProcessDefOpenModal(false)
-          setProcess({
-            name: t('Tutorial'),
-            description: t('TutorialContent'),
-            steps: [],
-            hook: {
-              name: '',
-              channel: '',
-              isAsync: false
-            }
-          })
+          setProcess(joyrideProcess(t))
         }
         break
       case 3:
       case 4:
         {
           setSelected(null)
-          if (nodes) {
-            setNodes([])
-          }
-          if (edges) {
-            setEdges([])
-          }
-          setProcess({
-            name: 'Tutorial',
-            description: 'This is a tutorial',
-            steps: [],
-            hook: {
-              name: '',
-              channel: '',
-              isAsync: false
-            }
-          })
+          setNodes([])
+          setEdges([])
+          setProcess(joyrideProcess(t))
         }
         break
       case 5:
         {
-          setNodes([
-            {
-              id: 'start_0',
-              type: 'start',
-              position: {
-                x: 50,
-                y: 50
-              },
-              data: {
-                label: 'start_0',
-                text: '',
-                handles: {
-                  top: true,
-                  bottom: true,
-                  left: true,
-                  right: true
-                },
-                attributes: {},
-                connectableWith: [
-                  'end',
-                  'policies',
-                  'execution',
-                  'provisioners',
-                  'rule'
-                ]
-              },
-              width: 50,
-              height: 50,
-              selected: false,
-              positionAbsolute: {
-                x: 119.99999999999994,
-                y: 141.99999999999994
-              },
-              dragging: false,
-              targetPosition: Position.Left,
-              sourcePosition: Position.Right
-            },
-            {
-              id: 'end_1',
-              type: 'end',
-              position: {
-                x: 350,
-                y: 50
-              },
-              data: {
-                label: 'end_1',
-                text: '',
-                handles: {
-                  top: true,
-                  bottom: true,
-                  left: true,
-                  right: true
-                },
-                attributes: {},
-                connectableWith: []
-              },
-              width: 50,
-              height: 50,
-              targetPosition: Position.Left,
-              sourcePosition: Position.Right,
-              selected: false,
-              dragging: false,
-              positionAbsolute: {
-                x: 216.2634559672906,
-                y: 102.3259018078045
-              }
-            },
-            {
-              id: 'policies_2',
-              type: 'policies',
-              position: {
-                x: 200,
-                y: 50
-              },
-              data: {
-                label: 'policies_2',
-                text: '',
-                handles: {
-                  top: true,
-                  bottom: true,
-                  left: true,
-                  right: true
-                },
-                attributes: {
-                  name: '',
-                  channel: ''
-                },
-                connectableWith: ['end', 'policies', 'execution', 'rule']
-              },
-              width: 50,
-              height: 50,
-              selected: false,
-              positionAbsolute: {
-                x: 137.8679656440358,
-                y: 100.20458146424485
-              },
-              dragging: false,
-              targetPosition: Position.Left,
-              sourcePosition: Position.Right
-            }
-          ])
-          setEdges([
-            {
-              source: 'start_0',
-              sourceHandle: 'right',
-              target: 'policies_2',
-              targetHandle: 'left',
-              markerEnd: {
-                type: MarkerType.Arrow
-              },
-              id: 'reactflow__edge-start_0right-policies_2left'
-            },
-            {
-              source: 'policies_2',
-              sourceHandle: 'right',
-              target: 'end_1',
-              targetHandle: 'left',
-              id: 'lgbkpoge',
-              markerEnd: {
-                type: MarkerType.Arrow
-              }
-            }
-          ])
-          setProcess({
-            name: 'Tutorial',
-            description: 'This is a tutorial',
-            steps: [],
-            hook: {
-              name: '',
-              channel: '',
-              isAsync: false
-            }
-          })
+          setNodes(joyrideNodes)
+          setEdges(joyrideEdges)
+          setProcess(joyrideProcess(t))
           reactFlowInstance?.setViewport({
             zoom: 1.5,
             x: 0,
@@ -260,21 +142,13 @@ export default () => {
 
     if (finishedStatuses.includes(status)) {
       setSelected(null)
-      setProcess({
-        name: '',
-        description: '',
-        steps: [],
-        hook: {
-          name: '',
-          channel: '',
-          isAsync: false
-        }
-      })
-      setNodes([])
-      setEdges([])
+      setNodes(realNodes)
+      setEdges(realEdges)
+      setProcess(realProcess)
       clear()
       setRun(false)
       setProcessDefOpenModal(true)
+      setIsFirstTime(true)
       setTutorial({
         steps: tutorial.steps
       })
