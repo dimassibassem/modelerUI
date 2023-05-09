@@ -19,6 +19,7 @@ type ContextMenuItemProps = {
   setNotificationData: (data: { success: boolean; message: string }) => void
   resume: () => void
   pause: () => void
+  pasteFromClipboard: () => Promise<void>
 }
 
 export default ContextMenuItemProps
