@@ -1,6 +1,6 @@
 ## Modeler UI
 
-The Modeler UI is a web-based user interface that allows bank agents to manage authentication strategy and their orders easily.
+The Modeler UI is a web-based user interface that allows bank agents to manage authentication challenge and their orders easily.
 
 This project is part of the [Bankerise](https://www.bankerise.com/) project.
 
@@ -50,7 +50,7 @@ I am developing this project as part of my internship at [PROXYM-IT](https://www
 
 ### Environment variables
 
-**VITE_API_ENDPOINT:** The URL of the API to use for the application. This is used to fetch the authentication strategy and the orders.
+**VITE_API_ENDPOINT:** The URL of the API to use for the application. This is used to fetch the authentication challenge and the orders.
 
 **SONARQUBE_URL:** The URL of the SonarQube server to use for the application. This is used to analyze the code.
 

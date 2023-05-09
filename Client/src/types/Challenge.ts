@@ -1,7 +1,7 @@
 import { Edge, Node } from 'reactflow'
 import Process from '@/types/Process'
 
-export type Strategy = {
+export type Challenge = {
   id: number
   fileName: string
   createdAt: string

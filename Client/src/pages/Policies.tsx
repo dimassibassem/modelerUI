@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dayjs from 'dayjs'
-import { Strategy } from '@/types/Strategy'
+import { Challenge } from '@/types/Challenge'
 import Details from '@/components/Policies/Details'
 import Header from '@/components/Policies/Header'
 import PoliciesList from '@/components/Policies/PoliciesList'
@@ -18,26 +18,28 @@ const loadModels = async () => {
 }
 const Policies = () => {
   const [openDetails, setOpenDetails] = useState(false)
-  const [selectedModel, setSelectedModel] = useState<Strategy | null>(null)
-  const [models, setModels] = useState<Strategy[] | null>(null)
+  const [selectedChallenge, setSelectedChallenge] = useState<Challenge | null>(
+    null
+  )
+  const [challenges, setChallenges] = useState<Challenge[] | null>(null)
 
   dayjs.extend(relativeTime)
   useEffect(() => {
-    loadModels().then((data) => setModels(data))
+    loadModels().then((data) => setChallenges(data))
   }, [])
   useHandleLangChange()
   return (
     <div className="bg-white">
       <Header />
       <PoliciesList
-        setSelectedModel={setSelectedModel}
+        setSelectedModel={setSelectedChallenge}
         setOpenDetails={setOpenDetails}
-        strategies={models}
+        challenges={challenges}
       />
       <Details
         open={openDetails}
         setOpen={setOpenDetails}
-        strategy={selectedModel}
+        challenge={selectedChallenge}
       />
       <Footer />
     </div>

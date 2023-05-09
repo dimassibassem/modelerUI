@@ -35,7 +35,7 @@ const CreateNew = () => {
         icon="fluent:desktop-flow-20-regular"
       />
       <span className="mt-2 block text-sm font-semibold text-gray-900">
-        Create a new Strategy
+        Create a new Challenge
       </span>
     </button>
   )

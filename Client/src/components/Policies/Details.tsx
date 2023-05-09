@@ -3,17 +3,17 @@ import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
-import { Strategy } from '@/types/Strategy'
+import { Challenge } from '@/types/Challenge'
 import capitalize from '@/utils/capitalize'
 
 const Details = ({
   open,
   setOpen,
-  strategy
+  challenge
 }: {
   open: boolean
   setOpen: (open: boolean) => void
-  strategy: Strategy | null
+  challenge: Challenge | null
 }) => {
   const navigate = useNavigate()
   const id = useId()
@@ -70,7 +70,7 @@ const Details = ({
                       <div>
                         <div className="aspect-h-7 aspect-w-10 block w-full shadow overflow-hidden rounded-lg">
                           <img
-                            src={strategy?.fileName}
+                            src={challenge?.fileName}
                             alt=""
                             className="object-cover"
                           />
@@ -78,7 +78,7 @@ const Details = ({
                         <div className="mt-4 flex items-start justify-between">
                           <h2 className="text-base font-semibold leading-6 text-gray-900">
                             <span className="sr-only">Details for </span>
-                            {strategy?.process.name}
+                            {challenge?.process.name}
                           </h2>
                         </div>
                       </div>
@@ -90,7 +90,7 @@ const Details = ({
                           <div className="flex justify-between py-3 text-sm font-medium">
                             <dt className="text-gray-500">Created</dt>
                             <dd className="text-gray-900">
-                              {dayjs(strategy?.createdAt).format(
+                              {dayjs(challenge?.createdAt).format(
                                 'DD MMMM YYYY, h:mm:ss a'
                               )}
                             </dd>
@@ -98,7 +98,7 @@ const Details = ({
                           <div className="flex justify-between py-3 text-sm font-medium">
                             <dt className="text-gray-500">Last modified</dt>
                             <dd className="text-gray-900">
-                              {dayjs(strategy?.updatedAt).format(
+                              {dayjs(challenge?.updatedAt).format(
                                 'DD MMMM YYYY, h:mm:ss a'
                               )}
                             </dd>
@@ -106,19 +106,19 @@ const Details = ({
                           <div className="flex justify-between py-3 text-sm font-medium">
                             <dt className="text-gray-500">Hook Name</dt>
                             <dd className="text-gray-900">
-                              {strategy?.process.hook.name}
+                              {challenge?.process.hook.name}
                             </dd>
                           </div>
                           <div className="flex justify-between py-3 text-sm font-medium">
                             <dt className="text-gray-500">Channel</dt>
                             <dd className="text-gray-900">
-                              {strategy?.process.hook.channel}
+                              {challenge?.process.hook.channel}
                             </dd>
                           </div>
                           <div className="flex justify-between py-3 text-sm font-medium">
                             <dt className="text-gray-500">IsAsync</dt>
                             <dd className="text-gray-900">
-                              {strategy?.process.hook.isAsync ? 'Yes' : 'No'}
+                              {challenge?.process.hook.isAsync ? 'Yes' : 'No'}
                             </dd>
                           </div>
                         </dl>
@@ -129,13 +129,13 @@ const Details = ({
                         </h3>
                         <div className="mt-2 flex items-center justify-between">
                           <p className="text-sm italic text-gray-500">
-                            {strategy?.process.description}
+                            {challenge?.process.description}
                           </p>
                         </div>
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900">Stages</h3>
-                        {strategy?.process.steps.map((step, i) => (
+                        {challenge?.process.steps.map((step, i) => (
                           <div key={`${id + i}`} className="mt-2">
                             <h2 className=" font-medium text-gray-900">
                               Combination {i + 1}
@@ -173,7 +173,7 @@ const Details = ({
                         <button
                           type="button"
                           className="flex-1 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                          onClick={() => navigate(`/modeler/${strategy?.id}`)}
+                          onClick={() => navigate(`/modeler/${challenge?.id}`)}
                         >
                           Edit
                         </button>
