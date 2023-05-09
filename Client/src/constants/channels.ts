@@ -1,3 +1,3 @@
-const channels = ['MOB', 'WEB']
+const channels = ['MOB', 'WEB', 'API']
 
 export default channels
