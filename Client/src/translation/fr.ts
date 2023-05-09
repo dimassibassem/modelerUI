@@ -4,7 +4,7 @@ const fr = {
   Tutorial: 'Tutoriel',
   TutorialContent: 'Ceci est un tutoriel',
   ViewProfile: 'Voir le profil',
-  Shapes: 'Formes',
+  Stages: 'Étapes',
   start: 'début',
   end: 'fin',
   policies: 'politiques',
@@ -44,9 +44,9 @@ const fr = {
     'Il contient tous les éléments que vous pouvez utiliser pour construire votre processus',
   'Left Sidebar': 'Barre latérale gauche',
   DraggableElements:
-    'Ici, vous pouvez trouver toutes les formes que vous pouvez faire glisser dans le flux',
+    'Ici, vous pouvez trouver toutes les étapes que vous pouvez faire glisser dans le flux',
   DropLocation:
-    'Ici, vous pouvez déposer les formes que vous souhaitez utiliser dans votre processus',
+    'Ici, vous pouvez déposer les étapes que vous souhaitez utiliser dans votre processus',
   'Undo/Redo':
     'Les actions Défaire / Rétablir sont disponibles dans le coin supérieur gauche',
   Minimap: 'Minicarte',
