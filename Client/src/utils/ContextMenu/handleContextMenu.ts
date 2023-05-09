@@ -2,7 +2,6 @@ import { ItemParams } from 'react-contexify'
 import { MouseEvent } from 'react'
 import copyAsImage from './copyAsImage'
 import copySelected from './copySelected'
-import pasteFromClipboard from './pasteFromClipboard'
 import ContextMenuItem from '@/types/ContextMenuItem'
 import cutSelected from './cutSelected'
 import ContextMenuItemProps from '@/types/ContextMenuItemProps'
@@ -19,15 +18,7 @@ export const handleItemClick = async ({ id, props }: ItemParams) => {
       break
     }
     case ContextMenuItem.Paste: {
-      await pasteFromClipboard(
-        props.nodes,
-        props.edges,
-        props.setNodesAndEdges,
-        props.lastNodeIdNumber,
-        props.setLastNodeIdNumber,
-        props.setOpenNotification,
-        props.setNotificationData
-      )
+      await props.pasteFromClipboard()
       break
     }
     case ContextMenuItem.Cut:
@@ -83,7 +74,8 @@ export const handleContextMenu = (
       setLastNodeId: props.setLastNodeIdNumber,
       setNotificationData: props.setNotificationData,
       resume: props.resume,
-      pause: props.pause
+      pause: props.pause,
+      pasteFromClipboard: props.pasteFromClipboard
     }
   })
 }
