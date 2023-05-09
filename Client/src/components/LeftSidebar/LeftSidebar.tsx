@@ -10,7 +10,7 @@ import classNames from '@/utils/classNames'
 import useLocalStorage from '@/store/localStorage'
 import LangSelect from '@/components/LangSelect'
 import capitalize from '@/utils/capitalize'
-import shapes from '@/constants/shapes'
+import stages from '@/constants/stages'
 
 const onDragStart = (
   event: DragEvent<HTMLDivElement>,
@@ -86,13 +86,13 @@ const LeftSidebar = () => {
           'pl-3 ml-2 text-gray-600 p-2 hover:text-gray-900 items-center text-sm font-medium rounded-md flex w-full max-w-[90%]'
         )}
       >
-        {t('Shapes')}
+        {t('Stages')}
       </button>
       <div className="flex flex-1 flex-col overflow-y-auto">
         <nav className="flex-1" aria-label="Sidebar">
           {expanded && (
             <div id="shapes" className="px-2">
-              {shapes.map((item) => (
+              {stages.map((item) => (
                 <div
                   onMouseOver={(event: MouseEvent<HTMLDivElement>) => {
                     handlePreviewDragImage(event, setPreviewImage)

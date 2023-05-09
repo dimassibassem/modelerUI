@@ -5,10 +5,10 @@ import CreateNew from '@/components/Policies/CreateNew'
 import Skeleton from '@/components/Policies/Skeleton'
 
 const PoliciesList = ({
-                        setSelectedModel,
-                        setOpenDetails,
-                        strategies
-                      }: {
+  setSelectedModel,
+  setOpenDetails,
+  strategies
+}: {
   setSelectedModel: (model: Strategy) => void
   setOpenDetails: (open: boolean) => void
   strategies: Strategy[] | null

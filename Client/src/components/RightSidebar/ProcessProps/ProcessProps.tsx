@@ -18,7 +18,7 @@ const ProcessProps = () => {
   return (
     <>
       <div
-        className="flex flex-nowrap justify-center text-md font-medium leading-6 text-gray-900 sm:pt-1.5 items-center truncate outline-none focus:outline-none"
+        className="block text-center text-md font-medium leading-6 text-gray-900 sm:pt-1.5 outline-none focus:outline-none"
         contentEditable
         suppressContentEditableWarning
         onBlur={(e) => setProcess({ ...process, name: e.target.innerText })}
@@ -27,7 +27,7 @@ const ProcessProps = () => {
       </div>
 
       <div
-        className="flex flex-nowrap justify-center text-sm font-small leading-6 text-gray-600 sm:pt-1.5 items-center truncate outline-none focus:outline-none"
+        className="block text-center text-sm font-small leading-6 text-gray-600 sm:pt-1.5 outline-none focus:outline-none"
         contentEditable
         suppressContentEditableWarning
         onBlur={(e) =>
@@ -84,7 +84,7 @@ const ProcessProps = () => {
               })
             }}
           >
-            <div className="grid grid-cols-2 gap-3 ">
+            <div className="grid grid-cols-3 gap-3 ">
               {channels.map((canal) => (
                 <RadioGroup.Option
                   key={canal}

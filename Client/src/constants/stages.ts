@@ -1,6 +1,6 @@
 import NodeType from '@/types/NodeType'
 
-const shapes = [
+const stages = [
   NodeType.Start,
   NodeType.End,
   NodeType.Policies,
@@ -9,4 +9,4 @@ const shapes = [
   NodeType.Rule
 ]
 
-export default shapes
+export default stages

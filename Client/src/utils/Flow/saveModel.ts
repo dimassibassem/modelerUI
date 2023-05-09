@@ -55,7 +55,11 @@ async function saveModel(
           setOpenNotification(true)
         }
       } catch (e) {
-        console.log(e)
+        setNotificationData({
+          success: false,
+          message: 'Error saving model'
+        })
+        setOpenNotification(true)
       }
     }
   }

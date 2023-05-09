@@ -2,7 +2,7 @@ import React from 'react'
 import { Step } from 'react-joyride'
 import IconSwitcher from '@/components/LeftSidebar/IconSwitcher'
 import NodeDefinition from '@/components/Joyride/NodeDefinition'
-import shapes from '@/constants/shapes'
+import stages from '@/constants/stages'
 import {
   bottomLeftCommands,
   topRightCommands,
@@ -48,7 +48,7 @@ const joyrideSteps = (t = (text: string) => text): Step[] => [
         <div>
           <div>
             <Content
-              list={shapes}
+              list={stages}
               Icon={IconSwitcher as React.FC<{ type: string }>}
               Definition={NodeDefinition as React.FC<{ type: string }>}
             />
@@ -69,7 +69,7 @@ const joyrideSteps = (t = (text: string) => text): Step[] => [
     },
     placement: 'right',
     target: '#shapes',
-    title: <p className="text-indigo-600 ">{t('Shapes')}</p>
+    title: <p className="text-indigo-600 ">{t('Stages')}</p>
   },
   {
     content: <p>{t('DropLocation')}</p>,

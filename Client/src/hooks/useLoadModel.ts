@@ -20,14 +20,22 @@ const selector = (state: RFState) => ({
 })
 const selector2 = (state: State) => ({
   setModelID: state.setModelID,
-  setLastNodeIdNumber: state.setLastNodeIdNumber
+  setLastNodeIdNumber: state.setLastNodeIdNumber,
+  setNotificationData: state.setNotificationData,
+  setOpenNotification: state.setOpenNotification
 })
 const useLoadModel = (setLoaded: (loaded: boolean) => void) => {
   const { id } = useParams<{ id: string }>()
   const { setProcess, setNodes, setEdges } = useFlowStore(selector, shallow)
-  const { setModelID, setLastNodeIdNumber } = useStore(selector2, shallow)
+  const {
+    setModelID,
+    setLastNodeIdNumber,
+    setNotificationData,
+    setOpenNotification
+  } = useStore(selector2, shallow)
   const navigate = useNavigate()
   return useEffect(() => {
+    setLoaded(true)
     if (id) {
       loadModel(id)
         .then((data) => {
@@ -38,11 +46,14 @@ const useLoadModel = (setLoaded: (loaded: boolean) => void) => {
           setProcess(data.process)
         })
         .catch((err) => {
-          console.error(err)
+          setNotificationData({
+            success: false,
+            message: err.message
+          })
+          setOpenNotification(true)
           navigate('/modeler')
         })
     }
-    setLoaded(true)
   }, [
     id,
     navigate,
@@ -51,6 +62,8 @@ const useLoadModel = (setLoaded: (loaded: boolean) => void) => {
     setLoaded,
     setModelID,
     setNodes,
+    setNotificationData,
+    setOpenNotification,
     setProcess
   ])
 }

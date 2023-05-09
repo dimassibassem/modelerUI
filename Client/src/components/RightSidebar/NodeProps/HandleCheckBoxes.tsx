@@ -1,6 +1,14 @@
 import React from 'react'
 import { Edge, Node } from 'reactflow'
 import { useTranslation } from 'react-i18next'
+import { shallow } from 'zustand/shallow'
+import State from '@/types/State'
+import useStore from '@/store/stateStore'
+
+const selector = (state: State) => ({
+  setOpenNotification: state.setOpenNotification,
+  setNotificationData: state.setNotificationData
+})
 
 const HandleCheckBoxes = ({
   selectedNode,
@@ -14,6 +22,10 @@ const HandleCheckBoxes = ({
   setNodes: (nds: Node[]) => void
 }) => {
   const { t } = useTranslation()
+  const { setOpenNotification, setNotificationData } = useStore(
+    selector,
+    shallow
+  )
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target
     const isHandleAlreadyConnected = edges.some(
@@ -40,7 +52,11 @@ const HandleCheckBoxes = ({
         )
       )
     } else {
-      alert('Handle already connected')
+      setOpenNotification(true)
+      setNotificationData({
+        success: false,
+        message: t('Handle already connected')
+      })
     }
   }
   return (
