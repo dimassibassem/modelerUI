@@ -13,7 +13,7 @@ const PoliciesList = ({
   setOpenDetails: (open: boolean) => void
   strategies: Strategy[] | null
 }) => (
-  <main className="pb-14 pt-16 sm:px-6 sm:pb-20 sm:pt-20 lg:px-8">
+  <main className="pb-14 pt-16 sm:px-6 sm:pb-20 sm:pt-12 lg:px-8">
     <div className="mx-auto max-w-4xl">
       <div className="px-4 sm:px-0">
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
