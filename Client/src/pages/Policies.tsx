@@ -19,7 +19,7 @@ const loadModels = async () => {
 const Policies = () => {
   const [openDetails, setOpenDetails] = useState(false)
   const [selectedModel, setSelectedModel] = useState<Strategy | null>(null)
-  const [models, setModels] = useState<Strategy[]>([])
+  const [models, setModels] = useState<Strategy[] | null>(null)
 
   dayjs.extend(relativeTime)
   useEffect(() => {

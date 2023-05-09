@@ -24,17 +24,12 @@ const selector = (state: RFState) => ({
   setProcess: state.setProcess
 })
 const selector2 = (state: State) => ({
-  reactFlowInstance: state.reactFlowInstance,
-  chainRecovery: state.chainRecovery,
-  setChainRecovery: state.setChainRecovery
+  reactFlowInstance: state.reactFlowInstance
 })
 
 const BottomLeftPanel = () => {
   const { setNodes, setEdges, nodes, edges } = useFlowStore(selector, shallow)
-  const { reactFlowInstance, chainRecovery, setChainRecovery } = useStore(
-    selector2,
-    shallow
-  )
+  const { reactFlowInstance } = useStore(selector2, shallow)
   const [verticalLayout, setVerticalLayout] = useState<VerticalLayout>(
     VerticalLayout.TopToBottom
   )
@@ -66,10 +61,7 @@ const BottomLeftPanel = () => {
             )
           }}
         >
-          <Icon
-            className="w-5 h-5"
-            icon="material-symbols:swap-vertical-circle-outline-rounded"
-          />
+          <Icon className="w-5 h-5" icon="ph:arrows-out-line-vertical-fill" />
         </button>
         <button
           className="rounded flex justify-center bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
@@ -86,10 +78,7 @@ const BottomLeftPanel = () => {
             )
           }}
         >
-          <Icon
-            className="w-5 h-5"
-            icon="material-symbols:swap-horizontal-circle-outline-rounded"
-          />
+          <Icon className="w-5 h-5" icon="ph:arrows-out-line-horizontal-fill" />
         </button>
         <button
           type="button"
@@ -105,24 +94,7 @@ const BottomLeftPanel = () => {
         </button>
       </div>
 
-      <div className="grid grid-cols-4 gap-2 justify-items-stretch">
-        <button
-          id="chainRecovery"
-          data-tooltip-id="BottomLeftCommands"
-          data-tooltip-content={t<string>('Chain Recovery')}
-          aria-label="Chain Recovery"
-          type="button"
-          className="flex justify-center rounded bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
-          onClick={() => {
-            setChainRecovery(!chainRecovery)
-          }}
-        >
-          {chainRecovery ? (
-            <Icon className="w-5 h-5" icon="fa:chain" />
-          ) : (
-            <Icon className="w-5 h-5" icon="fa:chain-broken" />
-          )}
-        </button>
+      <div className="grid grid-cols-3 gap-2 justify-items-stretch">
         <button
           type="button"
           data-tooltip-id="BottomLeftCommands"

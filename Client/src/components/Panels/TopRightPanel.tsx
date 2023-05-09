@@ -19,6 +19,8 @@ const selector = (state: RFState) => ({
 })
 const selector2 = (state: State) => ({
   reactFlowInstance: state.reactFlowInstance,
+  chainRecovery: state.chainRecovery,
+  setChainRecovery: state.setChainRecovery,
   setNotificationData: state.setNotificationData,
   setOpenNotification: state.setOpenNotification,
   modelID: state.modelID,
@@ -32,14 +34,16 @@ const TopRightPanel = () => {
     setNotificationData,
     setOpenNotification,
     modelID,
-    setModelID
+    setModelID,
+    chainRecovery,
+    setChainRecovery
   } = useStore(selector2, shallow)
   const { t } = useTranslation()
   return (
     <Panel
       id="top-right"
       position="top-right"
-      className="grid grid-cols-2 gap-2"
+      className="grid grid-cols-3 gap-2"
     >
       <Tooltip id="TopRightCommands" delayShow={600} style={tooltipStyle} />
       <button
@@ -50,7 +54,7 @@ const TopRightPanel = () => {
         className="rounded flex justify-center bg-red-50 py-1 px-2 text-sm font-semibold text-red-700 shadow-sm hover:bg-red-100"
         onClick={() => clearFlow(setNodesAndEdges)}
       >
-        <Icon className="w-5 h-5" icon="ic:outline-clear" />
+        <Icon className="w-5 h-5" icon="fa-regular:trash-alt" />
       </button>
       <button
         type="button"
@@ -69,10 +73,24 @@ const TopRightPanel = () => {
           )
         }
       >
-        <Icon
-          className="w-5 h-5"
-          icon="material-symbols:save-outline-rounded"
-        />
+        <Icon className="w-5 h-5" icon="fa-regular:save" />
+      </button>
+      <button
+        id="chainRecovery"
+        data-tooltip-id="BottomLeftCommands"
+        data-tooltip-content={t<string>('Chain Recovery')}
+        aria-label="Chain Recovery"
+        type="button"
+        className="flex justify-center rounded bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
+        onClick={() => {
+          setChainRecovery(!chainRecovery)
+        }}
+      >
+        {chainRecovery ? (
+          <Icon className="w-5 h-5" icon="fa:chain" />
+        ) : (
+          <Icon className="w-5 h-5" icon="fa:chain-broken" />
+        )}
       </button>
     </Panel>
   )

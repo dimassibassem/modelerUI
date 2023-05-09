@@ -42,6 +42,7 @@ import useIsValidConnection from '@/hooks/useIsValidConnection'
 import useStore from '@/store/stateStore'
 import State from '@/types/State'
 import useLoadModel from '@/hooks/useLoadModel'
+import usePasteFlowFromClipboard from '@/hooks/usePasteFlowFromClipboard'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -101,6 +102,7 @@ const DnDFlow = () => {
   const isValidConnection = useIsValidConnection()
   const onConnect = useOnConnect()
   const onDragOver = useOnDragNode()
+  const pasteFromClipboard = usePasteFlowFromClipboard()
   const onDrop = useOnDropNode(reactFlowWrapper, setId)
   const [loaded, setLoaded] = useState(false)
   useLoadModel(setLoaded)
@@ -134,7 +136,8 @@ const DnDFlow = () => {
               setLastNodeIdNumber,
               setNotificationData,
               resume,
-              pause
+              pause,
+              pasteFromClipboard
             })
           }
           className="grow h-full"

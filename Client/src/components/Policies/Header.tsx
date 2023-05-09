@@ -1,6 +1,6 @@
 import React from 'react'
 import logoBankerise from '@/assets/logo-bankerise.png'
-import LangSelect from '@/components/LeftSidebar/LangSelect'
+import LangSelect from '@/components/LangSelect'
 
 const Header = () => (
   <header className="relative bg-white">

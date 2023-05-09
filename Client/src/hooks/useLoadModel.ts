@@ -43,7 +43,16 @@ const useLoadModel = (setLoaded: (loaded: boolean) => void) => {
         })
     }
     setLoaded(true)
-  }, [id, navigate, setEdges, setLastNodeIdNumber, setLoaded, setModelID, setNodes, setProcess])
+  }, [
+    id,
+    navigate,
+    setEdges,
+    setLastNodeIdNumber,
+    setLoaded,
+    setModelID,
+    setNodes,
+    setProcess
+  ])
 }
 
 export default useLoadModel

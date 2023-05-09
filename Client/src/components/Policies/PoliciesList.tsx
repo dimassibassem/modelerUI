@@ -2,6 +2,7 @@ import React from 'react'
 import dayjs from 'dayjs'
 import { Strategy } from '@/types/Strategy'
 import CreateNew from '@/components/Policies/CreateNew'
+import Skeleton from '@/components/Policies/Skeleton'
 
 const PoliciesList = ({
   setSelectedModel,
@@ -10,27 +11,28 @@ const PoliciesList = ({
 }: {
   setSelectedModel: (model: Strategy) => void
   setOpenDetails: (open: boolean) => void
-  strategies: Strategy[]
+  strategies: Strategy[] | null
 }) => (
-    <main className="pb-14 pt-16 sm:px-6 sm:pb-20 sm:pt-20 lg:px-8">
-      <div className="mx-auto max-w-4xl">
-        <div className="px-4 sm:px-0">
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-            Strategies
-          </h1>
-          <p className="mt-2 text-sm text-gray-500">
-            List of all the strategies you have created.
-          </p>
-        </div>
+  <main className="pb-14 pt-16 sm:px-6 sm:pb-20 sm:pt-20 lg:px-8">
+    <div className="mx-auto max-w-4xl">
+      <div className="px-4 sm:px-0">
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+          Strategies
+        </h1>
+        <p className="mt-2 text-sm text-gray-500">
+          List of all the strategies you have created.
+        </p>
+      </div>
 
-        <section aria-labelledby="recent-heading" className="mt-10">
-          <h2 id="recent-heading" className="sr-only">
-            Recent
-          </h2>
-          <CreateNew />
+      <section aria-labelledby="recent-heading" className="mt-10">
+        <h2 id="recent-heading" className="sr-only">
+          Recent
+        </h2>
+        <CreateNew />
 
-          <div className="space-y-16 sm:space-y-24">
-            {strategies.map((strategy) => (
+        <div className="space-y-16 sm:space-y-24">
+          {strategies ? (
+            strategies.map((strategy) => (
               <div key={strategy.id}>
                 <div className="ml-4 flex-shrink-0 sm:order-first sm:m-0 sm:mr-6">
                   <div className="mt-6 flow-root px-4 sm:mt-10 sm:px-0 ">
@@ -54,8 +56,9 @@ const PoliciesList = ({
                                       'DD MMMM YYYY'
                                     )}
                                     <span className="hidden sm:inline">
-                                      {` -- ${ 
-                                        dayjs(strategy.updatedAt).fromNow()}`}
+                                      {` -- ${dayjs(
+                                        strategy.updatedAt
+                                      ).fromNow()}`}
                                     </span>
                                   </span>
                                 </span>
@@ -96,11 +99,14 @@ const PoliciesList = ({
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </section>
-      </div>
-    </main>
-  )
+            ))
+          ) : (
+            <Skeleton repeat={2} />
+          )}
+        </div>
+      </section>
+    </div>
+  </main>
+)
 
 export default PoliciesList

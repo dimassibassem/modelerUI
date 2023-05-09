@@ -8,7 +8,7 @@ import IconSwitcher from './IconSwitcher'
 import NodeType from '@/types/NodeType'
 import classNames from '@/utils/classNames'
 import useLocalStorage from '@/store/localStorage'
-import LangSelect from '@/components/LeftSidebar/LangSelect'
+import LangSelect from '@/components/LangSelect'
 import capitalize from '@/utils/capitalize'
 import shapes from '@/constants/shapes'
 
@@ -37,8 +37,8 @@ const handlePreviewDragImage = (
   const svgElement = (event.target as Element).querySelector<SVGElement>('svg')
   if (svgElement) {
     const svgCopy = svgElement.cloneNode(true) as SVGElement
-    svgCopy?.setAttribute('width', '80')
-    svgCopy?.setAttribute('height', '80')
+    svgCopy.setAttribute('width', '80')
+    svgCopy.setAttribute('height', '80')
     const img = new Image()
     img.src = `data:image/svg+xml;utf8,${encodeURIComponent(svgCopy.outerHTML)}`
     setPreviewImage(img.src)
@@ -72,7 +72,7 @@ const LeftSidebar = () => {
           />
         ) : (
           <div className="h-16 w-auto">
-            <div className="animate-pulse bg-gray-200 h-16 w-16 rounded-full" />
+            <div className="animate-pulse bg-gray-200 h-16 w-16" />
           </div>
         )}
       </div>

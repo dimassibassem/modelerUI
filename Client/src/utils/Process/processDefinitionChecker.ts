@@ -29,9 +29,9 @@ const processDefinitionChecker = (
     return
   }
 
-  const steps = paths.map((path) => path
-      .map((nodeId) =>
-      {
+  const steps = paths.map((path) =>
+    path
+      .map((nodeId) => {
         const node = nodes.find((nd) => nd.id === nodeId)
         if (node) {
           return {
@@ -42,7 +42,8 @@ const processDefinitionChecker = (
         }
         return undefined
       })
-      .filter((step) => step !== undefined))
+      .filter((step) => step !== undefined)
+  )
 
   steps.forEach((step) => {
     if (step[0]?.type === NodeType.Start) {

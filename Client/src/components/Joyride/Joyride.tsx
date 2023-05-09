@@ -35,15 +35,8 @@ const selector2 = (state: State) => ({
   reactFlowInstance: state.reactFlowInstance
 })
 export default () => {
-  const {
-    setNodes,
-    setEdges,
-    setSelected,
-    nodes,
-    edges,
-    setProcess,
-    process,
-  } = useFlowStore(selector, shallow)
+  const { setNodes, setEdges, setSelected, nodes, edges, setProcess, process } =
+    useFlowStore(selector, shallow)
   const { setProcessDefOpenModal, reactFlowInstance } = useStore(
     selector2,
     shallow
