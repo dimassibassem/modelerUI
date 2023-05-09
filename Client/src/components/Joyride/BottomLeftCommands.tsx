@@ -21,10 +21,6 @@ const BottomLeftCommandsDefinition = ({ type }: { type: string }) => {
       )
     case 'Fit View':
       return <span className="text-gray-500 pl-2">{t('FitViewContent')}</span>
-    case 'Chain Recovery':
-      return (
-        <span className="text-gray-500 pl-2">{t('ChainRecoveryContent')}</span>
-      )
     case 'Zoom In':
       return <span className="text-gray-500 pl-2">{t('ZoomInContent')}</span>
     case 'Zoom Out':
@@ -42,22 +38,14 @@ const BottomLeftCommandsIcons = ({ type }: { type: string }) => {
   switch (type) {
     case 'Vertical layout':
       return (
-        <Icon
-          className="w-5 h-5"
-          icon="material-symbols:swap-vertical-circle-outline-rounded"
-        />
+        <Icon className="w-5 h-5" icon="ph:arrows-out-line-vertical-fill" />
       )
     case 'Horizontal layout':
       return (
-        <Icon
-          className="w-5 h-5"
-          icon="material-symbols:swap-horizontal-circle-outline-rounded"
-        />
+        <Icon className="w-5 h-5" icon="ph:arrows-out-line-horizontal-fill" />
       )
     case 'Fit View':
       return <Icon className="w-5 h-5" icon="material-symbols:fit-screen" />
-    case 'Chain Recovery':
-      return <Icon className="w-5 h-5" icon="fa:chain" />
     case 'Zoom In':
       return <MagnifyingGlassPlusIcon className="w-5 h-5" />
     case 'Zoom Out':

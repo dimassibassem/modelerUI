@@ -4,12 +4,11 @@ const bottomLeftCommands = [
   'Vertical layout',
   'Horizontal layout',
   'Fit View',
-  'Chain Recovery',
   'Zoom In',
   'Zoom Out',
   'Full Screen'
 ]
 
-const topRightCommands = ['Clear', 'Save']
+const topRightCommands = ['Clear', 'Save', 'Chain Recovery']
 
 export { undoRedoList, bottomLeftCommands, topRightCommands }
