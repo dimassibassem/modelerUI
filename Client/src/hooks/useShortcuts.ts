@@ -7,29 +7,40 @@ import { useFlowStore, useTemporalStore } from '@/store'
 import State from '@/types/State'
 import useStore from '@/store/stateStore'
 import UsePasteFlowFromClipboard from '@/hooks/usePasteFlowFromClipboard'
+import saveModel from '@/utils/Flow/saveModel'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
   edges: state.edges,
+  process: state.process,
   setNodesAndEdges: state.setNodesAndEdges,
   selectAll: state.selectAll
 })
 const selector2 = (state: State) => ({
   reactFlowInstance: state.reactFlowInstance,
   lastNodeIdNumber: state.lastNodeIdNumber,
-  setLastNodeIdNumber: state.setLastNodeIdNumber
+  setLastNodeIdNumber: state.setLastNodeIdNumber,
+  setNotificationData: state.setNotificationData,
+  modelID: state.modelID,
+  setModelID: state.setModelID,
+  setOpenNotification: state.setOpenNotification
 })
 const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
-  const { nodes, edges, selectAll, setNodesAndEdges } = useFlowStore(
+  const { nodes, edges, selectAll, setNodesAndEdges, process } = useFlowStore(
     selector,
     shallow
   )
   const { undo, redo } = useTemporalStore((state) => state)
   const pasteFromClipboard = UsePasteFlowFromClipboard()
-  const { reactFlowInstance, lastNodeIdNumber, setLastNodeIdNumber } = useStore(
-    selector2,
-    shallow
-  )
+  const {
+    reactFlowInstance,
+    lastNodeIdNumber,
+    setLastNodeIdNumber,
+    setNotificationData,
+    modelID,
+    setModelID,
+    setOpenNotification
+  } = useStore(selector2, shallow)
 
   useEventListener('keydown', async (e) => {
     switch (e.key) {
@@ -78,6 +89,19 @@ const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
             lastNodeIdNumber,
             setLastNodeIdNumber,
             copy
+          )
+        }
+        break
+      case 's':
+        if (e.ctrlKey) {
+          e.preventDefault()
+          await saveModel(
+            reactFlowInstance,
+            process,
+            setNotificationData,
+            modelID,
+            setModelID,
+            setOpenNotification
           )
         }
         break
