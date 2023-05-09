@@ -5,10 +5,10 @@ import CreateNew from '@/components/Policies/CreateNew'
 import Skeleton from '@/components/Policies/Skeleton'
 
 const PoliciesList = ({
-  setSelectedModel,
-  setOpenDetails,
-  strategies
-}: {
+                        setSelectedModel,
+                        setOpenDetails,
+                        strategies
+                      }: {
   setSelectedModel: (model: Strategy) => void
   setOpenDetails: (open: boolean) => void
   strategies: Strategy[] | null
@@ -30,7 +30,7 @@ const PoliciesList = ({
         </h2>
         <CreateNew />
 
-        <div className="space-y-16 sm:space-y-24">
+        <div className="pt-4 space-y-8 sm:space-y-12">
           {strategies ? (
             strategies.map((strategy) => (
               <div key={strategy.id}>
