@@ -1,4 +1,4 @@
-import Channel from "@/types/Channel";
+import Channel from '@/types/Channel'
 
 type Stage = {
   id: string

@@ -1,50 +1,48 @@
-import { Edge, Node } from 'reactflow'
-import { describe, it, expect } from 'vitest'
-import NodeType from '@/types/NodeType'
+import { describe, it, expect, beforeEach } from 'vitest'
 import processDefinitionChecker from '@/utils/Process/processDefinitionChecker'
-import Process from '@/types/Process'
+import { nodes, edges } from '@/tests/fixtures/allNodes'
+import { useFlowStore } from '@/store'
 
-let process: Process = {
-  steps: [],
-  name: '',
-  description: '',
-  hook: { name: '', channel: '', isAsync: false }
-}
-const setProcess = (proc: Process) => {
-  process = proc
-}
+beforeEach(() => {
+  useFlowStore.getState().resetState()
+})
+
 describe('processDefinitionChecker', () => {
   it('should set the process according to its valid steps', () => {
-    const nodes: Node[] = [
-      {
-        id: 'start_0',
-        type: NodeType.Start,
-        data: {},
-        position: { x: 0, y: 0 }
-      },
-      {
-        id: 'end_1',
-        type: NodeType.End,
-        data: {},
-        position: { x: 200, y: 200 }
-      }
-    ]
-    const edges: Edge[] = [
-      {
-        id: 'e1',
-        source: 'start_0',
-        target: 'end_1'
-      }
-    ]
+    processDefinitionChecker(
+      nodes,
+      edges,
+      useFlowStore.getState().setProcess,
+      useFlowStore.getState().process
+    )
 
-    processDefinitionChecker(nodes, edges, setProcess, process)
-
-    expect(process).toEqual({
-      ...process,
+    expect(useFlowStore.getState().process).toEqual({
+      ...useFlowStore.getState().process,
       steps: [
         [
-          { id: 'start_0', type: 'start' },
-          { id: 'end_1', type: 'end' }
+          {
+            attributes: {
+              channel: 'WEB',
+              name: 'policy'
+            },
+            id: 'policies_2',
+            type: 'policies'
+          },
+          {
+            attributes: undefined,
+            id: 'provisioners_3',
+            type: 'provisioners'
+          },
+          {
+            attributes: undefined,
+            id: 'execution_4',
+            type: 'execution'
+          },
+          {
+            attributes: undefined,
+            id: 'rule_5',
+            type: 'rule'
+          }
         ]
       ]
     })

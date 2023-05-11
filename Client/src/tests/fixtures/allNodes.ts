@@ -41,6 +41,10 @@ const nodes: Node[] = [
         right: true,
         bottom: true,
         left: true
+      },
+      attributes: {
+        name: 'policy',
+        channel: 'WEB'
       }
     },
     position: { x: 30, y: 30 }
