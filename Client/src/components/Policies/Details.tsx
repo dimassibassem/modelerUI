@@ -1,22 +1,22 @@
-import { Fragment, useId } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
-import { useNavigate } from 'react-router-dom'
-import dayjs from 'dayjs'
-import { Challenge } from '@/types/Challenge'
-import capitalize from '@/utils/capitalize'
+import { Fragment, useId } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
+import { Challenge } from "@/types/Challenge";
+import capitalize from "@/utils/capitalize";
 
 const Details = ({
-  open,
-  setOpen,
-  challenge
-}: {
+                   open,
+                   setOpen,
+                   challenge
+                 }: {
   open: boolean
   setOpen: (open: boolean) => void
   challenge: Challenge | null
 }) => {
-  const navigate = useNavigate()
-  const id = useId()
+  const navigate = useNavigate();
+  const id = useId();
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -91,7 +91,7 @@ const Details = ({
                             <dt className="text-gray-500">Created</dt>
                             <dd className="text-gray-900">
                               {dayjs(challenge?.createdAt).format(
-                                'DD MMMM YYYY, h:mm:ss a'
+                                "DD MMMM YYYY, h:mm:ss a"
                               )}
                             </dd>
                           </div>
@@ -99,7 +99,7 @@ const Details = ({
                             <dt className="text-gray-500">Last modified</dt>
                             <dd className="text-gray-900">
                               {dayjs(challenge?.updatedAt).format(
-                                'DD MMMM YYYY, h:mm:ss a'
+                                "DD MMMM YYYY, h:mm:ss a"
                               )}
                             </dd>
                           </div>
@@ -110,15 +110,24 @@ const Details = ({
                             </dd>
                           </div>
                           <div className="flex justify-between py-3 text-sm font-medium">
-                            <dt className="text-gray-500">Channel</dt>
+                            <dt className="text-gray-500">Channels</dt>
                             <dd className="text-gray-900">
-                              {challenge?.process.hook.channel}
+                              {challenge?.process.hook.channels.map(
+                                (channel, i) => (
+                                  <span key={`${id + i}`}>
+                                    {capitalize(channel)}
+                                    {i !==
+                                      challenge.process.hook.channels.length -
+                                      1 && ", "}
+                                  </span>
+                                )
+                              )}
                             </dd>
                           </div>
                           <div className="flex justify-between py-3 text-sm font-medium">
                             <dt className="text-gray-500">IsAsync</dt>
                             <dd className="text-gray-900">
-                              {challenge?.process.hook.isAsync ? 'Yes' : 'No'}
+                              {challenge?.process.hook.isAsync ? "Yes" : "No"}
                             </dd>
                           </div>
                         </dl>
@@ -193,7 +202,7 @@ const Details = ({
         </div>
       </Dialog>
     </Transition.Root>
-  )
-}
+  );
+};
 
-export default Details
+export default Details;

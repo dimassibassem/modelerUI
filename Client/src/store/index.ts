@@ -15,7 +15,7 @@ const initialProcess: Process = {
   description: '',
   hook: {
     name: '',
-    channel: 'MOB',
+    channels: [],
     isAsync: false
   }
 }
@@ -101,7 +101,7 @@ const useFlowStore = create<RFState>()(
             process:
               a.process.name +
               a.process.description +
-              a.process.hook.channel +
+              a.process.hook.channels +
               a.process.hook.isAsync
           },
           {
@@ -110,7 +110,7 @@ const useFlowStore = create<RFState>()(
             process:
               b.process.name +
               b.process.description +
-              b.process.hook.channel +
+              b.process.hook.channels +
               b.process.hook.isAsync
           }
         )

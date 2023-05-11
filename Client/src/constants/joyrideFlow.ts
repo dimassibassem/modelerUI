@@ -1,5 +1,6 @@
 import { Edge, Node, MarkerType, Position } from 'reactflow'
 import { TFunction } from 'i18next'
+import Channel from '@/types/Channel'
 
 export const joyrideNodes: Node[] = [
   {
@@ -126,7 +127,7 @@ export const joyrideProcess = (t: TFunction) => ({
   steps: [],
   hook: {
     name: '',
-    channel: 'MOB',
+    channels: [Channel.WEB],
     isAsync: false
   }
 })
@@ -137,7 +138,7 @@ export const emptyProcess = {
   steps: [],
   hook: {
     name: '',
-    channel: 'MOB',
+    channels: [],
     isAsync: false
   }
 }

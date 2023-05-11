@@ -1,10 +1,12 @@
+import Channel from "@/types/Channel";
+
 type Stage = {
   id: string
   type: string
   attributes: {
     [key: string]: string | undefined // add index signature
-    name?: string
-    channel?: string
+    name: string
+    channel: string
     challenge?: string
     enricher?: string
   }
@@ -18,7 +20,7 @@ type Process = {
   description: string
   hook: {
     name: string
-    channel: string
+    channels: Channel[]
     isAsync: boolean
   }
 }
