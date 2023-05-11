@@ -19,6 +19,7 @@ const fr = {
   Label: 'Étiquette',
   name: 'Nom',
   channel: 'Canal',
+  channels: 'Canaux',
   challenge: 'Défi',
   enricher: 'Enrichisseur',
   Hook: 'Crochet',

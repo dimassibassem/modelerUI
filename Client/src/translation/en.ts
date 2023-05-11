@@ -19,6 +19,7 @@ const en = {
   Label: 'Label',
   name: 'Name',
   channel: 'Channel',
+  channels: 'Channels',
   challenge: 'Challenge',
   enricher: 'Enricher',
   Hook: 'Hook',
