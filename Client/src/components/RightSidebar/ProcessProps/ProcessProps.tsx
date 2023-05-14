@@ -86,7 +86,7 @@ const ProcessProps = () => {
 
       <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4  sm:border-gray-200 sm:pt-5">
         <label className="text-sm font-medium text-gray-900">
-          {t('Channels')}
+          {t('channels')}
         </label>
 
         <div className="mt-2 sm:col-span-2 sm:mt-0">

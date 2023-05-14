@@ -65,13 +65,13 @@ const fr = {
   NodePropertiesContent:
     'Ici, vous pouvez trouver les propriétés du nœud que vous avez sélectionné',
   EdgeClick:
-    "En cliquant sur l'arête, vous pouvez voir les propriétés de l'arête et les modifier dans la barre latérale droite",
-  EdgeProperties: "Propriétés de l'arête",
+    "En cliquant sur le lien, vous pouvez voir les propriétés de lien et les modifier dans la barre latérale droite",
+  EdgeProperties: "Propriétés de le lien",
   EdgePropertiesContent:
-    "Ici, vous pouvez trouver les propriétés de l'arête que vous avez sélectionnée",
+    "Ici, vous pouvez trouver les propriétés de lien que vous avez sélectionnée",
   ProcessProperties: 'Propriétés du processus',
   ProcessPropertiesContent:
-    "Si ni un nœud ni une arête n'est sélectionné, vous pouvez trouver les propriétés du processus ici et les modifier dans la barre latérale droite",
+    "Si ni un nœud ni un lien n'est sélectionné, vous pouvez trouver les propriétés du processus ici et les modifier dans la barre latérale droite",
   Back: 'Retour',
   Last: 'Dernier',
   Next: 'Suivant',
@@ -95,7 +95,7 @@ const fr = {
   HorizontalLayoutContent: 'Mis en page le flux horizontalement',
   FitViewContent: 'Ajuster le flux à la vue',
   ChainRecoveryContent:
-    "Choisir de récupérer l'arête ou non lors de la suppression d'un nœud",
+    "Choisir de récupérer le lien ou non lors de la suppression d'un nœud",
   ZoomInContent: 'Zoomez dans le flux',
   ZoomOutContent: 'Dézoomer dans le flux',
   FullScreenContent: 'Mettre le flux en plein écran',
@@ -126,7 +126,7 @@ const fr = {
   'Full screen': 'Plein écran',
   'Copy as image': 'Copier comme image',
   'Select nodes': 'Sélectionner les nœuds',
-  'Select edges': 'Sélectionner les arêtes',
+  'Select edges': 'Sélectionner les liens',
   'Select all': 'Sélectionner tout'
 }
 
