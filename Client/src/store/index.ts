@@ -1,24 +1,24 @@
-import { create, useStore } from 'zustand'
-import { Edge, Node } from 'reactflow'
-import { temporal, TemporalState } from 'zundo'
-import { devtools } from 'zustand/middleware'
-import equal from 'deep-equal'
-import { RFState } from '@/types/RFState'
-import Process from '@/types/Process'
+import { create, useStore } from "zustand";
+import { Edge, Node } from "reactflow";
+import { temporal, TemporalState } from "zundo";
+import { devtools } from "zustand/middleware";
+import equal from "deep-equal";
+import { RFState } from "@/types/RFState";
+import Process from "@/types/Process";
 
-const initialEdges: Edge[] = []
-const initialNodes: Node[] = []
+const initialEdges: Edge[] = [];
+const initialNodes: Node[] = [];
 
 const initialProcess: Process = {
   steps: [],
-  name: '',
-  description: '',
+  processKey: "",
+  description: "",
+  channels: [],
   hook: {
-    name: '',
-    channels: [],
+    name: "",
     isAsync: false
   }
-}
+};
 type TState = {
   process: Process
   nodes: Node[]
@@ -34,7 +34,7 @@ const useFlowStore = create<RFState>()(
         nodes: initialNodes,
         edges: initialEdges,
         setNodesAndEdges: (nodes: Node[], edges: Edge[]) =>
-          set({ nodes, edges }, false, 'setNodesAndEdges'),
+          set({ nodes, edges }, false, "setNodesAndEdges"),
         selected: null,
         selectAll: () => {
           set(
@@ -43,8 +43,8 @@ const useFlowStore = create<RFState>()(
               edges: get().edges.map((edge) => ({ ...edge, selected: true }))
             },
             false,
-            'selectAll'
-          )
+            "selectAll"
+          );
         },
         selectAllNodes: () => {
           set(
@@ -52,8 +52,8 @@ const useFlowStore = create<RFState>()(
               nodes: get().nodes.map((node) => ({ ...node, selected: true }))
             },
             false,
-            'selectAllNodes'
-          )
+            "selectAllNodes"
+          );
         },
         selectAllEdges: () => {
           set(
@@ -61,15 +61,15 @@ const useFlowStore = create<RFState>()(
               edges: get().edges.map((edge) => ({ ...edge, selected: true }))
             },
             false,
-            'selectAllEdges'
-          )
+            "selectAllEdges"
+          );
         },
-        setProcess: (process: Process) => set({ process }, false, 'setProcess'),
+        setProcess: (process: Process) => set({ process }, false, "setProcess"),
         setSelected(selected: Node | Edge | null) {
-          set({ selected }, false, 'setSelected')
+          set({ selected }, false, "setSelected");
         },
-        setNodes: (nodes: Node[]) => set({ nodes }, false, 'setNodes'),
-        setEdges: (edges: Edge[]) => set({ edges }, false, 'setEdges'),
+        setNodes: (nodes: Node[]) => set({ nodes }, false, "setNodes"),
+        setEdges: (edges: Edge[]) => set({ edges }, false, "setEdges"),
         resetState: () => {
           set(
             {
@@ -79,19 +79,19 @@ const useFlowStore = create<RFState>()(
               selected: null
             },
             false,
-            'resetState'
-          )
+            "resetState"
+          );
         }
       }),
       {
-        name: 'FlowStore',
-        enabled: import.meta.env.VITE_REDUX_DEVTOOLS_ENABLED === 'true'
+        name: "FlowStore",
+        enabled: import.meta.env.VITE_REDUX_DEVTOOLS_ENABLED === "true"
       }
     ),
     {
       partialize: (state) => {
-        const { nodes, edges, process } = state
-        return { nodes, edges, process }
+        const { nodes, edges, process } = state;
+        return { nodes, edges, process };
       },
       equality: (a, b) =>
         equal(
@@ -99,28 +99,28 @@ const useFlowStore = create<RFState>()(
             nodes: a.nodes,
             edges: a.edges,
             process:
-              a.process.name +
+              a.process.processKey +
               a.process.description +
-              a.process.hook.channels +
+              a.process.channels +
               a.process.hook.isAsync
           },
           {
             nodes: b.nodes,
             edges: b.edges,
             process:
-              b.process.name +
+              b.process.processKey +
               b.process.description +
-              b.process.hook.channels +
+              b.process.channels +
               b.process.hook.isAsync
           }
         )
     }
   )
-)
+);
 
 const useTemporalStore = <T>(
   selector: (state: TemporalState<TState>) => T,
   equality?: (a: T, b: T) => boolean
-) => useStore(useFlowStore.temporal, selector, equality)
+) => useStore(useFlowStore.temporal, selector, equality);
 
-export { useFlowStore, useTemporalStore }
+export { useFlowStore, useTemporalStore };

@@ -1,85 +1,117 @@
-import initWithAllNodes from '../support/initWithAllNodes'
+import initWithAllNodes from "../support/initWithAllNodes";
+import skipTutorial from "../support/skipTutorial";
 
-describe('Keyboard Shortcuts', () => {
+describe("Keyboard Shortcuts", () => {
   beforeEach(() => {
-    cy.visit('/')
-    initWithAllNodes()
-  })
+    cy.visit("/");
+    cy.get("#loading").should("exist");
+    cy.get("#loading", { timeout: 10000 }).should("not.exist");
+    skipTutorial();
+    initWithAllNodes();
+  });
 
-  it('selects all nodes', () => {
-    cy.get('body').type('{ctrl}', { release: false })
-    cy.get('body').type('a', { release: true })
+  it("selects all nodes", () => {
+    cy.get("body").type("{ctrl}", { release: false });
+    cy.get("body").type("a", { release: true });
 
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-end.nopan'
-    ).should('have.class', 'selected')
+      ".react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-end.nopan"
+    ).should("have.class", "selected");
 
     // Random click to deselect all nodes
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div'
-    ).click('bottomLeft')
+      ".react-flow__renderer > div"
+    ).click("bottomLeft");
 
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-end.nopan'
-    ).should('not.have.class', 'selected')
-  })
+      ".react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-end.nopan"
+    ).should("not.have.class", "selected");
+  });
 
-  it('undo and redo', () => {
-    let counter = 0
+  it("undo and redo", () => {
+    let counter = 0;
     // undo 3 times
     while (counter < 3) {
-      cy.get('body').type('{ctrl}', { release: false })
-      cy.get('body').type('z', { release: true })
-      counter++
+      cy.get("body").type("{ctrl}", { release: false });
+      cy.get("body").type("z", { release: true });
+      counter++;
     }
 
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes'
+      ".react-flow__renderer > div > div > div.react-flow__nodes"
     )
       .children()
-      .should('have.length', 3)
+      .should("have.length", 3);
 
     // redo 3 times
     while (counter > 0) {
-      cy.get('body').type('{ctrl}', { release: false })
-      cy.get('body').type('y', { release: true })
-      counter--
+      cy.get("body").type("{ctrl}", { release: false });
+      cy.get("body").type("y", { release: true });
+      counter--;
     }
 
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes'
+      ".react-flow__renderer > div > div > div.react-flow__nodes"
     )
       .children()
-      .should('have.length', 6)
-  })
+      .should("have.length", 6);
+  });
 
-  it('copy and paste', () => {
-    cy.get('body').type('{ctrl}', { release: false })
-    cy.get('body').type('a', { release: true })
-    cy.get('body').type('{ctrl}', { release: false })
-    cy.get('body').type('c', { release: true })
-    cy.get('body').type('{ctrl}', { release: false })
-    cy.get('body').type('v', { release: true })
+  it("copy and paste", () => {
+    cy.get(".react-flow__node-execution").realClick();
+    cy.get("body").type("{ctrl}", { release: false });
+    cy.get("body").type("a", { release: true });
+
+    cy.get("body").type("{ctrl}", { release: false });
+    cy.get("body").type("c", { release: true });
+    cy.get("body").type("{ctrl}", { release: false });
+    cy.get("body").type("v", { release: true });
+
+    cy.get("#root > div > div.z-10 > div > div").should("exist");
+    cy.get(".react-flow__renderer > div").click("bottomLeft");
+
+    cy.get(".react-flow__node-start").realClick().then(() => {
+      cy.realPress("Backspace");
+      cy.realPress("Backspace");
+    });
+    cy.get(".react-flow__node-end").realClick().then(() => {
+      cy.realPress("Backspace");
+    });
+
+    cy.get("body").type("{ctrl}", { release: false });
+    cy.get("body").type("a", { release: true });
+
+    cy.get("body").type("{ctrl}", { release: false });
+    cy.get("body").type("c", { release: true });
+    cy.get("body").type("{ctrl}", { release: false });
+    cy.get("body").type("v", { release: true });
+
 
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes'
+      ".react-flow__renderer > div > div > div.react-flow__nodes"
     )
       .children()
-      .should('have.length', 12)
-  })
+      .should("have.length", 8);
+  });
 
-  it('cut and paste', () => {
-    cy.get('body').type('{ctrl}', { release: false })
-    cy.get('body').type('a', { release: true })
-    cy.get('body').type('{ctrl}', { release: false })
-    cy.get('body').type('x', { release: true })
-    cy.get('body').type('{ctrl}', { release: false })
-    cy.get('body').type('v', { release: true })
+  it("cut and paste", () => {
+    cy.get("body").type("{ctrl}", { release: false });
+    cy.get("body").type("a", { release: true });
+    cy.get("body").type("{ctrl}", { release: false });
+    cy.get("body").type("x", { release: true });
+    cy.get("body").type("{ctrl}", { release: false });
+    cy.get("body").type("v", { release: true });
 
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes'
+      ".react-flow__renderer > div > div > div.react-flow__nodes"
     )
       .children()
-      .should('have.length', 6)
+      .should("have.length", 6);
+  });
+
+  it("save",()=>{
+    cy.get("body").type("{ctrl}", { release: false });
+    cy.get("body").type("s", { release: true });
+    cy.get("div.z-10 > div > div").should("exist");
   })
-})
+});

@@ -19,7 +19,7 @@ describe('processDefinitionChecker', () => {
     expect(useFlowStore.getState().process).toEqual({
       ...useFlowStore.getState().process,
       steps: [
-        [
+
           {
             attributes: {
               channel: 'WEB',
@@ -44,7 +44,7 @@ describe('processDefinitionChecker', () => {
             type: 'rule'
           }
         ]
-      ]
+
     })
   })
 })

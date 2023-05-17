@@ -13,8 +13,10 @@ app.use(express.static('uploaded_images'))
 app.use(bodyParser.json({ limit: '50mb' }))
 app.use(bodyParser.urlencoded({ extended: true }))
 const upload = multer()
-app.post('/api/add-model', upload.single('flow'), async (req: Request, res: Response) => {
+
+  app.post('/api/add-model', upload.single('flow'), async (req: Request, res: Response) => {
   const { instance, process } = req.body
+  console.log("=>(server.ts:18) instance", instance)
   const file = req.file.buffer
   const model = await save(file, instance, process)
   res.send({ id: model.id })

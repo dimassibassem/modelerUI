@@ -4,6 +4,8 @@ import skipTutorial from '../support/skipTutorial'
 describe('Handle Chain recovery', () => {
   beforeEach(() => {
     cy.visit('/')
+    cy.get('#loading').should('exist')
+    cy.get('#loading', { timeout: 10000 }).should('not.exist')
     skipTutorial()
   })
 
@@ -13,52 +15,51 @@ describe('Handle Chain recovery', () => {
     cy.zoomPane(20)
 
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div > div > div.react-flow__handle.react-flow__handle-left.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div > div > div.react-flow__handle.react-flow__handle-left.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     ).drag(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div.react-flow__handle.react-flow__handle-top.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div.react-flow__handle.react-flow__handle-top.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     )
 
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div.react-flow__handle.react-flow__handle-right.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      '.react-flow__node-policies.nopan.selectable > div > div.react-flow__handle.react-flow__handle-right.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     ).drag(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-execution.nopan.selectable > div > div.react-flow__handle.react-flow__handle-top.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-execution.nopan.selectable > div > div.react-flow__handle.react-flow__handle-top.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     )
 
     // assert that the edge is visible
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > svg > g > g:nth-child(1) > path.react-flow__edge-interaction'
+      '#root > div > div > div > div.react-flow__renderer > div > div > svg > g > g:nth-child(1) > path.react-flow__edge-interaction'
     )
 
     cy.dragPane({ from: { x: 0, y: 100 }, to: { x: 0, y: 200 } })
 
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-execution.nopan.selectable > div > div.react-flow__handle.react-flow__handle-left.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-execution.nopan.selectable > div > div.react-flow__handle.react-flow__handle-left.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     ).drag(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-end.nopan.selectable > div > div.react-flow__handle.react-flow__handle-right.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      '.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-end.nopan.selectable > div > div.react-flow__handle.react-flow__handle-right.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     )
 
     // assert that edge is visible
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > svg > g > g:nth-child(2) > path.react-flow__edge-interaction'
+      '.react-flow__renderer > div > div > svg > g > g:nth-child(2) > path.react-flow__edge-interaction'
     )
 
+    cy.dragPane({ from: { x: 0, y: 100 }, to: { x: 0, y: 200 } })
     // Node to delete
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div:nth-child(1) > img'
-    ).click()
+      '.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div > img'
+    ).realClick()
 
-    cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selected.selectable > div > div:nth-child(9) > img'
-    ).realPress('Backspace')
+    cy.get('.selected').realPress('Backspace')
 
     // assert that edge is not exist
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > svg > g  > path.react-flow__edge-interaction'
+      '#root > div > div > div > div.react-flow__renderer > div > div > svg > g  > path.react-flow__edge-interaction'
     ).should('not.exist')
 
     // assert that edge is not exist
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > svg > g > g:nth-child(2) > path.react-flow__edge-interaction'
+      '.react-flow__renderer > div > div > svg > g > g:nth-child(2) > path.react-flow__edge-interaction'
     ).should('not.exist')
   })
 
@@ -70,31 +71,31 @@ describe('Handle Chain recovery', () => {
     // cy.zoomPane(100)
 
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div > div > div.react-flow__handle.react-flow__handle-left.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div > div > div.react-flow__handle.react-flow__handle-left.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     ).drag(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div.react-flow__handle.react-flow__handle-top.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div.react-flow__handle.react-flow__handle-top.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     )
 
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div.react-flow__handle.react-flow__handle-right.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div.react-flow__handle.react-flow__handle-right.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     ).drag(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-execution.nopan.selectable > div > div.react-flow__handle.react-flow__handle-top.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-execution.nopan.selectable > div > div.react-flow__handle.react-flow__handle-top.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     )
 
     // assert that the edge is visible
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > svg > g > g:nth-child(1) > path.react-flow__edge-interaction'
+      '#root > div > div > div > div.react-flow__renderer > div > div > svg > g > g:nth-child(1) > path.react-flow__edge-interaction'
     )
 
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-execution.nopan.selectable > div > div.react-flow__handle.react-flow__handle-left.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-execution.nopan.selectable > div > div.react-flow__handle.react-flow__handle-left.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     ).drag(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-end.nopan.selectable > div > div.react-flow__handle.react-flow__handle-right.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-end.nopan.selectable > div > div.react-flow__handle.react-flow__handle-right.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     )
 
     // assert that edge is visible
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > svg > g > g:nth-child(2) > path.react-flow__edge-interaction'
+      '#root > div > div > div > div.react-flow__renderer > div > div > svg > g > g:nth-child(2) > path.react-flow__edge-interaction'
     )
 
     // click on chain recovery button
@@ -102,21 +103,21 @@ describe('Handle Chain recovery', () => {
 
     // Node to delete
     cy.get(
-      '#reactflow-wrapper > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div:nth-child(9) > img'
-    ).click()
+      '.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div > img'
+    ).realClick()
 
     cy.get(
-      '#reactflow-wrapper > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selected.selectable > div > div:nth-child(9) > img'
+      '.selected'
     ).realPress('Backspace')
 
     // assert that edge not exist
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > svg > g  > path.react-flow__edge-interaction'
+      '#root > div > div > div > div.react-flow__renderer > div > div > svg > g  > path.react-flow__edge-interaction'
     ).should('not.exist')
 
     // assert that edge exist
     cy.get(
-      '#root > div > div.grow.h-full > div > div.react-flow__renderer > div > div > svg > g > g:nth-child(2) > path.react-flow__edge-interaction'
+      '#root > div > div > div > div.react-flow__renderer > div > div > svg > g > g:nth-child(2) > path.react-flow__edge-interaction'
     ).should('exist')
   })
 })

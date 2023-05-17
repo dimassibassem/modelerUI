@@ -116,7 +116,7 @@ const DnDFlow = () => {
       <Joyride />
       <Notification />
       <ContextMenu />
-      {loaded && !process.name && <ProcessDefinitionModal />}
+      {loaded && !process.processKey && <ProcessDefinitionModal />}
       <LeftSidebar />
       <ReactFlowProvider>
         <div

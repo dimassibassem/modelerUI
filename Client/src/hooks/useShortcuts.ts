@@ -21,8 +21,8 @@ const selector2 = (state: State) => ({
   lastNodeIdNumber: state.lastNodeIdNumber,
   setLastNodeIdNumber: state.setLastNodeIdNumber,
   setNotificationData: state.setNotificationData,
-  modelID: state.modelID,
-  setModelID: state.setModelID,
+  modelID: state.processKey,
+  setModelID: state.setProcessKey,
   setOpenNotification: state.setOpenNotification
 })
 const useShortcuts = (copy: (text: string) => Promise<boolean>) => {

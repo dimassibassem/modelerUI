@@ -19,7 +19,7 @@ const selector = (state: RFState) => ({
   setProcess: state.setProcess
 })
 const selector2 = (state: State) => ({
-  setModelID: state.setModelID,
+  setModelID: state.setProcessKey,
   setLastNodeIdNumber: state.setLastNodeIdNumber,
   setNotificationData: state.setNotificationData,
   setOpenNotification: state.setOpenNotification
@@ -39,7 +39,7 @@ const useLoadModel = (setLoaded: (loaded: boolean) => void) => {
     if (id) {
       loadModel(id)
         .then((data) => {
-          setModelID(Number(id))
+          setModelID(id)
           setLastNodeIdNumber(data.instance.nodes.length)
           setNodes(data.instance.nodes)
           setEdges(data.instance.edges)

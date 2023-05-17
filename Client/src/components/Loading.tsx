@@ -6,7 +6,7 @@ const Loading = () => {
   const { t } = useTranslation()
   useHandleLangChange()
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div id='loading' className="flex flex-col items-center justify-center h-screen">
       <img
         src="/bankerise.png"
         alt="Bankerise"

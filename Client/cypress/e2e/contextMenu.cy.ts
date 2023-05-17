@@ -1,8 +1,12 @@
 import initWithAllNodes from '../support/initWithAllNodes'
+import skipTutorial from "../support/skipTutorial";
 
 describe('Context Menu', () => {
   beforeEach(() => {
     cy.visit('/')
+    cy.get('#loading').should('exist')
+    cy.get('#loading', { timeout: 10000 }).should('not.exist')
+    skipTutorial()
     initWithAllNodes()
   })
 

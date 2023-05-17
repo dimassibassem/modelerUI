@@ -1,22 +1,48 @@
-import { Fragment, useId } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
-import { useNavigate } from 'react-router-dom'
-import dayjs from 'dayjs'
-import { Challenge } from '@/types/Challenge'
-import capitalize from '@/utils/capitalize'
+import { Fragment, useId } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
+import { shallow } from "zustand/shallow";
+import { Challenge } from "@/types/Challenge";
+import capitalize from "@/utils/capitalize";
+import useStore from "@/store/stateStore";
+import { useFlowStore } from "@/store";
+import { RFState } from "@/types/RFState";
+import State from "@/types/State";
+
+
+const selector = (state: RFState) => ({
+  setNodes: state.setNodes,
+  setEdges: state.setEdges,
+  setProcess: state.setProcess
+});
+const selector2 = (state: State) => ({
+  setModelID: state.setProcessKey,
+  setLastNodeIdNumber: state.setLastNodeIdNumber,
+  setNotificationData: state.setNotificationData,
+  setOpenNotification: state.setOpenNotification
+});
 
 const Details = ({
-  open,
-  setOpen,
-  challenge
-}: {
+                   open,
+                   setOpen,
+                   challenge
+                 }: {
   open: boolean
   setOpen: (open: boolean) => void
   challenge: Challenge | null
 }) => {
-  const navigate = useNavigate()
-  const id = useId()
+  const navigate = useNavigate();
+  const id = useId();
+  const { setProcess, setNodes, setEdges } = useFlowStore(selector, shallow);
+  const {
+    setModelID,
+    setLastNodeIdNumber,
+    setNotificationData,
+    setOpenNotification
+  } = useStore(selector2, shallow);
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -70,7 +96,7 @@ const Details = ({
                       <div>
                         <div className="aspect-h-7 aspect-w-10 block w-full shadow overflow-hidden rounded-lg">
                           <img
-                            src={challenge?.fileName}
+                            src={challenge?.image}
                             alt=""
                             className="object-cover"
                           />
@@ -78,7 +104,7 @@ const Details = ({
                         <div className="mt-4 flex items-start justify-between">
                           <h2 className="text-base font-semibold leading-6 text-gray-900">
                             <span className="sr-only">Details for </span>
-                            {challenge?.process.name}
+                            {challenge?.processKey}
                           </h2>
                         </div>
                       </div>
@@ -91,7 +117,7 @@ const Details = ({
                             <dt className="text-gray-500">Created</dt>
                             <dd className="text-gray-900">
                               {dayjs(challenge?.createdAt).format(
-                                'DD MMMM YYYY, h:mm:ss a'
+                                "DD MMMM YYYY, h:mm:ss a"
                               )}
                             </dd>
                           </div>
@@ -99,26 +125,26 @@ const Details = ({
                             <dt className="text-gray-500">Last modified</dt>
                             <dd className="text-gray-900">
                               {dayjs(challenge?.updatedAt).format(
-                                'DD MMMM YYYY, h:mm:ss a'
+                                "DD MMMM YYYY, h:mm:ss a"
                               )}
                             </dd>
                           </div>
                           <div className="flex justify-between py-3 text-sm font-medium">
                             <dt className="text-gray-500">Hook Name</dt>
                             <dd className="text-gray-900">
-                              {challenge?.process.hook.name}
+                              {challenge?.processData.hook.name}
                             </dd>
                           </div>
                           <div className="flex justify-between py-3 text-sm font-medium">
                             <dt className="text-gray-500">Channels</dt>
                             <dd className="text-gray-900">
-                              {challenge?.process.hook.channels.map(
+                              {challenge?.processData.channels.map(
                                 (channel, i) => (
                                   <span key={`${id + i}`}>
                                     {capitalize(channel)}
                                     {i !==
-                                      challenge.process.hook.channels.length -
-                                        1 && ', '}
+                                      challenge.processData.channels.length -
+                                      1 && ", "}
                                   </span>
                                 )
                               )}
@@ -127,7 +153,7 @@ const Details = ({
                           <div className="flex justify-between py-3 text-sm font-medium">
                             <dt className="text-gray-500">IsAsync</dt>
                             <dd className="text-gray-900">
-                              {challenge?.process.hook.isAsync ? 'Yes' : 'No'}
+                              {challenge?.processData.hook.isAsync ? "Yes" : "No"}
                             </dd>
                           </div>
                         </dl>
@@ -138,42 +164,37 @@ const Details = ({
                         </h3>
                         <div className="mt-2 flex items-center justify-between">
                           <p className="text-sm italic text-gray-500">
-                            {challenge?.process.description}
+                            {challenge?.processData.description}
                           </p>
                         </div>
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900">Stages</h3>
-                        {challenge?.process.steps.map((step, i) => (
+                        {challenge?.processData.steps.map((step, i) => (
                           <div key={`${id + i}`} className="mt-2">
-                            <h2 className=" font-medium text-gray-900">
-                              Combination {i + 1}
-                            </h2>
                             <dl className="mt-2 divide-y divide-gray-200 border-b border-t border-gray-200">
-                              {step?.map((stage, index) => (
-                                <div key={`${index + stage.id}`}>
+                                <div key={step.id}>
                                   <dt className="font-medium">
-                                    {capitalize(stage.type)}
+                                    {capitalize(step.type)}
                                   </dt>
                                   <div>
-                                    {Object.keys(stage.attributes).map(
+                                    {Object.keys(step.attributes).map(
                                       (key) => (
                                         <div
-                                          key={stage.id + key}
+                                          key={step.id + key}
                                           className="flex justify-between py-3 text-sm font-medium"
                                         >
                                           <dt className="text-gray-500">
                                             {capitalize(key)}
                                           </dt>
                                           <dd className="text-gray-900">
-                                            {stage.attributes?.[key]}
+                                            {step.attributes?.[key] || "N/A"}
                                           </dd>
                                         </div>
                                       )
                                     )}
                                   </div>
                                 </div>
-                              ))}
                             </dl>
                           </div>
                         ))}
@@ -182,8 +203,17 @@ const Details = ({
                         <button
                           type="button"
                           className="flex-1 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                          onClick={() => navigate(`/modeler/${challenge?.id}`)}
-                        >
+                          onClick={() => {
+                            if (challenge) {
+                              setModelID(challenge.processKey);
+                              setLastNodeIdNumber(challenge.previewData.nodes.length);
+                              setNodes(challenge.previewData.nodes);
+                              setEdges(challenge.previewData.edges);
+                              setProcess(challenge.processData);
+                              navigate("/modeler");
+                            }
+                          }
+                          }>
                           Edit
                         </button>
                         <button
@@ -202,7 +232,7 @@ const Details = ({
         </div>
       </Dialog>
     </Transition.Root>
-  )
-}
+  );
+};
 
-export default Details
+export default Details;

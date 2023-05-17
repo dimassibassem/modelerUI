@@ -4,7 +4,7 @@ import imageFromHTML from '@/utils/Flow/imageFromHtml'
 const copyAsImage = async (
   reactFlowInstance: ReactFlowInstance | null,
   setOpenNotification: (bool: boolean) => void,
-  setNotificationData: (data: { [key: string]: unknown }) => void
+  setNotificationData: (data: {success: boolean, message: string}) => void
 ) => {
   const result = await imageFromHTML(reactFlowInstance)
   if (result) {

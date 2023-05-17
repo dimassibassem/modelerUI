@@ -5,6 +5,8 @@ const chance = new Chance()
 describe('Basic Testing', () => {
   beforeEach(() => {
     cy.visit('/')
+    cy.get('#loading').should('exist')
+    cy.get('#loading', { timeout: 10000 }).should('not.exist')
     skipTutorial()
   })
 
@@ -19,12 +21,12 @@ describe('Basic Testing', () => {
     cy.get('#process-modal').should('be.visible')
     cy.get('#name').type(name)
     cy.get('#description').type(description)
-    cy.get('#process-modal > div > button').click()
+cy.get('#process-modal > div > button').click()
     cy.get(
-      '#right-sidebar > div.flex.flex-nowrap.justify-center.text-md.font-medium.leading-6.text-gray-900.sm\\:pt-1\\.5.items-center.truncate.outline-none.focus\\:outline-none'
+      '#right-sidebar > div'
     ).should('contain', name)
     cy.get(
-      '#right-sidebar > div.flex.flex-nowrap.justify-center.text-sm.font-small.leading-6.text-gray-600.sm\\:pt-1\\.5.items-center.truncate.outline-none.focus\\:outline-none'
+      '#right-sidebar > div:nth-child(2)'
     ).should('contain', description)
   })
 })

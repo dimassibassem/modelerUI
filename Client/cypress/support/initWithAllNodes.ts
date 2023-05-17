@@ -10,7 +10,7 @@ const initWithAllNodes = () => {
 
   let padding = 0
   cy.get(
-    '#left-sidebar > div.flex.flex-1.flex-col.overflow-y-auto.pt-5.pb-4 > nav > div'
+    '#left-sidebar > div.flex.flex-1.flex-col > nav > div'
   )
     .children()
     .each((el, i) => {

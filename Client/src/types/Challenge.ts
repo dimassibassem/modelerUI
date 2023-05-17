@@ -3,10 +3,12 @@ import Process from '@/types/Process'
 
 export type Challenge = {
   id: number
+  processKey: string
   fileName: string
   createdAt: string
   updatedAt: string
-  instance: {
+  image: string
+  previewData: {
     nodes: Node[]
     edges: Edge[]
     viewport: {
@@ -15,5 +17,5 @@ export type Challenge = {
       zoom: number
     }
   }
-  process: Process
+  processData: Process
 }

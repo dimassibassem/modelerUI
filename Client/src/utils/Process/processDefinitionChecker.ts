@@ -29,30 +29,35 @@ const processDefinitionChecker = (
     return
   }
 
-  const steps = paths.map((path) =>
-    path
-      .map((nodeId) => {
-        const node = nodes.find((nd) => nd.id === nodeId)
-        if (node) {
-          return {
-            id: node.id,
-            type: node.type,
-            attributes: node.data.attributes
-          }
-        }
-        return undefined
-      })
+// we only need the first path
+  const steps = paths[0].map((nodeId) =>
+    // path
+    //   .map((nodeId) => {
+    {
+      const node = nodes.find((nd) => nd.id === nodeId);
+      if (node) {
+        return {
+          id: node.id,
+          type: node.type,
+          attributes: node.data.attributes
+        };
+      }
+      return undefined;
+    }
+      // }
+      )
       .filter((step) => step !== undefined)
-  )
+  // )
 
   steps.forEach((step) => {
-    if (step[0]?.type === NodeType.Start) {
-      step.shift()
+    if (step?.type === NodeType.Start) {
+      steps.shift()
     }
-    if (step[step.length - 1]?.type === NodeType.End) {
-      step.pop()
+    if (step?.type === NodeType.End) {
+      steps.pop()
     }
-  })
+  }
+  )
 
   setProcess({ ...process, steps } as Process)
 }

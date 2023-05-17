@@ -37,6 +37,7 @@ const fr = {
   Clear: 'Effacer',
   Save: 'Sauvegarder',
   Import: 'Importer',
+  processKey: 'Clé de processus',
   Tour: 'Voyons faire un petit tour',
   Welcome: 'Bienvenue dans le Modeler',
   ProcessName:

@@ -29,8 +29,8 @@ const useStore = create<State>()(
       chainRecovery: false,
       setChainRecovery: (chainRecovery: boolean) => set({ chainRecovery }),
       menuID: 'Context_Menu',
-      modelID: null,
-      setModelID: (id: number) => set({ modelID: id }),
+      processKey: null,
+      setProcessKey: (id: string) => set({ processKey: id }),
       resetState: () =>
         set({
           reactFlowInstance: null,

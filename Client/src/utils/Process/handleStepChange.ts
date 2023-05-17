@@ -6,38 +6,31 @@ import { RFState } from '@/types/RFState'
 function handleStepsChange(
   e: React.ChangeEvent<HTMLInputElement>,
   key: string,
-  step: Process['steps'][number][number],
-  stepsArrayIndex: number,
+  step: Process['steps'][number],
   stepArrayIndex: number,
   process: RFState['process'],
   setProcess: RFState['setProcess']
 ) {
   setProcess({
     ...process,
-    steps: process.steps.map((stepsArray, index) => {
-      if (index === stepsArrayIndex) {
-        return stepsArray.map((currStep, stepInd) => {
-          if (stepInd === stepArrayIndex) {
-            return {
+    steps: process.steps.map((currStep) => ({
               ...currStep,
               attributes: {
                 ...currStep.attributes,
                 [key]: e.target.value
               }
-            }
-          }
-          return currStep
-        })
-      }
-      return stepsArray
-    })
+            }))
   })
 }
+
+
+
+
 
 const handleNodesAttributesChange = (
   e: React.ChangeEvent<HTMLInputElement>,
   key: string,
-  step: Process['steps'][number][number],
+  step: Process['steps'][number],
   setNodes: RFState['setNodes'],
   nodes: RFState['nodes']
 ) => {

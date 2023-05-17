@@ -1,25 +1,25 @@
-import React, { useState } from 'react'
-import { Transition } from '@headlessui/react'
-import { shallow } from 'zustand/shallow'
-import { useTranslation } from 'react-i18next'
-import { RFState } from '@/types/RFState'
-import { useFlowStore, useTemporalStore } from '@/store'
-import Process from '@/types/Process'
-import State from '@/types/State'
-import useStore from '@/store/stateStore'
+import React, { useState } from "react";
+import { Transition } from "@headlessui/react";
+import { shallow } from "zustand/shallow";
+import { useTranslation } from "react-i18next";
+import { RFState } from "@/types/RFState";
+import { useFlowStore, useTemporalStore } from "@/store";
+import Process from "@/types/Process";
+import State from "@/types/State";
+import useStore from "@/store/stateStore";
 
 const selector = (state: RFState) => ({
   setProcess: state.setProcess,
   process: state.process
-})
+});
 
 const selector2 = (state: State) => ({
   setProcessDefOpenModal: state.setProcessDefOpenModal,
   processDefOpenModal: state.processDefOpenModal
-})
+});
 
 function handleSubmit(
-  name: string,
+  processKey: string,
   description: string,
   setOpen: (arg0: boolean) => void,
   setProcess: (arg0: Process) => void,
@@ -27,26 +27,30 @@ function handleSubmit(
   pause: () => void,
   resume: () => void
 ) {
-  pause()
-  setProcess({
-    ...process,
-    name,
-    description
-  })
-  setOpen(false)
-  resume()
+  if (processKey === "" || description === "") {
+    alert("Please fill all fields");
+  } else {
+    pause();
+    setProcess({
+      ...process,
+      processKey,
+      description
+    });
+    setOpen(false);
+    resume();
+  }
 }
 
 const ProcessDefinitionModal = () => {
-  const { setProcess, process } = useFlowStore(selector, shallow)
+  const { setProcess, process } = useFlowStore(selector, shallow);
   const { setProcessDefOpenModal, processDefOpenModal } = useStore(
     selector2,
     shallow
-  )
-  const [name, setName] = useState<string>('')
-  const [description, setDescription] = useState<string>('')
-  const { pause, resume } = useTemporalStore((state) => state)
-  const { t } = useTranslation()
+  );
+  const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const { pause, resume } = useTemporalStore((state) => state);
+  const { t } = useTranslation();
   return (
     <Transition.Root show={processDefOpenModal}>
       <div className="relative z-10">
@@ -62,18 +66,7 @@ const ProcessDefinitionModal = () => {
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 overflow-y-auto">
-          <form
-            onSubmit={() =>
-              handleSubmit(
-                name,
-                description,
-                setProcessDefOpenModal,
-                setProcess,
-                process,
-                pause,
-                resume
-              )
-            }
+          <div
             className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0"
           >
             <Transition.Child
@@ -90,15 +83,16 @@ const ProcessDefinitionModal = () => {
               >
                 <div className="mt-3 text-center sm:mt-3 sm:pb-3">
                   <h3 className="mb-3 text-base font-semibold leading-6 text-gray-900">
-                    {t('ProcessDefinition')}
+                    {t("ProcessDefinition")}
                   </h3>
                   <div className="space-y-6 sm:space-y-5">
-                    <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                    <div
+                      className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                       <label
                         htmlFor="name"
                         className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
                       >
-                        {t('name')}
+                        {t("processKey")}
                       </label>
                       <div className="mt-2 sm:col-span-2 sm:mt-0">
                         <input
@@ -112,7 +106,8 @@ const ProcessDefinitionModal = () => {
                       </div>
                     </div>
 
-                    <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                    <div
+                      className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                       <label
                         htmlFor="description"
                         className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
@@ -136,18 +131,29 @@ const ProcessDefinitionModal = () => {
                 </div>
                 <div className="mt-5 sm:mt-6">
                   <button
+                    onClick={() =>
+                      handleSubmit(
+                        name,
+                        description,
+                        setProcessDefOpenModal,
+                        setProcess,
+                        process,
+                        pause,
+                        resume
+                      )
+                    }
                     type="submit"
                     className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm"
                   >
-                    {t('StartCreating')}
+                    {t("StartCreating")}
                   </button>
                 </div>
               </div>
             </Transition.Child>
-          </form>
+          </div>
         </div>
       </div>
     </Transition.Root>
-  )
-}
-export default ProcessDefinitionModal
+  );
+};
+export default ProcessDefinitionModal;

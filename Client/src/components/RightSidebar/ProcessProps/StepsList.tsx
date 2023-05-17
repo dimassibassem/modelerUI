@@ -51,38 +51,39 @@ const StepsList = () => {
       (item) => item[0] === stepsArrayIndex && item[1] === stepArrayIndex
     )
 
-  const toggleExpandSteps = (stepsArrayIndex: number) => {
-    const newExpanded = [...expandedSteps]
-    const index = newExpanded.findIndex((item) => item === stepsArrayIndex)
-    if (index === -1) {
-      newExpanded.push(stepsArrayIndex)
-    } else {
-      newExpanded.splice(index, 1)
-    }
-    setExpandedSteps(newExpanded)
-  }
+  // const toggleExpandSteps = (stepsArrayIndex: number) => {
+  //   const newExpanded = [...expandedSteps]
+  //   const index = newExpanded.findIndex((item) => item === stepsArrayIndex)
+  //   if (index === -1) {
+  //     newExpanded.push(stepsArrayIndex)
+  //   } else {
+  //     newExpanded.splice(index, 1)
+  //   }
+  //   setExpandedSteps(newExpanded)
+  // }
 
-  const isExpandedSteps = (stepsArrayIndex: number) =>
-    expandedSteps.some((item) => item === stepsArrayIndex)
+
+    // expandedSteps.some((item) => item === stepsArrayIndex)
   return (
     <>
-      {process.steps.map((step, stepsArrayIndex) => (
-        <div key={`${id + stepsArrayIndex}`}>
+      {/* {process.steps.map((step, stepsArrayIndex) => ( */}
+        <div>
           <button
             type="button"
-            onClick={() => {
-              toggleExpandSteps(stepsArrayIndex)
-            }}
+            // onClick={() => {
+            //   toggleExpandSteps(stepsArrayIndex)
+            // }}
             className={classNames(
-              isExpandedSteps(stepsArrayIndex)
+              true
                 ? 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                 : 'bg-gray-100 text-gray-900',
               'pl-3 text-gray-600 hover:text-gray-900 items-center p-2 my-4 text-sm font-medium rounded-md flex w-full'
             )}
           >
-            {t('Steps')} {stepsArrayIndex + 1}
+            {t('Steps')}
+            {/* {stepsArrayIndex + 1} */}
             <div className="ml-auto">
-              {isExpandedSteps(stepsArrayIndex) ? (
+              {true ? (
                 <ChevronUpIcon
                   className="h-4 w-4 hover:cursor-pointer"
                   aria-hidden="true"
@@ -96,13 +97,12 @@ const StepsList = () => {
             </div>
           </button>
 
-          {isExpandedSteps(stepsArrayIndex) && (
-            <div className="mt-2 overflow-hidden bg-white shadow sm:rounded-md">
+          <div className="mt-2 overflow-hidden bg-white shadow sm:rounded-md">
               <ul className="divide-y divide-gray-200">
-                {step.map((stage, stepArrayIndex) => (
+                {process.steps.map((stage, stepArrayIndex) => (
                   <li
                     className="relative"
-                    key={`${id + stepsArrayIndex}${stage.id}`}
+                    key={`${id + stepArrayIndex}`}
                   >
                     <div>
                       <div className="flex px-4 py-4 sm:px-6">
@@ -117,7 +117,7 @@ const StepsList = () => {
                           <>
                             <div
                               className={classNames(
-                                !isExpandedAttr(stepsArrayIndex, stepArrayIndex)
+                                !isExpandedAttr(0, stepArrayIndex)
                                   ? 'hidden'
                                   : ''
                               )}
@@ -127,7 +127,7 @@ const StepsList = () => {
                                 className="rounded-full mt-1 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 onClick={() =>
                                   toggleExpandAttr(
-                                    stepsArrayIndex,
+                                    0,
                                     stepArrayIndex
                                   )
                                 }
@@ -140,7 +140,7 @@ const StepsList = () => {
                             </div>
                             <div
                               className={classNames(
-                                isExpandedAttr(stepsArrayIndex, stepArrayIndex)
+                                isExpandedAttr(0, stepArrayIndex)
                                   ? 'hidden'
                                   : ''
                               )}
@@ -150,7 +150,7 @@ const StepsList = () => {
                                 className="rounded-full mt-1 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 onClick={() =>
                                   toggleExpandAttr(
-                                    stepsArrayIndex,
+                                    0,
                                     stepArrayIndex
                                   )
                                 }
@@ -167,7 +167,7 @@ const StepsList = () => {
                       {stage.attributes ? (
                         <div className="px-4 ml-5">
                           <div>
-                            {isExpandedAttr(stepsArrayIndex, stepArrayIndex) ? (
+                            {isExpandedAttr(0, stepArrayIndex) ? (
                               <>
                                 {Object.keys(stage.attributes).map((key) => (
                                   <div key={`${stage.id}_${key}`}>
@@ -185,16 +185,13 @@ const StepsList = () => {
                                           name={`${stage.id}_${key}`}
                                           id={`${stage.id}_${key}`}
                                           value={
-                                            process.steps?.[stepsArrayIndex][
-                                              stepArrayIndex
-                                            ].attributes?.[key]
+                                            process.steps?.[stepArrayIndex].attributes?.[key]
                                           }
                                           onChange={(e) => {
                                             handleStepsChange(
                                               e,
                                               key,
                                               stage,
-                                              stepsArrayIndex,
                                               stepArrayIndex,
                                               process,
                                               setProcess
@@ -223,9 +220,7 @@ const StepsList = () => {
                 ))}
               </ul>
             </div>
-          )}
         </div>
-      ))}
     </>
   )
 }

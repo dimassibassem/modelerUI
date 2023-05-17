@@ -1,8 +1,12 @@
 import initWithAllNodes from '../support/initWithAllNodes'
+import skipTutorial from "../support/skipTutorial";
 
 describe('Valid steps in Sidebar', () => {
   beforeEach(() => {
     cy.visit('/')
+    cy.get('#loading').should('exist')
+    cy.get('#loading', { timeout: 10000 }).should('not.exist')
+    skipTutorial()
   })
 
   it('Should render valid steps in sidebar', () => {
@@ -63,10 +67,10 @@ describe('Valid steps in Sidebar', () => {
 
     // assert shown steps in sidebar with cycle
     // scroll to bottom of sidebar
-    cy.get('#root > div > aside > div:nth-child(8)').scrollIntoView()
+    // cy.get('#right-sidebar > div:nth-child(6) > div > ul > li > div > div').scrollIntoView()
 
-    cy.get('#root > div > aside > div:nth-child(7)').should('be.visible')
+    cy.get('#right-sidebar > div:nth-child(6) > div > ul > li > div > div').should('be.visible')
 
-    cy.get('#root > div > aside > div:nth-child(8)').should('be.visible')
+    cy.get('#right-sidebar > div:nth-child(6) > div > ul > li > div').should('be.visible')
   })
 })

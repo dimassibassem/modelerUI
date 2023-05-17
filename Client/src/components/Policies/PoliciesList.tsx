@@ -43,10 +43,10 @@ const PoliciesList = ({
                             <div className="sm:flex ">
                               <div>
                                 <h4 className="font-medium text-gray-900">
-                                  {challenge.process.name}
+                                  {challenge.processKey}
                                 </h4>
                                 <p className="mt-2 hidden text-sm text-gray-500 sm:block">
-                                  {challenge.process.description}
+                                  {challenge.processData.description}
                                 </p>
                               </div>
                               <p className="mt-1 font-medium text-gray-900 sm:ml-6 sm:mt-0 pr-5">
@@ -89,8 +89,8 @@ const PoliciesList = ({
                         </div>
                         <div className="ml-4 flex-shrink-0 sm:order-first sm:m-0 sm:mr-6 ">
                           <img
-                            src={challenge.fileName}
-                            alt={challenge.process.name}
+                            src={challenge.image}
+                            alt={challenge.processKey}
                             className="col-start-2 shadow col-end-3 h-20 w-20 rounded-lg object-cover object-center sm:col-start-1 sm:row-span-2 sm:row-start-1 sm:h-40 sm:w-40 lg:h-40 lg:w-40"
                           />
                         </div>

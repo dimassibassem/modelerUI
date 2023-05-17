@@ -37,6 +37,7 @@ const en = {
   Clear: 'Clear',
   Save: 'Save',
   Import: 'Import',
+  processKey: 'Process Key',
   Tour: "Let's take a quick tour",
   Welcome: 'Welcome to the Modeler',
   ProcessName: 'Here you can define the Name and Description for your process',

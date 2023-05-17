@@ -12,15 +12,14 @@ type Stage = {
   }
 }
 
-type Step = Stage[]
 
 type Process = {
-  steps: Step[]
-  name: string
+  steps: Stage[]
+  processKey: string
   description: string
+  channels: Channel[]
   hook: {
     name: string
-    channels: Channel[]
     isAsync: boolean
   }
 }
