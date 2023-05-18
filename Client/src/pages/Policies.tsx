@@ -9,6 +9,9 @@ import Footer from '@/components/Policies/Footer'
 import 'dayjs/locale/fr'
 import useHandleLangChange from '@/hooks/useHandleLanguageChange'
 import Navbar from '@/components/Navbar'
+import { ChallengeState } from "@/types/ChallengeState";
+import { shallow } from "zustand/shallow";
+import useChallengeStore from "@/store/challengesStore";
 
 const loadModels = async () => {
   const { data } = await axios.get(
@@ -25,28 +28,33 @@ type BkrData = {
   image: string
 }
 
+
+const selector = (state: ChallengeState) => ({
+  challenges: state.challenges,
+  setChallenges: state.setChallenges,
+  selectedChallenge: state.selectedChallenge,
+  setSelectedChallenge: state.setSelectedChallenge
+})
 const Policies = () => {
   const [openDetails, setOpenDetails] = useState(false)
-  const [selectedChallenge, setSelectedChallenge] = useState<Challenge | null>(
-    null
-  )
-  const [challenges, setChallenges] = useState<Challenge[] | null>(null)
-
+const { challenges, setChallenges, selectedChallenge, setSelectedChallenge } = useChallengeStore(selector, shallow)
+  const [loaded, setLoaded] = useState(false)
   dayjs.extend(relativeTime)
   useEffect(() => {
-    loadModels().then((res) =>
-      setChallenges(
-        res.map((data: BkrData) => ({
-          id: data.id,
-          processKey: data.processKey,
-          processData: JSON.parse(data.processData),
-          previewData: JSON.parse(data.previewData),
-          image: data.image
-        }))
-      )
+    loadModels().then((res) => {
+        setChallenges(
+          res.map((data: BkrData) => ({
+            id: data.id,
+            processKey: data.processKey,
+            processData: JSON.parse(data.processData),
+            previewData: JSON.parse(data.previewData),
+            image: data.image
+          }))
+        );
+        setLoaded(true);
+      }
     )
   }, [])
-
   useHandleLangChange()
   return (
     <div className="bg-white">
@@ -55,6 +63,7 @@ const Policies = () => {
         setSelectedModel={setSelectedChallenge}
         setOpenDetails={setOpenDetails}
         challenges={challenges}
+        loaded={loaded}
       />
       <Details
         open={openDetails}

@@ -22,6 +22,9 @@ const useStore = create<State>()(
         success: false,
         message: ''
       },
+      isOpenCommandPalette : false,
+      setIsOpenCommandPalette: (isOpenCommandPalette: boolean) =>
+        set({ isOpenCommandPalette }, false, 'setIsOpenCommandPalette'),
       setNotificationData: (notificationData: NotificationData) =>
         set({ notificationData }, false, 'setNotificationData'),
       chainRecovery: false,

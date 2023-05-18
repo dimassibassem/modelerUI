@@ -20,28 +20,21 @@ async function saveModel(
     if (res) {
       try {
         // if (!modelID) {
-
-        await axios.post(
+       const response =  await axios.post(
           `${import.meta.env.VITE_API_ENDPOINT}/process/definition`,
-          // formData,
           {
             processKey: process.processKey,
             processData: JSON.stringify(process),
             previewData: JSON.stringify(res.instance),
             image: res.dataURI
           }
-          // {
-          // headers: {
-          //   'Content-Type': 'multipart/form-data'
-          // }
-          // }
         )
         // setModelID(response.data.id)
         handleNotif({
           success: true,
           message: 'Model saved successfully'
         })
-
+        console.log(response);
         // }
         // else {
         //   await axios.put(
@@ -60,6 +53,7 @@ async function saveModel(
         //   setOpenNotification(true)
         // }
       } catch (e) {
+        console.log(e);
         handleNotif({
           success: false,
           message: 'Error saving model'

@@ -1,5 +1,6 @@
 import { ReactFlowInstance } from 'reactflow'
 import ResetState from '@/types/ResetState'
+import CommandPalette from "@/components/CommandPalette";
 
 export interface NotificationData {
   success: boolean
@@ -7,6 +8,8 @@ export interface NotificationData {
 }
 
 interface State extends ResetState {
+  isOpenCommandPalette: boolean
+  setIsOpenCommandPalette: (isOpenCommandPalette: boolean) => void
   notificationStack: NotificationData[]
   setNotificationStack: (NotificationStack: NotificationData[]) => void
   reactFlowInstance: ReactFlowInstance | null

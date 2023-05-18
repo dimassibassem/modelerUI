@@ -1,54 +1,54 @@
 import {
   ChevronRightIcon,
-  ChevronUpIcon,
-} from '@heroicons/react/20/solid'
-import { shallow } from 'zustand/shallow'
-import React, { useId, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useFlowStore } from '@/store'
-import { RFState } from '@/types/RFState'
-import classNames from '@/utils/classNames'
+  ChevronUpIcon
+} from "@heroicons/react/20/solid";
+import { shallow } from "zustand/shallow";
+import React, { useId, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useFlowStore } from "@/store";
+import { RFState } from "@/types/RFState";
+import classNames from "@/utils/classNames";
 import {
   handleStepsChange,
   handleNodesAttributesChange
-} from '@/utils/Process/handleStepChange'
-import capitalize from '@/utils/capitalize'
-import channels from '@/constants/channels'
+} from "@/utils/Process/handleStepChange";
+import capitalize from "@/utils/capitalize";
+import channels from "@/constants/channels";
 
 const selector = (state: RFState) => ({
   process: state.process,
   setProcess: state.setProcess,
   setNodes: state.setNodes,
   nodes: state.nodes
-})
+});
 
 const StepsList = () => {
   const { process, setProcess, setNodes, nodes } = useFlowStore(
     selector,
     shallow
-  )
-  const { t } = useTranslation()
-  const [expandedAttr, setExpandedAttr] = useState<number[][]>([])
-  const id = useId()
+  );
+  const { t } = useTranslation();
+  const [expandedAttr, setExpandedAttr] = useState<number[][]>([]);
+  const id = useId();
   const toggleExpandAttr = (
     stepsArrayIndex: number,
     stepArrayIndex: number
   ) => {
-    const newExpanded = [...expandedAttr]
+    const newExpanded = [...expandedAttr];
     const index = newExpanded.findIndex(
       (item) => item[0] === stepsArrayIndex && item[1] === stepArrayIndex
-    )
+    );
     if (index === -1) {
-      newExpanded.push([stepsArrayIndex, stepArrayIndex])
+      newExpanded.push([stepsArrayIndex, stepArrayIndex]);
     } else {
-      newExpanded.splice(index, 1)
+      newExpanded.splice(index, 1);
     }
-    setExpandedAttr(newExpanded)
-  }
+    setExpandedAttr(newExpanded);
+  };
   const isExpandedAttr = (stepsArrayIndex: number, stepArrayIndex: number) =>
     expandedAttr.some(
       (item) => item[0] === stepsArrayIndex && item[1] === stepArrayIndex
-    )
+    );
 
   return (
     <div>
@@ -57,7 +57,7 @@ const StepsList = () => {
           htmlFor="steps"
           className="block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5"
         >
-          {t('Steps')}
+          {t("Steps")}
         </label>
       </div>
 
@@ -66,51 +66,57 @@ const StepsList = () => {
           {process.steps.map((stage, stepArrayIndex) => (
             <li className="relative" key={`${id + stepArrayIndex}`}>
               <div>
-                <div className="flex px-4 py-4 sm:px-6">
-                  <div className="min-w-0 flex-1 sm:flex items-center sm:justify-between">
-                    <div className="flex text-sm">
-                      <p className=" font-medium text-indigo-600">
-                        {capitalize(t(stage.type))}
-                      </p>
+                <button
+                  className='w-full'
+                  type="button"
+                  onClick={() => toggleExpandAttr(0, stepArrayIndex)}
+                >
+                  <div className="flex px-4 py-4 sm:px-6 hover:bg-gray-50">
+                    <div className="min-w-0 flex-1 sm:flex items-center sm:justify-between">
+                      <div className="flex text-sm">
+                        <p className=" font-medium text-indigo-600">
+                          {capitalize(t(stage.type))}
+                        </p>
+                      </div>
                     </div>
+                    {stage.attributes ? (
+                      <>
+                        <div
+                          className={classNames(
+                            !isExpandedAttr(0, stepArrayIndex) ? "hidden" : ""
+                          )}
+                        >
+                          <button
+                            type="button"
+                            className="rounded-full mt-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            onClick={() => toggleExpandAttr(0, stepArrayIndex)}
+                          >
+                            <ChevronUpIcon
+                              className="h-5 w-5 text-indigo-700 hover:text-indigo-800 hover:cursor-pointer"
+                              aria-hidden="true"
+                            />
+                          </button>
+                        </div>
+                        <div
+                          className={classNames(
+                            isExpandedAttr(0, stepArrayIndex) ? "hidden" : ""
+                          )}
+                        >
+                          <button
+                            type="button"
+                            className="rounded-full mt-1 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            onClick={() => toggleExpandAttr(0, stepArrayIndex)}
+                          >
+                            <ChevronRightIcon
+                              className="h-5 w-5 text-indigo-700 hover:text-indigo-800 hover:cursor-pointer"
+                              aria-hidden="true"
+                            />
+                          </button>
+                        </div>
+                      </>
+                    ) : null}
                   </div>
-                  {stage.attributes ? (
-                    <>
-                      <div
-                        className={classNames(
-                          !isExpandedAttr(0, stepArrayIndex) ? 'hidden' : ''
-                        )}
-                      >
-                        <button
-                          type="button"
-                          className="rounded-full mt-1 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                          onClick={() => toggleExpandAttr(0, stepArrayIndex)}
-                        >
-                          <ChevronUpIcon
-                            className="h-5 w-5 text-indigo-700 hover:text-indigo-800 hover:cursor-pointer"
-                            aria-hidden="true"
-                          />
-                        </button>
-                      </div>
-                      <div
-                        className={classNames(
-                          isExpandedAttr(0, stepArrayIndex) ? 'hidden' : ''
-                        )}
-                      >
-                        <button
-                          type="button"
-                          className="rounded-full mt-1 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                          onClick={() => toggleExpandAttr(0, stepArrayIndex)}
-                        >
-                          <ChevronRightIcon
-                            className="h-5 w-5 text-indigo-700 hover:text-indigo-800 hover:cursor-pointer"
-                            aria-hidden="true"
-                          />
-                        </button>
-                      </div>
-                    </>
-                  ) : null}
-                </div>
+                </button>
                 {stage.attributes ? (
                   <div className="px-4 ml-5">
                     <div>
@@ -126,7 +132,7 @@ const StepsList = () => {
                                   {t(key)}
                                 </label>
                                 <div className="mt-2 sm:col-span-2 sm:mt-0">
-                                  {key !== 'channel' ? (
+                                  {key !== "channel" ? (
                                     <input
                                       className="block w-full max-w-lg rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                                       type="text"
@@ -144,14 +150,14 @@ const StepsList = () => {
                                           stepArrayIndex,
                                           process,
                                           setProcess
-                                        )
+                                        );
                                         handleNodesAttributesChange(
                                           e,
                                           key,
                                           stage,
                                           setNodes,
                                           nodes
-                                        )
+                                        );
                                       }}
                                     />
                                   ) : (
@@ -173,7 +179,7 @@ const StepsList = () => {
                                                 checked={
                                                   process.steps?.[
                                                     stepArrayIndex
-                                                  ].attributes?.channel ===
+                                                    ].attributes?.channel ===
                                                   canal
                                                 }
                                                 onChange={(e) => {
@@ -184,14 +190,14 @@ const StepsList = () => {
                                                     stepArrayIndex,
                                                     process,
                                                     setProcess
-                                                  )
+                                                  );
                                                   handleNodesAttributesChange(
                                                     e,
                                                     key,
                                                     stage,
                                                     setNodes,
                                                     nodes
-                                                  )
+                                                  );
                                                 }}
                                               />
                                             </div>
@@ -224,7 +230,7 @@ const StepsList = () => {
         </ul>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default StepsList
+export default StepsList;

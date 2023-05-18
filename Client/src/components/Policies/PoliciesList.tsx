@@ -1,17 +1,19 @@
-import React from 'react'
-import dayjs from 'dayjs'
-import { Challenge } from '@/types/Challenge'
-import CreateNew from '@/components/Policies/CreateNew'
-import Skeleton from '@/components/Policies/Skeleton'
+import React from "react";
+import dayjs from "dayjs";
+import { Challenge } from "@/types/Challenge";
+import CreateNew from "@/components/Policies/CreateNew";
+import Skeleton from "@/components/Policies/Skeleton";
 
 const PoliciesList = ({
-  setSelectedModel,
-  setOpenDetails,
-  challenges
-}: {
+                        setSelectedModel,
+                        setOpenDetails,
+                        challenges,
+                        loaded
+                      }: {
   setSelectedModel: (challenge: Challenge) => void
   setOpenDetails: (open: boolean) => void
-  challenges: Challenge[] | null
+  challenges: Challenge[] | null,
+  loaded: boolean
 }) => (
   <main className="pb-14 pt-16 sm:px-6 sm:pb-20 sm:pt-12 lg:px-8">
     <div className="mx-auto max-w-4xl">
@@ -31,7 +33,7 @@ const PoliciesList = ({
         <CreateNew />
 
         <div className="pt-4 space-y-8 sm:space-y-12">
-          {challenges ? (
+          {challenges && loaded ? (
             challenges.map((challenge) => (
               <div key={challenge.id}>
                 <div className="ml-4 flex-shrink-0 sm:order-first sm:m-0 sm:mr-6">
@@ -53,7 +55,7 @@ const PoliciesList = ({
                                 <span className="text-sm text-gray-500 sm:block">
                                   <span>
                                     {dayjs(challenge.updatedAt).format(
-                                      'DD MMMM YYYY'
+                                      "DD MMMM YYYY"
                                     )}
                                     <span className="hidden sm:inline">
                                       {` -- ${dayjs(
@@ -69,8 +71,8 @@ const PoliciesList = ({
                               <button
                                 type="button"
                                 onClick={() => {
-                                  setSelectedModel(challenge)
-                                  setOpenDetails(true)
+                                  setSelectedModel(challenge);
+                                  setOpenDetails(true);
                                 }}
                                 className="text-indigo-600 hover:text-indigo-500"
                               >
@@ -107,6 +109,6 @@ const PoliciesList = ({
       </section>
     </div>
   </main>
-)
+);
 
-export default PoliciesList
+export default PoliciesList;

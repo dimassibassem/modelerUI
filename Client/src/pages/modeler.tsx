@@ -45,6 +45,7 @@ import useLoadModel from '@/hooks/useLoadModel'
 import usePasteFlowFromClipboard from '@/hooks/usePasteFlowFromClipboard'
 import Navbar from '@/components/Navbar'
 import useHandleNotification from '@/hooks/useHandleNotification'
+import CommandPalette from "@/components/CommandPalette";
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -63,7 +64,9 @@ const selector2 = (state: State) => ({
   setReactFlowInstance: state.setReactFlowInstance,
   lastNodeIdNumber: state.lastNodeIdNumber,
   setLastNodeIdNumber: state.setLastNodeIdNumber,
-  menuID: state.menuID
+  menuID: state.menuID,
+  isOpenCommandPalette : state.isOpenCommandPalette,
+  setIsOpenCommandPalette : state.setIsOpenCommandPalette
 })
 
 const DnDFlow = () => {
@@ -82,7 +85,9 @@ const DnDFlow = () => {
     setReactFlowInstance,
     lastNodeIdNumber,
     setLastNodeIdNumber,
-    menuID
+    menuID,
+    isOpenCommandPalette,
+    setIsOpenCommandPalette
   } = useStore(selector2, shallow)
   const { pause, resume } = useTemporalStore((state) => state)
   const reactFlowWrapper = useRef<HTMLInputElement>(null)
@@ -111,9 +116,10 @@ const DnDFlow = () => {
   useProcessDefinitionChecker()
   useHandleLangChange()
   return (
-    <div className=" h-screen ">
+    <div>
+      <CommandPalette open={isOpenCommandPalette} setOpen={setIsOpenCommandPalette}  />
       <Navbar />
-      <div className="flex-col flex grow h-screen md:flex-row fixed w-full z-[3] overflow-hidden">
+      <div className="flex-col flex grow md:flex-row fixed w-full z-[3] overflow-hidden h-[100vh - 1]">
         <Joyride />
         <Notification />
         <ContextMenu />
@@ -140,7 +146,7 @@ const DnDFlow = () => {
                 pasteFromClipboard
               })
             }
-            className="grow h-full"
+            className="grow"
             ref={reactFlowWrapper}
           >
             <ReactFlow

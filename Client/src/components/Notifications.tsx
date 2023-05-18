@@ -26,8 +26,8 @@ const Notifications = () => {
         </Menu.Button>
       </div>
 
-      <Menu.Items className="absolute right-0 z-10 mt-2 w-80 origin-top-right bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-        <div className="py-1">
+      <Menu.Items className="absolute right-0 z-10 mt-2 w-80 max-h-60 overflow-y-auto  origin-top-right bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <div className="py-1 ">
           {notificationStack.map((notification, index) => (
             <Menu.Item key={`${notificationId + index}`}>
               <div className="flex w-full flex-col items-center space-y-4 sm:items-end">

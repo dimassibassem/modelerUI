@@ -4,7 +4,6 @@ import Process from '@/types/Process'
 export type Challenge = {
   id: number
   processKey: string
-  fileName: string
   createdAt: string
   updatedAt: string
   image: string

@@ -23,7 +23,9 @@ const selector2 = (state: State) => ({
   setLastNodeIdNumber: state.setLastNodeIdNumber,
   modelID: state.processKey,
   setModelID: state.setProcessKey,
-  setOpenNotification: state.setOpenNotification
+  setOpenNotification: state.setOpenNotification,
+  isOpenCommandPalette: state.isOpenCommandPalette,
+  setIsOpenCommandPalette: state.setIsOpenCommandPalette,
 })
 const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
   const { nodes, edges, selectAll, setNodesAndEdges, process } = useFlowStore(
@@ -37,7 +39,9 @@ const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
     lastNodeIdNumber,
     setLastNodeIdNumber,
     modelID,
-    setModelID
+    setModelID,
+    isOpenCommandPalette,
+    setIsOpenCommandPalette
   } = useStore(selector2, shallow)
   const handleNotif = useHandleNotification()
   useEventListener('keydown', async (e) => {
@@ -100,6 +104,12 @@ const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
             setModelID,
             handleNotif
           )
+        }
+        break
+      case 'p':
+        if (e.ctrlKey) {
+          e.preventDefault()
+          setIsOpenCommandPalette(!isOpenCommandPalette)
         }
         break
       default:

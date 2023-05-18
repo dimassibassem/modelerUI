@@ -32,13 +32,13 @@ const Provisioners: FC<NodeProps> = ({
   useHandleNodeSize(id, setWidth, setHeight)
   return (
     <div ref={hoverRef} className="min-h-[40px] w-full min-w-[50px] h-full">
-      <NodeToolbar isVisible={showToolbar} position={Position.Top}>
+      {data.text && <NodeToolbar isVisible={showToolbar} position={Position.Top}>
         <div className="flex flex-col bg-gray-200">
           <h1 className="rounded-2xl text-gray-700 text-sm font-bold p-2">
-            help ???
+            {data.text}
           </h1>
         </div>
-      </NodeToolbar>
+      </NodeToolbar>}
       <NodeResizer
         keepAspectRatio
         color="#4f46e5"
@@ -62,9 +62,7 @@ const Provisioners: FC<NodeProps> = ({
             filter: filter || 'none'
           }}
         />
-        <div className="absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4">
-          {data.text}
-        </div>
+
       </div>
 
       <Handles width={width} handles={data.handles} />
