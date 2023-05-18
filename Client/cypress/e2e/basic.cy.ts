@@ -21,13 +21,9 @@ describe('Basic Testing', () => {
     cy.get('#process-modal').should('be.visible')
     cy.get('#name').type(name)
     cy.get('#description').type(description)
-cy.get('#process-modal > div > button').click()
-    cy.get(
-      '#right-sidebar > div'
-    ).should('contain', name)
-    cy.get(
-      '#right-sidebar > div:nth-child(2)'
-    ).should('contain', description)
+    cy.get('#process-modal > div > button').click()
+    cy.get('#right-sidebar > div').should('contain', name)
+    cy.get('#right-sidebar > div:nth-child(2)').should('contain', description)
   })
 })
 

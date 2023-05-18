@@ -1,48 +1,47 @@
-import { ReactFlowInstance } from "reactflow";
-import axios from "axios";
-import imageFromHTML from "@/utils/Flow/imageFromHtml";
-import Process from "@/types/Process";
+import { ReactFlowInstance } from 'reactflow'
+import axios from 'axios'
+import imageFromHTML from '@/utils/Flow/imageFromHtml'
+import Process from '@/types/Process'
+import { NotificationData } from '@/types/State'
 
 async function saveModel(
   reactFlowInstance: ReactFlowInstance | null,
   process: Process,
-  setNotificationData: (data: { success: boolean; message: string }) => void,
   modelID: string | null,
   setModelID: (id: string) => void,
-  setOpenNotification: (open: boolean) => void
+  handleNotif: (notificationData: NotificationData) => void
 ) {
   if (reactFlowInstance) {
-    reactFlowInstance.fitView();
-    const res = await imageFromHTML(reactFlowInstance);
+    reactFlowInstance.fitView()
+    const res = await imageFromHTML(reactFlowInstance)
     process.steps.forEach((step) => {
-        step.type = step.type.toUpperCase();
-      }
-    );
+      step.type = step.type.toUpperCase()
+    })
     if (res) {
       try {
         // if (!modelID) {
-        const response =
-          await axios.post(
-            `${import.meta.env.VITE_API_ENDPOINT}/process/definition`,
-            // formData,
-            {
-              processKey: process.processKey,
-              processData: JSON.stringify(process),
-              previewData: JSON.stringify(res.instance),
-              image: res.dataURI
-            }
-            // {
-            // headers: {
-            //   'Content-Type': 'multipart/form-data'
-            // }
-            // }
-          );
+
+        await axios.post(
+          `${import.meta.env.VITE_API_ENDPOINT}/process/definition`,
+          // formData,
+          {
+            processKey: process.processKey,
+            processData: JSON.stringify(process),
+            previewData: JSON.stringify(res.instance),
+            image: res.dataURI
+          }
+          // {
+          // headers: {
+          //   'Content-Type': 'multipart/form-data'
+          // }
+          // }
+        )
         // setModelID(response.data.id)
-        setNotificationData({
+        handleNotif({
           success: true,
-          message: "Model saved successfully"
-        });
-        setOpenNotification(true);
+          message: 'Model saved successfully'
+        })
+
         // }
         // else {
         //   await axios.put(
@@ -61,14 +60,12 @@ async function saveModel(
         //   setOpenNotification(true)
         // }
       } catch (e) {
-        setNotificationData({
+        handleNotif({
           success: false,
-          message: "Error saving model"
-        });
-        setOpenNotification(true);
+          message: 'Error saving model'
+        })
       }
     }
   }
 }
-
-export default saveModel;
+export default saveModel

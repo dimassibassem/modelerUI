@@ -14,18 +14,14 @@ function handleStepsChange(
   setProcess({
     ...process,
     steps: process.steps.map((currStep) => ({
-              ...currStep,
-              attributes: {
-                ...currStep.attributes,
-                [key]: e.target.value
-              }
-            }))
+      ...currStep,
+      attributes: {
+        ...currStep.attributes,
+        [key]: e.target.value
+      }
+    }))
   })
 }
-
-
-
-
 
 const handleNodesAttributesChange = (
   e: React.ChangeEvent<HTMLInputElement>,

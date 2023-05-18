@@ -6,6 +6,7 @@ import { RFState } from '@/types/RFState'
 import { useFlowStore } from '@/store'
 import State from '@/types/State'
 import useStore from '@/store/stateStore'
+import useHandleNotification from '@/hooks/useHandleNotification'
 
 const loadModel = async (id: string) => {
   const res = await axios.get(
@@ -20,19 +21,13 @@ const selector = (state: RFState) => ({
 })
 const selector2 = (state: State) => ({
   setModelID: state.setProcessKey,
-  setLastNodeIdNumber: state.setLastNodeIdNumber,
-  setNotificationData: state.setNotificationData,
-  setOpenNotification: state.setOpenNotification
+  setLastNodeIdNumber: state.setLastNodeIdNumber
 })
 const useLoadModel = (setLoaded: (loaded: boolean) => void) => {
   const { id } = useParams<{ id: string }>()
   const { setProcess, setNodes, setEdges } = useFlowStore(selector, shallow)
-  const {
-    setModelID,
-    setLastNodeIdNumber,
-    setNotificationData,
-    setOpenNotification
-  } = useStore(selector2, shallow)
+  const handleNotif = useHandleNotification()
+  const { setModelID, setLastNodeIdNumber } = useStore(selector2, shallow)
   const navigate = useNavigate()
   return useEffect(() => {
     setLoaded(true)
@@ -46,11 +41,10 @@ const useLoadModel = (setLoaded: (loaded: boolean) => void) => {
           setProcess(data.process)
         })
         .catch((err) => {
-          setNotificationData({
+          handleNotif({
             success: false,
             message: err.message
           })
-          setOpenNotification(true)
           navigate('/modeler')
         })
     }
@@ -62,8 +56,6 @@ const useLoadModel = (setLoaded: (loaded: boolean) => void) => {
     setLoaded,
     setModelID,
     setNodes,
-    setNotificationData,
-    setOpenNotification,
     setProcess
   ])
 }

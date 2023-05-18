@@ -32,11 +32,7 @@ export const handleItemClick = async ({ id, props }: ItemParams) => {
       )
       break
     case ContextMenuItem.CopyAsImage: {
-      await copyAsImage(
-        props.reactFlowInstance,
-        props.setOpenNotification,
-        props.setNotificationData
-      )
+      await copyAsImage(props.reactFlowInstance, props.handleNotif)
       break
     }
     case ContextMenuItem.SelectNodes: {
@@ -69,10 +65,9 @@ export const handleContextMenu = (
       setNodes: props.setNodes,
       setEdges: props.setEdges,
       copy: props.copy,
-      setOpenNotification: props.setOpenNotification,
       lastNodeId: props.lastNodeIdNumber,
       setLastNodeId: props.setLastNodeIdNumber,
-      setNotificationData: props.setNotificationData,
+      handleNotif: props.handleNotif,
       resume: props.resume,
       pause: props.pause,
       pasteFromClipboard: props.pasteFromClipboard

@@ -1,5 +1,5 @@
 import initWithAllNodes from '../support/initWithAllNodes'
-import skipTutorial from "../support/skipTutorial";
+import skipTutorial from '../support/skipTutorial'
 
 describe('Drag And Drop Handle Rendering', () => {
   beforeEach(() => {

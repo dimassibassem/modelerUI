@@ -12,7 +12,6 @@ type Stage = {
   }
 }
 
-
 type Process = {
   steps: Stage[]
   processKey: string

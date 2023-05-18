@@ -8,6 +8,7 @@ import State from '@/types/State'
 import useStore from '@/store/stateStore'
 import UsePasteFlowFromClipboard from '@/hooks/usePasteFlowFromClipboard'
 import saveModel from '@/utils/Flow/saveModel'
+import useHandleNotification from '@/hooks/useHandleNotification'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -20,7 +21,6 @@ const selector2 = (state: State) => ({
   reactFlowInstance: state.reactFlowInstance,
   lastNodeIdNumber: state.lastNodeIdNumber,
   setLastNodeIdNumber: state.setLastNodeIdNumber,
-  setNotificationData: state.setNotificationData,
   modelID: state.processKey,
   setModelID: state.setProcessKey,
   setOpenNotification: state.setOpenNotification
@@ -36,12 +36,10 @@ const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
     reactFlowInstance,
     lastNodeIdNumber,
     setLastNodeIdNumber,
-    setNotificationData,
     modelID,
-    setModelID,
-    setOpenNotification
+    setModelID
   } = useStore(selector2, shallow)
-
+  const handleNotif = useHandleNotification()
   useEventListener('keydown', async (e) => {
     switch (e.key) {
       case 'z':
@@ -98,10 +96,9 @@ const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
           await saveModel(
             reactFlowInstance,
             process,
-            setNotificationData,
             modelID,
             setModelID,
-            setOpenNotification
+            handleNotif
           )
         }
         break

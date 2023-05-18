@@ -8,6 +8,7 @@ import { RFState } from '@/types/RFState'
 import State from '@/types/State'
 import { useFlowStore } from '@/store'
 import useStore from '@/store/stateStore'
+import useHandleNotification from '@/hooks/useHandleNotification'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -15,9 +16,7 @@ const selector = (state: RFState) => ({
 })
 
 const selector2 = (state: State) => ({
-  reactFlowInstance: state.reactFlowInstance,
-  setOpenNotification: state.setOpenNotification,
-  setNotificationData: state.setNotificationData
+  reactFlowInstance: state.reactFlowInstance
 })
 
 function useOnDropNode(
@@ -26,8 +25,9 @@ function useOnDropNode(
 ) {
   const { nodes, setNodes } = useFlowStore(selector, shallow)
 
-  const { reactFlowInstance, setOpenNotification, setNotificationData } =
-    useStore(selector2, shallow)
+  const { reactFlowInstance } = useStore(selector2, shallow)
+
+  const handleNotif = useHandleNotification()
   return useCallback(
     (event: DragEvent) => {
       event.preventDefault()
@@ -45,11 +45,10 @@ function useOnDropNode(
         nodes.some((node) => node.type === NodeType.Start) &&
         type === NodeType.Start
       ) {
-        setNotificationData({
+        handleNotif({
           success: false,
           message: 'There can only be one start node'
         })
-        setOpenNotification(true)
         return
       }
 
@@ -58,11 +57,10 @@ function useOnDropNode(
         nodes.some((node) => node.type === NodeType.End) &&
         type === NodeType.End
       ) {
-        setNotificationData({
+        handleNotif({
           success: false,
           message: 'There can only be one end node'
         })
-        setOpenNotification(true)
         return
       }
 
@@ -97,15 +95,7 @@ function useOnDropNode(
 
       setNodes(nodes.concat(newNode))
     },
-    [
-      reactFlowWrapper,
-      nodes,
-      reactFlowInstance,
-      setId,
-      setNodes,
-      setNotificationData,
-      setOpenNotification
-    ]
+    [reactFlowWrapper, nodes, reactFlowInstance, setId, setNodes]
   )
 }
 

@@ -29,24 +29,26 @@ const processDefinitionChecker = (
     return
   }
 
-// we only need the first path
-  const steps = paths[0].map((nodeId) =>
-    // path
-    //   .map((nodeId) => {
-    {
-      const node = nodes.find((nd) => nd.id === nodeId);
-      if (node) {
-        return {
-          id: node.id,
-          type: node.type,
-          attributes: node.data.attributes
-        };
-      }
-      return undefined;
-    }
+  // we only need the first path
+  const steps = paths[0]
+    .map(
+      (nodeId) =>
+        // path
+        //   .map((nodeId) => {
+        {
+          const node = nodes.find((nd) => nd.id === nodeId)
+          if (node) {
+            return {
+              id: node.id,
+              type: node.type,
+              attributes: node.data.attributes
+            }
+          }
+          return undefined
+        }
       // }
-      )
-      .filter((step) => step !== undefined)
+    )
+    .filter((step) => step !== undefined)
   // )
 
   steps.forEach((step) => {
@@ -56,8 +58,7 @@ const processDefinitionChecker = (
     if (step?.type === NodeType.End) {
       steps.pop()
     }
-  }
-  )
+  })
 
   setProcess({ ...process, steps } as Process)
 }

@@ -1,19 +1,19 @@
-import { Edge, Node, MarkerType, Position } from "reactflow";
-import { TFunction } from "i18next";
-import Channel from "@/types/Channel";
-import Process from "@/types/Process";
+import { Edge, Node, MarkerType, Position } from 'reactflow'
+import { TFunction } from 'i18next'
+import Channel from '@/types/Channel'
+import Process from '@/types/Process'
 
 export const joyrideNodes: Node[] = [
   {
-    id: "start_0",
-    type: "start",
+    id: 'start_0',
+    type: 'start',
     position: {
       x: 50,
       y: 50
     },
     data: {
-      label: "start_0",
-      text: "",
+      label: 'start_0',
+      text: '',
       handles: {
         top: true,
         bottom: true,
@@ -21,7 +21,7 @@ export const joyrideNodes: Node[] = [
         right: true
       },
       attributes: {},
-      connectableWith: ["end", "policies", "execution", "provisioners", "rule"]
+      connectableWith: ['end', 'policies', 'execution', 'provisioners', 'rule']
     },
     width: 50,
     height: 50,
@@ -35,15 +35,15 @@ export const joyrideNodes: Node[] = [
     sourcePosition: Position.Right
   },
   {
-    id: "end_1",
-    type: "end",
+    id: 'end_1',
+    type: 'end',
     position: {
       x: 350,
       y: 50
     },
     data: {
-      label: "end_1",
-      text: "",
+      label: 'end_1',
+      text: '',
       handles: {
         top: true,
         bottom: true,
@@ -65,15 +65,15 @@ export const joyrideNodes: Node[] = [
     }
   },
   {
-    id: "policies_2",
-    type: "policies",
+    id: 'policies_2',
+    type: 'policies',
     position: {
       x: 200,
       y: 50
     },
     data: {
-      label: "policies_2",
-      text: "",
+      label: 'policies_2',
+      text: '',
       handles: {
         top: true,
         bottom: true,
@@ -81,10 +81,10 @@ export const joyrideNodes: Node[] = [
         right: true
       },
       attributes: {
-        name: "",
-        channel: ""
+        name: '',
+        channel: ''
       },
-      connectableWith: ["end", "policies", "execution", "rule"]
+      connectableWith: ['end', 'policies', 'execution', 'rule']
     },
     width: 50,
     height: 50,
@@ -97,49 +97,49 @@ export const joyrideNodes: Node[] = [
     targetPosition: Position.Left,
     sourcePosition: Position.Right
   }
-];
+]
 
 export const joyrideEdges: Edge[] = [
   {
-    source: "start_0",
-    sourceHandle: "right",
-    target: "policies_2",
-    targetHandle: "left",
+    source: 'start_0',
+    sourceHandle: 'right',
+    target: 'policies_2',
+    targetHandle: 'left',
     markerEnd: {
       type: MarkerType.Arrow
     },
-    id: "reactflow__edge-start_0right-policies_2left"
+    id: 'reactflow__edge-start_0right-policies_2left'
   },
   {
-    source: "policies_2",
-    sourceHandle: "right",
-    target: "end_1",
-    targetHandle: "left",
-    id: "lgbkpoge",
+    source: 'policies_2',
+    sourceHandle: 'right',
+    target: 'end_1',
+    targetHandle: 'left',
+    id: 'lgbkpoge',
     markerEnd: {
       type: MarkerType.Arrow
     }
   }
-];
+]
 
 export const joyrideProcess = (t: TFunction): Process => ({
-  processKey: t("Tutorial"),
-  description: t("TutorialContent"),
+  processKey: t('Tutorial'),
+  description: t('TutorialContent'),
   steps: [],
   channels: [Channel.WEB],
   hook: {
-    name: "",
+    name: '',
     isAsync: false
   }
-});
+})
 
 export const emptyProcess: Process = {
-  processKey: "",
-  description: "",
+  processKey: '',
+  description: '',
   steps: [],
   channels: [],
   hook: {
-    name: "",
+    name: '',
     isAsync: false
   }
-};
+}

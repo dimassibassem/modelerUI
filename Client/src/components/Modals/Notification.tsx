@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react'
+import { Fragment } from 'react'
 import { Transition } from '@headlessui/react'
 import {
   CheckCircleIcon,
@@ -20,15 +20,7 @@ const Notification = () => {
     selector,
     shallow
   )
-  useEffect(() => {
-    if (openNotification) {
-      const timeout = setTimeout(() => {
-        setOpenNotification(false)
-      }, 5000)
-      return () => clearTimeout(timeout)
-    }
-    return () => {}
-  }, [openNotification, setOpenNotification])
+
   const { t } = useTranslation()
   return (
     <div

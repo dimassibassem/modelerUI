@@ -7,6 +7,7 @@ import { RFState } from '@/types/RFState'
 import State from '@/types/State'
 import { useFlowStore } from '@/store'
 import useStore from '@/store/stateStore'
+import useHandleNotification from '@/hooks/useHandleNotification'
 
 function isJson(str: string) {
   try {
@@ -24,27 +25,21 @@ const selector = (state: RFState) => ({
 })
 const selector2 = (state: State) => ({
   lastNodeIdNumber: state.lastNodeIdNumber,
-  setLastNodeIdNumber: state.setLastNodeIdNumber,
-  setNotificationData: state.setNotificationData,
-  setOpenNotification: state.setOpenNotification
+  setLastNodeIdNumber: state.setLastNodeIdNumber
 })
 let padding = 0
 const UsePasteFlowFromClipboard = () => {
   const { nodes, edges, setNodesAndEdges } = useFlowStore(selector, shallow)
-  const {
-    lastNodeIdNumber,
-    setLastNodeIdNumber,
-    setNotificationData,
-    setOpenNotification
-  } = useStore(selector2, shallow)
+  const { lastNodeIdNumber, setLastNodeIdNumber } = useStore(selector2, shallow)
+  const handleNotif = useHandleNotification()
   return useCallback(async () => {
     const json = await navigator.clipboard.readText()
     if (!isJson(json)) {
-      setNotificationData({
+      handleNotif({
         success: false,
         message: 'Clipboard is empty or contains invalid data'
       })
-      setOpenNotification(true)
+
       return
     }
     const data = JSON.parse(json)
@@ -65,11 +60,10 @@ const UsePasteFlowFromClipboard = () => {
       isAlreadyAEndNode &&
       isDataAlreadyAEndNode
     ) {
-      setNotificationData({
+      handleNotif({
         success: false,
         message: 'There is already a start and/or end node in the process'
       })
-      setOpenNotification(true)
       return
     }
     const copiedEdgesWithNewIds = data.edges.map((edge: Edge) => {
@@ -137,15 +131,7 @@ const UsePasteFlowFromClipboard = () => {
       [...(edges ?? []), ...copiedEdgesWithNewIds]
     )
     setLastNodeIdNumber(lastNodeIdNumber + copiedNodesWithNewIds.length)
-  }, [
-    nodes,
-    edges,
-    setNodesAndEdges,
-    lastNodeIdNumber,
-    setLastNodeIdNumber,
-    setNotificationData,
-    setOpenNotification
-  ])
+  }, [nodes, edges, setNodesAndEdges, lastNodeIdNumber, setLastNodeIdNumber])
 }
 
 export default UsePasteFlowFromClipboard

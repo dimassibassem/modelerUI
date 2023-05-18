@@ -13,10 +13,9 @@ type ContextMenuItemProps = {
     props: { [key: string]: unknown }
   }) => void
   copy: (text: string) => Promise<boolean>
-  setOpenNotification: (open: boolean) => void
   lastNodeIdNumber: number
   setLastNodeIdNumber: (id: number) => void
-  setNotificationData: (data: { success: boolean; message: string }) => void
+  handleNotif: (data: { success: boolean; message: string }) => void
   resume: () => void
   pause: () => void
   pasteFromClipboard: () => Promise<void>

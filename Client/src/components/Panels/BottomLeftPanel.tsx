@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import { Panel } from "reactflow";
+import React, { useState } from 'react'
+import { Panel } from 'reactflow'
 import {
   MagnifyingGlassMinusIcon,
   MagnifyingGlassPlusIcon
-} from "@heroicons/react/24/outline";
-import { Icon } from "@iconify/react";
-import { Tooltip } from "react-tooltip";
-import { useTranslation } from "react-i18next";
-import { shallow } from "zustand/shallow";
-import onLayout from "@/utils/Flow/onLayout";
-import { VerticalLayout, HorizontalLayout } from "@/types/NodeLayout";
-import tooltipStyle from "@/style/tooltip";
-import { RFState } from "@/types/RFState";
-import State from "@/types/State";
-import { useFlowStore } from "@/store";
-import useStore from "@/store/stateStore";
+} from '@heroicons/react/24/outline'
+import { Icon } from '@iconify/react'
+import { Tooltip } from 'react-tooltip'
+import { useTranslation } from 'react-i18next'
+import { shallow } from 'zustand/shallow'
+import onLayout from '@/utils/Flow/onLayout'
+import { VerticalLayout, HorizontalLayout } from '@/types/NodeLayout'
+import tooltipStyle from '@/style/tooltip'
+import { RFState } from '@/types/RFState'
+import State from '@/types/State'
+import { useFlowStore } from '@/store'
+import useStore from '@/store/stateStore'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -22,22 +22,22 @@ const selector = (state: RFState) => ({
   setNodes: state.setNodes,
   setEdges: state.setEdges,
   setProcess: state.setProcess
-});
+})
 const selector2 = (state: State) => ({
   reactFlowInstance: state.reactFlowInstance
-});
+})
 
 const BottomLeftPanel = () => {
-  const { setNodes, setEdges, nodes, edges } = useFlowStore(selector, shallow);
-  const { reactFlowInstance } = useStore(selector2, shallow);
+  const { setNodes, setEdges, nodes, edges } = useFlowStore(selector, shallow)
+  const { reactFlowInstance } = useStore(selector2, shallow)
   const [verticalLayout, setVerticalLayout] = useState<VerticalLayout>(
     VerticalLayout.TopToBottom
-  );
+  )
   const [horizontalLayout, setHorizontalLayout] = useState<HorizontalLayout>(
     HorizontalLayout.LeftToRight
-  );
-  const [isFullScreen, setIsFullScreen] = useState(false);
-  const { t } = useTranslation();
+  )
+  const [isFullScreen, setIsFullScreen] = useState(false)
+  const { t } = useTranslation()
   return (
     <Panel
       id="bottom-left"
@@ -50,18 +50,17 @@ const BottomLeftPanel = () => {
           className="rounded flex justify-center bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
           type="button"
           data-tooltip-id="BottomLeftCommands"
-          data-tooltip-content={t<string>("Vertical layout")}
+          data-tooltip-content={t<string>('Vertical layout')}
           aria-label="Vertical layout"
           onClick={async () => {
-            onLayout(verticalLayout, nodes, edges, setNodes, setEdges);
+            onLayout(verticalLayout, nodes, edges, setNodes, setEdges)
             await setVerticalLayout(
               verticalLayout === VerticalLayout.TopToBottom
                 ? VerticalLayout.BottomToTop
                 : VerticalLayout.TopToBottom
-            );
-            reactFlowInstance?.fitView();
-          }
-          }
+            )
+            reactFlowInstance?.fitView()
+          }}
         >
           <Icon className="w-5 h-5" icon="ph:arrows-out-line-vertical-fill" />
         </button>
@@ -69,16 +68,16 @@ const BottomLeftPanel = () => {
           className="rounded flex justify-center bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
           type="button"
           data-tooltip-id="BottomLeftCommands"
-          data-tooltip-content={t<string>("Horizontal layout")}
+          data-tooltip-content={t<string>('Horizontal layout')}
           aria-label="Horizontal layout"
           onClick={async () => {
-            onLayout(horizontalLayout, nodes, edges, setNodes, setEdges);
+            onLayout(horizontalLayout, nodes, edges, setNodes, setEdges)
             await setHorizontalLayout(
               horizontalLayout === HorizontalLayout.LeftToRight
                 ? HorizontalLayout.RightToLeft
                 : HorizontalLayout.LeftToRight
             )
-            reactFlowInstance?.fitView();
+            reactFlowInstance?.fitView()
           }}
         >
           <Icon className="w-5 h-5" icon="ph:arrows-out-line-horizontal-fill" />
@@ -86,11 +85,11 @@ const BottomLeftPanel = () => {
         <button
           type="button"
           data-tooltip-id="BottomLeftCommands"
-          data-tooltip-content={t<string>("Fit View")}
+          data-tooltip-content={t<string>('Fit View')}
           aria-label="Fit View"
           className="rounded flex justify-center bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
           onClick={() => {
-            if (reactFlowInstance) reactFlowInstance.fitView();
+            if (reactFlowInstance) reactFlowInstance.fitView()
           }}
         >
           <Icon className="w-5 h-5" icon="material-symbols:fit-screen" />
@@ -101,11 +100,11 @@ const BottomLeftPanel = () => {
         <button
           type="button"
           data-tooltip-id="BottomLeftCommands"
-          data-tooltip-content={t<string>("Zoom In")}
+          data-tooltip-content={t<string>('Zoom In')}
           aria-label="Zoom in"
           className="flex justify-center rounded bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
           onClick={() => {
-            if (reactFlowInstance) reactFlowInstance.zoomIn();
+            if (reactFlowInstance) reactFlowInstance.zoomIn()
           }}
         >
           {/* Zoom in */}
@@ -114,11 +113,11 @@ const BottomLeftPanel = () => {
         <button
           type="button"
           data-tooltip-id="BottomLeftCommands"
-          data-tooltip-content={t<string>("Zoom Out")}
+          data-tooltip-content={t<string>('Zoom Out')}
           aria-label="Zoom out"
           className="flex justify-center rounded bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
           onClick={() => {
-            if (reactFlowInstance) reactFlowInstance.zoomOut();
+            if (reactFlowInstance) reactFlowInstance.zoomOut()
           }}
         >
           {/* Zoom out */}
@@ -128,7 +127,7 @@ const BottomLeftPanel = () => {
         <button
           type="button"
           data-tooltip-id="BottomLeftCommands"
-          data-tooltip-content={t<string>("Full screen")}
+          data-tooltip-content={t<string>('Full screen')}
           aria-label="Full screen"
           className="rounded flex justify-center just bg-indigo-50 py-1 px-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
           onClick={async () => {
@@ -136,11 +135,11 @@ const BottomLeftPanel = () => {
               window.screen.width === window.innerWidth &&
               window.screen.height === window.innerHeight
             ) {
-              setIsFullScreen(false);
-              await document.exitFullscreen();
+              setIsFullScreen(false)
+              await document.exitFullscreen()
             } else {
-              setIsFullScreen(true);
-              await document.documentElement.requestFullscreen();
+              setIsFullScreen(true)
+              await document.documentElement.requestFullscreen()
             }
           }}
         >
@@ -152,7 +151,7 @@ const BottomLeftPanel = () => {
         </button>
       </div>
     </Panel>
-  );
-};
+  )
+}
 
-export default BottomLeftPanel;
+export default BottomLeftPanel

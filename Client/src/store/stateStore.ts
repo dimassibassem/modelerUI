@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { ReactFlowInstance } from 'reactflow'
-import State from '@/types/State'
+import State, { NotificationData } from '@/types/State'
 
 const useStore = create<State>()(
   devtools(
@@ -22,15 +22,18 @@ const useStore = create<State>()(
         success: false,
         message: ''
       },
-      setNotificationData: (notificationData: {
-        success: boolean
-        message: string
-      }) => set({ notificationData }),
+      setNotificationData: (notificationData: NotificationData) =>
+        set({ notificationData }, false, 'setNotificationData'),
       chainRecovery: false,
-      setChainRecovery: (chainRecovery: boolean) => set({ chainRecovery }),
+      setChainRecovery: (chainRecovery: boolean) =>
+        set({ chainRecovery }, false, 'setChainRecovery'),
       menuID: 'Context_Menu',
       processKey: null,
-      setProcessKey: (id: string) => set({ processKey: id }),
+      setProcessKey: (id: string) =>
+        set({ processKey: id }, false, 'setProcessKey'),
+      notificationStack: [],
+      setNotificationStack: (notificationStack: NotificationData[]) =>
+        set({ notificationStack }, false, 'setNotificationStack'),
       resetState: () =>
         set({
           reactFlowInstance: null,
@@ -41,6 +44,7 @@ const useStore = create<State>()(
             success: false,
             message: ''
           },
+          notificationStack: [],
           chainRecovery: false,
           menuID: 'Context_Menu'
         })

@@ -19,32 +19,30 @@ describe('processDefinitionChecker', () => {
     expect(useFlowStore.getState().process).toEqual({
       ...useFlowStore.getState().process,
       steps: [
-
-          {
-            attributes: {
-              channel: 'WEB',
-              name: 'policy'
-            },
-            id: 'policies_2',
-            type: 'policies'
+        {
+          attributes: {
+            channel: 'WEB',
+            name: 'policy'
           },
-          {
-            attributes: undefined,
-            id: 'provisioners_3',
-            type: 'provisioners'
-          },
-          {
-            attributes: undefined,
-            id: 'execution_4',
-            type: 'execution'
-          },
-          {
-            attributes: undefined,
-            id: 'rule_5',
-            type: 'rule'
-          }
-        ]
-
+          id: 'policies_2',
+          type: 'policies'
+        },
+        {
+          attributes: undefined,
+          id: 'provisioners_3',
+          type: 'provisioners'
+        },
+        {
+          attributes: undefined,
+          id: 'execution_4',
+          type: 'execution'
+        },
+        {
+          attributes: undefined,
+          id: 'rule_5',
+          type: 'rule'
+        }
+      ]
     })
   })
 })

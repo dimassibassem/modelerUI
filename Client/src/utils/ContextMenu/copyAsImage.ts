@@ -3,8 +3,7 @@ import imageFromHTML from '@/utils/Flow/imageFromHtml'
 
 const copyAsImage = async (
   reactFlowInstance: ReactFlowInstance | null,
-  setOpenNotification: (bool: boolean) => void,
-  setNotificationData: (data: {success: boolean, message: string}) => void
+  handleNotif: (data: { success: boolean; message: string }) => void
 ) => {
   const result = await imageFromHTML(reactFlowInstance)
   if (result) {
@@ -24,11 +23,10 @@ const copyAsImage = async (
       })
       canvas.remove()
     }
-    setNotificationData({
+    handleNotif({
       success: true,
       message: 'Image copied to clipboard'
     })
-    setOpenNotification(true)
   }
 }
 

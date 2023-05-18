@@ -106,9 +106,7 @@ describe('Handle Chain recovery', () => {
       '.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div > img'
     ).realClick()
 
-    cy.get(
-      '.selected'
-    ).realPress('Backspace')
+    cy.get('.selected').realPress('Backspace')
 
     // assert that edge not exist
     cy.get(

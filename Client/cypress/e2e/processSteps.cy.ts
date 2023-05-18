@@ -1,5 +1,5 @@
 import initWithAllNodes from '../support/initWithAllNodes'
-import skipTutorial from "../support/skipTutorial";
+import skipTutorial from '../support/skipTutorial'
 
 describe('Valid steps in Sidebar', () => {
   beforeEach(() => {
@@ -69,8 +69,12 @@ describe('Valid steps in Sidebar', () => {
     // scroll to bottom of sidebar
     // cy.get('#right-sidebar > div:nth-child(6) > div > ul > li > div > div').scrollIntoView()
 
-    cy.get('#right-sidebar > div:nth-child(6) > div > ul > li > div > div').should('be.visible')
+    cy.get(
+      '#right-sidebar > div:nth-child(6) > div > ul > li > div > div'
+    ).should('be.visible')
 
-    cy.get('#right-sidebar > div:nth-child(6) > div > ul > li > div').should('be.visible')
+    cy.get('#right-sidebar > div:nth-child(6) > div > ul > li > div').should(
+      'be.visible'
+    )
   })
 })

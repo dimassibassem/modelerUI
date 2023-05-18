@@ -1,33 +1,23 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
-import { shallow } from 'zustand/shallow'
 import useLocalStorage from '@/store/localStorage'
-import State from '@/types/State'
-import useStore from '@/store/stateStore'
-
-const selector = (state: State) => ({
-  setNotificationData: state.setNotificationData,
-  setOpenNotification: state.setOpenNotification
-})
+import useHandleNotification from '@/hooks/useHandleNotification'
 
 const useHandleLangChange = () => {
   const { i18n } = useTranslation()
-  const { setNotificationData, setOpenNotification } = useStore(
-    selector,
-    shallow
-  )
+
   const lang = useLocalStorage((store) => store.lang)
+  const handleNotif = useHandleNotification()
   return useEffect(() => {
     i18n.changeLanguage(lang).catch(() => {
-      setNotificationData({
+      handleNotif({
         success: false,
         message: 'Error changing language'
       })
-      setOpenNotification(true)
     })
     dayjs.locale(lang)
-  }, [i18n, lang, setNotificationData, setOpenNotification])
+  }, [i18n, lang])
 }
 
 export default useHandleLangChange

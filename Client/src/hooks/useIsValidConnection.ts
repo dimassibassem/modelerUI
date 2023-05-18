@@ -4,22 +4,15 @@ import { useTranslation } from 'react-i18next'
 import { RFState } from '@/types/RFState'
 import { useFlowStore } from '@/store'
 import capitalize from '@/utils/capitalize'
-import State from '@/types/State'
-import useStore from '@/store/stateStore'
+import useHandleNotification from '@/hooks/useHandleNotification'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes
 })
-const selector2 = (state: State) => ({
-  setOpenNotification: state.setOpenNotification,
-  setNotificationData: state.setNotificationData
-})
+
 const useIsValidConnection = () => {
   const { nodes } = useFlowStore(selector, shallow)
-  const { setOpenNotification, setNotificationData } = useStore(
-    selector2,
-    shallow
-  )
+  const handleNotif = useHandleNotification()
   const { t } = useTranslation()
   return (connection: Connection): boolean => {
     const { target, source } = connection
@@ -29,8 +22,7 @@ const useIsValidConnection = () => {
       return true
     }
     if (targetNode?.type && sourceNode?.type) {
-      setOpenNotification(true)
-      setNotificationData({
+      handleNotif({
         success: false,
         message: t('Cannot create a connection from {{source}} to {{target}}', {
           source: capitalize(t(sourceNode.type)),

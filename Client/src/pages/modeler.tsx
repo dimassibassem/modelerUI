@@ -43,6 +43,8 @@ import useStore from '@/store/stateStore'
 import State from '@/types/State'
 import useLoadModel from '@/hooks/useLoadModel'
 import usePasteFlowFromClipboard from '@/hooks/usePasteFlowFromClipboard'
+import Navbar from '@/components/Navbar'
+import useHandleNotification from '@/hooks/useHandleNotification'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -61,8 +63,6 @@ const selector2 = (state: State) => ({
   setReactFlowInstance: state.setReactFlowInstance,
   lastNodeIdNumber: state.lastNodeIdNumber,
   setLastNodeIdNumber: state.setLastNodeIdNumber,
-  setOpenNotification: state.setOpenNotification,
-  setNotificationData: state.setNotificationData,
   menuID: state.menuID
 })
 
@@ -82,8 +82,6 @@ const DnDFlow = () => {
     setReactFlowInstance,
     lastNodeIdNumber,
     setLastNodeIdNumber,
-    setOpenNotification,
-    setNotificationData,
     menuID
   } = useStore(selector2, shallow)
   const { pause, resume } = useTemporalStore((state) => state)
@@ -102,6 +100,7 @@ const DnDFlow = () => {
   const isValidConnection = useIsValidConnection()
   const onConnect = useOnConnect()
   const onDragOver = useOnDragNode()
+  const handleNotif = useHandleNotification()
   const pasteFromClipboard = usePasteFlowFromClipboard()
   const onDrop = useOnDropNode(reactFlowWrapper, setId)
   const [loaded, setLoaded] = useState(false)
@@ -112,75 +111,77 @@ const DnDFlow = () => {
   useProcessDefinitionChecker()
   useHandleLangChange()
   return (
-    <div className="flex-col flex grow h-full md:flex-row fixed w-full z-[3] left-0 top-0 overflow-hidden">
-      <Joyride />
-      <Notification />
-      <ContextMenu />
-      {loaded && !process.processKey && <ProcessDefinitionModal />}
-      <LeftSidebar />
-      <ReactFlowProvider>
-        <div
-          id="reactflow-wrapper"
-          onContextMenu={(event) =>
-            handleContextMenu(event, {
-              selectAllNodes,
-              selectAllEdges,
-              selectAll,
-              reactFlowInstance,
-              setNodes,
-              setEdges,
-              show,
-              copy,
-              setOpenNotification,
-              lastNodeIdNumber,
-              setLastNodeIdNumber,
-              setNotificationData,
-              resume,
-              pause,
-              pasteFromClipboard
-            })
-          }
-          className="grow h-full"
-          ref={reactFlowWrapper}
-        >
-          <ReactFlow
-            nodes={nodes}
-            nodeTypes={NodeTypes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            onNodesDelete={onNodeDelete}
-            connectionMode={ConnectionMode.Loose}
-            onInit={setReactFlowInstance}
-            onEdgeUpdate={onEdgeUpdate}
-            onDrop={onDrop}
-            onDragOver={onDragOver}
-            className={styles.validationflow}
-            isValidConnection={isValidConnection}
-            fitView
+    <div className=" h-screen ">
+      <Navbar />
+      <div className="flex-col flex grow h-screen md:flex-row fixed w-full z-[3] overflow-hidden">
+        <Joyride />
+        <Notification />
+        <ContextMenu />
+        {loaded && !process.processKey && <ProcessDefinitionModal />}
+        <LeftSidebar />
+        <ReactFlowProvider>
+          <div
+            id="reactflow-wrapper"
+            onContextMenu={(event) =>
+              handleContextMenu(event, {
+                selectAllNodes,
+                selectAllEdges,
+                selectAll,
+                reactFlowInstance,
+                setNodes,
+                setEdges,
+                show,
+                copy,
+                lastNodeIdNumber,
+                setLastNodeIdNumber,
+                handleNotif,
+                resume,
+                pause,
+                pasteFromClipboard
+              })
+            }
+            className="grow h-full"
+            ref={reactFlowWrapper}
           >
-            <Background
-              color="#4f46e5"
-              variant={BackgroundVariant.Dots}
-              gap={10}
-              size={1}
-            />
-            <MiniMap
-              style={{ background: '#ccc' }}
-              nodeColor={(node: Node) => nodeColor(node.type as NodeType)}
-              nodeStrokeWidth={3}
-              zoomable
-              className="border border-indigo-400 rounded-md shadow-2xl shadow-indigo-100"
-              pannable
-            />
-            <TopRightPanel />
-            <BottomLeftPanel />
-            <TopLeftPanel />
-          </ReactFlow>
-        </div>
-      </ReactFlowProvider>
-      <RightSidebar />
+            <ReactFlow
+              nodes={nodes}
+              nodeTypes={NodeTypes}
+              edges={edges}
+              onNodesChange={onNodesChange}
+              onEdgesChange={onEdgesChange}
+              onConnect={onConnect}
+              onNodesDelete={onNodeDelete}
+              connectionMode={ConnectionMode.Loose}
+              onInit={setReactFlowInstance}
+              onEdgeUpdate={onEdgeUpdate}
+              onDrop={onDrop}
+              onDragOver={onDragOver}
+              className={styles.validationflow}
+              isValidConnection={isValidConnection}
+              fitView
+            >
+              <Background
+                color="#4f46e5"
+                variant={BackgroundVariant.Dots}
+                gap={10}
+                size={1}
+              />
+              <MiniMap
+                style={{ background: '#ccc' }}
+                nodeColor={(node: Node) => nodeColor(node.type as NodeType)}
+                nodeStrokeWidth={3}
+                zoomable
+                className="border border-indigo-400 rounded-md shadow-2xl shadow-indigo-100"
+                pannable
+              />
+              <TopRightPanel />
+              <BottomLeftPanel />
+              <TopLeftPanel />
+            </ReactFlow>
+          </div>
+        </ReactFlowProvider>
+        <RightSidebar />
+      </div>
     </div>
   )
 }

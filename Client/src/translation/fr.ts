@@ -66,10 +66,10 @@ const fr = {
   NodePropertiesContent:
     'Ici, vous pouvez trouver les propriétés du nœud que vous avez sélectionné',
   EdgeClick:
-    "En cliquant sur le lien, vous pouvez voir les propriétés de lien et les modifier dans la barre latérale droite",
-  EdgeProperties: "Propriétés de le lien",
+    'En cliquant sur le lien, vous pouvez voir les propriétés de lien et les modifier dans la barre latérale droite',
+  EdgeProperties: 'Propriétés de le lien',
   EdgePropertiesContent:
-    "Ici, vous pouvez trouver les propriétés de lien que vous avez sélectionnée",
+    'Ici, vous pouvez trouver les propriétés de lien que vous avez sélectionnée',
   ProcessProperties: 'Propriétés du processus',
   ProcessPropertiesContent:
     "Si ni un nœud ni un lien n'est sélectionné, vous pouvez trouver les propriétés du processus ici et les modifier dans la barre latérale droite",

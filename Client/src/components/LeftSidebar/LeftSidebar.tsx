@@ -1,14 +1,9 @@
 import React, { useState, DragEvent, MouseEvent, FocusEvent } from 'react'
-import { Link } from 'react-router-dom'
 import { isEdge } from 'react-device-detect'
-import { useEffectOnce } from 'usehooks-ts'
 import { useTranslation } from 'react-i18next'
-import logoBankerise from '@/assets/logo-bankerise.png'
 import IconSwitcher from './IconSwitcher'
 import NodeType from '@/types/NodeType'
 import classNames from '@/utils/classNames'
-import useLocalStorage from '@/store/localStorage'
-import LangSelect from '@/components/LangSelect'
 import capitalize from '@/utils/capitalize'
 import stages from '@/constants/stages'
 
@@ -48,34 +43,13 @@ const LeftSidebar = () => {
   const [expanded, setExpanded] = useState(true)
   const toggleExpanded = () => setExpanded(!expanded)
   const [previewImage, setPreviewImage] = useState<string>('')
-  const [imageLoaded, setImageLoaded] = useState(false)
-  const setRun = useLocalStorage((store) => store.setRun)
-  useEffectOnce(() => {
-    const img = new Image()
-    img.src = logoBankerise
-    img.onload = () => setImageLoaded(true)
-  })
+
   const { t } = useTranslation()
   return (
     <div
       id="left-sidebar"
-      className="min-h-0 flex-1 flex-col border-r border-gray-200 bg-white max-w-[20%] hidden lg:flex "
+      className="pt-3 overflow-y-auto min-h-0 flex-1 flex-col border-r border-gray-200 bg-white max-w-[20%] hidden lg:flex "
     >
-      <div className="flex flex-shrink-0 items-center pb-5 px-4">
-        {imageLoaded ? (
-          <img
-            className="h-16 w-auto"
-            src={logoBankerise}
-            height="50"
-            width="50"
-            alt="Bankerise"
-          />
-        ) : (
-          <div className="h-16 w-auto">
-            <div className="animate-pulse bg-gray-200 h-16 w-16" />
-          </div>
-        )}
-      </div>
       <button
         type="button"
         onClick={toggleExpanded}
@@ -88,7 +62,7 @@ const LeftSidebar = () => {
       >
         {t('Stages')}
       </button>
-      <div className="flex flex-1 flex-col overflow-y-auto">
+      <div className="flex flex-1 flex-col">
         <nav className="flex-1" aria-label="Sidebar">
           {expanded && (
             <div id="shapes" className="px-2">
@@ -130,35 +104,6 @@ const LeftSidebar = () => {
           )}
         </nav>
       </div>
-      <LangSelect />
-      <div className="flex flex-shrink-0 border-t border-gray-200 p-4">
-        <Link to="/profile" className="group block w-full flex-shrink-0">
-          <div className="flex items-center">
-            <div>
-              <img
-                className="inline-block h-9 w-9 rounded-full"
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt=""
-              />
-            </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
-                Tom Cook
-              </p>
-              <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
-                {t('ViewProfile')}
-              </p>
-            </div>
-          </div>
-        </Link>
-      </div>
-      <button
-        type="button"
-        onClick={() => setRun(true)}
-        className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded"
-      >
-        {t('Tutorial')}
-      </button>
     </div>
   )
 }
