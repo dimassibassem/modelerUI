@@ -1,6 +1,5 @@
 import { ReactFlowInstance } from 'reactflow'
 import ResetState from '@/types/ResetState'
-import CommandPalette from "@/components/CommandPalette";
 
 export interface NotificationData {
   success: boolean
@@ -25,8 +24,8 @@ interface State extends ResetState {
   chainRecovery: boolean
   setChainRecovery: (chainRecovery: boolean) => void
   menuID: string
-  processKey: string | null
-  setProcessKey: (id: string) => void
+  processId: number | null
+  setProcessId: (id: number) => void
 }
 
 export default State

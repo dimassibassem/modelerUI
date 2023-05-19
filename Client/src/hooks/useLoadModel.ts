@@ -10,7 +10,7 @@ import useHandleNotification from '@/hooks/useHandleNotification'
 
 const loadModel = async (id: string) => {
   const res = await axios.get(
-    `${import.meta.env.VITE_API_ENDPOINT}/api/get-model/${id}`
+    `${import.meta.env.VITE_API_ENDPOINT}/process/definition/${id}`
   )
   return res.data
 }
@@ -20,25 +20,24 @@ const selector = (state: RFState) => ({
   setProcess: state.setProcess
 })
 const selector2 = (state: State) => ({
-  setModelID: state.setProcessKey,
+  setProcessId: state.setProcessId,
   setLastNodeIdNumber: state.setLastNodeIdNumber
 })
 const useLoadModel = (setLoaded: (loaded: boolean) => void) => {
   const { id } = useParams<{ id: string }>()
   const { setProcess, setNodes, setEdges } = useFlowStore(selector, shallow)
   const handleNotif = useHandleNotification()
-  const { setModelID, setLastNodeIdNumber } = useStore(selector2, shallow)
+  const { setProcessId, setLastNodeIdNumber } = useStore(selector2, shallow)
   const navigate = useNavigate()
   return useEffect(() => {
-    setLoaded(true)
     if (id) {
       loadModel(id)
         .then((data) => {
-          setModelID(id)
-          setLastNodeIdNumber(data.instance.nodes.length)
-          setNodes(data.instance.nodes)
-          setEdges(data.instance.edges)
-          setProcess(data.process)
+          setProcessId(data.id)
+          setLastNodeIdNumber(JSON.parse(data.previewData).nodes.length)
+          setNodes(JSON.parse(data.previewData).nodes)
+          setEdges(JSON.parse(data.previewData).edges)
+          setProcess(JSON.parse(data.processData))
         })
         .catch((err) => {
           handleNotif({
@@ -47,6 +46,11 @@ const useLoadModel = (setLoaded: (loaded: boolean) => void) => {
           })
           navigate('/modeler')
         })
+        .finally(() => {
+          setLoaded(true)
+        })
+    } else {
+      setLoaded(true)
     }
   }, [
     id,
@@ -54,7 +58,7 @@ const useLoadModel = (setLoaded: (loaded: boolean) => void) => {
     setEdges,
     setLastNodeIdNumber,
     setLoaded,
-    setModelID,
+    setProcessId,
     setNodes,
     setProcess
   ])

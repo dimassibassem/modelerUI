@@ -21,11 +21,11 @@ const selector2 = (state: State) => ({
   reactFlowInstance: state.reactFlowInstance,
   lastNodeIdNumber: state.lastNodeIdNumber,
   setLastNodeIdNumber: state.setLastNodeIdNumber,
-  modelID: state.processKey,
-  setModelID: state.setProcessKey,
+  processId: state.processId,
+  setProcessId: state.setProcessId,
   setOpenNotification: state.setOpenNotification,
   isOpenCommandPalette: state.isOpenCommandPalette,
-  setIsOpenCommandPalette: state.setIsOpenCommandPalette,
+  setIsOpenCommandPalette: state.setIsOpenCommandPalette
 })
 const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
   const { nodes, edges, selectAll, setNodesAndEdges, process } = useFlowStore(
@@ -38,8 +38,8 @@ const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
     reactFlowInstance,
     lastNodeIdNumber,
     setLastNodeIdNumber,
-    modelID,
-    setModelID,
+    processId,
+    setProcessId,
     isOpenCommandPalette,
     setIsOpenCommandPalette
   } = useStore(selector2, shallow)
@@ -100,8 +100,8 @@ const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
           await saveModel(
             reactFlowInstance,
             process,
-            modelID,
-            setModelID,
+            processId,
+            setProcessId,
             handleNotif
           )
         }

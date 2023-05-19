@@ -45,7 +45,7 @@ import useLoadModel from '@/hooks/useLoadModel'
 import usePasteFlowFromClipboard from '@/hooks/usePasteFlowFromClipboard'
 import Navbar from '@/components/Navbar'
 import useHandleNotification from '@/hooks/useHandleNotification'
-import CommandPalette from "@/components/CommandPalette";
+import CommandPalette from '@/components/CommandPalette'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -65,8 +65,8 @@ const selector2 = (state: State) => ({
   lastNodeIdNumber: state.lastNodeIdNumber,
   setLastNodeIdNumber: state.setLastNodeIdNumber,
   menuID: state.menuID,
-  isOpenCommandPalette : state.isOpenCommandPalette,
-  setIsOpenCommandPalette : state.setIsOpenCommandPalette
+  isOpenCommandPalette: state.isOpenCommandPalette,
+  setIsOpenCommandPalette: state.setIsOpenCommandPalette
 })
 
 const DnDFlow = () => {
@@ -117,7 +117,10 @@ const DnDFlow = () => {
   useHandleLangChange()
   return (
     <div>
-      <CommandPalette open={isOpenCommandPalette} setOpen={setIsOpenCommandPalette}  />
+      <CommandPalette
+        open={isOpenCommandPalette}
+        setOpen={setIsOpenCommandPalette}
+      />
       <Navbar />
       <div className="flex-col flex grow md:flex-row fixed w-full z-[3] overflow-hidden h-[100vh - 1]">
         <Joyride />

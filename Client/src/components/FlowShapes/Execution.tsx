@@ -26,13 +26,15 @@ const Execution: FC<NodeProps> = ({ id, type, data, dragging, selected }) => {
   useShowToolbar(isHover, dragging, setShowToolbar)
   return (
     <div ref={hoverRef} className="min-h-[40px] w-full min-w-[50px] h-full">
-      {data.text && <NodeToolbar isVisible={showToolbar} position={Position.Top}>
-        <div className="flex flex-col bg-gray-200">
-          <h1 className="rounded-2xl text-gray-700 text-sm font-bold p-2">
-            {data.text}
-          </h1>
-        </div>
-      </NodeToolbar>}
+      {data.text && (
+        <NodeToolbar isVisible={showToolbar} position={Position.Top}>
+          <div className="flex flex-col bg-gray-200">
+            <h1 className="rounded-2xl text-gray-700 text-sm font-bold p-2">
+              {data.text}
+            </h1>
+          </div>
+        </NodeToolbar>
+      )}
       <NodeResizer
         keepAspectRatio
         color="#4f46e5"
@@ -58,7 +60,6 @@ const Execution: FC<NodeProps> = ({ id, type, data, dragging, selected }) => {
             filter: filter || 'none'
           }}
         />
-
       </div>
 
       <Handles width={width} handles={data.handles} />

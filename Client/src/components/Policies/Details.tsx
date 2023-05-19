@@ -10,6 +10,9 @@ import useStore from '@/store/stateStore'
 import { useFlowStore } from '@/store'
 import { RFState } from '@/types/RFState'
 import State from '@/types/State'
+import { ChallengeState } from '@/types/ChallengeState'
+import useChallengeStore from '@/store/challengesStore'
+import deleteChallenge from '@/utils/deleteChallenge'
 
 const selector = (state: RFState) => ({
   setNodes: state.setNodes,
@@ -17,8 +20,13 @@ const selector = (state: RFState) => ({
   setProcess: state.setProcess
 })
 const selector2 = (state: State) => ({
-  setModelID: state.setProcessKey,
+  setProcessId: state.setProcessId,
   setLastNodeIdNumber: state.setLastNodeIdNumber
+})
+
+const selector3 = (state: ChallengeState) => ({
+  challenges: state.challenges,
+  setChallenges: state.setChallenges
 })
 
 const Details = ({
@@ -33,7 +41,8 @@ const Details = ({
   const navigate = useNavigate()
   const id = useId()
   const { setProcess, setNodes, setEdges } = useFlowStore(selector, shallow)
-  const { setModelID, setLastNodeIdNumber } = useStore(selector2, shallow)
+  const { setProcessId, setLastNodeIdNumber } = useStore(selector2, shallow)
+  const { setChallenges, challenges } = useChallengeStore(selector3, shallow)
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -197,14 +206,14 @@ const Details = ({
                           className="flex-1 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                           onClick={() => {
                             if (challenge) {
-                              setModelID(challenge.processKey)
+                              setProcessId(challenge.id)
                               setLastNodeIdNumber(
                                 challenge.previewData.nodes.length
                               )
                               setNodes(challenge.previewData.nodes)
                               setEdges(challenge.previewData.edges)
                               setProcess(challenge.processData)
-                              navigate('/modeler')
+                              navigate(`/modeler/${challenge.id}`)
                             }
                           }}
                         >
@@ -213,6 +222,15 @@ const Details = ({
                         <button
                           type="button"
                           className="ml-3 flex-1 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                          onClick={() => {
+                            deleteChallenge(
+                              challenge?.id,
+                              challenges,
+                              setChallenges
+                            ).then(() => {
+                              setOpen(false)
+                            })
+                          }}
                         >
                           Delete
                         </button>

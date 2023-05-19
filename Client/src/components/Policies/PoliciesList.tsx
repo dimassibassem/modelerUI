@@ -1,18 +1,21 @@
-import React from "react";
-import dayjs from "dayjs";
-import { Challenge } from "@/types/Challenge";
-import CreateNew from "@/components/Policies/CreateNew";
-import Skeleton from "@/components/Policies/Skeleton";
+import React from 'react'
+import dayjs from 'dayjs'
+import { Challenge } from '@/types/Challenge'
+import CreateNew from '@/components/Policies/CreateNew'
+import Skeleton from '@/components/Policies/Skeleton'
+import deleteChallenge from '@/utils/deleteChallenge'
 
 const PoliciesList = ({
-                        setSelectedModel,
-                        setOpenDetails,
-                        challenges,
-                        loaded
-                      }: {
+  setSelectedModel,
+  setOpenDetails,
+  setChallenges,
+  challenges,
+  loaded
+}: {
   setSelectedModel: (challenge: Challenge) => void
   setOpenDetails: (open: boolean) => void
-  challenges: Challenge[] | null,
+  setChallenges: (challenges: Challenge[]) => void
+  challenges: Challenge[] | null
   loaded: boolean
 }) => (
   <main className="pb-14 pt-16 sm:px-6 sm:pb-20 sm:pt-12 lg:px-8">
@@ -55,7 +58,7 @@ const PoliciesList = ({
                                 <span className="text-sm text-gray-500 sm:block">
                                   <span>
                                     {dayjs(challenge.updatedAt).format(
-                                      "DD MMMM YYYY"
+                                      'DD MMMM YYYY'
                                     )}
                                     <span className="hidden sm:inline">
                                       {` -- ${dayjs(
@@ -71,8 +74,8 @@ const PoliciesList = ({
                               <button
                                 type="button"
                                 onClick={() => {
-                                  setSelectedModel(challenge);
-                                  setOpenDetails(true);
+                                  setSelectedModel(challenge)
+                                  setOpenDetails(true)
                                 }}
                                 className="text-indigo-600 hover:text-indigo-500"
                               >
@@ -82,6 +85,13 @@ const PoliciesList = ({
                                 <button
                                   type="button"
                                   className="text-indigo-600 hover:text-indigo-500"
+                                  onClick={async () => {
+                                    await deleteChallenge(
+                                      challenge.id,
+                                      challenges,
+                                      setChallenges
+                                    )
+                                  }}
                                 >
                                   Delete
                                 </button>
@@ -109,6 +119,6 @@ const PoliciesList = ({
       </section>
     </div>
   </main>
-);
+)
 
-export default PoliciesList;
+export default PoliciesList

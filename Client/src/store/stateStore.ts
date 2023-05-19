@@ -22,7 +22,7 @@ const useStore = create<State>()(
         success: false,
         message: ''
       },
-      isOpenCommandPalette : false,
+      isOpenCommandPalette: false,
       setIsOpenCommandPalette: (isOpenCommandPalette: boolean) =>
         set({ isOpenCommandPalette }, false, 'setIsOpenCommandPalette'),
       setNotificationData: (notificationData: NotificationData) =>
@@ -31,9 +31,9 @@ const useStore = create<State>()(
       setChainRecovery: (chainRecovery: boolean) =>
         set({ chainRecovery }, false, 'setChainRecovery'),
       menuID: 'Context_Menu',
-      processKey: null,
-      setProcessKey: (id: string) =>
-        set({ processKey: id }, false, 'setProcessKey'),
+      processId: null,
+      setProcessId: (id: number) =>
+        set({ processId: id }, false, 'setProcessId'),
       notificationStack: [],
       setNotificationStack: (notificationStack: NotificationData[]) =>
         set({ notificationStack }, false, 'setNotificationStack'),

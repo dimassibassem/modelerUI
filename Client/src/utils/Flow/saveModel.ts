@@ -7,8 +7,8 @@ import { NotificationData } from '@/types/State'
 async function saveModel(
   reactFlowInstance: ReactFlowInstance | null,
   process: Process,
-  modelID: string | null,
-  setModelID: (id: string) => void,
+  processId: number | null,
+  setProcessId: (id: number) => void,
   handleNotif: (notificationData: NotificationData) => void
 ) {
   if (reactFlowInstance) {
@@ -19,41 +19,39 @@ async function saveModel(
     })
     if (res) {
       try {
-        // if (!modelID) {
-       const response =  await axios.post(
-          `${import.meta.env.VITE_API_ENDPOINT}/process/definition`,
-          {
-            processKey: process.processKey,
-            processData: JSON.stringify(process),
-            previewData: JSON.stringify(res.instance),
-            image: res.dataURI
-          }
-        )
-        // setModelID(response.data.id)
-        handleNotif({
-          success: true,
-          message: 'Model saved successfully'
-        })
-        console.log(response);
-        // }
-        // else {
-        //   await axios.put(
-        //     `${import.meta.env.VITE_API_ENDPOINT}/api/update-model/${modelID}`,
-        //     formData,
-        //     {
-        //       headers: {
-        //         'Content-Type': 'multipart/form-data'
-        //       }
-        //     }
-        //   )
-        //   setNotificationData({
-        //     success: true,
-        //     message: 'Model updated successfully'
-        //   })
-        //   setOpenNotification(true)
-        // }
+        if (!processId) {
+          const response = await axios.post(
+            `${import.meta.env.VITE_API_ENDPOINT}/process/definition`,
+            {
+              processKey: process.processKey,
+              processData: JSON.stringify(process),
+              previewData: JSON.stringify(res.instance),
+              image: res.dataURI
+            }
+          )
+          setProcessId(response.data.id)
+          handleNotif({
+            success: true,
+            message: 'Model saved successfully'
+          })
+        } else {
+          await axios.put(
+            `${import.meta.env.VITE_API_ENDPOINT}/process/definition`,
+            {
+              id: processId,
+              processKey: process.processKey,
+              processData: JSON.stringify(process),
+              previewData: JSON.stringify(res.instance),
+              image: res.dataURI
+            }
+          )
+          handleNotif({
+            success: true,
+            message: 'Model updated successfully'
+          })
+        }
       } catch (e) {
-        console.log(e);
+        console.log(e)
         handleNotif({
           success: false,
           message: 'Error saving model'
@@ -62,4 +60,5 @@ async function saveModel(
     }
   }
 }
+
 export default saveModel

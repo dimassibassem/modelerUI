@@ -22,16 +22,16 @@ const selector2 = (state: State) => ({
   reactFlowInstance: state.reactFlowInstance,
   chainRecovery: state.chainRecovery,
   setChainRecovery: state.setChainRecovery,
-  modelID: state.processKey,
-  setModelID: state.setProcessKey
+  processId: state.processId,
+  setProcessId: state.setProcessId
 })
 
 const TopRightPanel = () => {
   const { setNodesAndEdges, process } = useFlowStore(selector, shallow)
   const {
     reactFlowInstance,
-    modelID,
-    setModelID,
+    processId,
+    setProcessId,
     chainRecovery,
     setChainRecovery
   } = useStore(selector2, shallow)
@@ -64,8 +64,8 @@ const TopRightPanel = () => {
           saveModel(
             reactFlowInstance,
             process,
-            modelID,
-            setModelID,
+            processId,
+            setProcessId,
             handleNotif
           )
         }
