@@ -1,16 +1,19 @@
 import React, { Fragment, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useEffectOnce } from 'usehooks-ts'
 import { useTranslation } from 'react-i18next'
+import { Link, useNavigate } from 'react-router-dom'
 import classNames from '@/utils/classNames'
 import logoBankerise from '@/assets/logo-bankerise.png'
 import LangSelect from '@/components/LangSelect'
 import useLocalStorage from '@/store/localStorage'
 import Notifications from '@/components/Notifications'
+import Breadcrumbs from '@/components/Breadcrumbs'
 
 const Navbar = ({ showTuto = true }) => {
   const [imageLoaded, setImageLoaded] = useState(false)
+  const navigate = useNavigate()
   useEffectOnce(() => {
     const img = new Image()
     img.src = logoBankerise
@@ -22,10 +25,10 @@ const Navbar = ({ showTuto = true }) => {
     <Disclosure as="nav" className="bg-white border ">
       {({ open }) => (
         <>
-          <div className="sm:px-6 lg:px-8">
-            <div className="flex h-14 justify-between">
+          <div className="px-6">
+            <div className="flex justify-between">
               <div className="flex">
-                <div className="flex flex-shrink-0 items-center">
+                <div className="flex flex-shrink-0 w-full items-center">
                   {imageLoaded ? (
                     <img
                       className="h-16 w-auto"
@@ -35,33 +38,13 @@ const Navbar = ({ showTuto = true }) => {
                       alt="Bankerise"
                     />
                   ) : (
-                    <div className="h-16 w-auto">
-                      <div className="animate-pulse bg-gray-200 h-16 w-16" />
+                    <div className="h-14 w-auto">
+                      <div className="animate-pulse bg-gray-200 h-14 w-14" />
                     </div>
                   )}
                 </div>
-                <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                  {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
-                  <a
-                    href="#"
-                    className="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900"
-                  >
-                    Dashboard
-                  </a>
-                  <a
-                    href="#"
-                    className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                  >
-                    Team
-                  </a>
-                  <a
-                    href="#"
-                    className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                  >
-                    Projects
-                  </a>
-                </div>
               </div>
+              <Breadcrumbs />
               <div className="hidden gap-4 sm:flex items-center">
                 {showTuto && (
                   <button
@@ -103,41 +86,41 @@ const Navbar = ({ showTuto = true }) => {
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <Link
+                            to="/profile"
                             className={classNames(
                               active ? 'bg-gray-100' : '',
                               'block px-4 py-2 text-sm text-gray-700'
                             )}
                           >
                             Your Profile
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <Link
+                            to="/"
                             className={classNames(
                               active ? 'bg-gray-100' : '',
                               'block px-4 py-2 text-sm text-gray-700'
                             )}
                           >
-                            Settings
-                          </a>
+                            Challenges
+                          </Link>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <Link
+                            to="/logout"
                             className={classNames(
                               active ? 'bg-gray-100' : '',
                               'block px-4 py-2 text-sm text-gray-700'
                             )}
                           >
                             Sign out
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                     </Menu.Items>
@@ -159,30 +142,6 @@ const Navbar = ({ showTuto = true }) => {
           </div>
 
           <Disclosure.Panel className="md:hidden">
-            <div className="space-y-1 pb-3 pt-2">
-              {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
-              >
-                Dashboard
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-              >
-                Team
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-              >
-                Projects
-              </Disclosure.Button>
-            </div>
             <div className="border-t border-gray-200 pb-3 pt-4">
               <div className="flex items-center px-4">
                 <div className="flex-shrink-0">
@@ -200,33 +159,23 @@ const Navbar = ({ showTuto = true }) => {
                     tom@example.com
                   </div>
                 </div>
-                <button
-                  type="button"
-                  className="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
               </div>
               <div className="mt-3 space-y-1">
                 <Disclosure.Button
-                  as="a"
-                  href="#"
                   className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+                  onClick={() => navigate('/profile')}
                 >
                   Your Profile
                 </Disclosure.Button>
                 <Disclosure.Button
-                  as="a"
-                  href="#"
                   className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+                  onClick={() => navigate('/')}
                 >
-                  Settings
+                  Challenges
                 </Disclosure.Button>
                 <Disclosure.Button
-                  as="a"
-                  href="#"
                   className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+                  onClick={() => navigate('/logout')}
                 >
                   Sign out
                 </Disclosure.Button>

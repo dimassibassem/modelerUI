@@ -6,6 +6,12 @@ export interface NotificationData {
   message: string
 }
 
+type Page = {
+  name: string
+  link: string
+  current: boolean
+}
+
 interface State extends ResetState {
   isOpenCommandPalette: boolean
   setIsOpenCommandPalette: (isOpenCommandPalette: boolean) => void
@@ -26,6 +32,8 @@ interface State extends ResetState {
   menuID: string
   processId: number | null
   setProcessId: (id: number) => void
+  pages: Page[]
+  setPages: (pages: Page[]) => void
 }
 
 export default State

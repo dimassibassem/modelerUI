@@ -14,17 +14,21 @@ async function saveModel(
   if (reactFlowInstance) {
     reactFlowInstance.fitView()
     const res = await imageFromHTML(reactFlowInstance)
-    process.steps.forEach((step) => {
-      step.type = step.type.toUpperCase()
-    })
     if (res) {
+      const processToSend = {
+        ...process,
+        steps: process.steps.map((step) => ({
+          ...step,
+          type: step.type.toUpperCase()
+        }))
+      }
       try {
         if (!processId) {
           const response = await axios.post(
             `${import.meta.env.VITE_API_ENDPOINT}/process/definition`,
             {
               processKey: process.processKey,
-              processData: JSON.stringify(process),
+              processData: JSON.stringify(processToSend),
               previewData: JSON.stringify(res.instance),
               image: res.dataURI
             }
@@ -40,7 +44,7 @@ async function saveModel(
             {
               id: processId,
               processKey: process.processKey,
-              processData: JSON.stringify(process),
+              processData: JSON.stringify(processToSend),
               previewData: JSON.stringify(res.instance),
               image: res.dataURI
             }

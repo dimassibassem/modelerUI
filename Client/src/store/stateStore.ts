@@ -37,6 +37,8 @@ const useStore = create<State>()(
       notificationStack: [],
       setNotificationStack: (notificationStack: NotificationData[]) =>
         set({ notificationStack }, false, 'setNotificationStack'),
+      pages: [],
+      setPages: (pages: State['pages']) => set({ pages }, false, 'setPages'),
       resetState: () =>
         set({
           reactFlowInstance: null,
@@ -49,7 +51,9 @@ const useStore = create<State>()(
           },
           notificationStack: [],
           chainRecovery: false,
-          menuID: 'Context_Menu'
+          menuID: 'Context_Menu',
+          processId: null,
+          pages: []
         })
     }),
     {

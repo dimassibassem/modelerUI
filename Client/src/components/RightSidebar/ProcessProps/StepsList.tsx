@@ -4,7 +4,6 @@ import React, { useId, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useFlowStore } from '@/store'
 import { RFState } from '@/types/RFState'
-import classNames from '@/utils/classNames'
 import {
   handleStepsChange,
   handleNodesAttributesChange
@@ -76,48 +75,32 @@ const StepsList = () => {
                         </p>
                       </div>
                     </div>
-                    {stage.attributes ? (
-                      <>
-                        <div
-                          className={classNames(
-                            !isExpandedAttr(0, stepArrayIndex) ? 'hidden' : ''
-                          )}
+                    {stage.attributes && isExpandedAttr(0, stepArrayIndex) ? (
+                      <div className="rounded-full mt-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        <button
+                          type="button"
+                          onClick={() => toggleExpandAttr(0, stepArrayIndex)}
                         >
-                          <button
-                            type="button"
-                            className="rounded-full mt-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            onClick={() => toggleExpandAttr(0, stepArrayIndex)}
-                          >
-                            <ChevronUpIcon
-                              className="h-5 w-5 text-indigo-700 hover:text-indigo-800 hover:cursor-pointer"
-                              aria-hidden="true"
-                            />
-                          </button>
-                        </div>
-                        <div
-                          className={classNames(
-                            isExpandedAttr(0, stepArrayIndex) ? 'hidden' : ''
-                          )}
-                        >
-                          <button
-                            type="button"
-                            className="rounded-full mt-1 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            onClick={() => toggleExpandAttr(0, stepArrayIndex)}
-                          >
-                            <ChevronRightIcon
-                              className="h-5 w-5 text-indigo-700 hover:text-indigo-800 hover:cursor-pointer"
-                              aria-hidden="true"
-                            />
-                          </button>
-                        </div>
-                      </>
-                    ) : null}
+                          <ChevronUpIcon
+                            className="h-5 w-5 text-indigo-700 hover:text-indigo-800 hover:cursor-pointer"
+                            aria-hidden="true"
+                          />
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="rounded-full mt-1 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        <ChevronRightIcon
+                          className="h-5 w-5 text-indigo-700 hover:text-indigo-800 hover:cursor-pointer"
+                          aria-hidden="true"
+                        />
+                      </div>
+                    )}
                   </div>
                 </button>
-                {stage.attributes ? (
+                {stage.attributes && (
                   <div className="px-4 ml-5">
                     <div>
-                      {isExpandedAttr(0, stepArrayIndex) ? (
+                      {isExpandedAttr(0, stepArrayIndex) && (
                         <>
                           {Object.keys(stage.attributes).map((key) => (
                             <div key={`${stage.id}_${key}`}>
@@ -217,10 +200,10 @@ const StepsList = () => {
                           ))}
                           <div className="pb-4" />
                         </>
-                      ) : null}
+                      )}
                     </div>
                   </div>
-                ) : null}
+                )}
               </div>
             </li>
           ))}

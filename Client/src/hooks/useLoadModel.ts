@@ -23,6 +23,7 @@ const selector2 = (state: State) => ({
   setProcessId: state.setProcessId,
   setLastNodeIdNumber: state.setLastNodeIdNumber
 })
+
 const useLoadModel = (setLoaded: (loaded: boolean) => void) => {
   const { id } = useParams<{ id: string }>()
   const { setProcess, setNodes, setEdges } = useFlowStore(selector, shallow)
