@@ -20,7 +20,6 @@ export default defineConfig({
             '@iconify/react',
             '@tailwindcss/forms',
             '@tailwindcss/aspect-ratio',
-            'css-filter-converter',
             'react-tooltip',
             'react-tooltip/dist/react-tooltip.css',
             'reactflow/dist/style.css',
