@@ -1,7 +1,7 @@
 import { NodeProps, NodeToolbar, Position, NodeResizer } from 'reactflow'
 import React, { FC, memo } from 'react'
 import useShowToolbar from '@/hooks/useShowToolbar'
-import provisioners from '@/assets/Circle.png'
+import provisioners from '@/assets/Circle.webp'
 import Handles from './Handles'
 import useCustomNodeProps from '@/hooks/useCustomNodeProps'
 import NodeType from '@/types/NodeType'
@@ -25,7 +25,6 @@ const Provisioners: FC<NodeProps> = ({
     isHover,
     showToolbar,
     setShowToolbar,
-    filter
   } = useCustomNodeProps(type as NodeType, 50, 50)
 
   useShowToolbar(isHover, dragging, setShowToolbar)
@@ -61,7 +60,6 @@ const Provisioners: FC<NodeProps> = ({
           style={{
             width,
             height,
-            filter: filter || 'none'
           }}
         />
       </div>
