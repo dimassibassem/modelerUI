@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react'
 import { Position, NodeProps, NodeToolbar, NodeResizer } from 'reactflow'
 import useShowToolbar from '@/hooks/useShowToolbar'
-import execution from '@/assets/Hexagon.png'
+import execution from '@/assets/Hexagon.webp'
 import Handles from './Handles'
 import useCustomNodeProps from '@/hooks/useCustomNodeProps'
 import NodeType from '@/types/NodeType'
@@ -19,7 +19,6 @@ const Execution: FC<NodeProps> = ({ id, type, data, dragging, selected }) => {
     isHover,
     showToolbar,
     setShowToolbar,
-    filter
   } = useCustomNodeProps(type as NodeType, 50, 50)
 
   useHandleNodeSize(id, setWidth, setHeight)
@@ -57,7 +56,6 @@ const Execution: FC<NodeProps> = ({ id, type, data, dragging, selected }) => {
           style={{
             width,
             height,
-            filter: filter || 'none'
           }}
         />
       </div>

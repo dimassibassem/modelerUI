@@ -29,7 +29,6 @@
     "@vitejs/plugin-react": "^3.1.0",
     "axios": "^1.4.0",
     "chance": "^1.1.11",
-    "css-filter-converter": "^1.0.109",
     "cypress-real-events": "^1.7.6",
     "dagre": "^0.8.5",
     "dayjs": "^1.11.7",
