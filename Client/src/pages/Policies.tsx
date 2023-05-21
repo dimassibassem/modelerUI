@@ -21,6 +21,8 @@ const loadModels = async () => {
 
 type BkrData = {
   id: number
+  createdAt: string
+  updatedAt: string
   processKey: string
   processData: string
   previewData: string
@@ -44,6 +46,8 @@ const Policies = () => {
       setChallenges(
         res.map((data: BkrData) => ({
           id: data.id,
+          createdAt: data.createdAt,
+          updatedAt: data.updatedAt,
           processKey: data.processKey,
           processData: JSON.parse(data.processData),
           previewData: JSON.parse(data.previewData),
