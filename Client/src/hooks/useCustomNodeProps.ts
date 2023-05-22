@@ -17,7 +17,7 @@ function useCustomNodeProps(type: NodeType, w: number, h: number) {
     hoverRef,
     isHover,
     showToolbar,
-    setShowToolbar,
+    setShowToolbar
   }
 }
 

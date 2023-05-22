@@ -18,7 +18,7 @@ const Rule: FC<NodeProps> = ({ id, type, data, dragging, selected }) => {
     hoverRef,
     isHover,
     showToolbar,
-    setShowToolbar,
+    setShowToolbar
   } = useCustomNodeProps(type as NodeType, 50, 50)
   useShowToolbar(isHover, dragging, setShowToolbar)
   useHandleNodeSize(id, setWidth, setHeight)
@@ -52,7 +52,7 @@ const Rule: FC<NodeProps> = ({ id, type, data, dragging, selected }) => {
           alt="rect"
           style={{
             width,
-            height,
+            height
           }}
         />
       </div>

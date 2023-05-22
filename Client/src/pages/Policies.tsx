@@ -11,7 +11,7 @@ import useHandleLangChange from '@/hooks/useHandleLanguageChange'
 import Navbar from '@/components/Navbar'
 import { ChallengeState } from '@/types/ChallengeState'
 import useChallengeStore from '@/store/challengesStore'
-import BkrData from "@/types/BkrData";
+import BkrData from '@/types/BkrData'
 
 const loadModels = async () => {
   const { data } = await axios.get(

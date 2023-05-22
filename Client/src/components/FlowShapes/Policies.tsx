@@ -18,7 +18,7 @@ const Policies: FC<NodeProps> = ({ id, type, data, dragging, selected }) => {
     hoverRef,
     isHover,
     showToolbar,
-    setShowToolbar,
+    setShowToolbar
   } = useCustomNodeProps(type as NodeType, 50, 50)
   useShowToolbar(isHover, dragging, setShowToolbar)
   useHandleNodeSize(id, setWidth, setHeight)
@@ -51,7 +51,7 @@ const Policies: FC<NodeProps> = ({ id, type, data, dragging, selected }) => {
           src={policies}
           style={{
             width,
-            height,
+            height
           }}
           alt="policies"
         />

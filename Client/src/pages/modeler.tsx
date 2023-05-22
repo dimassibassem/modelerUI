@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react'
 import ReactFlow, {
   ReactFlowProvider,
   Background,
@@ -46,7 +46,7 @@ import usePasteFlowFromClipboard from '@/hooks/usePasteFlowFromClipboard'
 import Navbar from '@/components/Navbar'
 import useHandleNotification from '@/hooks/useHandleNotification'
 import CommandPalette from '@/components/CommandPalette'
-import useGetAllModels from "@/hooks/useGetAllModels";
+import useGetAllModels from '@/hooks/useGetAllModels'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,

@@ -24,7 +24,7 @@ const Provisioners: FC<NodeProps> = ({
     hoverRef,
     isHover,
     showToolbar,
-    setShowToolbar,
+    setShowToolbar
   } = useCustomNodeProps(type as NodeType, 50, 50)
 
   useShowToolbar(isHover, dragging, setShowToolbar)
@@ -59,7 +59,7 @@ const Provisioners: FC<NodeProps> = ({
           alt="provisioners"
           style={{
             width,
-            height,
+            height
           }}
         />
       </div>

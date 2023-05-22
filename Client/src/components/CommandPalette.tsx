@@ -1,71 +1,61 @@
-import React, { Fragment, useState } from "react";
-import { Combobox, Dialog, Transition } from "@headlessui/react";
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import { ExclamationTriangleIcon, FolderIcon, LifebuoyIcon } from "@heroicons/react/24/outline";
-import { shallow } from "zustand/shallow";
-import { useEventListener } from "usehooks-ts";
-import useAllCommands from "@/hooks/useAllCommands";
-import classNames from "@/utils/classNames";
-import { ChallengeState } from "@/types/ChallengeState";
-import useChallengeStore from "@/store/challengesStore";
+import React, { Fragment, useState } from 'react'
+import { Combobox, Dialog, Transition } from '@headlessui/react'
+import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import {
+  ExclamationTriangleIcon,
+  FolderIcon,
+  LifebuoyIcon
+} from '@heroicons/react/24/outline'
+import { shallow } from 'zustand/shallow'
+import useAllCommands from '@/hooks/useAllCommands'
+import classNames from '@/utils/classNames'
+import { ChallengeState } from '@/types/ChallengeState'
+import useChallengeStore from '@/store/challengesStore'
+import CommandInput from '@/types/CommandInput'
 
 const selector = (state: ChallengeState) => ({
   challenges: state.challenges
-});
+})
 
 const CommandPalette = ({
-                          open,
-                          setOpen
-                        }: {
+  open,
+  setOpen
+}: {
   open: boolean
   setOpen: (open: boolean) => void
 }) => {
-  const [rawQuery, setRawQuery] = useState("");
-  const query = rawQuery.toLowerCase().replace(/^[#>]/, "");
-  const { challenges } = useChallengeStore(selector, shallow);
-  const [activeCommand, setActiveCommand] = useState(null);
-  const helps = useAllCommands();
+  const [rawQuery, setRawQuery] = useState('')
+  const query = rawQuery.toLowerCase().replace(/^[#>]/, '')
+  const { challenges } = useChallengeStore(selector, shallow)
+  const helps = useAllCommands()
 
   const filteredChallenges = (() => {
-    if (rawQuery === "#") {
-      return challenges;
+    if (rawQuery === '#') {
+      return challenges
     }
-    if (query === "" || rawQuery.startsWith(">")) {
-      return [];
+    if (query === '' || rawQuery.startsWith('>')) {
+      return []
     }
     return challenges?.filter((challenge) =>
       challenge.processKey.toLowerCase().includes(query)
-    );
-  })();
+    )
+  })()
 
   const filtredHelps = (() => {
-    if (rawQuery === ">") {
-      return helps;
+    if (rawQuery === '>') {
+      return helps
     }
-    if (query === "" || rawQuery.startsWith("#")) {
-      return [];
+    if (query === '' || rawQuery.startsWith('#')) {
+      return []
     }
-    return helps.filter((help) => help.name.toLowerCase().includes(query));
-  })();
-
-  useEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault()
-      if (activeCommand !== null) {
-        const help = filtredHelps[activeCommand];
-        console.log(help);
-        help.action();
-      }
-    }
-  }, document);
-
-  console.log(activeCommand);
+    return helps.filter((help) => help.name.toLowerCase().includes(query))
+  })()
 
   return (
     <Transition.Root
       show={open}
       as={Fragment}
-      afterLeave={() => setRawQuery("")}
+      afterLeave={() => setRawQuery('')}
       appear
     >
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -91,9 +81,8 @@ const CommandPalette = ({
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Dialog.Panel
-              className="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
-              <Combobox>
+            <Dialog.Panel className="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
+              <Combobox onChange={(event: CommandInput) => event.action()}>
                 <div className="relative">
                   <MagnifyingGlassIcon
                     className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-gray-400"
@@ -104,12 +93,13 @@ const CommandPalette = ({
                     placeholder="Search..."
                     value={rawQuery}
                     onChange={(event) => {
-                      setRawQuery(event.target.value);
+                      setRawQuery(event.target.value)
                     }}
                   />
                 </div>
 
-                {(filteredChallenges && filteredChallenges?.length > 0 || helps.length > 0) && (
+                {((filteredChallenges && filteredChallenges?.length > 0) ||
+                  helps.length > 0) && (
                   <Combobox.Options
                     static
                     className="max-h-80 scroll-py-10 scroll-pb-2 space-y-4 overflow-y-auto p-4 pb-2"
@@ -126,8 +116,8 @@ const CommandPalette = ({
                               value={challenge}
                               className={({ active }) =>
                                 classNames(
-                                  "flex cursor-default select-none items-center px-4 py-2",
-                                  active ? "bg-indigo-600 text-white" : ""
+                                  'flex cursor-default select-none items-center px-4 py-2',
+                                  active ? 'bg-indigo-600 text-white' : ''
                                 )
                               }
                             >
@@ -135,8 +125,8 @@ const CommandPalette = ({
                                 <>
                                   <FolderIcon
                                     className={classNames(
-                                      "h-6 w-6 flex-none",
-                                      active ? "text-white" : "text-gray-400"
+                                      'h-6 w-6 flex-none',
+                                      active ? 'text-white' : 'text-gray-400'
                                     )}
                                     aria-hidden="true"
                                   />
@@ -156,46 +146,39 @@ const CommandPalette = ({
                           Helps
                         </h2>
                         <ul className="-mx-4 mt-2 text-sm text-gray-700">
-                          {filtredHelps.map((help, i) => (
-                              <Combobox.Option
-                                data-combobox-item
-                                key={help.id}
-                                value={help}
-                                className={({ active }) =>
-                                  classNames(
-                                    "flex cursor-default select-none items-center px-4 py-2",
-                                    active ? "bg-indigo-600 text-white" : ""
-                                  )
-                                }
-                                onClick={async () => {
-                                  await help.action();
-                                }}
-                              >
-                                {({ active }) => {
-                                  active && setActiveCommand(i);
-                                  return (
-                                    <>
-                                      {help.icon}
-                                      <span className="ml-3 flex-auto truncate">
-                              {help.name}
-                            </span>
-                                      <div className="flex flex-col">
-                            <span className="ml-3 flex-auto truncate">
-                          {help.text}
-                        </span>
-                                      </div>
-                                    </>
-                                  );
-                                }}
-                              </Combobox.Option>)
-                          )}
+                          {filtredHelps.map((help) => (
+                            <Combobox.Option
+                              data-combobox-item
+                              key={help.id}
+                              value={help}
+                              className={({ active }) =>
+                                classNames(
+                                  'flex cursor-default select-none items-center px-4 py-2',
+                                  active ? 'bg-indigo-600 text-white' : ''
+                                )
+                              }
+                              onClick={async () => {
+                                await help.action()
+                              }}
+                            >
+                              {help.icon}
+                              <span className="ml-3 flex-auto truncate">
+                                {help.name}
+                              </span>
+                              <div className="flex flex-col">
+                                <span className="ml-3 flex-auto truncate">
+                                  {help.text}
+                                </span>
+                              </div>
+                            </Combobox.Option>
+                          ))}
                         </ul>
                       </li>
                     )}
                   </Combobox.Options>
                 )}
 
-                {rawQuery === "?" && (
+                {rawQuery === '?' && (
                   <div className="px-6 py-14 text-center text-sm sm:px-14">
                     <LifebuoyIcon
                       className="mx-auto h-6 w-6 text-gray-400"
@@ -213,8 +196,8 @@ const CommandPalette = ({
                   </div>
                 )}
 
-                {query !== "" &&
-                  rawQuery !== "?" &&
+                {query !== '' &&
+                  rawQuery !== '?' &&
                   filteredChallenges?.length === 0 &&
                   helps.length === 0 && (
                     <div className="px-6 py-14 text-center text-sm sm:px-14">
@@ -233,47 +216,47 @@ const CommandPalette = ({
                   )}
 
                 <div className="flex flex-wrap items-center bg-gray-50 px-4 py-2.5 text-xs text-gray-700">
-                  Type{" "}
-                  <button type="button" onClick={() => setRawQuery("#")}>
+                  Type{' '}
+                  <button type="button" onClick={() => setRawQuery('#')}>
                     <kbd
                       className={classNames(
-                        "mx-1 flex h-5 w-5 items-center justify-center rounded border bg-white font-semibold sm:mx-2",
-                        rawQuery.startsWith("#")
-                          ? "border-indigo-600 text-indigo-600"
-                          : "border-gray-400 text-gray-900"
+                        'mx-1 flex h-5 w-5 items-center justify-center rounded border bg-white font-semibold sm:mx-2',
+                        rawQuery.startsWith('#')
+                          ? 'border-indigo-600 text-indigo-600'
+                          : 'border-gray-400 text-gray-900'
                       )}
                     >
                       #
-                    </kbd>{" "}
+                    </kbd>{' '}
                   </button>
                   <span className="sm:hidden">for Challenges,</span>
                   <span className="hidden sm:inline">
                     to access Challenges,
                   </span>
-                  <button type="button" onClick={() => setRawQuery(">")}>
+                  <button type="button" onClick={() => setRawQuery('>')}>
                     <kbd
                       className={classNames(
-                        "mx-1 flex h-5 w-5 items-center justify-center rounded border bg-white font-semibold sm:mx-2",
-                        rawQuery.startsWith(">")
-                          ? "border-indigo-600 text-indigo-600"
-                          : "border-gray-400 text-gray-900"
+                        'mx-1 flex h-5 w-5 items-center justify-center rounded border bg-white font-semibold sm:mx-2',
+                        rawQuery.startsWith('>')
+                          ? 'border-indigo-600 text-indigo-600'
+                          : 'border-gray-400 text-gray-900'
                       )}
                     >
                       &gt;
-                    </kbd>{" "}
+                    </kbd>{' '}
                   </button>
-                  for commands help, and{" "}
-                  <button type="button" onClick={() => setRawQuery("?")}>
+                  for commands help, and{' '}
+                  <button type="button" onClick={() => setRawQuery('?')}>
                     <kbd
                       className={classNames(
-                        "mx-1 flex h-5 w-5 items-center justify-center rounded border bg-white font-semibold sm:mx-2",
-                        rawQuery === "?"
-                          ? "border-indigo-600 text-indigo-600"
-                          : "border-gray-400 text-gray-900"
+                        'mx-1 flex h-5 w-5 items-center justify-center rounded border bg-white font-semibold sm:mx-2',
+                        rawQuery === '?'
+                          ? 'border-indigo-600 text-indigo-600'
+                          : 'border-gray-400 text-gray-900'
                       )}
                     >
                       ?
-                    </kbd>{" "}
+                    </kbd>{' '}
                   </button>
                   for general help.
                 </div>
@@ -284,6 +267,5 @@ const CommandPalette = ({
       </Dialog>
     </Transition.Root>
   )
-    ;
-};
-export default CommandPalette;
+}
+export default CommandPalette

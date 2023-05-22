@@ -15,8 +15,8 @@ import { RFState } from '@/types/RFState'
 import State from '@/types/State'
 import { useFlowStore } from '@/store'
 import useStore from '@/store/stateStore'
-import CommandsState from "@/types/CommandsState";
-import useCommandsStore from "@/store/commandsStore";
+import CommandsState from '@/types/CommandsState'
+import useCommandsStore from '@/store/commandsStore'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,

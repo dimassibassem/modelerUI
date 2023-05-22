@@ -18,7 +18,7 @@ const Execution: FC<NodeProps> = ({ id, type, data, dragging, selected }) => {
     hoverRef,
     isHover,
     showToolbar,
-    setShowToolbar,
+    setShowToolbar
   } = useCustomNodeProps(type as NodeType, 50, 50)
 
   useHandleNodeSize(id, setWidth, setHeight)
@@ -55,7 +55,7 @@ const Execution: FC<NodeProps> = ({ id, type, data, dragging, selected }) => {
           alt="execution"
           style={{
             width,
-            height,
+            height
           }}
         />
       </div>
