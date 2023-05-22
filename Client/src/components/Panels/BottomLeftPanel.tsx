@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Panel } from 'reactflow'
 import {
   MagnifyingGlassMinusIcon,
@@ -15,6 +15,8 @@ import { RFState } from '@/types/RFState'
 import State from '@/types/State'
 import { useFlowStore } from '@/store'
 import useStore from '@/store/stateStore'
+import CommandsState from "@/types/CommandsState";
+import useCommandsStore from "@/store/commandsStore";
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -26,17 +28,25 @@ const selector = (state: RFState) => ({
 const selector2 = (state: State) => ({
   reactFlowInstance: state.reactFlowInstance
 })
-
+const selector3 = (state: CommandsState) => ({
+  verticalLayout: state.verticalLayout,
+  horizontalLayout: state.horizontalLayout,
+  setVerticalLayout: state.setVerticalLayout,
+  setHorizontalLayout: state.setHorizontalLayout,
+  isFullScreen: state.isFullScreen,
+  setIsFullScreen: state.setIsFullScreen
+})
 const BottomLeftPanel = () => {
   const { setNodes, setEdges, nodes, edges } = useFlowStore(selector, shallow)
   const { reactFlowInstance } = useStore(selector2, shallow)
-  const [verticalLayout, setVerticalLayout] = useState<VerticalLayout>(
-    VerticalLayout.TopToBottom
-  )
-  const [horizontalLayout, setHorizontalLayout] = useState<HorizontalLayout>(
-    HorizontalLayout.LeftToRight
-  )
-  const [isFullScreen, setIsFullScreen] = useState(false)
+  const {
+    verticalLayout,
+    horizontalLayout,
+    setVerticalLayout,
+    setHorizontalLayout,
+    isFullScreen,
+    setIsFullScreen
+  } = useCommandsStore(selector3, shallow)
   const { t } = useTranslation()
   return (
     <Panel

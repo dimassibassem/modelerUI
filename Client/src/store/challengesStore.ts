@@ -6,7 +6,7 @@ import { ChallengeState } from '@/types/ChallengeState'
 const useChallengeStore = create<ChallengeState>()(
   devtools(
     (set) => ({
-      challenges: [],
+      challenges: null,
       setChallenges: (challenges: Challenge[]) => {
         set({ challenges }, false, 'setChallenges')
       },
@@ -16,12 +16,12 @@ const useChallengeStore = create<ChallengeState>()(
       },
       resetState: () =>
         set({
-          challenges: [],
+          challenges: null,
           selectedChallenge: null
         })
     }),
     {
-      name: 'stateStore',
+      name: 'challengeStore',
       enabled: import.meta.env.VITE_REDUX_DEVTOOLS_ENABLED === 'true'
     }
   )

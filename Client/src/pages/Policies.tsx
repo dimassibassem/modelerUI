@@ -11,22 +11,13 @@ import useHandleLangChange from '@/hooks/useHandleLanguageChange'
 import Navbar from '@/components/Navbar'
 import { ChallengeState } from '@/types/ChallengeState'
 import useChallengeStore from '@/store/challengesStore'
+import BkrData from "@/types/BkrData";
 
 const loadModels = async () => {
   const { data } = await axios.get(
     `${import.meta.env.VITE_API_ENDPOINT}/process/definition`
   )
   return data
-}
-
-type BkrData = {
-  id: number
-  createdAt: string
-  updatedAt: string
-  processKey: string
-  processData: string
-  previewData: string
-  image: string
 }
 
 const selector = (state: ChallengeState) => ({
