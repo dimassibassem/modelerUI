@@ -49,6 +49,7 @@ import CommandPalette from '@/components/CommandPalette/CommandPalette'
 import useGetAllModels from '@/hooks/useGetAllModels'
 import Loading from '@/components/Loading'
 import focusNode from '@/utils/Flow/focusNode'
+import UseHandleMiniMapNodeClick from '@/hooks/useHandleMiniMapNodeClick'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -99,6 +100,8 @@ const DnDFlow = () => {
     setLastNodeIdNumber(lastNodeIdNumber + 1)
     return `${type}_${lastNodeIdNumber}`
   }
+  const [loaded, setLoaded] = useState(false)
+  const [clickedNode, setClickedNode] = useState<Node | null>(null)
   const [, copy] = useCopyToClipboard()
   const { show } = useContextMenu({ id: menuID })
   const onNodeDelete = useOnNodesDelete()
@@ -111,7 +114,7 @@ const DnDFlow = () => {
   const handleNotif = useHandleNotification()
   const pasteFromClipboard = usePasteFlowFromClipboard()
   const onDrop = useOnDropNode(reactFlowWrapper, setId)
-  const [loaded, setLoaded] = useState(false)
+  UseHandleMiniMapNodeClick(clickedNode, setClickedNode)
   useLoadModel(setLoaded)
   useShortcuts(copy)
   useHandleSelected()
@@ -119,6 +122,7 @@ const DnDFlow = () => {
   useProcessDefinitionChecker()
   useHandleLangChange()
   useGetAllModels()
+
   return (
     <div>
       <CommandPalette
@@ -186,13 +190,19 @@ const DnDFlow = () => {
                 size={1}
               />
               <MiniMap
+                ariaLabel="MiniMap"
                 style={{ background: '#ccc' }}
-                nodeColor={(node: Node) => nodeColor(node.type as NodeType)}
+                nodeColor={(node) => nodeColor(node.type as NodeType)}
                 nodeStrokeWidth={3}
+                nodeBorderRadius={10}
+                nodeStrokeColor={(node) =>
+                  node === clickedNode ? '#4f46e5' : ''
+                }
                 zoomable
                 className="border border-indigo-400 rounded-md shadow-2xl shadow-indigo-100"
                 pannable
                 onNodeClick={(_, node) => {
+                  setClickedNode(node)
                   focusNode(node, reactFlowInstance)
                 }}
               />
