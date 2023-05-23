@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import ReactFlow, {
   ReactFlowProvider,
   Background,
@@ -43,9 +43,9 @@ import useStore from '@/store/stateStore'
 import State from '@/types/State'
 import useLoadModel from '@/hooks/useLoadModel'
 import usePasteFlowFromClipboard from '@/hooks/usePasteFlowFromClipboard'
-import Navbar from '@/components/Navbar'
+import Navbar from '@/components/Navbar/Navbar'
 import useHandleNotification from '@/hooks/useHandleNotification'
-import CommandPalette from '@/components/CommandPalette'
+import CommandPalette from '@/components/CommandPalette/CommandPalette'
 import useGetAllModels from '@/hooks/useGetAllModels'
 
 const selector = (state: RFState) => ({

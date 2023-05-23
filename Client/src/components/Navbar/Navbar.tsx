@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 import classNames from '@/utils/classNames'
 import logoBankerise from '@/assets/logo-bankerise.webp'
-import LangSelect from '@/components/LangSelect'
+import LangSelect from './LangSelect'
 import useLocalStorage from '@/store/localStorage'
-import Notifications from '@/components/Notifications'
-import Breadcrumbs from '@/components/Breadcrumbs'
+import Notifications from './Notifications'
+import Breadcrumbs from './Breadcrumbs'
 
 const Navbar = ({ showTuto = true }) => {
   const [imageLoaded, setImageLoaded] = useState(false)
