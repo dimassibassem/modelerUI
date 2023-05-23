@@ -96,6 +96,16 @@ const en = {
   UndoContent: 'Undo the last action',
   RedoContent: 'Redo the last action',
   Focus: 'Focus',
+  executingCommands: 'for executing commands, and ',
+  generalHelp: 'for general help',
+  Type: 'Type ',
+  tryAgainContent:
+    'We couldn’t find anything with that term. Please try again.',
+  searchContent:
+    'Use this tool to quickly search for challenges and execute commands in the modeler. You can also use the search modifiers found in the footer below to limit the results to just challenges or commands.',
+  'Help with searching': 'Help with searching',
+  'No results found': 'No results found',
+  'to access Challenges,': 'to access Challenges,',
   'Edge Marker': 'Edge Marker',
   'Edge Type': 'Edge Type',
   'Cannot create a connection from {{source}} to {{target}}':

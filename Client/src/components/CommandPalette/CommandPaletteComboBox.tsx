@@ -8,6 +8,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { useNavigate } from 'react-router-dom'
 import { shallow } from 'zustand/shallow'
+import { useTranslation } from 'react-i18next'
 import classNames from '@/utils/classNames'
 import { Challenge } from '@/types/Challenge'
 import CommandInput from '@/types/CommandInput'
@@ -33,7 +34,7 @@ const CommandPaletteComboBox = ({
   const { challenges } = useChallengeStore(selector, shallow)
   const helps = useAllCommands()
   const navigate = useNavigate()
-
+  const { t } = useTranslation()
   const filteredChallenges = (() => {
     if (rawQuery === '#') {
       return challenges
@@ -130,7 +131,9 @@ const CommandPaletteComboBox = ({
           )}
           {filtredHelps.length > 0 && (
             <li>
-              <h2 className="text-xs font-semibold text-gray-900">Helps</h2>
+              <h2 className="text-xs font-semibold text-gray-900">
+                {t('Commands')}
+              </h2>
               <ul className="-mx-4 mt-2 text-sm text-gray-700">
                 {filtredHelps.map((help) => (
                   <Combobox.Option
@@ -169,14 +172,9 @@ const CommandPaletteComboBox = ({
             aria-hidden="true"
           />
           <p className="mt-4 font-semibold text-gray-900">
-            Help with searching
+            {t('Help with searching')}
           </p>
-          <p className="mt-2 text-gray-500">
-            Use this tool to quickly search for challenges and Challenges across
-            our entire platform. You can also use the search modifiers found in
-            the footer below to limit the results to just challenges or
-            Challenges.
-          </p>
+          <p className="mt-2 text-gray-500">{t('searchContent')}</p>
         </div>
       )}
 
@@ -189,10 +187,10 @@ const CommandPaletteComboBox = ({
               className="mx-auto h-6 w-6 text-gray-400"
               aria-hidden="true"
             />
-            <p className="mt-4 font-semibold text-gray-900">No results found</p>
-            <p className="mt-2 text-gray-500">
-              We couldn’t find anything with that term. Please try again.
+            <p className="mt-4 font-semibold text-gray-900">
+              {t('No results found')}
             </p>
+            <p className="mt-2 text-gray-500">{t('tryAgainContent')}</p>
           </div>
         )}
       <CommandPaletteFooter rawQuery={rawQuery} setRawQuery={setRawQuery} />

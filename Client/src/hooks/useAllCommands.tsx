@@ -5,14 +5,17 @@ import {
   MagnifyingGlassMinusIcon,
   MagnifyingGlassPlusIcon
 } from '@heroicons/react/24/outline'
+import { useTranslation } from 'react-i18next'
 import onLayout from '@/utils/Flow/onLayout'
 import { HorizontalLayout, VerticalLayout } from '@/types/NodeLayout'
 import State from '@/types/State'
 import { RFState } from '@/types/RFState'
 import useStore from '@/store/stateStore'
-import { useFlowStore } from '@/store'
+import { useFlowStore, useTemporalStore } from '@/store'
 import useCommandsStore from '@/store/commandsStore'
 import CommandsState from '@/types/CommandsState'
+import copyAsImage from '@/utils/ContextMenu/copyAsImage'
+import useHandleNotification from '@/hooks/useHandleNotification'
 
 const selector = (state: State) => ({
   reactFlowInstance: state.reactFlowInstance,
@@ -23,7 +26,10 @@ const selector2 = (state: RFState) => ({
   nodes: state.nodes,
   edges: state.edges,
   setNodes: state.setNodes,
-  setEdges: state.setEdges
+  setEdges: state.setEdges,
+  selectAllNodes: state.selectAllNodes,
+  selectAllEdges: state.selectAllEdges,
+  selectAll: state.selectAll
 })
 const selector3 = (state: CommandsState) => ({
   verticalLayout: state.verticalLayout,
@@ -39,7 +45,15 @@ const useAllCommands = () => {
     selector,
     shallow
   )
-  const { nodes, edges, setNodes, setEdges } = useFlowStore(selector2, shallow)
+  const {
+    nodes,
+    edges,
+    setNodes,
+    setEdges,
+    selectAllEdges,
+    selectAllNodes,
+    selectAll
+  } = useFlowStore(selector2, shallow)
   const {
     verticalLayout,
     horizontalLayout,
@@ -48,18 +62,21 @@ const useAllCommands = () => {
     isFullScreen,
     setIsFullScreen
   } = useCommandsStore(selector3, shallow)
+  const { t } = useTranslation()
+  const { undo, redo } = useTemporalStore((state) => state)
+  const handleNotif = useHandleNotification()
   return useMemo(
     () => [
       {
         id: 1,
-        name: 'fit Vue',
+        name: t('Fit Vue'),
         text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         icon: <Icon className="w-5 h-5" icon="material-symbols:fit-screen" />,
         action: () => reactFlowInstance?.fitView()
       },
       {
         id: 2,
-        name: 'Horizontal layout',
+        name: t('Horizontal layout'),
         text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         icon: (
           <Icon className="w-5 h-5" icon="ph:arrows-out-line-horizontal-fill" />
@@ -76,7 +93,7 @@ const useAllCommands = () => {
       },
       {
         id: 3,
-        name: 'Vertical layout',
+        name: t('Vertical layout'),
         text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         icon: (
           <Icon className="w-5 h-5" icon="ph:arrows-out-line-vertical-fill" />
@@ -93,7 +110,7 @@ const useAllCommands = () => {
       },
       {
         id: 4,
-        name: 'Full screen',
+        name: t('Full screen'),
         text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         icon: isFullScreen ? (
           <Icon className="w-5 h-5" icon="solar:quit-full-screen-bold" />
@@ -115,21 +132,21 @@ const useAllCommands = () => {
       },
       {
         id: 5,
-        name: 'Zoom in',
+        name: t('Zoom In'),
         text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         icon: <MagnifyingGlassPlusIcon className="w-5 h-5" />,
         action: () => reactFlowInstance?.zoomIn()
       },
       {
         id: 6,
-        name: 'Zoom out',
+        name: t('Zoom Out'),
         text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         icon: <MagnifyingGlassMinusIcon className="w-5 h-5" />,
         action: () => reactFlowInstance?.zoomOut()
       },
       {
         id: 7,
-        name: 'Chain recovery',
+        name: t('Chain Recovery'),
         text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         icon: chainRecovery ? (
           <Icon className="w-5 h-5" icon="fa:chain" />
@@ -137,6 +154,48 @@ const useAllCommands = () => {
           <Icon className="w-5 h-5" icon="fa:chain-broken" />
         ),
         action: () => setChainRecovery(!chainRecovery)
+      },
+      {
+        id: 8,
+        name: t('Undo'),
+        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        icon: <Icon className="w-5 h-5" icon="material-symbols:undo" />,
+        action: () => undo()
+      },
+      {
+        id: 9,
+        name: t('Redo'),
+        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        icon: <Icon className="w-5 h-5" icon="material-symbols:undo" hFlip />,
+        action: () => redo()
+      },
+      {
+        id: 10,
+        name: t('Copy as image'),
+        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        icon: <Icon className="w-5 h-5" icon="fa:copy" />,
+        action: () => copyAsImage(reactFlowInstance, handleNotif)
+      },
+      {
+        id: 11,
+        name: t('Select nodes'),
+        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        icon: <Icon className="w-5 h-5" icon="fa:mouse-pointer" />,
+        action: () => selectAllNodes()
+      },
+      {
+        id: 12,
+        name: t('Select edges'),
+        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        icon: <Icon className="w-5 h-5" icon="fa:mouse-pointer" />,
+        action: () => selectAllEdges()
+      },
+      {
+        id: 13,
+        name: t('Select all'),
+        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        icon: <Icon className="w-5 h-5" icon="fa:mouse-pointer" />,
+        action: () => selectAll()
       }
     ],
     [
@@ -147,12 +206,19 @@ const useAllCommands = () => {
       edges,
       setNodes,
       setEdges,
+      selectAllEdges,
+      selectAllNodes,
+      selectAll,
       verticalLayout,
       horizontalLayout,
       setVerticalLayout,
       setHorizontalLayout,
       isFullScreen,
-      setIsFullScreen
+      setIsFullScreen,
+      undo,
+      redo,
+      handleNotif,
+      t
     ]
   )
 }
