@@ -47,6 +47,7 @@ import Navbar from '@/components/Navbar/Navbar'
 import useHandleNotification from '@/hooks/useHandleNotification'
 import CommandPalette from '@/components/CommandPalette/CommandPalette'
 import useGetAllModels from '@/hooks/useGetAllModels'
+import Loading from '@/components/Loading'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -124,10 +125,15 @@ const DnDFlow = () => {
         setOpen={setIsOpenCommandPalette}
       />
       <Navbar />
-      <div className="flex-col flex grow md:flex-row fixed w-full z-[3] overflow-hidden h-[100vh - 1]">
+      <div className="flex-col flex grow md:flex-row fixed w-full z-[3] overflow-hidden">
         <Joyride />
         <Notification />
         <ContextMenu />
+        {!loaded && (
+          <div className="absolute w-full h-full flex justify-center items-center">
+            <Loading />
+          </div>
+        )}
         {loaded && !process.processKey && <ProcessDefinitionModal />}
         <LeftSidebar />
         <ReactFlowProvider>
@@ -151,7 +157,7 @@ const DnDFlow = () => {
                 pasteFromClipboard
               })
             }
-            className="grow"
+            className="grow h-[90vh] 2xl:h-[93vh] overflow-hidden"
             ref={reactFlowWrapper}
           >
             <ReactFlow
@@ -172,6 +178,7 @@ const DnDFlow = () => {
               fitView
             >
               <Background
+                className="border-2 border-indigo-200 rounded-md"
                 color="#4f46e5"
                 variant={BackgroundVariant.Dots}
                 gap={10}
