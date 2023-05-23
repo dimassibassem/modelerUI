@@ -48,6 +48,7 @@ import useHandleNotification from '@/hooks/useHandleNotification'
 import CommandPalette from '@/components/CommandPalette/CommandPalette'
 import useGetAllModels from '@/hooks/useGetAllModels'
 import Loading from '@/components/Loading'
+import focusNode from '@/utils/Flow/focusNode'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,
@@ -191,6 +192,9 @@ const DnDFlow = () => {
                 zoomable
                 className="border border-indigo-400 rounded-md shadow-2xl shadow-indigo-100"
                 pannable
+                onNodeClick={(_, node) => {
+                  focusNode(node, reactFlowInstance)
+                }}
               />
               <TopRightPanel />
               <BottomLeftPanel />

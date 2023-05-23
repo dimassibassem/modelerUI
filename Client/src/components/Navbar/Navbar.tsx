@@ -25,7 +25,7 @@ const Navbar = ({ showTuto = true }) => {
     <Disclosure as="nav" className="bg-white border">
       {({ open }) => (
         <>
-          <div className="px-6  ">
+          <div className="px-6">
             <div className="flex justify-between">
               <div className="flex">
                 <div className="flex flex-shrink-0 w-full items-center">

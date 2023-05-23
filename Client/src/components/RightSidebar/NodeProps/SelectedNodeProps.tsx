@@ -7,6 +7,7 @@ import { RFState } from '@/types/RFState'
 import HandleCheckBoxes from '@/components/RightSidebar/NodeProps/HandleCheckBoxes'
 import Attributes from '@/components/RightSidebar/NodeProps/Attributes'
 import capitalize from '@/utils/capitalize'
+import focusNode from '@/utils/Flow/focusNode'
 
 const selector = (state: RFState) => ({
   selected: state.selected as Node,
@@ -14,17 +15,7 @@ const selector = (state: RFState) => ({
   nodes: state.nodes,
   edges: state.edges
 })
-const focusNode = (
-  selected: Node,
-  reactFlowInstance: ReactFlowInstance | null
-) => {
-  if (selected.width && selected.height && reactFlowInstance) {
-    const x = selected.position.x + selected.width / 2
-    const y = selected.position.y + selected.height / 2
-    const zoom = 1.85
-    reactFlowInstance?.setCenter(x, y, { zoom, duration: 1000 })
-  }
-}
+
 const SelectedNodeProps = ({
   reactFlowInstance
 }: {
