@@ -70,14 +70,14 @@ const useAllCommands = () => {
       {
         id: 1,
         name: t('Fit Vue'),
-        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        text: '',
         icon: <Icon className="w-5 h-5" icon="material-symbols:fit-screen" />,
         action: () => reactFlowInstance?.fitView()
       },
       {
         id: 2,
         name: t('Horizontal layout'),
-        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        text: '',
         icon: (
           <Icon className="w-5 h-5" icon="ph:arrows-out-line-horizontal-fill" />
         ),
@@ -94,7 +94,7 @@ const useAllCommands = () => {
       {
         id: 3,
         name: t('Vertical layout'),
-        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        text: '',
         icon: (
           <Icon className="w-5 h-5" icon="ph:arrows-out-line-vertical-fill" />
         ),
@@ -111,7 +111,7 @@ const useAllCommands = () => {
       {
         id: 4,
         name: t('Full screen'),
-        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        text: '',
         icon: isFullScreen ? (
           <Icon className="w-5 h-5" icon="solar:quit-full-screen-bold" />
         ) : (
@@ -133,21 +133,21 @@ const useAllCommands = () => {
       {
         id: 5,
         name: t('Zoom In'),
-        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        text: '',
         icon: <MagnifyingGlassPlusIcon className="w-5 h-5" />,
         action: () => reactFlowInstance?.zoomIn()
       },
       {
         id: 6,
         name: t('Zoom Out'),
-        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        text: '',
         icon: <MagnifyingGlassMinusIcon className="w-5 h-5" />,
         action: () => reactFlowInstance?.zoomOut()
       },
       {
         id: 7,
         name: t('Chain Recovery'),
-        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        text: '',
         icon: chainRecovery ? (
           <Icon className="w-5 h-5" icon="fa:chain" />
         ) : (
@@ -158,42 +158,42 @@ const useAllCommands = () => {
       {
         id: 8,
         name: t('Undo'),
-        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        text: '',
         icon: <Icon className="w-5 h-5" icon="material-symbols:undo" />,
         action: () => undo()
       },
       {
         id: 9,
         name: t('Redo'),
-        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        text: '',
         icon: <Icon className="w-5 h-5" icon="material-symbols:undo" hFlip />,
         action: () => redo()
       },
       {
         id: 10,
         name: t('Copy as image'),
-        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        text: '',
         icon: <Icon className="w-5 h-5" icon="fa:copy" />,
         action: () => copyAsImage(reactFlowInstance, handleNotif)
       },
       {
         id: 11,
         name: t('Select nodes'),
-        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        text: '',
         icon: <Icon className="w-5 h-5" icon="fa:mouse-pointer" />,
         action: () => selectAllNodes()
       },
       {
         id: 12,
         name: t('Select edges'),
-        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        text: '',
         icon: <Icon className="w-5 h-5" icon="fa:mouse-pointer" />,
         action: () => selectAllEdges()
       },
       {
         id: 13,
         name: t('Select all'),
-        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        text: '',
         icon: <Icon className="w-5 h-5" icon="fa:mouse-pointer" />,
         action: () => selectAll()
       }

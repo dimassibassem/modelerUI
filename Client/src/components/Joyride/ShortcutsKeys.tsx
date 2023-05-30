@@ -13,7 +13,7 @@ const ShortcutsKeys = ({ secondKey }: { secondKey: string }) => {
       <kbd className="px-2 py-1.5 text-xs font-semibold shadow-xl text-gray-800 bg-gray-300 border-2 border-b-4 border-gray-400 rounded-lg ">
         {secondKey}
       </kbd>{' '}
-      to
+      <span className="pl-2">{t('to')}</span>
     </p>
   )
 }

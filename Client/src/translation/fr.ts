@@ -112,7 +112,7 @@ const fr = {
   tryAgainContent:
     'Nous n’avons rien trouvé avec ce terme. Veuillez réessayer.',
   'No results found': 'Aucun résultat trouvé',
-  searchContent: `Utilisez cet outil pour rechercher rapidement des challenges et exécuter des commandes dans le modeler. Vous pouvez également utiliser les modificateurs de recherche trouvés dans le pied de page ci-dessous pour limiter les résultats aux seuls challenges ou commandes.`,
+  searchContent: `Utilisez cet outil pour changer rapidement de processus actuel et exécuter des commandes dans le modeler. Vous pouvez également utiliser les modificateurs de recherche trouvés dans le pied de page ci-dessous pour limiter les résultats aux seuls processus ou commandes Bankerise.`,
   'Help with searching': 'Aide à la recherche',
   'to access Processes,': 'pour accéder aux Processus',
   'Edge Marker': 'Marqueur de bord',
@@ -140,7 +140,8 @@ const fr = {
   'Copy as image': 'Copier comme image',
   'Select nodes': 'Sélectionner les nœuds',
   'Select edges': 'Sélectionner les liens',
-  'Select all': 'Sélectionner tout'
+  'Select all': 'Sélectionner tout',
+  to: 'pour'
 }
 
 export default fr

@@ -105,7 +105,7 @@ const en = {
   tryAgainContent:
     'We couldn’t find anything with that term. Please try again.',
   searchContent:
-    'Use this tool to quickly search for challenges and execute commands in the modeler. You can also use the search modifiers found in the footer below to limit the results to just challenges or commands.',
+    'Use this tool to quickly change current process and execute commands in the modeler. You can also use the search modifiers found in the footer below to limit the results to just Bankerise processes or commands.',
   'Help with searching': 'Help with searching',
   'No results found': 'No results found',
   'to access Processes,': 'to access Processes,',

@@ -1,5 +1,5 @@
 const shortcutsKeysList = [
-  { key: 'a', option: 'SelectAll' },
+  { key: 'a', option: 'Select all' },
   { key: 'c', option: 'Copy' },
   { key: 'v', option: 'Paste' },
   { key: 'x', option: 'Cut' },

@@ -48,7 +48,7 @@ const joyrideSteps = (t = (text: string) => text): Step[] => [
             <div className="flex-shrink-0 p-2 flex items-center justify-center">
               <ShortcutsKeys secondKey={item.key} />
             </div>
-            <div className=" flex border-gray-200 ">
+            <div className=" flex justify-center border-gray-200 ">
               <div className=" p-2 text-sm ">
                 <p className="font-medium text-gray-900 ">{t(item.option)}</p>
               </div>
@@ -61,7 +61,7 @@ const joyrideSteps = (t = (text: string) => text): Step[] => [
     target: 'body',
     styles: {
       options: {
-        width: 400
+        width: 450
       }
     },
     title: <p className="text-indigo-600">{t('Shortcuts')}</p>
