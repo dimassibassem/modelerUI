@@ -3,7 +3,7 @@ import { Edge, Node } from 'reactflow'
 import { temporal, TemporalState } from 'zundo'
 import { devtools } from 'zustand/middleware'
 import equal from 'deep-equal'
-import { RFState } from '@/types/RFState'
+import { RFState } from '@/types/store/RFState'
 import Process from '@/types/Process'
 
 const initialEdges: Edge[] = []

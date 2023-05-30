@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { applyNodeChanges, NodeChange } from 'reactflow'
 import { shallow } from 'zustand/shallow'
-import { RFState } from '@/types/RFState'
+import { RFState } from '@/types/store/RFState'
 import { useFlowStore, useTemporalStore } from '@/store'
 
 const selector = (state: RFState) => ({

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Node } from 'reactflow'
 import Process from '@/types/Process'
-import { RFState } from '@/types/RFState'
+import { RFState } from '@/types/store/RFState'
 
 function handleStepsChange(
   e: React.ChangeEvent<HTMLInputElement>,

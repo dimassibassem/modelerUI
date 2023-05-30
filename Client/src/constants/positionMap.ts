@@ -4,7 +4,7 @@ import {
   HorizontalLayout,
   PositionMap,
   VerticalLayout
-} from '@/types/NodeLayout'
+} from '@/types/enums/NodeLayout'
 
 const positionMap: Record<Direction, PositionMap> = {
   [HorizontalLayout.RightToLeft]: {

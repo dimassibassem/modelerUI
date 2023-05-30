@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import NodeType from '@/types/NodeType'
+import NodeType from '@/types/enums/NodeType'
 
 const NodeDefinition = ({ type }: { type: NodeType }) => {
   const { t } = useTranslation()

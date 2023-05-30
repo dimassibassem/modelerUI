@@ -15,7 +15,7 @@ import useOnDropNode from '@/hooks/useOnDropNode'
 import useOnDragNode from '@/hooks/useOnDragNode'
 import useHandleSelected from '@/hooks/useHandleSelected'
 import { useFlowStore, useTemporalStore } from '@/store'
-import { RFState } from '@/types/RFState'
+import { RFState } from '@/types/store/RFState'
 import RightSidebar from '@/components/RightSidebar/RightSidebar'
 import TopRightPanel from '@/components/Panels/TopRightPanel'
 import nodeColor from '@/utils/Node/nodeColor'
@@ -24,7 +24,7 @@ import ProcessDefinitionModal from '@/components/Modals/ProcessDefinitionModal'
 import useRemoveWatermark from '@/hooks/useRemoveWatermark'
 import BottomLeftPanel from '@/components/Panels/BottomLeftPanel'
 import TopLeftPanel from '@/components/Panels/TopLeftPanel'
-import NodeType from '@/types/NodeType'
+import NodeType from '@/types/enums/NodeType'
 import { handleContextMenu } from '@/utils/ContextMenu/handleContextMenu'
 import ContextMenu from '@/components/ContextMenu'
 import Notification from '@/components/Modals/Notification'
@@ -40,13 +40,13 @@ import useOnEdgesChange from '@/hooks/useOnEdgesChange'
 import useOnEdgeUpdate from '@/hooks/useOnEdgeUpdate'
 import useIsValidConnection from '@/hooks/useIsValidConnection'
 import useStore from '@/store/stateStore'
-import State from '@/types/State'
+import State from '@/types/store/State'
 import useLoadModel from '@/hooks/useLoadModel'
 import usePasteFlowFromClipboard from '@/hooks/usePasteFlowFromClipboard'
 import Navbar from '@/components/Navbar/Navbar'
 import useHandleNotification from '@/hooks/useHandleNotification'
 import CommandPalette from '@/components/CommandPalette/CommandPalette'
-import useGetAllModels from '@/hooks/useGetAllModels'
+import useGetAllProcessesBKR from '@/hooks/useGetAllProcessesBKR'
 import Loading from '@/components/Loading'
 import focusNode from '@/utils/Flow/focusNode'
 import UseHandleMiniMapNodeClick from '@/hooks/useHandleMiniMapNodeClick'
@@ -121,7 +121,7 @@ const DnDFlow = () => {
   useRemoveWatermark()
   useProcessDefinitionChecker()
   useHandleLangChange()
-  useGetAllModels()
+  useGetAllProcessesBKR()
 
   return (
     <div>

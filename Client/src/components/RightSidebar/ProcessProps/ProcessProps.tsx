@@ -4,7 +4,7 @@ import { shallow } from 'zustand/shallow'
 import { useTranslation } from 'react-i18next'
 import classNames from '@/utils/classNames'
 import { useFlowStore } from '@/store'
-import { RFState } from '@/types/RFState'
+import { RFState } from '@/types/store/RFState'
 import StepsList from '@/components/RightSidebar/ProcessProps/StepsList'
 import ChannelsRadio from './ChannelsRadio'
 

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import attributeSwitcher from '@/utils/Node/attributeSwitcher'
-import NodeType from '@/types/NodeType'
+import NodeType from '@/types/enums/NodeType'
 
 describe('attributeSwitcher', () => {
   it('should return attributes for each Node Type', () => {

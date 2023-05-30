@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { Transition } from '@headlessui/react'
 import { shallow } from 'zustand/shallow'
 import { useTranslation } from 'react-i18next'
-import { RFState } from '@/types/RFState'
+import { RFState } from '@/types/store/RFState'
 import { useFlowStore, useTemporalStore } from '@/store'
 import Process from '@/types/Process'
-import State from '@/types/State'
+import State from '@/types/store/State'
 import useStore from '@/store/stateStore'
 
 const selector = (state: RFState) => ({

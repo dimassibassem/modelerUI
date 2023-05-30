@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
-import { HorizontalLayout, VerticalLayout } from '@/types/NodeLayout'
-import CommandsState from '@/types/CommandsState'
+import { HorizontalLayout, VerticalLayout } from '@/types/enums/NodeLayout'
+import CommandsState from '@/types/store/CommandsState'
 
 const useCommandsStore = create<CommandsState>()(
   devtools(

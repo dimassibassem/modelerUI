@@ -25,7 +25,7 @@ const CommandPaletteFooter = ({
           #
         </kbd>{' '}
       </button>
-      <span className="inline">{t('to access Challenges,')}</span>
+      <span className="inline">{t('to access Processes,')}</span>
       <button type="button" onClick={() => setRawQuery('>')}>
         <kbd
           className={classNames(

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { shallow } from 'zustand/shallow'
-import { RFState } from '@/types/RFState'
+import { RFState } from '@/types/store/RFState'
 import { useFlowStore } from '@/store'
 
 const selector = (state: RFState) => ({

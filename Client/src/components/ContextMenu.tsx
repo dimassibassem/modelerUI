@@ -4,10 +4,10 @@ import { Node } from 'reactflow'
 import { shallow } from 'zustand/shallow'
 import { useTranslation } from 'react-i18next'
 import { handleItemClick } from '@/utils/ContextMenu/handleContextMenu'
-import ContextMenuItem from '@/types/ContextMenuItem'
-import { RFState } from '@/types/RFState'
+import ContextMenuItem from '@/types/enums/ContextMenuItem'
+import { RFState } from '@/types/store/RFState'
 import { useFlowStore } from '@/store'
-import State from '@/types/State'
+import State from '@/types/store/State'
 import useStore from '@/store/stateStore'
 
 const handleDisable = (selectedNodes: Node[] | undefined) =>

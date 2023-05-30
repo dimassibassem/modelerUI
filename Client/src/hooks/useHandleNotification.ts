@@ -1,7 +1,7 @@
 import { shallow } from 'zustand/shallow'
 import { useCallback, useEffect } from 'react'
 import useStore from '@/store/stateStore'
-import State, { NotificationData } from '@/types/State'
+import State, { NotificationData } from '@/types/store/State'
 
 const selector = (state: State) => ({
   notificationData: state.notificationData,

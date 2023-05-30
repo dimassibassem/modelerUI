@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useHover } from 'usehooks-ts'
-import NodeType from '@/types/NodeType'
+import NodeType from '@/types/enums/NodeType'
 
 function useCustomNodeProps(type: NodeType, w: number, h: number) {
   const [width, setWidth] = useState(w)

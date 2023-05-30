@@ -1,7 +1,7 @@
 import { Position } from 'reactflow'
 import { describe, expect, it, beforeEach } from 'vitest'
 import onLayout from '@/utils/Flow/onLayout'
-import { HorizontalLayout, VerticalLayout } from '@/types/NodeLayout'
+import { HorizontalLayout, VerticalLayout } from '@/types/enums/NodeLayout'
 import { nodes, edges } from '@/tests/fixtures/allNodes'
 import { useFlowStore } from '@/store'
 

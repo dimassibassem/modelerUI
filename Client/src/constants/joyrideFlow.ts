@@ -1,6 +1,6 @@
 import { Edge, Node, MarkerType, Position } from 'reactflow'
 import { TFunction } from 'i18next'
-import Channel from '@/types/Channel'
+import Channel from '@/types/enums/Channel'
 import Process from '@/types/Process'
 
 export const joyrideNodes: Node[] = [

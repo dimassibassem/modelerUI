@@ -40,6 +40,8 @@ const fr = {
   processKey: 'Clé de processus',
   Tour: 'Voyons faire un petit tour',
   Welcome: 'Bienvenue dans le Modeler',
+  Shortcuts: 'Raccourcis clavier',
+  Press: 'Appuyez sur',
   ProcessName:
     'Ici, vous pouvez définir le nom et la description de votre processus',
   Elements:
@@ -52,6 +54,7 @@ const fr = {
   'Undo/Redo':
     'Les actions Défaire / Rétablir sont disponibles dans le coin supérieur gauche',
   Minimap: 'Minicarte',
+  OpenCommandPalette: 'Ouvrir la palette de commandes',
   MinimapContent: 'Ici, vous pouvez trouver une minicarte de votre processus',
   CommandsContent:
     'Ici, vous pouvez trouver les commandes pour interagir avec le flux',
@@ -111,7 +114,7 @@ const fr = {
   'No results found': 'Aucun résultat trouvé',
   searchContent: `Utilisez cet outil pour rechercher rapidement des challenges et exécuter des commandes dans le modeler. Vous pouvez également utiliser les modificateurs de recherche trouvés dans le pied de page ci-dessous pour limiter les résultats aux seuls challenges ou commandes.`,
   'Help with searching': 'Aide à la recherche',
-  'to access Challenges,': 'pour accéder aux challenges,',
+  'to access Processes,': 'pour accéder aux Processus',
   'Edge Marker': 'Marqueur de bord',
   'Edge Type': 'Type de bord',
   'Cannot create a connection from {{source}} to {{target}}': `Impossible de créer une connexion de nœud {{source}} à nœud {{target}}`,

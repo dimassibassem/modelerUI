@@ -4,7 +4,7 @@ import useShowToolbar from '@/hooks/useShowToolbar'
 import execution from '@/assets/Hexagon.webp'
 import Handles from './Handles'
 import useCustomNodeProps from '@/hooks/useCustomNodeProps'
-import NodeType from '@/types/NodeType'
+import NodeType from '@/types/enums/NodeType'
 import { useTemporalStore } from '@/store'
 import useHandleNodeSize from '@/hooks/useHandleNodeSize'
 

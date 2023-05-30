@@ -7,7 +7,7 @@ import {
   CheckCircleIcon,
   ExclamationTriangleIcon
 } from '@heroicons/react/24/outline'
-import State from '@/types/State'
+import State from '@/types/store/State'
 import useStore from '@/store/stateStore'
 
 const selector = (state: State) => ({

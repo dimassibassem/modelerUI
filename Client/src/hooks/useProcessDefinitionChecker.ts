@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { shallow } from 'zustand/shallow'
 import processDefinitionChecker from '@/utils/Process/processDefinitionChecker'
 import { useFlowStore } from '@/store'
-import { RFState } from '@/types/RFState'
+import { RFState } from '@/types/store/RFState'
 
 const selector = (state: RFState) => ({
   nodes: state.nodes,

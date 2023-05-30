@@ -6,7 +6,7 @@ import '@/translation/i18'
 import 'react-tooltip/dist/react-tooltip.css'
 import 'reactflow/dist/style.css'
 import 'react-contexify/ReactContexify.css'
-import Policies from '@/pages/Policies'
+import Process from '@/pages/Process'
 
 const DnDFlow = lazy(() => import('@/pages/modeler'))
 
@@ -14,7 +14,7 @@ const App = () => (
   <Suspense fallback={<Loading />}>
     <Router>
       <Routes>
-        <Route index element={<Policies />} />
+        <Route index element={<Process />} />
         <Route path="/modeler" element={<DnDFlow />} />
         <Route path="/modeler/:id" element={<DnDFlow />} />
         <Route path="*" element={<NotFound />} />

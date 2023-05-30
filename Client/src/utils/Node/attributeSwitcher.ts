@@ -1,4 +1,4 @@
-import NodeType from '@/types/NodeType'
+import NodeType from '@/types/enums/NodeType'
 
 const attributeSwitcher = (type: NodeType) => {
   switch (type) {

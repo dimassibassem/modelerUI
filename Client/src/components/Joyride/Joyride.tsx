@@ -3,11 +3,11 @@ import Joyride, { CallBackProps, STATUS, Step } from 'react-joyride'
 import { shallow } from 'zustand/shallow'
 import { Edge, Node } from 'reactflow'
 import { useTranslation } from 'react-i18next'
-import { RFState } from '@/types/RFState'
+import { RFState } from '@/types/store/RFState'
 import { useFlowStore, useTemporalStore } from '@/store'
 import joyrideSteps from './JoyrideSupport'
 import useLocalStorage from '@/store/localStorage'
-import State from '@/types/State'
+import State from '@/types/store/State'
 import useStore from '@/store/stateStore'
 import {
   emptyProcess,

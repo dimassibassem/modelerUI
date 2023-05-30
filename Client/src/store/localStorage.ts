@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
-import LocalStorageState from '@/types/LocalStorageState'
+import LocalStorageState from '@/types/store/LocalStorageState'
 
 const useLocalStorage = create<LocalStorageState>()(
   devtools(

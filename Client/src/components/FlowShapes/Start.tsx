@@ -4,7 +4,7 @@ import useShowToolbar from '@/hooks/useShowToolbar'
 import start from '@/assets/start.webp'
 import Handles from './Handles'
 import useCustomNodeProps from '@/hooks/useCustomNodeProps'
-import NodeType from '@/types/NodeType'
+import NodeType from '@/types/enums/NodeType'
 import useHandleNodeSize from '@/hooks/useHandleNodeSize'
 import { useTemporalStore } from '@/store'
 

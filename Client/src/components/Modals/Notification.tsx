@@ -7,7 +7,7 @@ import {
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import { useTranslation } from 'react-i18next'
 import { shallow } from 'zustand/shallow'
-import State from '@/types/State'
+import State from '@/types/store/State'
 import useStore from '@/store/stateStore'
 
 const selector = (state: State) => ({

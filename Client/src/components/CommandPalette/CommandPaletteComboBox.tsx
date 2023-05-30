@@ -10,15 +10,15 @@ import { useNavigate } from 'react-router-dom'
 import { shallow } from 'zustand/shallow'
 import { useTranslation } from 'react-i18next'
 import classNames from '@/utils/classNames'
-import { Challenge } from '@/types/Challenge'
+import { ProcessBKRModel } from '@/types/ProcessBKRModel'
 import CommandInput from '@/types/CommandInput'
-import useChallengeStore from '@/store/challengesStore'
+import useProcessBKRModelStore from '@/store/processBKRModelStore'
 import useAllCommands from '@/hooks/useAllCommands'
-import { ChallengeState } from '@/types/ChallengeState'
+import { ProcessBKRState } from '@/types/store/ProcessBKRState'
 import CommandPaletteFooter from './CommandPaletteFooter'
 
-const selector = (state: ChallengeState) => ({
-  challenges: state.challenges
+const selector = (state: ProcessBKRState) => ({
+  processesBKRModel: state.processesBKRModel
 })
 
 const CommandPaletteComboBox = ({
@@ -31,19 +31,19 @@ const CommandPaletteComboBox = ({
   setRawQuery: React.Dispatch<React.SetStateAction<string>>
 }) => {
   const query = rawQuery.toLowerCase().replace(/^[#>]/, '')
-  const { challenges } = useChallengeStore(selector, shallow)
+  const { processesBKRModel } = useProcessBKRModelStore(selector, shallow)
   const helps = useAllCommands()
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const filteredChallenges = (() => {
+  const filteredProcessesBKRModel = (() => {
     if (rawQuery === '#') {
-      return challenges
+      return processesBKRModel
     }
     if (query === '' || rawQuery.startsWith('>')) {
       return []
     }
-    return challenges?.filter((challenge) =>
-      challenge.processKey.toLowerCase().includes(query)
+    return processesBKRModel?.filter((process) =>
+      process.processKey.toLowerCase().includes(query)
     )
   })()
 
@@ -59,8 +59,8 @@ const CommandPaletteComboBox = ({
 
   return (
     <Combobox
-      onChange={(event: CommandInput | Challenge) => {
-        if ((event as Challenge).processKey) {
+      onChange={(event: CommandInput | ProcessBKRModel) => {
+        if ((event as ProcessBKRModel).processKey) {
           navigate(`/modeler/${event.id}`)
           setOpen(false)
         } else {
@@ -83,52 +83,53 @@ const CommandPaletteComboBox = ({
         />
       </div>
 
-      {((filteredChallenges && filteredChallenges?.length > 0) ||
+      {((filteredProcessesBKRModel && filteredProcessesBKRModel?.length > 0) ||
         helps.length > 0) && (
         <Combobox.Options
           static
           className="max-h-80 scroll-py-10 scroll-pb-2 space-y-4 overflow-y-auto p-4 pb-2"
         >
-          {filteredChallenges && filteredChallenges.length > 0 && (
-            <li>
-              <h2 className="text-xs font-semibold text-gray-900">
-                Challenges
-              </h2>
-              <ul className="-mx-4 mt-2 text-sm text-gray-700">
-                {filteredChallenges?.map((challenge) => (
-                  <Combobox.Option
-                    key={challenge.id}
-                    value={challenge}
-                    className={({ active }) =>
-                      classNames(
-                        'flex cursor-default select-none items-center px-4 py-2',
-                        active ? 'bg-indigo-600 text-white' : ''
-                      )
-                    }
-                    onClick={() => {
-                      navigate(`/modeler/${challenge.id}`)
-                      setOpen(false)
-                    }}
-                  >
-                    {({ active }) => (
-                      <>
-                        <FolderIcon
-                          className={classNames(
-                            'h-6 w-6 flex-none',
-                            active ? 'text-white' : 'text-gray-400'
-                          )}
-                          aria-hidden="true"
-                        />
-                        <span className="ml-3 flex-auto truncate">
-                          {challenge.processKey}
-                        </span>
-                      </>
-                    )}
-                  </Combobox.Option>
-                ))}
-              </ul>
-            </li>
-          )}
+          {filteredProcessesBKRModel &&
+            filteredProcessesBKRModel.length > 0 && (
+              <li>
+                <h2 className="text-xs font-semibold text-gray-900">
+                  Processes Bankerise
+                </h2>
+                <ul className="-mx-4 mt-2 text-sm text-gray-700">
+                  {filteredProcessesBKRModel?.map((process) => (
+                    <Combobox.Option
+                      key={process.id}
+                      value={process}
+                      className={({ active }) =>
+                        classNames(
+                          'flex cursor-default select-none items-center px-4 py-2',
+                          active ? 'bg-indigo-600 text-white' : ''
+                        )
+                      }
+                      onClick={() => {
+                        navigate(`/modeler/${process.id}`)
+                        setOpen(false)
+                      }}
+                    >
+                      {({ active }) => (
+                        <>
+                          <FolderIcon
+                            className={classNames(
+                              'h-6 w-6 flex-none',
+                              active ? 'text-white' : 'text-gray-400'
+                            )}
+                            aria-hidden="true"
+                          />
+                          <span className="ml-3 flex-auto truncate">
+                            {process.processKey}
+                          </span>
+                        </>
+                      )}
+                    </Combobox.Option>
+                  ))}
+                </ul>
+              </li>
+            )}
           {filtredHelps.length > 0 && (
             <li>
               <h2 className="text-xs font-semibold text-gray-900">
@@ -180,7 +181,7 @@ const CommandPaletteComboBox = ({
 
       {query !== '' &&
         rawQuery !== '?' &&
-        filteredChallenges?.length === 0 &&
+        filteredProcessesBKRModel?.length === 0 &&
         helps.length === 0 && (
           <div className="px-6 py-14 text-center text-sm sm:px-14">
             <ExclamationTriangleIcon

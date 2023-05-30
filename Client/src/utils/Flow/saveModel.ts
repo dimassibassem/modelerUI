@@ -2,7 +2,7 @@ import { ReactFlowInstance } from 'reactflow'
 import axios from 'axios'
 import imageFromHTML from '@/utils/Flow/imageFromHtml'
 import Process from '@/types/Process'
-import { NotificationData } from '@/types/State'
+import { NotificationData } from '@/types/store/State'
 
 async function saveModel(
   reactFlowInstance: ReactFlowInstance | null,

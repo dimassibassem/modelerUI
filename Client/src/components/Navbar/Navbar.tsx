@@ -106,7 +106,7 @@ const Navbar = ({ showTuto = true }) => {
                               'block px-4 py-2 text-sm text-gray-700'
                             )}
                           >
-                            Challenges
+                            Processes Bankerise
                           </Link>
                         )}
                       </Menu.Item>
@@ -171,7 +171,7 @@ const Navbar = ({ showTuto = true }) => {
                   className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
                   onClick={() => navigate('/')}
                 >
-                  Challenges
+                  Processes Bakerise
                 </Disclosure.Button>
                 <Disclosure.Button
                   className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"

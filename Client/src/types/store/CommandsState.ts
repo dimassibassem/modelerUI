@@ -1,5 +1,5 @@
-import { HorizontalLayout, VerticalLayout } from '@/types/NodeLayout'
-import ResetState from '@/types/ResetState'
+import { HorizontalLayout, VerticalLayout } from '@/types/enums/NodeLayout'
+import ResetState from './ResetState'
 
 interface CommandsState extends ResetState {
   verticalLayout: VerticalLayout

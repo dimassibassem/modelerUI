@@ -1,7 +1,7 @@
 import { Edge, Node } from 'reactflow'
 import Process from '@/types/Process'
 
-export type Challenge = {
+export type ProcessBKRModel = {
   id: number
   processKey: string
   createdAt: string

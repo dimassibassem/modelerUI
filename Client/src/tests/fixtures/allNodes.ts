@@ -1,6 +1,6 @@
 import { Edge, Node } from 'reactflow'
 import { v4 as uuid } from 'uuid'
-import NodeType from '@/types/NodeType'
+import NodeType from '@/types/enums/NodeType'
 
 const nodes: Node[] = [
   {

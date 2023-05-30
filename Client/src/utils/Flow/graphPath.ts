@@ -1,5 +1,5 @@
 import { Edge, Node } from 'reactflow'
-import NodeType from '@/types/NodeType'
+import NodeType from '@/types/enums/NodeType'
 
 type Graph = Record<string, string[]>
 

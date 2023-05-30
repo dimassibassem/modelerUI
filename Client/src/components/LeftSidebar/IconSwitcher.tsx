@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react'
-import NodeType from '@/types/NodeType'
+import NodeType from '@/types/enums/NodeType'
 
 const IconSwitcher = ({ type }: { type: NodeType }) => {
   switch (type) {

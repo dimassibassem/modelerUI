@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { shallow } from 'zustand/shallow'
 import channels from '@/constants/channels'
 import Process from '@/types/Process'
-import Channel from '@/types/Channel'
-import { RFState } from '@/types/RFState'
+import Channel from '@/types/enums/Channel'
+import { RFState } from '@/types/store/RFState'
 import { useFlowStore } from '@/store'
 
 function onChangeHandler(

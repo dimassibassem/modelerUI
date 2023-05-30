@@ -3,7 +3,7 @@ import { shallow } from 'zustand/shallow'
 import React, { useId, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useFlowStore } from '@/store'
-import { RFState } from '@/types/RFState'
+import { RFState } from '@/types/store/RFState'
 import {
   handleStepsChange,
   handleNodesAttributesChange

@@ -1,12 +1,12 @@
 import { shallow } from 'zustand/shallow'
 import React from 'react'
 import { Edge } from 'reactflow'
-import { RFState } from '@/types/RFState'
+import { RFState } from '@/types/store/RFState'
 import { useFlowStore } from '@/store'
 import SelectedEdgeProps from '@/components/RightSidebar/EdgeProps/SelectedEdgeProps'
 import SelectedNodeProps from '@/components/RightSidebar/NodeProps/SelectedNodeProps'
 import ProcessProps from '@/components/RightSidebar/ProcessProps/ProcessProps'
-import State from '@/types/State'
+import State from '@/types/store/State'
 import useStore from '@/store/stateStore'
 
 const selector = (state: RFState) => ({

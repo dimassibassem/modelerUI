@@ -3,14 +3,14 @@ import axios from 'axios'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dayjs from 'dayjs'
 import { shallow } from 'zustand/shallow'
-import Details from '@/components/Policies/Details'
-import PoliciesList from '@/components/Policies/PoliciesList'
-import Footer from '@/components/Policies/Footer'
+import Details from '@/components/Process/Details'
+import ProcessList from '@/components/Process/ProcessList'
+import Footer from '@/components/Process/Footer'
 import 'dayjs/locale/fr'
 import useHandleLangChange from '@/hooks/useHandleLanguageChange'
 import Navbar from '@/components/Navbar/Navbar'
-import { ChallengeState } from '@/types/ChallengeState'
-import useChallengeStore from '@/store/challengesStore'
+import { ProcessBKRState } from '@/types/store/ProcessBKRState'
+import useProcessBKRModelStore from '@/store/processBKRModelStore'
 import BkrData from '@/types/BkrData'
 
 const loadModels = async () => {
@@ -20,21 +20,25 @@ const loadModels = async () => {
   return data
 }
 
-const selector = (state: ChallengeState) => ({
-  challenges: state.challenges,
-  setChallenges: state.setChallenges,
-  selectedChallenge: state.selectedChallenge,
-  setSelectedChallenge: state.setSelectedChallenge
+const selector = (state: ProcessBKRState) => ({
+  setProcessesBKRModel: state.setProcessesBKRModel,
+  processesBKRModel: state.processesBKRModel,
+  setSelectedProcessBKRModel: state.setSelectedProcessBKRModel,
+  selectedProcessBKRModel: state.selectedProcessBKRModel
 })
-const Policies = () => {
+const Process = () => {
   const [openDetails, setOpenDetails] = useState(false)
-  const { challenges, setChallenges, selectedChallenge, setSelectedChallenge } =
-    useChallengeStore(selector, shallow)
+  const {
+    setProcessesBKRModel,
+    processesBKRModel,
+    setSelectedProcessBKRModel,
+    selectedProcessBKRModel
+  } = useProcessBKRModelStore(selector, shallow)
   const [loaded, setLoaded] = useState(false)
   dayjs.extend(relativeTime)
   useEffect(() => {
     loadModels().then((res) => {
-      setChallenges(
+      setProcessesBKRModel(
         res.map((data: BkrData) => ({
           id: data.id,
           createdAt: data.createdAt,
@@ -52,21 +56,20 @@ const Policies = () => {
   return (
     <div className="bg-white">
       <Navbar showTuto={false} />
-      <PoliciesList
-        setSelectedModel={setSelectedChallenge}
+      <ProcessList
+        setSelectedModel={setSelectedProcessBKRModel}
         setOpenDetails={setOpenDetails}
-        setChallenges={setChallenges}
-        challenges={challenges}
+        processesBKRModel={processesBKRModel}
         loaded={loaded}
       />
       <Details
         open={openDetails}
         setOpen={setOpenDetails}
-        challenge={selectedChallenge}
+        selectedProcessBKRModel={selectedProcessBKRModel}
       />
       <Footer />
     </div>
   )
 }
 
-export default Policies
+export default Process

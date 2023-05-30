@@ -2,7 +2,7 @@ import { ItemParams } from 'react-contexify'
 import { MouseEvent } from 'react'
 import copyAsImage from './copyAsImage'
 import copySelected from './copySelected'
-import ContextMenuItem from '@/types/ContextMenuItem'
+import ContextMenuItem from '@/types/enums/ContextMenuItem'
 import cutSelected from './cutSelected'
 import ContextMenuItemProps from '@/types/ContextMenuItemProps'
 

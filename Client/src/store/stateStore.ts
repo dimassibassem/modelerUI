@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { ReactFlowInstance } from 'reactflow'
-import State, { NotificationData } from '@/types/State'
+import State, { NotificationData } from '@/types/store/State'
 
 const useStore = create<State>()(
   devtools(

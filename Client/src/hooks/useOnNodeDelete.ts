@@ -9,9 +9,9 @@ import {
 } from 'reactflow'
 import { shallow } from 'zustand/shallow'
 import { v4 as uuid } from 'uuid'
-import { RFState } from '@/types/RFState'
+import { RFState } from '@/types/store/RFState'
 import { useFlowStore, useTemporalStore } from '@/store'
-import State from '@/types/State'
+import State from '@/types/store/State'
 import useStore from '@/store/stateStore'
 
 const selector = (state: RFState) => ({

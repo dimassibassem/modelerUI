@@ -21,6 +21,8 @@ import {
   TopRightCommandsDefinition,
   TopRightCommandsIcons
 } from '@/components/Joyride/TopRightCommands'
+import ShortcutsKeys from '@/components/Joyride/ShortcutsKeys'
+import shortcutsKeysList from '@/constants/shortcutsKeysList'
 
 const joyrideSteps = (t = (text: string) => text): Step[] => [
   {
@@ -34,6 +36,35 @@ const joyrideSteps = (t = (text: string) => text): Step[] => [
     placement: 'right',
     target: '#process-modal',
     title: <p className="text-indigo-600">{t('ProcessDefinition')}</p>
+  },
+  {
+    content: (
+      <ul className="mt-3 grid grid-cols-1 gap-2 h-64 overflow-y-auto">
+        {shortcutsKeysList.map((item) => (
+          <li
+            key={item.key}
+            className="p-1 col-span-1 flex rounded-md shadow-md"
+          >
+            <div className="flex-shrink-0 p-2 flex items-center justify-center">
+              <ShortcutsKeys secondKey={item.key} />
+            </div>
+            <div className=" flex border-gray-200 ">
+              <div className=" p-2 text-sm ">
+                <p className="font-medium text-gray-900 ">{t(item.option)}</p>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    ),
+    placement: 'center',
+    target: 'body',
+    styles: {
+      options: {
+        width: 400
+      }
+    },
+    title: <p className="text-indigo-600">{t('Shortcuts')}</p>
   },
   {
     content: <p>{t('Elements')}</p>,

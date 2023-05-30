@@ -1,6 +1,6 @@
 import { Edge, Node } from 'reactflow'
-import Process from './Process'
-import ResetState from '@/types/ResetState'
+import Process from '@/types/Process'
+import ResetState from '@/types/store/ResetState'
 
 export interface RFState extends ResetState {
   process: Process

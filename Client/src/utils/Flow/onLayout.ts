@@ -1,6 +1,6 @@
 import { Node, Edge } from 'reactflow'
 import dagre from 'dagre'
-import { Direction } from '@/types/NodeLayout'
+import { Direction } from '@/types/enums/NodeLayout'
 import positionMap from '@/constants/positionMap'
 
 const dagreGraph = new dagre.graphlib.Graph()

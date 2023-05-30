@@ -1,5 +1,5 @@
 import { ReactFlowInstance } from 'reactflow'
-import ResetState from '@/types/ResetState'
+import ResetState from '@/types/store/ResetState'
 
 export interface NotificationData {
   success: boolean

@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import { shallow } from 'zustand/shallow'
 import { Icon } from '@iconify/react'
-import State from '@/types/State'
+import State from '@/types/store/State'
 import useStore from '@/store/stateStore'
-import { RFState } from '@/types/RFState'
+import { RFState } from '@/types/store/RFState'
 import { useFlowStore } from '@/store'
 
 const selector = (state: State) => ({
@@ -35,7 +35,7 @@ const CreateNew = () => {
         icon="fluent:desktop-flow-20-regular"
       />
       <span className="mt-2 block text-sm font-semibold text-gray-900">
-        Create a new Challenge
+        Create a new Bankerise Process
       </span>
     </button>
   )

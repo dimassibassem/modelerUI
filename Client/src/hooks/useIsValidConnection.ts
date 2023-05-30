@@ -1,7 +1,7 @@
 import { Connection } from 'reactflow'
 import { shallow } from 'zustand/shallow'
 import { useTranslation } from 'react-i18next'
-import { RFState } from '@/types/RFState'
+import { RFState } from '@/types/store/RFState'
 import { useFlowStore } from '@/store'
 import capitalize from '@/utils/capitalize'
 import useHandleNotification from '@/hooks/useHandleNotification'

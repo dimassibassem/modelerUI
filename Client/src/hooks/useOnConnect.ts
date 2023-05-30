@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { addEdge, Connection, MarkerType } from 'reactflow'
 import { shallow } from 'zustand/shallow'
 import { v4 as uuid } from 'uuid'
-import { RFState } from '@/types/RFState'
+import { RFState } from '@/types/store/RFState'
 import { useFlowStore } from '@/store'
 
 const selector = (state: RFState) => ({

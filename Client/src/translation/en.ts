@@ -37,6 +37,9 @@ const en = {
   Clear: 'Clear',
   Save: 'Save',
   Import: 'Import',
+  Shortcuts: 'Shortcuts',
+  Press: 'Press',
+  OpenCommandPalette: 'Open Command Palette',
   processKey: 'Process Key',
   Tour: "Let's take a quick tour",
   Welcome: 'Welcome to the Modeler',
@@ -105,7 +108,7 @@ const en = {
     'Use this tool to quickly search for challenges and execute commands in the modeler. You can also use the search modifiers found in the footer below to limit the results to just challenges or commands.',
   'Help with searching': 'Help with searching',
   'No results found': 'No results found',
-  'to access Challenges,': 'to access Challenges,',
+  'to access Processes,': 'to access Processes,',
   'Edge Marker': 'Edge Marker',
   'Edge Type': 'Edge Type',
   'Cannot create a connection from {{source}} to {{target}}':
