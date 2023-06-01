@@ -61,7 +61,7 @@ describe('Keyboard Shortcuts', () => {
     cy.get('body').type('{ctrl}', { release: false })
     cy.get('body').type('v', { release: true })
 
-    cy.get('#root > div > div.z-10 > div > div').should('exist')
+    cy.get('div.z-10 > div > div').should('exist')
     cy.get('.react-flow__renderer > div').click('bottomLeft')
 
     cy.get('.react-flow__node-start')

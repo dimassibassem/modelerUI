@@ -15,26 +15,26 @@ describe('Handle Chain recovery', () => {
     cy.zoomPane(20)
 
     cy.get(
-      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div > div > div.react-flow__handle.react-flow__handle-left.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      'div.react-flow__nodes > div > div > div.react-flow__handle.react-flow__handle-left.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     ).drag(
-      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div.react-flow__handle.react-flow__handle-top.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      'div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div.react-flow__handle.react-flow__handle-top.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     )
 
     cy.get(
       '.react-flow__node-policies.nopan.selectable > div > div.react-flow__handle.react-flow__handle-right.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     ).drag(
-      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-execution.nopan.selectable > div > div.react-flow__handle.react-flow__handle-top.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      'div.react-flow__node.react-flow__node-execution.nopan.selectable > div > div.react-flow__handle.react-flow__handle-top.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     )
 
     // assert that the edge is visible
     cy.get(
-      '#root > div > div > div > div.react-flow__renderer > div > div > svg > g > g:nth-child(1) > path.react-flow__edge-interaction'
+      'div.react-flow__renderer > div > div > svg > g > g:nth-child(1) > path.react-flow__edge-interaction'
     )
 
     cy.dragPane({ from: { x: 0, y: 100 }, to: { x: 0, y: 200 } })
 
     cy.get(
-      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-execution.nopan.selectable > div > div.react-flow__handle.react-flow__handle-left.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      'div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-execution.nopan.selectable > div > div.react-flow__handle.react-flow__handle-left.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     ).drag(
       '.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-end.nopan.selectable > div > div.react-flow__handle.react-flow__handle-right.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     )
@@ -54,7 +54,7 @@ describe('Handle Chain recovery', () => {
 
     // assert that edge is not exist
     cy.get(
-      '#root > div > div > div > div.react-flow__renderer > div > div > svg > g  > path.react-flow__edge-interaction'
+      ' div.react-flow__renderer > div > div > svg > g  > path.react-flow__edge-interaction'
     ).should('not.exist')
 
     // assert that edge is not exist
@@ -71,31 +71,31 @@ describe('Handle Chain recovery', () => {
     // cy.zoomPane(100)
 
     cy.get(
-      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div > div > div.react-flow__handle.react-flow__handle-left.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      ' div.react-flow__renderer > div > div > div.react-flow__nodes > div > div > div.react-flow__handle.react-flow__handle-left.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     ).drag(
-      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div.react-flow__handle.react-flow__handle-top.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      ' div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div.react-flow__handle.react-flow__handle-top.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     )
 
     cy.get(
-      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div.react-flow__handle.react-flow__handle-right.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      ' div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-policies.nopan.selectable > div > div.react-flow__handle.react-flow__handle-right.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     ).drag(
-      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-execution.nopan.selectable > div > div.react-flow__handle.react-flow__handle-top.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      ' div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-execution.nopan.selectable > div > div.react-flow__handle.react-flow__handle-top.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     )
 
     // assert that the edge is visible
     cy.get(
-      '#root > div > div > div > div.react-flow__renderer > div > div > svg > g > g:nth-child(1) > path.react-flow__edge-interaction'
+      'div.react-flow__renderer > div > div > svg > g > g:nth-child(1) > path.react-flow__edge-interaction'
     )
 
     cy.get(
-      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-execution.nopan.selectable > div > div.react-flow__handle.react-flow__handle-left.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      'div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-execution.nopan.selectable > div > div.react-flow__handle.react-flow__handle-left.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     ).drag(
-      '#root > div > div > div > div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-end.nopan.selectable > div > div.react-flow__handle.react-flow__handle-right.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
+      'div.react-flow__renderer > div > div > div.react-flow__nodes > div.react-flow__node.react-flow__node-end.nopan.selectable > div > div.react-flow__handle.react-flow__handle-right.nodrag.nopan.source.connectable.connectablestart.connectableend.connectionindicator'
     )
 
     // assert that edge is visible
     cy.get(
-      '#root > div > div > div > div.react-flow__renderer > div > div > svg > g > g:nth-child(2) > path.react-flow__edge-interaction'
+      'div.react-flow__renderer > div > div > svg > g > g:nth-child(2) > path.react-flow__edge-interaction'
     )
 
     // click on chain recovery button
@@ -110,12 +110,12 @@ describe('Handle Chain recovery', () => {
 
     // assert that edge not exist
     cy.get(
-      '#root > div > div > div > div.react-flow__renderer > div > div > svg > g  > path.react-flow__edge-interaction'
+      'div.react-flow__renderer > div > div > svg > g  > path.react-flow__edge-interaction'
     ).should('not.exist')
 
     // assert that edge exist
     cy.get(
-      '#root > div > div > div > div.react-flow__renderer > div > div > svg > g > g:nth-child(2) > path.react-flow__edge-interaction'
+      'div.react-flow__renderer > div > div > svg > g > g:nth-child(2) > path.react-flow__edge-interaction'
     ).should('exist')
   })
 })
