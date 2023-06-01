@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import Joyride, { CallBackProps, STATUS, Step } from 'react-joyride'
+import React, { useState } from 'react'
+import Joyride, { CallBackProps, STATUS } from 'react-joyride'
 import { shallow } from 'zustand/shallow'
 import { Edge, Node } from 'reactflow'
 import { useTranslation } from 'react-i18next'
 import { RFState } from '@/types/store/RFState'
 import { useFlowStore, useTemporalStore } from '@/store'
-import joyrideSteps from './JoyrideSupport'
 import useLocalStorage from '@/store/localStorage'
 import State from '@/types/store/State'
 import useStore from '@/store/stateStore'
@@ -16,10 +15,7 @@ import {
   joyrideProcess
 } from '@/constants/joyrideFlow'
 import Process from '@/types/Process'
-
-interface Steps {
-  steps: Step[]
-}
+import useJoyrideSteps from '@/hooks/useJoyrideSteps'
 
 const selector = (state: RFState) => ({
   setNodes: state.setNodes,
@@ -42,23 +38,18 @@ export default () => {
     selector2,
     shallow
   )
+  const joyrideStepsList = useJoyrideSteps()
   const { t } = useTranslation()
   const run = useLocalStorage((store) => store.run)
   const setRun = useLocalStorage((store) => store.setRun)
-  const [tutorial, setTutorial] = useState<Steps>({
-    steps: joyrideSteps(t)
+  const [tutorial, setTutorial] = useState({
+    steps: joyrideStepsList
   })
   const [realNodes, setRealNodes] = useState<Node[]>([])
   const [realEdges, setRealEdges] = useState<Edge[]>([])
   const [realProcess, setRealProcess] = useState<Process>(emptyProcess)
   const [isFirstTime, setIsFirstTime] = useState(true)
   const { clear } = useTemporalStore((state) => state)
-
-  useEffect(() => {
-    setTutorial({
-      steps: joyrideSteps(t)
-    })
-  }, [setTutorial, t])
 
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { status, index } = data
