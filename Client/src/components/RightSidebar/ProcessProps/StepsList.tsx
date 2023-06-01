@@ -90,7 +90,7 @@ const StepsList = () => {
                 {stage.attributes && (
                   <div className="px-4 ml-5">
                     <div>
-                      {isExpandedAttr(0, stepArrayIndex) && (
+                      {isExpandedAttr(stepArrayIndex) && (
                         <>
                           {Object.keys(stage.attributes).map((key) => (
                             <div key={`${stage.id}_${key}`}>

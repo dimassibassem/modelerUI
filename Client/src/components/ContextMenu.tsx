@@ -26,14 +26,14 @@ const ContextMenu = () => {
     <Menu id={menuID}>
       <Item
         id={ContextMenuItem.Copy}
-        disabled={handleDisable(nodes?.filter((node: Node) => node.selected))}
+        disabled={handleDisable(nodes?.filter((node) => node.selected))}
         onClick={handleItemClick}
       >
         {t('Copy')}
       </Item>
       <Item
         id={ContextMenuItem.Cut}
-        disabled={handleDisable(nodes?.filter((node: Node) => node.selected))}
+        disabled={handleDisable(nodes?.filter((node) => node.selected))}
         onClick={handleItemClick}
       >
         {t('Cut')}
