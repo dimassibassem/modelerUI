@@ -34,6 +34,8 @@ interface State extends ResetState {
   setProcessId: (id: number) => void
   pages: Page[]
   setPages: (pages: Page[]) => void
+  loaded: boolean
+  setLoaded: (loaded: boolean) => void
 }
 
 export default State

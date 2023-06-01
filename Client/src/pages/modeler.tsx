@@ -70,7 +70,9 @@ const selector2 = (state: State) => ({
   setLastNodeIdNumber: state.setLastNodeIdNumber,
   menuID: state.menuID,
   isOpenCommandPalette: state.isOpenCommandPalette,
-  setIsOpenCommandPalette: state.setIsOpenCommandPalette
+  setIsOpenCommandPalette: state.setIsOpenCommandPalette,
+  loaded: state.loaded,
+  setLoaded: state.setLoaded
 })
 
 const DnDFlow = () => {
@@ -91,7 +93,9 @@ const DnDFlow = () => {
     setLastNodeIdNumber,
     menuID,
     isOpenCommandPalette,
-    setIsOpenCommandPalette
+    setIsOpenCommandPalette,
+    loaded,
+    setLoaded
   } = useStore(selector2, shallow)
   const { pause, resume } = useTemporalStore((state) => state)
   const reactFlowWrapper = useRef<HTMLInputElement>(null)
@@ -100,7 +104,6 @@ const DnDFlow = () => {
     setLastNodeIdNumber(lastNodeIdNumber + 1)
     return `${type}_${lastNodeIdNumber}`
   }
-  const [loaded, setLoaded] = useState(false)
   const [clickedNode, setClickedNode] = useState<Node | null>(null)
   const [, copy] = useCopyToClipboard()
   const { show } = useContextMenu({ id: menuID })

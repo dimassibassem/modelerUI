@@ -32,12 +32,13 @@ const selector = (state: RFState) => ({
 })
 const selector2 = (state: State) => ({
   setProcessDefOpenModal: state.setProcessDefOpenModal,
-  reactFlowInstance: state.reactFlowInstance
+  reactFlowInstance: state.reactFlowInstance,
+  setLoaded: state.setLoaded
 })
 export default () => {
   const { setNodes, setEdges, setSelected, nodes, edges, setProcess, process } =
     useFlowStore(selector, shallow)
-  const { setProcessDefOpenModal, reactFlowInstance } = useStore(
+  const { setProcessDefOpenModal, reactFlowInstance, setLoaded } = useStore(
     selector2,
     shallow
   )
@@ -78,10 +79,12 @@ export default () => {
     // eslint-disable-next-line default-case
     switch (index) {
       case 0:
-      case 1:
         {
-          setProcessDefOpenModal(true)
+          setLoaded(true)
         }
+        break
+      case 1:
+        setProcessDefOpenModal(true)
         break
       case 2:
         {
@@ -89,8 +92,9 @@ export default () => {
           setProcess(joyrideProcess(t))
         }
         break
-      case 3:
       case 4:
+        break
+      case 5:
         {
           setSelected(null)
           setNodes([])
@@ -98,7 +102,7 @@ export default () => {
           setProcess(joyrideProcess(t))
         }
         break
-      case 5:
+      case 6:
         {
           setNodes(joyrideNodes)
           setEdges(joyrideEdges)
@@ -110,26 +114,27 @@ export default () => {
           })
         }
         break
+      case 7:
+        break
       case 8:
-      case 9:
         setSelected(null)
         break
+      case 9:
+        break
       case 10:
+        break
       case 11:
-        {
-          setSelected(nodes[2])
-        }
+        setSelected(nodes[2])
         break
       case 12:
+        break
       case 13:
-        {
-          setSelected(edges[0])
-        }
+        setSelected(edges[0])
         break
       case 14:
-        {
-          setSelected(null)
-        }
+        break
+      case 15:
+        setSelected(null)
         break
     }
 

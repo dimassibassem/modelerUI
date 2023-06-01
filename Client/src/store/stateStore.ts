@@ -39,9 +39,12 @@ const useStore = create<State>()(
         set({ notificationStack }, false, 'setNotificationStack'),
       pages: [],
       setPages: (pages: State['pages']) => set({ pages }, false, 'setPages'),
+      loaded: false,
+      setLoaded: (loaded: boolean) => set({ loaded }, false, 'setLoaded'),
       resetState: () =>
         set({
           reactFlowInstance: null,
+          loaded: false,
           processDefOpenModal: true,
           lastNodeIdNumber: 0,
           openNotification: false,

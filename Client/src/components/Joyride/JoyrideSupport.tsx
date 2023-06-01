@@ -70,11 +70,6 @@ const joyrideSteps = (t = (text: string) => text): Step[] => [
     content: <p>{t('Elements')}</p>,
     placement: 'right',
     target: '#left-sidebar',
-    styles: {
-      spotlight: {
-        backgroundColor: 'rgba(255, 255, 255, 0.5)'
-      }
-    },
     title: <p className="text-indigo-600">{t('Left Sidebar')}</p>
   },
   {
@@ -237,11 +232,6 @@ const joyrideSteps = (t = (text: string) => text): Step[] => [
   {
     content: <p>{t('NodePropertiesContent')}</p>,
     placement: 'left',
-    styles: {
-      spotlight: {
-        backgroundColor: 'rgba(255, 255, 255, 0.5)'
-      }
-    },
     target: '#right-sidebar',
     title: <p className="text-indigo-600">{t('NodeProperties')}</p>
   },
@@ -266,22 +256,12 @@ const joyrideSteps = (t = (text: string) => text): Step[] => [
     content: <p>{t('EdgePropertiesContent')}</p>,
     placement: 'left',
     target: '#right-sidebar',
-    styles: {
-      spotlight: {
-        backgroundColor: 'rgba(255, 255, 255, 0.5)'
-      }
-    },
     title: <p className="text-indigo-600">{t('EdgeProperties')}</p>
   },
   {
     content: <p>{t('ProcessPropertiesContent')}</p>,
     placement: 'left',
     target: '#right-sidebar',
-    styles: {
-      spotlight: {
-        backgroundColor: 'rgba(255, 255, 255, 0.5)'
-      }
-    },
     title: <p className="text-indigo-600">{t('ProcessProperties')}</p>
   }
 ]
