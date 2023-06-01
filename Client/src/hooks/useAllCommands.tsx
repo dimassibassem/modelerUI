@@ -81,14 +81,13 @@ const useAllCommands = () => {
         icon: (
           <Icon className="w-5 h-5" icon="ph:arrows-out-line-horizontal-fill" />
         ),
-        action: async () => {
+        action: () => {
           onLayout(horizontalLayout, nodes, edges, setNodes, setEdges)
-          await setHorizontalLayout(
+          setHorizontalLayout(
             horizontalLayout === HorizontalLayout.LeftToRight
               ? HorizontalLayout.RightToLeft
               : HorizontalLayout.LeftToRight
           )
-          reactFlowInstance?.fitView()
         }
       },
       {
@@ -98,14 +97,13 @@ const useAllCommands = () => {
         icon: (
           <Icon className="w-5 h-5" icon="ph:arrows-out-line-vertical-fill" />
         ),
-        action: async () => {
+        action: () => {
           onLayout(verticalLayout, nodes, edges, setNodes, setEdges)
-          await setVerticalLayout(
+          setVerticalLayout(
             verticalLayout === VerticalLayout.TopToBottom
               ? VerticalLayout.BottomToTop
               : VerticalLayout.TopToBottom
           )
-          reactFlowInstance?.fitView()
         }
       },
       {

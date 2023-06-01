@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import dayjs from 'dayjs'
+import { useTranslation } from 'react-i18next'
 import { ProcessBKRModel } from '@/types/ProcessBKRModel'
 import CreateNew from '@/components/Process/CreateNew'
 import Skeleton from '@/components/Process/Skeleton'
@@ -17,6 +18,7 @@ const ProcessList = ({
   loaded: boolean
 }) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const { t } = useTranslation()
   return (
     <main className="pb-14 pt-16 sm:px-6 sm:pb-20 sm:pt-12 lg:px-8">
       <DeleteProcess
@@ -26,16 +28,16 @@ const ProcessList = ({
       <div className="mx-auto max-w-4xl">
         <div className="px-4 sm:px-0">
           <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-            Bankerise Processes
+            {t('BankeriseProcesses')}
           </h1>
           <p className="mt-2 text-sm text-gray-500">
-            List of all the Processes you have created.
+            {t('BankeriseProcessesList')}
           </p>
         </div>
 
         <section aria-labelledby="recent-heading" className="mt-10">
           <h2 id="recent-heading" className="sr-only">
-            Recent
+            {t('Recent')}
           </h2>
           <CreateNew />
 
@@ -83,7 +85,7 @@ const ProcessList = ({
                                   }}
                                   className="text-indigo-600 hover:text-indigo-500"
                                 >
-                                  View Model
+                                  {t('ViewDetails')}
                                 </button>
                                 <div className="ml-4 border-l border-gray-200 pl-4 sm:ml-6 sm:pl-6">
                                   <button
@@ -94,7 +96,7 @@ const ProcessList = ({
                                       setOpenDeleteModal(true)
                                     }}
                                   >
-                                    Delete
+                                    {t('Delete')}
                                   </button>
                                 </div>
                               </div>

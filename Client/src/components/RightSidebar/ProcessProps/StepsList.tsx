@@ -24,27 +24,17 @@ const StepsList = () => {
     shallow
   )
   const { t } = useTranslation()
-  const [expandedAttr, setExpandedAttr] = useState<number[][]>([])
+  const [expandedAttr, setExpandedAttr] = useState<number[]>([])
   const id = useId()
-  const toggleExpandAttr = (
-    stepsArrayIndex: number,
-    stepArrayIndex: number
-  ) => {
-    const newExpanded = [...expandedAttr]
-    const index = newExpanded.findIndex(
-      (item) => item[0] === stepsArrayIndex && item[1] === stepArrayIndex
-    )
-    if (index === -1) {
-      newExpanded.push([stepsArrayIndex, stepArrayIndex])
+  const isExpandedAttr = (stepArrayIndex: number) =>
+    expandedAttr.includes(stepArrayIndex)
+  const toggleExpandAttr = (stepArrayIndex: number) => {
+    if (isExpandedAttr(stepArrayIndex)) {
+      setExpandedAttr(expandedAttr.filter((item) => item !== stepArrayIndex))
     } else {
-      newExpanded.splice(index, 1)
+      setExpandedAttr([...expandedAttr, stepArrayIndex])
     }
-    setExpandedAttr(newExpanded)
   }
-  const isExpandedAttr = (stepsArrayIndex: number, stepArrayIndex: number) =>
-    expandedAttr.some(
-      (item) => item[0] === stepsArrayIndex && item[1] === stepArrayIndex
-    )
 
   return (
     <div>
@@ -65,7 +55,7 @@ const StepsList = () => {
                 <button
                   className="w-full"
                   type="button"
-                  onClick={() => toggleExpandAttr(0, stepArrayIndex)}
+                  onClick={() => toggleExpandAttr(stepArrayIndex)}
                 >
                   <div className="flex px-4 py-4 sm:px-6 hover:bg-gray-50">
                     <div className="min-w-0 flex-1 sm:flex items-center sm:justify-between">
@@ -75,11 +65,11 @@ const StepsList = () => {
                         </p>
                       </div>
                     </div>
-                    {stage.attributes && isExpandedAttr(0, stepArrayIndex) ? (
+                    {stage.attributes && isExpandedAttr(stepArrayIndex) ? (
                       <div className="rounded-full mt-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                         <button
                           type="button"
-                          onClick={() => toggleExpandAttr(0, stepArrayIndex)}
+                          onClick={() => toggleExpandAttr(stepArrayIndex)}
                         >
                           <ChevronUpIcon
                             className="h-5 w-5 text-indigo-700 hover:text-indigo-800 hover:cursor-pointer"

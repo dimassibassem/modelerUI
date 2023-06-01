@@ -14,9 +14,7 @@ const selector = (state: RFState) => ({
 const useProcessDefinitionChecker = () => {
   const { nodes, edges, process, setProcess } = useFlowStore(selector, shallow)
   return useEffect(() => {
-    // if (nodes.some((node) => !node.dragging)) {
     processDefinitionChecker(nodes, edges, setProcess, process)
-    // }
   }, [nodes, edges, setProcess])
 }
 

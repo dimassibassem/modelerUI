@@ -93,7 +93,7 @@ const Navbar = ({ showTuto = true }) => {
                               'block px-4 py-2 text-sm text-gray-700'
                             )}
                           >
-                            Your Profile
+                            {t('YourProfile')}
                           </Link>
                         )}
                       </Menu.Item>
@@ -106,7 +106,7 @@ const Navbar = ({ showTuto = true }) => {
                               'block px-4 py-2 text-sm text-gray-700'
                             )}
                           >
-                            Processes Bankerise
+                            {t('BankeriseProcesses')}
                           </Link>
                         )}
                       </Menu.Item>
@@ -119,7 +119,7 @@ const Navbar = ({ showTuto = true }) => {
                               'block px-4 py-2 text-sm text-gray-700'
                             )}
                           >
-                            Sign out
+                            {t('SignOut')}
                           </Link>
                         )}
                       </Menu.Item>

@@ -2,6 +2,7 @@ import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import { shallow } from 'zustand/shallow'
+import { useTranslation } from 'react-i18next'
 import deleteProcess from '@/utils/deleteProcess'
 import { ProcessBKRState } from '@/types/store/ProcessBKRState'
 import useProcessBKRModelStore from '@/store/processBKRModelStore'
@@ -22,7 +23,7 @@ const DeleteProcess = ({
     useProcessBKRModelStore(selector, shallow)
 
   const cancelButtonRef = useRef(null)
-
+  const { t } = useTranslation()
   return (
     <Transition.Root show={openDeleteModal} as={Fragment}>
       <Dialog
@@ -67,12 +68,11 @@ const DeleteProcess = ({
                       as="h3"
                       className="text-base font-semibold leading-6 text-gray-900"
                     >
-                      Delete Process
+                      {t('DeleteProcess')}
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        Are you sure you want to delete this process? All of the
-                        data will be permanently removed.
+                        {t('DeleteProcessConfirmation')}
                       </p>
                     </div>
                   </div>

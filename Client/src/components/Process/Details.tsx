@@ -4,6 +4,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
 import { shallow } from 'zustand/shallow'
+import { useTranslation } from 'react-i18next'
 import { ProcessBKRModel } from '@/types/ProcessBKRModel'
 import capitalize from '@/utils/capitalize'
 import useStore from '@/store/stateStore'
@@ -37,6 +38,7 @@ const Details = ({
   const { setProcessId, setLastNodeIdNumber } = useStore(selector2, shallow)
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const { t } = useTranslation()
   return (
     <>
       <DeleteProcess
@@ -85,7 +87,7 @@ const Details = ({
                           className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
                           onClick={() => setOpen(false)}
                         >
-                          <span className="sr-only">Close panel</span>
+                          <span className="sr-only">{t('ClosePanel')}</span>
                           <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                         </button>
                       </div>
@@ -102,18 +104,18 @@ const Details = ({
                           </div>
                           <div className="mt-4 flex items-start justify-between">
                             <h2 className="text-base font-semibold leading-6 text-gray-900">
-                              <span className="sr-only">Details for </span>
+                              <span className="sr-only">{t('DetailsFor')}</span>
                               {selectedProcessBKRModel?.processKey}
                             </h2>
                           </div>
                         </div>
                         <div>
                           <h3 className="font-medium text-gray-900">
-                            Information
+                            {t('Information')}
                           </h3>
                           <dl className="mt-2 divide-y divide-gray-200 border-b border-t border-gray-200">
                             <div className="flex justify-between py-3 text-sm font-medium">
-                              <dt className="text-gray-500">Created</dt>
+                              <dt className="text-gray-500">{t('Created')}</dt>
                               <dd className="text-gray-900">
                                 {dayjs(
                                   selectedProcessBKRModel?.createdAt
@@ -121,7 +123,9 @@ const Details = ({
                               </dd>
                             </div>
                             <div className="flex justify-between py-3 text-sm font-medium">
-                              <dt className="text-gray-500">Last modified</dt>
+                              <dt className="text-gray-500">
+                                {t('LastModified')}
+                              </dt>
                               <dd className="text-gray-900">
                                 {dayjs(
                                   selectedProcessBKRModel?.updatedAt
@@ -129,13 +133,13 @@ const Details = ({
                               </dd>
                             </div>
                             <div className="flex justify-between py-3 text-sm font-medium">
-                              <dt className="text-gray-500">Hook Name</dt>
+                              <dt className="text-gray-500">{t('HookName')}</dt>
                               <dd className="text-gray-900">
                                 {selectedProcessBKRModel?.processData.hook.name}
                               </dd>
                             </div>
                             <div className="flex justify-between py-3 text-sm font-medium">
-                              <dt className="text-gray-500">Channels</dt>
+                              <dt className="text-gray-500">{t('Channels')}</dt>
                               <dd className="text-gray-900">
                                 {selectedProcessBKRModel?.processData.channels.map(
                                   (channel, i) => (
@@ -151,19 +155,19 @@ const Details = ({
                               </dd>
                             </div>
                             <div className="flex justify-between py-3 text-sm font-medium">
-                              <dt className="text-gray-500">IsAsync</dt>
+                              <dt className="text-gray-500">{t('isAsync')}</dt>
                               <dd className="text-gray-900">
                                 {selectedProcessBKRModel?.processData.hook
                                   .isAsync
-                                  ? 'Yes'
-                                  : 'No'}
+                                  ? t('Yes')
+                                  : t('No')}
                               </dd>
                             </div>
                           </dl>
                         </div>
                         <div>
                           <h3 className="font-medium text-gray-900">
-                            Description
+                            {t('Description')}
                           </h3>
                           <div className="mt-2 flex items-center justify-between">
                             <p className="text-sm italic text-gray-500">
@@ -172,14 +176,16 @@ const Details = ({
                           </div>
                         </div>
                         <div>
-                          <h3 className="font-medium text-gray-900">Stages</h3>
+                          <h3 className="font-medium text-gray-900">
+                            {t('Stages')}
+                          </h3>
                           {selectedProcessBKRModel?.processData.steps.map(
                             (step, i) => (
                               <div key={`${id + i}`} className="mt-2">
                                 <dl className="mt-2 divide-y divide-gray-200 border-b border-t border-gray-200">
                                   <div key={step.id}>
                                     <dt className="font-medium">
-                                      {capitalize(step.type)}
+                                      {t(step.type)}
                                     </dt>
                                     <div>
                                       {Object.keys(step.attributes).map(
@@ -189,7 +195,7 @@ const Details = ({
                                             className="flex justify-between py-3 text-sm font-medium"
                                           >
                                             <dt className="text-gray-500">
-                                              {capitalize(key)}
+                                              {capitalize(t(key))}
                                             </dt>
                                             <dd className="text-gray-900">
                                               {step.attributes?.[key] || 'N/A'}
@@ -228,7 +234,7 @@ const Details = ({
                               }
                             }}
                           >
-                            Edit
+                            {t('Edit')}
                           </button>
                           <button
                             type="button"
@@ -238,7 +244,7 @@ const Details = ({
                               setOpen(false)
                             }}
                           >
-                            Delete
+                            {t('Delete')}
                           </button>
                         </div>
                       </div>

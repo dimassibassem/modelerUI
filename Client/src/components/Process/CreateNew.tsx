@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { shallow } from 'zustand/shallow'
 import { Icon } from '@iconify/react'
+import { useTranslation } from 'react-i18next'
 import State from '@/types/store/State'
 import useStore from '@/store/stateStore'
 import { RFState } from '@/types/store/RFState'
@@ -17,7 +18,7 @@ const CreateNew = () => {
   const navigate = useNavigate()
   const { resetState } = useStore(selector, shallow)
   const { resetState: resetFlowState } = useFlowStore(selector2, shallow)
-
+  const { t } = useTranslation()
   return (
     <button
       type="button"
@@ -35,7 +36,7 @@ const CreateNew = () => {
         icon="fluent:desktop-flow-20-regular"
       />
       <span className="mt-2 block text-sm font-semibold text-gray-900">
-        Create a new Bankerise Process
+        {t('processCreateNew')}
       </span>
     </button>
   )

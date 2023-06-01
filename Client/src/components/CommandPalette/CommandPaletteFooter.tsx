@@ -12,7 +12,7 @@ const CommandPaletteFooter = ({
   const { t } = useTranslation()
   return (
     <div className="flex flex-wrap items-center bg-gray-50 px-4 py-2.5 text-xs text-gray-700">
-      {t('type')}
+      {t('Type')}
       <button type="button" onClick={() => setRawQuery('#')}>
         <kbd
           className={classNames(

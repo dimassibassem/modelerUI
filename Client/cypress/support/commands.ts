@@ -53,9 +53,7 @@ Cypress.Commands.add('dragAndDrop', (el, nodePositionPadding) => {
   const dataTransfer = new DataTransfer()
   // @ts-ignore
   cy.get(el).trigger('dragstart', { dataTransfer })
-  cy.get(
-    '#root > div > div.grow.h-full > div > div.react-flow__renderer > div'
-  ).trigger('drop', {
+  cy.get('div.react-flow__renderer > div').trigger('drop', {
     dataTransfer,
     clientX: 100 + nodePositionPadding,
     clientY: 100 + nodePositionPadding

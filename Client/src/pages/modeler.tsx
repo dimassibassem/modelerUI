@@ -190,7 +190,7 @@ const DnDFlow = () => {
                 size={1}
               />
               <MiniMap
-                ariaLabel="MiniMap"
+                ariaLabel={null}
                 style={{ background: '#ccc' }}
                 nodeColor={(node) => nodeColor(node.type as NodeType)}
                 nodeStrokeWidth={3}

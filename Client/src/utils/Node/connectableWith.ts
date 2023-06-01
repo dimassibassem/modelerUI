@@ -15,8 +15,8 @@ const connectableWith = (type: NodeType): NodeType[] => {
     case NodeType.Policies:
       return [
         NodeType.End,
-        NodeType.Policies,
         NodeType.Execution,
+        NodeType.Provisioners,
         NodeType.Rule
       ]
     case NodeType.Provisioners:
@@ -24,7 +24,6 @@ const connectableWith = (type: NodeType): NodeType[] => {
         NodeType.End,
         NodeType.Policies,
         NodeType.Execution,
-        NodeType.Provisioners,
         NodeType.Rule
       ]
     case NodeType.Rule:
@@ -32,7 +31,7 @@ const connectableWith = (type: NodeType): NodeType[] => {
         NodeType.End,
         NodeType.Execution,
         NodeType.Provisioners,
-        NodeType.Rule
+        NodeType.Policies
       ]
     case NodeType.Execution:
       return [
@@ -46,7 +45,9 @@ const connectableWith = (type: NodeType): NodeType[] => {
         NodeType.End,
         NodeType.Policies,
         NodeType.Execution,
-        NodeType.Provisioners
+        NodeType.Provisioners,
+        NodeType.Rule,
+        NodeType.Start
       ]
   }
 }

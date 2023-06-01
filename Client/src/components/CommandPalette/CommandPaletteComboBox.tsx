@@ -147,9 +147,7 @@ const CommandPaletteComboBox = ({
                         active ? 'bg-indigo-600 text-white' : ''
                       )
                     }
-                    onClick={async () => {
-                      await help.action()
-                    }}
+                    onClick={help.action}
                   >
                     {help.icon}
                     <span className="ml-3 flex-auto truncate">{help.name}</span>

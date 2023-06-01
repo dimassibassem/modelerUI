@@ -45,45 +45,30 @@ const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
   } = useStore(selector2, shallow)
   const handleNotif = useHandleNotification()
   useEventListener('keydown', async (e) => {
-    switch (e.key) {
-      case 'z':
-        if (e.ctrlKey) {
-          e.preventDefault()
+    if (e.ctrlKey) {
+      e.preventDefault()
+      switch (e.key) {
+        case 'z':
           undo()
-        }
-        break
-      case 'y':
-        if (e.ctrlKey) {
-          e.preventDefault()
+          break
+        case 'y':
           redo()
-        }
-        break
-      case 'a':
-        if (e.ctrlKey) {
-          e.preventDefault()
+          break
+        case 'a':
           selectAll()
-        }
-        break
-      case 'c':
-        if (e.ctrlKey) {
-          e.preventDefault()
+          break
+        case 'c':
           await copySelected(
             reactFlowInstance,
             lastNodeIdNumber,
             setLastNodeIdNumber,
             copy
           )
-        }
-        break
-      case 'v':
-        if (e.ctrlKey) {
-          e.preventDefault()
+          break
+        case 'v':
           await pasteFromClipboard()
-        }
-        break
-      case 'x':
-        if (e.ctrlKey) {
-          e.preventDefault()
+          break
+        case 'x':
           await cutSelected(
             nodes,
             edges,
@@ -92,11 +77,8 @@ const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
             setLastNodeIdNumber,
             copy
           )
-        }
-        break
-      case 's':
-        if (e.ctrlKey) {
-          e.preventDefault()
+          break
+        case 's':
           await saveModel(
             reactFlowInstance,
             process,
@@ -104,16 +86,13 @@ const useShortcuts = (copy: (text: string) => Promise<boolean>) => {
             setProcessId,
             handleNotif
           )
-        }
-        break
-      case 'p':
-        if (e.ctrlKey) {
-          e.preventDefault()
+          break
+        case 'p':
           setIsOpenCommandPalette(!isOpenCommandPalette)
-        }
-        break
-      default:
-        break
+          break
+        default:
+          break
+      }
     }
   })
 }

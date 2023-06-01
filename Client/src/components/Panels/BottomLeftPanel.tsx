@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Panel } from 'reactflow'
 import {
   MagnifyingGlassMinusIcon,
@@ -48,6 +48,11 @@ const BottomLeftPanel = () => {
     setIsFullScreen
   } = useCommandsStore(selector3, shallow)
   const { t } = useTranslation()
+
+  useEffect(() => {
+    reactFlowInstance?.fitView()
+  }, [horizontalLayout, verticalLayout])
+
   return (
     <Panel
       id="bottom-left"
@@ -62,14 +67,13 @@ const BottomLeftPanel = () => {
           data-tooltip-id="BottomLeftCommands"
           data-tooltip-content={t<string>('Vertical layout')}
           aria-label="Vertical layout"
-          onClick={async () => {
+          onClick={() => {
             onLayout(verticalLayout, nodes, edges, setNodes, setEdges)
-            await setVerticalLayout(
+            setVerticalLayout(
               verticalLayout === VerticalLayout.TopToBottom
                 ? VerticalLayout.BottomToTop
                 : VerticalLayout.TopToBottom
             )
-            reactFlowInstance?.fitView()
           }}
         >
           <Icon className="w-5 h-5" icon="ph:arrows-out-line-vertical-fill" />
@@ -80,14 +84,13 @@ const BottomLeftPanel = () => {
           data-tooltip-id="BottomLeftCommands"
           data-tooltip-content={t<string>('Horizontal layout')}
           aria-label="Horizontal layout"
-          onClick={async () => {
+          onClick={() => {
             onLayout(horizontalLayout, nodes, edges, setNodes, setEdges)
-            await setHorizontalLayout(
+            setHorizontalLayout(
               horizontalLayout === HorizontalLayout.LeftToRight
                 ? HorizontalLayout.RightToLeft
                 : HorizontalLayout.LeftToRight
             )
-            reactFlowInstance?.fitView()
           }}
         >
           <Icon className="w-5 h-5" icon="ph:arrows-out-line-horizontal-fill" />
